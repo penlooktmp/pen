@@ -1,12 +1,13 @@
 package controller
 
 import (
-	. "github.com/penlook/core"
+	"fmt"
 )
 
-type App {
+type App struct {
 	Controller
 }
 
 func (this App) Index() {
+	fmt.Fprint(this.Response, "Not protected!\n")
 }
