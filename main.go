@@ -3,25 +3,40 @@ package main
 import (
  	"net/http"
 	"github.com/julienschmidt/httprouter"
-	"github.com/penlook/core/controller"
+	"github.com/penlook/core/system"
+    "github.com/penlook/core/controller"
 )
 
-func Handle(action string) func(response http.ResponseWriter, request *http.Request, _ httprouter.Params) {
+func Handle(controller_name string, action_name string) func(response http.ResponseWriter, request *http.Request, _ httprouter.Params) {
+
     return func(response http.ResponseWriter, request *http.Request, _ httprouter.Params) {
+
+        http := system.Http {
+                    Request : request,
+                    Response : response,
+                    Controller : controller_name,
+                    Action : action_name,
+                }
+
     	action  :=  controller.App {
-                        controller.Controller {
-    			    	    Request : request,
-    					    Response : response,
+                        system.Controller {
+                            Http: http,
+                            View: system.View {
+                                Http: http,
+                                Directory: "view",
+                            },
                         },
     			  	}
 
         action.Index()
+        action.View.Render()
+
     	//action.Index()
 	}
 }
 
 func main() {
 	router := httprouter.New()
-    router.GET("/index", Handle("App.Index"))
+    router.GET("/index", Handle("App", "Index"))
     http.ListenAndServe(":8080", router)
 }
