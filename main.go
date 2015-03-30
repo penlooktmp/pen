@@ -34,7 +34,6 @@ func Handle(controller_name string, action_name string) func(response http.Respo
         action.BeforeAction()
         action.Index()
         action.AfterAction()
-        action.RenderAction()
 
     	//action.Index()
 	}

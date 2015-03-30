@@ -8,6 +8,7 @@ import (
 type Controller struct {
 	Http Http
 	View chan Map
+	ViewData map[string] interface {}
 	Data map[string] interface {}
 	Signal chan int
 }
@@ -16,6 +17,7 @@ func (controller *Controller) Initialize() {
 
 	// Properties initialization
 	controller.View = make(chan Map, 100)
+	controller.ViewData = make(map[string] interface {})
 	controller.Signal = make(chan int, 100)
 
 	// Listen system signal
@@ -35,7 +37,7 @@ func (controller Controller) OnSignal() {
 		for {
 			select {
 				case pairs := <- controller.View :
-					fmt.Println(pairs)
+					controller.addPairsToView(pairs)
 				case signal := <- controller.Signal :
 					controller.ProcessSignal(signal, &exit)
 			}
@@ -45,6 +47,12 @@ func (controller Controller) OnSignal() {
 		}
 		fmt.Println("End listen signal")
 	}()
+}
+
+func (controller *Controller) addPairsToView(pairs Map) {
+	for key, value := range pairs {
+		controller.ViewData[key] = value
+	}
 }
 
 func (controller Controller) ProcessSignal(signal int, exit *bool) {
@@ -57,6 +65,7 @@ func (controller Controller) ProcessSignal(signal int, exit *bool) {
 
 		case SignalAfterAction:
 			fmt.Println("After Action")
+			controller.RenderAction()
 
 		case SignalRenderAction:
 			fmt.Println("Render Action")
@@ -82,6 +91,7 @@ func (controller Controller) RenderAction() {
 
 	// Broadcast signal
 	controller.Signal <- SignalRenderAction
+	fmt.Println(controller.ViewData)
 
 	/*for key, value := range pairs {
 		fmt.Println(key)
