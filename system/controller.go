@@ -17,6 +17,9 @@ func (controller *Controller) Initialize() {
 	// Properties initialization
 	controller.View = make(chan Map, 100)
 	controller.Signal = make(chan int, 100)
+
+	// Listen system signal
+	controller.OnSignal()
 }
 
 func (controller Controller) InitAction() {
@@ -24,22 +27,19 @@ func (controller Controller) InitAction() {
 	// Broadcast signal
 	controller.Signal <- SignalInitAction
 
-	// Listen assignations from controller to view
-	controller.OnAssignVariable()
-
 }
 
 func (controller Controller) OnSignal() {
 	go func() {
-		flag := false
+		exit := false
 		for {
 			select {
 				case pairs := <- controller.View :
 					fmt.Println(pairs)
 				case signal := <- controller.Signal :
-					controller.processSignal(signal, &flag)
+					controller.ProcessSignal(signal, &exit)
 			}
-			if flag {
+			if exit {
 				break
 			}
 		}
@@ -47,19 +47,20 @@ func (controller Controller) OnSignal() {
 	}()
 }
 
-func (controller Controller) ProcessSignal(signal, flag) {
+func (controller Controller) ProcessSignal(signal int, exit *bool) {
 	switch (signal) {
-	case SignalInitAction:
-		fmt.Println("Init Action")
-	}
-	case SignalBeforeAction:
-		fmt.Println("Before Action")
-	}
-	case SignalAfterAction:
-		fmt.Println("After Action")
-	}
-	case SignalRenderAction:
-		fmt.Println("Render Action")
+		case SignalInitAction:
+			fmt.Println("Init Action")
+
+		case SignalBeforeAction:
+			fmt.Println("Before Action")
+
+		case SignalAfterAction:
+			fmt.Println("After Action")
+
+		case SignalRenderAction:
+			fmt.Println("Render Action")
+			*exit = true
 	}
 }
 
