@@ -21,14 +21,16 @@ func Handle(controller_name string, action_name string) func(response http.Respo
     	action  :=  controller.App {
                         system.Controller {
                             Http: http,
-                            View: system.View {
+                            /*View: system.View {
                                 Http: http,
                                 Directory: "view",
-                            },
+                            },*/
                         },
     			  	}
-
+        action.Before()
         action.Index()
+        action.After()
+
         action.RenderTemplate()
 
     	//action.Index()
@@ -38,5 +40,5 @@ func Handle(controller_name string, action_name string) func(response http.Respo
 func main() {
 	router := httprouter.New()
     router.GET("/index", Handle("App", "Index"))
-    http.ListenAndServe(":8080", router)
+    http.ListenAndServe(":80", router)
 }

@@ -9,9 +9,9 @@ type App struct {
 	Controller
 }
 
-func (this App) Index() {
-	this.Render(HTML{
+func (app App) Index() {
+	app.View <- Map {
 		"key1" : "value1",
 		"key2" : "value2",
-	})
+	}
 }
