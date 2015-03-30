@@ -1,14 +1,17 @@
 package controller
 
 import (
-	"github.com/penlook/core/system"
-	"fmt"
+	. "github.com/penlook/core/system/global"
+	. "github.com/penlook/core/system"
 )
 
 type App struct {
-	system.Controller
+	Controller
 }
 
 func (this App) Index() {
-	fmt.Fprint(this.Http.Response, "Not protected!\n")
+	this.Render(HTML{
+		"key1" : "value1",
+		"key2" : "value2",
+	})
 }

@@ -29,7 +29,7 @@ func Handle(controller_name string, action_name string) func(response http.Respo
     			  	}
 
         action.Index()
-        action.View.Render()
+        action.RenderTemplate()
 
     	//action.Index()
 	}
