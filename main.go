@@ -27,11 +27,14 @@ func Handle(controller_name string, action_name string) func(response http.Respo
                             },*/
                         },
     			  	}
-        action.Before()
-        action.Index()
-        action.After()
 
-        action.RenderTemplate()
+        // Life cycle
+        action.Initialize()
+        action.InitAction()
+        action.BeforeAction()
+        action.Index()
+        action.AfterAction()
+        action.RenderAction()
 
     	//action.Index()
 	}

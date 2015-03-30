@@ -15,26 +15,52 @@ type Controller struct {
 func (controller *Controller) Initialize() {
 
 	// Properties initialization
-	controller.View = make(chan Map, 1)
-	controller.Signal = make(chan int, 1)
+	controller.View = make(chan Map, 100)
+	controller.Signal = make(chan int, 100)
+}
+
+func (controller Controller) InitAction() {
+
+	// Broadcast signal
+	controller.Signal <- SignalInitAction
 
 	// Listen assignations from controller to view
 	controller.OnAssignVariable()
 
 }
 
-func (controller Controller) OnAssignVariable() {
+func (controller Controller) OnSignal() {
 	go func() {
-		select {
-			case pairs := <- controller.View :
-				fmt.Println(pairs)
-			case signal := <- controller.Signal :
-				switch (signal) {
-				case SignalAfterAction:
-					break
-				}
+		flag := false
+		for {
+			select {
+				case pairs := <- controller.View :
+					fmt.Println(pairs)
+				case signal := <- controller.Signal :
+					controller.processSignal(signal, &flag)
+			}
+			if flag {
+				break
+			}
 		}
+		fmt.Println("End listen signal")
 	}()
+}
+
+func (controller Controller) ProcessSignal(signal, flag) {
+	switch (signal) {
+	case SignalInitAction:
+		fmt.Println("Init Action")
+	}
+	case SignalBeforeAction:
+		fmt.Println("Before Action")
+	}
+	case SignalAfterAction:
+		fmt.Println("After Action")
+	}
+	case SignalRenderAction:
+		fmt.Println("Render Action")
+	}
 }
 
 func (controller Controller) BeforeAction() {
@@ -51,18 +77,14 @@ func (controller Controller) AfterAction() {
 
 }
 
-func (controller *Controller) RenderAction() {
+func (controller Controller) RenderAction() {
 
 	// Broadcast signal
 	controller.Signal <- SignalRenderAction
 
-	for key, value := range pairs {
+	/*for key, value := range pairs {
 		fmt.Println(key)
 		fmt.Println(value)
-		//controller.Data[key] = pairs[key]
-	}
-}
-
-func (controller Controller) RenderTemplate() {
-	fmt.Println(controller.Data)
+		controller.Data[key] = pairs[key]
+	}*/
 }
