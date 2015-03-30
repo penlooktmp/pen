@@ -6,8 +6,12 @@ import (
 )
 
 type Controller struct {
+	Name string
+	Action string
 	Http Http
-	View chan Map
+	Router Router
+	View chan Pair
+	Template View
 	ViewData map[string] interface {}
 	Data map[string] interface {}
 	Signal chan int
@@ -16,9 +20,18 @@ type Controller struct {
 func (controller *Controller) Initialize() {
 
 	// Properties initialization
-	controller.View = make(chan Map, 100)
-	controller.ViewData = make(map[string] interface {})
-	controller.Signal = make(chan int, 100)
+	controller.View = make(chan Pair, 10)
+	controller.ViewData = make(Pair)
+
+	// Setup for template
+	controller.Template = View {
+		Http: controller.Http,
+		Data: controller.ViewData,
+		Directory: "view",
+	}
+
+	// Make signal channel
+	controller.Signal = make(chan int, 10)
 
 	// Listen system signal
 	controller.OnSignal()
@@ -49,7 +62,7 @@ func (controller Controller) OnSignal() {
 	}()
 }
 
-func (controller *Controller) addPairsToView(pairs Map) {
+func (controller *Controller) addPairsToView(pairs Pair) {
 	for key, value := range pairs {
 		controller.ViewData[key] = value
 	}
@@ -91,11 +104,11 @@ func (controller Controller) RenderAction() {
 
 	// Broadcast signal
 	controller.Signal <- SignalRenderAction
-	fmt.Println(controller.ViewData)
 
-	/*for key, value := range pairs {
-		fmt.Println(key)
-		fmt.Println(value)
-		controller.Data[key] = pairs[key]
-	}*/
+	// Render Template
+	controller.RenderTemplate()
+}
+
+func (controller Controller) RenderTemplate() {
+
 }

@@ -8,23 +8,19 @@ import (
 )
 
 func Handle(controller_name string, action_name string) func(response http.ResponseWriter, request *http.Request, _ httprouter.Params) {
-
     return func(response http.ResponseWriter, request *http.Request, _ httprouter.Params) {
-
-        http := system.Http {
-                    Request : request,
-                    Response : response,
-                    Controller : controller_name,
-                    Action : action_name,
-                }
 
     	action  :=  controller.App {
                         system.Controller {
-                            Http: http,
-                            /*View: system.View {
-                                Http: http,
-                                Directory: "view",
-                            },*/
+                            Http: system.Http {
+                                Request : request,
+                                Response : response,
+                            },
+                            Router: system.Router {
+                                Method: "GET",
+                                Controller : controller_name,
+                                Action : action_name,
+                            },
                         },
     			  	}
 
