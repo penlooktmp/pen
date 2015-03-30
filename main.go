@@ -10,19 +10,21 @@ import (
 func Handle(controller_name string, action_name string) func(response http.ResponseWriter, request *http.Request, _ httprouter.Params) {
     return func(response http.ResponseWriter, request *http.Request, _ httprouter.Params) {
 
-    	action  :=  controller.App {
-                        system.Controller {
-                            Http: system.Http {
-                                Request : request,
-                                Response : response,
-                            },
-                            Router: system.Router {
-                                Method: "GET",
-                                Controller : controller_name,
-                                Action : action_name,
-                            },
-                        },
-    			  	}
+    	action := controller.App {
+            system.Controller {
+                Name : "App",
+                ActionName: "Index",
+                Http: system.Http {
+                    Request : request,
+                    Response : response,
+                },
+                Router: system.Router {
+                    Method: "GET",
+                    Controller : controller_name,
+                    Action : action_name,
+                },
+            },
+	  	}
 
         // Life cycle
         action.Initialize()
@@ -30,6 +32,7 @@ func Handle(controller_name string, action_name string) func(response http.Respo
         action.BeforeAction()
         action.Index()
         action.AfterAction()
+        action.WaitResponse()
 
     	//action.Index()
 	}

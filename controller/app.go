@@ -26,4 +26,18 @@ func (app App) Index() {
 		"key6" : "value6",
 	}
 
+	app.View <- Pair {
+		"key7" : "value7",
+		"key8" : "value8",
+	}
+
+	app.View <- Pair {
+		"key9"  : "value9",
+		"key10" : "value10",
+	}
+
+	app.View <- Pair {
+		"key11" : "value11",
+		"key12" : "value12",
+	}
 }

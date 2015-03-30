@@ -1,8 +1,9 @@
 package system
 
 const (
-	SignalInitAction    int = 0
-	SignalBeforeAction  int = 1
-	SignalAfterAction   int = 2
-	SignalRenderAction  int = 3
+	SignalResponse      int = 0
+	SignalInitAction    int = 1
+	SignalBeforeAction  int = 2
+	SignalAfterAction   int = 3
+	SignalRenderAction  int = 4
 )
