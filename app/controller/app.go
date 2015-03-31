@@ -1,7 +1,7 @@
 package controller
 
 import (
-	. "github.com/penlook/pengo/controller"
+	. "github.com/penlook/pengo"
 )
 
 type App struct {
