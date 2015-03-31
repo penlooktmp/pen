@@ -5,8 +5,8 @@ Build status
 [![Build Status](https://travis-ci.org/penlook/pengo.svg)](https://travis-ci.org/penlook/pengo)
 [![GoDoc](https://godoc.org/github.com/penlook/pengo?status.svg)](https://godoc.org/github.com/penlook/pengo)
 
-<div style="text-align:center" markdown="1">
-![Pengo](http://i.imgur.com/oR9MAGe.png?1)
+<div align="center">
+![Pengo](http://s16.postimg.org/g7no9g5k5/Capture.png)
 </div>
 
 
