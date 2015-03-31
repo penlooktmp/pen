@@ -4,7 +4,7 @@ import (
 	. "github.com/penlook/pengo"
 )
 
-type Keyvalue struct {
+type KeyValue struct {
 	Model
 }
 

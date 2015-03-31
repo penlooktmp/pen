@@ -1,12 +1,25 @@
 package pengo
 
 import (
-	. "github.com/penlook/pengo"
 )
 
 type Table struct {
-	Model
+	Name string
+	Driver interface {}
 }
+
+func (table *Table) SetDriver(driver interface {}) {
+	table.Driver = driver
+}
+
+func (table Table) Find() {
+	var deleted_users []User
+	db.Table("user").Find(&deleted_users)
+}
+
+func (table Table) First() {}
+func (table Table) Delete() {}
+
 
 // Column family
 // SQLite

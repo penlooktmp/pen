@@ -3,6 +3,7 @@ package pengo
 import (
 	engine "github.com/flosch/pongo2"
 	. "github.com/penlook/pengo/builtin"
+	"strings"
 	"fmt"
 )
 
@@ -20,6 +21,8 @@ type Controller struct {
 	Signal chan int
 	StopOnSignal chan bool
 	End chan bool
+
+	Model Model
 }
 
 // Share properties with View
@@ -140,10 +143,6 @@ func (controller Controller) WaitResponse() {
 }
 
 // MODULE ----------------------------------
-
-func (controller Controller) Model(query string) string {
-	return "MODEL"
-}
 
 func (controller Controller) Service(service string) string {
 	return "Service"
