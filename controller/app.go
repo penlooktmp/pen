@@ -10,8 +10,7 @@ type App struct {
 }
 
 func (app App) Index() {
-
-	app.View <- Pair {
+	app.View <- Data {
 		"key1" : "value1",
 		"key2" : "value2",
 	}

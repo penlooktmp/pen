@@ -1,3 +1,3 @@
 package system
 
-type Pair map[string] interface{}
+type Data map[string] interface{}

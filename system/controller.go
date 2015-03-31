@@ -13,15 +13,16 @@ type Controller struct {
 	Router Router
 	ViewData engine.Context
 
-	View chan Pair
+	View chan Data
+	Template View
 	TotalDeclared int
 	TotalEmit int
-	Template View
-	Signal chan int
-	End chan bool
 
+	Model model
+
+	Signal chan int
 	StopOnSignal chan bool
-	Response chan bool
+	End chan bool
 }
 
 // Share properties with view
@@ -36,7 +37,7 @@ type ViewBridge struct {
 func (controller *Controller) Initialize() {
 
 	// Properties initialization
-	controller.View = make(chan Pair, 20)
+	controller.View = make(chan Data, 20)
 	controller.ViewData = engine.Context {}
 	controller.TotalDeclared = 0
 	controller.TotalEmit = 0
@@ -72,8 +73,8 @@ func (controller Controller) InitAction() {
 	controller.Signal <- SignalInitAction
 }
 
-func (controller *Controller) addPairsToView(pairs Pair) {
-	for key, value := range pairs {
+func (controller *Controller) addDataToView(data Data) {
+	for key, value := range data {
 		controller.ViewData[key] = value
 	}
 	// Remember number variable was passed
@@ -85,8 +86,8 @@ func (controller *Controller) OnSignal() {
 		loop := true
 		for {
 			select {
-				case pairs := <- controller.View :
-					controller.addPairsToView(pairs)
+				case data := <- controller.View :
+					controller.addDataToView(data)
 				case signal := <- controller.Signal :
 					controller.ProcessSignal(signal, &loop)
 			}
