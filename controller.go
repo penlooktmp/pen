@@ -1,4 +1,4 @@
-package system
+package pengo
 
 import (
 	. "github.com/penlook/pengo/global"

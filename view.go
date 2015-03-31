@@ -1,4 +1,4 @@
-package system
+package pengo
 
 import (
 	engine "github.com/flosch/pongo2"

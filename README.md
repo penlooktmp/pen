@@ -1,4 +1,4 @@
-# Pengo Framework
+# Pengo Frameworks
 
 Build status
 
@@ -14,3 +14,19 @@ Road map
 6. Model engine (not started)
 7. Unit - Integration test structure (implementing)
 8. Documentation (not started)
+
+Architecture
+
+1. Model-View-Controler
+2. Event Driven
+2. Object Relational Mapping
+3. Object Document Mapping
+
+Quality Assurance
+
+1. Unit - Integration Testing
+2. Continuous Integration
+3. Coding Convention
+4. Documentation
+
+

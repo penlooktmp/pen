@@ -1,3 +1,3 @@
-package system
+package pengo
 
 type Data map[string] interface{}

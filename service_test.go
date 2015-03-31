@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestUnix(t *testing.T) {
+func TestService(t *testing.T) {
 	assert := assert.New(t)
 	assert.Equal("test", "test")
 }
