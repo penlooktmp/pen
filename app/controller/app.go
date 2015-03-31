@@ -20,8 +20,7 @@ func (app App) Index() {
 	}
 
 	app.View <- Data {
-		"key3" : app.Translate("software developer"),
+		"key3" : "software developer",
 		"key4" : "value2",
 	}
-
 }
