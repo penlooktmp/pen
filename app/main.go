@@ -3,11 +3,9 @@ package main
 import (
  	"net/http"
 	"github.com/julienschmidt/httprouter"
-	. "github.com/penlook/pengo/system"
+	. "github.com/penlook/pengo"
     "github.com/penlook/pengo/app/controller"
 )
-
-
 
 func Handle(controller_name string, action_name string) func(response http.ResponseWriter, request *http.Request, _ httprouter.Params) {
     return func(response http.ResponseWriter, request *http.Request, _ httprouter.Params) {

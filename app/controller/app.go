@@ -1,8 +1,8 @@
 package controller
 
 import (
-	. "github.com/penlook/pengo/system/global"
-	. "github.com/penlook/pengo/system"
+	. "github.com/penlook/pengo/global"
+	. "github.com/penlook/pengo"
 )
 
 type App struct {

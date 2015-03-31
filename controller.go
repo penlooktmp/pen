@@ -1,7 +1,7 @@
 package system
 
 import (
-	. "github.com/penlook/pengo/system/global"
+	. "github.com/penlook/pengo/global"
 	engine "github.com/flosch/pongo2"
 	"fmt"
 )
