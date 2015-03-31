@@ -5,6 +5,5 @@ import (
 )
 
 type User struct {
-	Model
+	model.Document
 }
-

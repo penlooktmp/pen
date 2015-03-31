@@ -1,7 +1,7 @@
 package pengo
 
 import (
-	. "github.com/penlook/pengo/global"
+	. "github.com/penlook/pengo/builtin"
 	engine "github.com/flosch/pongo2"
 	"fmt"
 )
@@ -12,14 +12,12 @@ type Controller struct {
 	Http Http
 	Router Router
 	ViewData engine.Context
-
 	View chan Data
 	Template View
 	TotalDeclared int
 	TotalEmit int
-
 	Model Model
-
+	Translator Translator
 	Signal chan int
 	StopOnSignal chan bool
 	End chan bool
@@ -33,6 +31,8 @@ type ViewBridge struct {
 	Router Router
 	ViewData engine.Context
 }
+
+// MVC ENGINE
 
 func (controller *Controller) Initialize() {
 
@@ -135,4 +135,39 @@ func (controller Controller) WaitResponse() {
 	select {
 		case <- controller.End:
 	}
+}
+
+// MODULES FUNCTION
+
+func (controller Controller) Model(query string) string {
+	return query
+}
+
+func (controller Controller) Session(key string, value string) string {
+	return "Session values"
+}
+
+func (controller Controller) Cookie(key string, value string) string {
+	return "Cookie values"
+}
+
+func (controller Controller) Translate(word string) string {
+	return "ABC"
+}
+
+// REQUEST FUNCTION
+
+func (controller Controller) GET(key string) string {
+}
+
+func (controller Controller) POST(key string) string {
+}
+
+func (controller Controller) PUT(key string) string {
+}
+
+func (controller Controller) PATCH(key string) string {
+}
+
+func (controller Controller) DELETE(key string) string {
 }
