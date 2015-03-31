@@ -5,10 +5,19 @@ import (
 	"github.com/julienschmidt/httprouter"
 	"github.com/penlook/pengo/system"
     "github.com/penlook/pengo/controller"
+    "time"
+    "fmt"
 )
+
+func timeTrack(start time.Time, name string) {
+    elapsed := time.Since(start)
+    fmt.Printf("%s took %s", name, elapsed)
+}
 
 func Handle(controller_name string, action_name string) func(response http.ResponseWriter, request *http.Request, _ httprouter.Params) {
     return func(response http.ResponseWriter, request *http.Request, _ httprouter.Params) {
+
+        defer timeTrack(time.Now(), "pengo")
 
     	action := controller.App {
             system.Controller {
@@ -33,8 +42,6 @@ func Handle(controller_name string, action_name string) func(response http.Respo
         action.Index()
         action.AfterAction()
         action.WaitResponse()
-
-    	//action.Index()
 	}
 }
 
