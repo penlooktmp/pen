@@ -3,6 +3,9 @@
 Build status
 
 [![Build Status](https://travis-ci.org/penlook/pengo.svg)](https://travis-ci.org/penlook/pengo)
+[![GoDoc](https://godoc.org/github.com/penlook/pengo?status.svg)](https://godoc.org/github.com/penlook/pengo)
+
+[Imgur](http://i.imgur.com/oR9MAGe.png?1)
 
 Road map
 
