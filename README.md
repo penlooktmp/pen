@@ -18,9 +18,10 @@ Road map
 Architecture
 
 1. Model-View-Controler
-2. Event Driven
-2. Object Relational Mapping
-3. Object Document Mapping
+2. Dependency Injection
+3. Event Driven
+4. Object Relational Mapping
+5. Object Document Mapping
 
 Quality Assurance
 
