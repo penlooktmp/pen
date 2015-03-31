@@ -1,4 +1,4 @@
-# Pengo Frameworks
+# Pengo Framework
 
 Build status
 
