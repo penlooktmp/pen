@@ -5,9 +5,8 @@ Build status
 [![Build Status](https://travis-ci.org/penlook/pengo.svg)](https://travis-ci.org/penlook/pengo)
 [![GoDoc](https://godoc.org/github.com/penlook/pengo?status.svg)](https://godoc.org/github.com/penlook/pengo)
 
-<div align="center">
 ![Pengo](http://s16.postimg.org/g7no9g5k5/Capture.png)
-</div>
+
 
 
 Road map
