@@ -75,7 +75,7 @@ func (controller Controller) InitAction() {
 }
 
 // Add data to View
-func (controller *Controller) addDataToView(data Data) {
+func (controller *Controller) AddDataToView(data Data) {
 	for key, value := range data {
 		controller.ViewData[key] = value
 	}
@@ -90,7 +90,7 @@ func (controller *Controller) OnSignal() {
 		for {
 			select {
 				case data := <- controller.View :
-					controller.addDataToView(data)
+					controller.AddDataToView(data)
 				case signal := <- controller.Signal :
 					controller.ProcessSignal(signal, &loop)
 			}
@@ -98,7 +98,6 @@ func (controller *Controller) OnSignal() {
 				break
 			}
 		}
-		fmt.Println(" --> OnSignal Done")
 	}(controller)
 }
 
