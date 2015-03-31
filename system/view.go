@@ -3,11 +3,10 @@ package system
 import (
 	engine "github.com/flosch/pongo2"
     "strings"
-    //"fmt"
 )
 
 type View struct {
-	Controller *ViewBridge
+	Controller ViewBridge
 	Directory string
 }
 

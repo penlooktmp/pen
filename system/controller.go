@@ -41,17 +41,15 @@ func (controller *Controller) Initialize() {
 	controller.TotalDeclared = 0
 	controller.TotalEmit = 0
 
-	viewBridge := ViewBridge {
-		Name: controller.Name,
-		ActionName: controller.ActionName,
-		Http: controller.Http,
-		Router: controller.Router,
-		ViewData: controller.ViewData,
-	}
-
 	// Setup for template
 	controller.Template = View {
-		Controller: &viewBridge,
+		Controller: ViewBridge {
+			Name: controller.Name,
+			ActionName: controller.ActionName,
+			Http: controller.Http,
+			Router: controller.Router,
+			ViewData: controller.ViewData,
+		},
 		Directory: "view",
 	}
 
