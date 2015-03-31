@@ -1,7 +1,8 @@
 package system
 
 import (
-	. "github.com/penlook/core/system/global"
+	. "github.com/penlook/pengo/system/global"
+	engine "github.com/flosch/pongo2"
 	"fmt"
 )
 
@@ -10,7 +11,7 @@ type Controller struct {
 	ActionName string
 	Http Http
 	Router Router
-	ViewData map[string] interface {}
+	ViewData engine.Context
 
 	View chan Pair
 	TotalDeclared int
@@ -19,7 +20,7 @@ type Controller struct {
 	Signal chan int
 	End chan bool
 
-	ListenSignal chan bool
+	StopOnSignal chan bool
 	Response chan bool
 }
 
@@ -29,14 +30,14 @@ type ViewBridge struct {
 	ActionName string
 	Http Http
 	Router Router
-	ViewData map[string] interface {}
+	ViewData engine.Context
 }
 
 func (controller *Controller) Initialize() {
 
 	// Properties initialization
 	controller.View = make(chan Pair, 20)
-	controller.ViewData = make(Pair)
+	controller.ViewData = engine.Context {}
 	controller.TotalDeclared = 0
 	controller.TotalEmit = 0
 
@@ -58,7 +59,7 @@ func (controller *Controller) Initialize() {
 	controller.Signal = make(chan int, 10)
 
 	// End flag for signal
-	controller.ListenSignal = make(chan bool, 1)
+	controller.StopOnSignal = make(chan bool, 1)
 
 	// End flag for controller
 	controller.End = make(chan bool, 1)
@@ -69,11 +70,8 @@ func (controller *Controller) Initialize() {
 
 func (controller Controller) InitAction() {
 
-	fmt.Println("INIT ACTION")
-
 	// Broadcast signal
 	controller.Signal <- SignalInitAction
-
 }
 
 func (controller *Controller) addPairsToView(pairs Pair) {
@@ -86,72 +84,56 @@ func (controller *Controller) addPairsToView(pairs Pair) {
 
 func (controller *Controller) OnSignal() {
 	go func(controller *Controller) {
+		loop := true
 		for {
 			select {
 				case pairs := <- controller.View :
 					controller.addPairsToView(pairs)
 				case signal := <- controller.Signal :
-					controller.ProcessSignal(signal)
+					controller.ProcessSignal(signal, &loop)
 			}
-
-			// Stop listening to signals
-			// controller.ListenSignal <- false
-			if ! <- controller.ListenSignal {
+			if ! loop {
 				break
 			}
 		}
+		fmt.Println(" --> OnSignal Done")
 	}(controller)
 }
 
-func (controller Controller) ProcessSignal(signal int) {
+func (controller Controller) ProcessSignal(signal int, loop *bool) {
 	switch (signal) {
 		case SignalResponse :
-			controller.ListenSignal <- false
-			controller.Response <- true
+			*loop = false
+			controller.End <- true
 	}
 }
 
 func (controller Controller) BeforeAction() {
-
-	fmt.Println("BEFORE ACTION")
-
 	// Broadcast signal
 	controller.Signal <- SignalBeforeAction
 
 }
 
 func (controller *Controller) AfterAction() {
-
-	fmt.Println("AFTER ACTION")
-
 	controller.TotalDeclared = len(controller.View)
 	go func(controller *Controller) {
 		for {
-			fmt.Println("EMIT ", controller.TotalEmit)
-			fmt.Println("DECLARED ", controller.TotalDeclared)
 			if controller.TotalEmit == controller.TotalDeclared {
-				fmt.Println("START RENDER Template")
 				controller.RenderTemplate()
 				break
 			}
 		}
+		fmt.Println(" --> AfterAction Done")
 	}(controller)
 }
 
 func (controller Controller) RenderTemplate() {
 	controller.Template.Render()
-	fmt.Println("EMIT SIGNAL Response")
     controller.Signal <- SignalResponse
 }
 
 func (controller Controller) WaitResponse() {
 	select {
 		case <- controller.End:
-			controller.Destroy()
 	}
-}
-
-func (controller *Controller) Destroy() {
-	controller.Signal = nil
-	controller.View   = nil
 }
