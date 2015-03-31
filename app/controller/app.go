@@ -1,8 +1,7 @@
 package controller
 
 import (
-	. "github.com/penlook/pengo/builtin"
-	. "github.com/penlook/pengo"
+	. "github.com/penlook/pengo/controller"
 )
 
 type App struct {
@@ -11,8 +10,10 @@ type App struct {
 
 func (app App) Index() {
 
+	/*
 	user   := app.Model("Table.User")
 	status := app.Model("Document.Status")
+	*/
 
 	app.View <- Data {
 		"key1" : "value1",

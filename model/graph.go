@@ -1,4 +1,4 @@
-package model
+package pengo
 
 // Graph family
 // Cayley

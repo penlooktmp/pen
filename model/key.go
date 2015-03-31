@@ -1,4 +1,4 @@
-package model
+package pengo
 
 // Key value family
 // Memcached

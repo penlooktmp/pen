@@ -1,4 +1,4 @@
 package pengo
 
-type Translator {
+type Translator struct {
 }
