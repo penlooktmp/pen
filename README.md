@@ -2,7 +2,7 @@
 
 Road map
 
-1. MVC Architect (done)
+1. MVC Architecture (done)
 2. Template engine (done)
 3. Hotcode reload (not started)
 4. Improve performance (implementing)
