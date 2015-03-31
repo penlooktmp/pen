@@ -13,11 +13,14 @@ type Controller struct {
 	ViewData map[string] interface {}
 
 	View chan Pair
-	TotalDeclare int
+	TotalDeclared int
 	TotalEmit int
 	Template View
 	Signal chan int
 	End chan bool
+
+	ListenSignal chan bool
+	Response chan bool
 }
 
 // Share properties with view
@@ -34,7 +37,7 @@ func (controller *Controller) Initialize() {
 	// Properties initialization
 	controller.View = make(chan Pair, 20)
 	controller.ViewData = make(Pair)
-	controller.TotalDeclare = 0
+	controller.TotalDeclared = 0
 	controller.TotalEmit = 0
 
 	viewBridge := ViewBridge {
@@ -51,8 +54,13 @@ func (controller *Controller) Initialize() {
 		Directory: "view",
 	}
 
-	// Make signal channel
+	// Multiple signal in life cycle
 	controller.Signal = make(chan int, 10)
+
+	// End flag for signal
+	controller.ListenSignal = make(chan bool, 1)
+
+	// End flag for controller
 	controller.End = make(chan bool, 1)
 
 	// Listen system signal
@@ -78,29 +86,28 @@ func (controller *Controller) addPairsToView(pairs Pair) {
 
 func (controller *Controller) OnSignal() {
 	go func(controller *Controller) {
-		exit := false
 		for {
 			select {
 				case pairs := <- controller.View :
 					controller.addPairsToView(pairs)
 				case signal := <- controller.Signal :
-					controller.ProcessSignal(signal, &exit)
+					controller.ProcessSignal(signal)
 			}
-			if exit {
+
+			// Stop listening to signals
+			// controller.ListenSignal <- false
+			if ! <- controller.ListenSignal {
 				break
 			}
 		}
-
-		// Response to browser after finishing life cycle
-		controller.Signal <- SignalResponse
 	}(controller)
 }
 
-func (controller Controller) ProcessSignal(signal int, exit *bool) {
+func (controller Controller) ProcessSignal(signal int) {
 	switch (signal) {
 		case SignalResponse :
-			*exit = true
-			controller.End <- true
+			controller.ListenSignal <- false
+			controller.Response <- true
 	}
 }
 
@@ -114,28 +121,26 @@ func (controller Controller) BeforeAction() {
 }
 
 func (controller *Controller) AfterAction() {
-	controller.TotalDeclare = len(controller.View)
+
+	fmt.Println("AFTER ACTION")
+
+	controller.TotalDeclared = len(controller.View)
 	go func(controller *Controller) {
 		for {
-			if (controller.TotalEmit == controller.TotalDeclare) {
-				controller.RenderAction()
+			fmt.Println("EMIT ", controller.TotalEmit)
+			fmt.Println("DECLARED ", controller.TotalDeclared)
+			if controller.TotalEmit == controller.TotalDeclared {
+				fmt.Println("START RENDER Template")
+				controller.RenderTemplate()
 				break
 			}
 		}
 	}(controller)
 }
 
-func (controller Controller) RenderAction() {
-
-	// Broadcast signal
-	controller.Signal <- SignalRenderAction
-
-	// Render Template
-	controller.RenderTemplate()
-}
-
 func (controller Controller) RenderTemplate() {
 	controller.Template.Render()
+	fmt.Println("EMIT SIGNAL Response")
     controller.Signal <- SignalResponse
 }
 
