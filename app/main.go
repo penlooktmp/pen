@@ -4,7 +4,7 @@ import (
  	"net/http"
 	"github.com/julienschmidt/httprouter"
 	. "github.com/penlook/pengo/system"
-    "github.com/penlook/pengo/controller"
+    "github.com/penlook/pengo/app/controller"
 )
 
 

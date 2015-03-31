@@ -18,7 +18,7 @@ type Controller struct {
 	TotalDeclared int
 	TotalEmit int
 
-	Model model
+	Model Model
 
 	Signal chan int
 	StopOnSignal chan bool
