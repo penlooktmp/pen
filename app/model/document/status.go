@@ -1,9 +1,9 @@
 package model
 
 import (
-	. "github.com/penlook/pengo"
+	. "github.com/penlook/pengo/model"
 )
 
 type User struct {
-	model.Document
+	Document
 }

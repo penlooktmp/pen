@@ -4,9 +4,10 @@ import (
 	. "github.com/penlook/pengo"
 )
 
-type Graph struct {
+type Queue struct {
 	Model
 }
 
-// Graph family
-// Cayley
+// Message Queue
+// ActiveMQ
+// RabitMQ
