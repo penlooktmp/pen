@@ -56,6 +56,27 @@ func TestControllerOnSignal(t *testing.T) {
 		"key4" : "value3",
 	}
 
+	controller.View <- Data {
+		"key5" : "value1",
+		"key6" : "value2",
+		"key7" : "value1",
+		"key8" : "value3",
+	}
+
+	controller.View <- Data {
+		"key9"  : "value1",
+		"key10" : "value2",
+		"key11" : "value1",
+		"key12" : "value3",
+	}
+
+	controller.View <- Data {
+		"key13" : "value1",
+		"key14" : "value2",
+		"key15" : "value1",
+		"key16" : "value3",
+	}
+
 	count := 0
 	controller.TotalDeclared = len(controller.View)
 
@@ -63,7 +84,7 @@ func TestControllerOnSignal(t *testing.T) {
 		for {
 			if controller.TotalEmit == controller.TotalDeclared {
 				*count = 1
-				assert.Equal(4, len(controller.ViewData))
+				assert.Equal(16, len(controller.ViewData))
 			}
 		}
 	}(&count, &controller)
@@ -71,4 +92,22 @@ func TestControllerOnSignal(t *testing.T) {
 	// Waiting for all channel
 	time.Sleep(time.Millisecond * 1)
 	assert.Equal(1, count)
+	controller.Signal <- SignalResponse
+}
+
+func TestControllerProcessSignal(t *testing.T) {
+	assert := assert.New(t)
+	controller := Controller {}
+	controller.Initialize()
+	loop := true
+	controller.ProcessSignal(SignalResponse, &loop)
+	assert.Equal(false, loop)
+}
+
+func TestControllerAfterAction(t *testing.T) {
+	// Ignore
+}
+
+func TestControllerRenderTemplate(t *testing.T) {
+	// Ignore
 }
