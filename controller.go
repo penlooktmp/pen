@@ -28,7 +28,7 @@ package pengo
 
 import (
 	engine "github.com/flosch/pongo2"
-	. "github.com/penlook/pengo/builtin"
+	. "github.com/penlook/pengo/module"
 	"fmt"
 )
 

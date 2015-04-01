@@ -34,3 +34,23 @@ type Http struct {
 	Request *http.Request
 	Response http.ResponseWriter
 }
+
+func (http Http) GET(key string) string {
+	return "GET"
+}
+
+func (http Http) POST(key string) string {
+	return "POST"
+}
+
+func (http Http) PUT(key string) string {
+	return "PUT"
+}
+
+func (http Http) PATCH(key string) string {
+	return "PATCH"
+}
+
+func (http Http) DELETE(key string) string {
+	return "DELETE"
+}

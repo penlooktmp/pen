@@ -30,6 +30,7 @@ import (
  	"net/http"
 	"github.com/julienschmidt/httprouter"
 	. "github.com/penlook/pengo"
+    . "github.com/penlook/pengo/module"
     "github.com/penlook/pengo/app/controller"
 )
 

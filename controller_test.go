@@ -27,7 +27,6 @@
 package pengo
 
 import (
-	. "github.com/penlook/pengo/builtin"
 	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
