@@ -29,7 +29,7 @@ package controller
 import (
 	. "github.com/penlook/pengo/builtin"
 	. "github.com/penlook/pengo"
-	"github.com/penlook/pengo/model/table"
+	"fmt"
 )
 
 type App struct {
@@ -38,9 +38,12 @@ type App struct {
 
 func (app App) Index() {
 
-	table    := app.Table("User").Find()
-	document := app.Document("Status").Find()
-	username := app.POST("username")
+	table    := app.Table("User")
+	user     := "Test"
+	fmt.Println(table)
+
+	//document := app.Document("Status").Find()
+	//username := app.POST("username")
 
 	/*
 	status := app.Model("Document.Status")

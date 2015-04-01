@@ -26,9 +26,6 @@
  */
 package pengo
 
-import (
-)
-
 type Table struct {
 	Name string
 	Driver interface {}
@@ -39,8 +36,8 @@ func (table *Table) SetDriver(driver interface {}) {
 }
 
 func (table Table) Find() {
-	var deleted_users []User
-	db.Table("user").Find(&deleted_users)
+	//var deleted_users []User
+	//db.Table("user").Find(&deleted_users)
 }
 
 func (table Table) First() {}

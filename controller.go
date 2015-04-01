@@ -29,7 +29,6 @@ package pengo
 import (
 	engine "github.com/flosch/pongo2"
 	. "github.com/penlook/pengo/builtin"
-	"strings"
 	"fmt"
 )
 
@@ -82,6 +81,12 @@ func (controller *Controller) Initialize() {
 		},
 		Directory: "view",
 	}
+
+	// Setup for model
+	controller.Model = Model {}
+
+	// Connect to service
+	controller.Model.Build()
 
 	// Multiple signal in life cycle
 	controller.Signal = make(chan int, 10)
@@ -186,22 +191,22 @@ func (controller Controller) Translate(word string) string {
 	return "ABC"
 }
 
-// MODEL -------------------------------------
+// MODEL Alias --------------------------------
 
-func (controller Controller) Table(table string) {
-
+func (controller Controller) Table(table string) interface {} {
+	return controller.Model.Table(table)
 }
 
-func (controller Controller) Document(document string) {
-
+func (controller Controller) Document(document string) interface {} {
+	return controller.Model.Document(document)
 }
 
-func (controller Controller) KeyValue(key string) {
-
+func (controller Controller) Key(key string) interface {} {
+	return controller.Model.Key(key)
 }
 
-func (controller Controller) Graph(graph string) {
-
+func (controller Controller) Graph(graph string) interface {} {
+	return controller.Model.Graph(graph)
 }
 
 // REQUEST -----------------------------------

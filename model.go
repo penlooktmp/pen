@@ -31,10 +31,12 @@ import (
 )
 
 type Model struct {
-	Table_ Table
-	Document_ Document
-	KeyValue_ KeyValue
-	Graph_ Graph
+	Config Config
+
+	table Table
+	document Document
+	keyValue KeyValue
+	graph Graph
 }
 
 func (model Model) New() {
@@ -48,9 +50,48 @@ func (model Model) Build() {
 	model.UseGraph()
 }
 
-func (model Model) Table(table string) {}
-func (model Model) Document(document string) {}
-func (model Model) Key(key string) {}
-func (model Model) Graph(document string) {}
+// Fork concurrency connection to increase performance
+
+func (model *Mode) UseTable() {
+	go func(model *Mode) {
+		model.table.Connect()
+	}(model)
+}
+
+func (model *Mode) UseDocument() {
+	go func(model *Mode) {
+		model.document.Connect()
+	}(model)
+}
+
+func (model *Mode) UseKeyValue() {
+	go func(model *Mode) {
+		model.keyValue.Connect()
+	}(model)
+}
+
+func (model *Mode) UseGraph() {
+	go func(model *Mode) {
+		model.graph.Connect()
+	}(model)
+}
+
+// API ------------------------------------
+
+func (model Model) Table(table string) string {
+	return table
+}
+
+func (model Model) Document(document string) string {
+	return document
+}
+
+func (model Model) Key(key string) string {
+	return key
+}
+
+func (model Model) Graph(graph string) string {
+	return graph
+}
 
 
