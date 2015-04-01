@@ -26,9 +26,17 @@
  */
 package pengo
 
+import (
+ 	"fmt"
+)
+
 type Table struct {
 	Name string
 	Driver interface {}
+}
+
+func (table Table) Connect() {
+	fmt.Println("Table connection was established !")
 }
 
 func (table *Table) SetDriver(driver interface {}) {

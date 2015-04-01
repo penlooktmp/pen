@@ -26,17 +26,5 @@
  */
 package pengo
 
-import (
- 	"fmt"
-)
-
-type Document struct {
+type Cookie struct {
 }
-
-func (document Document) Connect() {
-	fmt.Println("Document connection was established !")
-}
-
-// Document family
-// MongoDB
-// CouchDB

@@ -26,7 +26,15 @@
  */
 package pengo
 
+import (
+ 	"fmt"
+)
+
 type KeyValue struct {
+}
+
+func (keyvalue KeyValue) Connect() {
+	fmt.Println("KeyValue connection was established !")
 }
 
 // Key value family

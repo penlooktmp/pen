@@ -27,16 +27,11 @@
 package pengo
 
 import (
- 	"fmt"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
-type Document struct {
+func TestModule(t *testing.T) {
+	assert := assert.New(t)
+	assert.Equal("test", "test")
 }
-
-func (document Document) Connect() {
-	fmt.Println("Document connection was established !")
-}
-
-// Document family
-// MongoDB
-// CouchDB

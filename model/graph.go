@@ -26,7 +26,15 @@
  */
 package pengo
 
+import (
+ 	"fmt"
+)
+
 type Graph struct {
+}
+
+func (graph Graph) Connect() {
+	fmt.Println("Graph connection was established !")
 }
 
 // Graph family

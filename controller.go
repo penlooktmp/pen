@@ -48,6 +48,7 @@ type Controller struct {
 	End chan bool
 
 	Model Model
+	Module Module
 }
 
 // Share properties with View
@@ -84,9 +85,10 @@ func (controller *Controller) Initialize() {
 
 	// Setup for model
 	controller.Model = Model {}
+	controller.Model.Connect()
 
-	// Connect to service
-	controller.Model.Build()
+	// Setup for module
+	controller.Module = Module {}
 
 	// Multiple signal in life cycle
 	controller.Signal = make(chan int, 10)
@@ -209,26 +211,26 @@ func (controller Controller) Graph(graph string) interface {} {
 	return controller.Model.Graph(graph)
 }
 
-// REQUEST -----------------------------------
+// Http Alias -----------------------------------
 
 func (controller Controller) GET(key string) string {
-	return "GET"
+	return controller.Http.GET(key)
 }
 
 func (controller Controller) POST(key string) string {
-	return "POST"
+	return controller.Http.POST(key)
 }
 
 func (controller Controller) PUT(key string) string {
-	return "PUT"
+	return controller.Http.PUT(key)
 }
 
 func (controller Controller) PATCH(key string) string {
-	return "PATCH"
+	return controller.Http.PATCH(key)
 }
 
 func (controller Controller) DELETE(key string) string {
-	return "DELETE"
+	return controller.Http.DELETE(key)
 }
 
 

@@ -43,35 +43,35 @@ func (model Model) New() {
 
 }
 
-func (model Model) Build() {
-	model.UseTable()
-	model.UseDocument()
-	model.UseKeyValue()
-	model.UseGraph()
+func (model Model) Connect() {
+	model.ConnectTable()
+	model.ConnectDocument()
+	model.ConnectKeyValue()
+	model.ConnectGraph()
 }
 
 // Fork concurrency connection to increase performance
 
-func (model *Mode) UseTable() {
-	go func(model *Mode) {
+func (model *Model) ConnectTable() {
+	go func(model *Model) {
 		model.table.Connect()
 	}(model)
 }
 
-func (model *Mode) UseDocument() {
-	go func(model *Mode) {
+func (model *Model) ConnectDocument() {
+	go func(model *Model) {
 		model.document.Connect()
 	}(model)
 }
 
-func (model *Mode) UseKeyValue() {
-	go func(model *Mode) {
+func (model *Model) ConnectKeyValue() {
+	go func(model *Model) {
 		model.keyValue.Connect()
 	}(model)
 }
 
-func (model *Mode) UseGraph() {
-	go func(model *Mode) {
+func (model *Model) ConnectGraph() {
+	go func(model *Model) {
 		model.graph.Connect()
 	}(model)
 }
