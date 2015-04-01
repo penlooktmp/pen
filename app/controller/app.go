@@ -38,46 +38,7 @@ type App struct {
 func (app App) Index() {
 
 	app.Pick("get by name")
-	/*user := app.GET("name")
-	app.Pick("for loop")
 
-	b := 0
-	for i:=1; i<=1000000; i++ {
-		b = b + 1
-	}
-
-	b = 0
-	for i:=1; i<=1000000; i++ {
-		b = b + 1
-	}
-
-	b = 0
-	for i:=1; i<=1000000; i++ {
-		b = b + 1
-	}
-
-	app.Pick("after ")
-
-	b = 0
-	for i:=1; i<=1000000; i++ {
-		b = b + 1
-	}
-
-	b = 0
-	for i:=1; i<=1000000; i++ {
-		b = b + 1
-	}
-
-	app.Pick("2222222222")
-	fmt.Println("USER", user)
-
-	/*table    := app.Table("User")
-	fmt.Println(table)
-
-	//document := app.Document("Status").Find()
-	//username := app.POST("username")
-	
-	*/
 	app.View <- Data {
 		"key1" : "value1",
 		"key2" : "abc",
@@ -87,4 +48,6 @@ func (app App) Index() {
 		"key3" : "software developer",
 		"key4" : "value2",
 	}
+
+	app.Pick("after assign to view")
 }

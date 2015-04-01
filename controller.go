@@ -31,6 +31,7 @@ import (
 	. "github.com/penlook/pengo/module"
 	"container/list"
 	"time"
+	"reflect"
 	"fmt"
 )
 
@@ -61,6 +62,28 @@ type ViewBridge struct {
 	Http Http
 	Router Router
 	ViewData engine.Context
+}
+
+func (controller Controller) LifeCycle(parent interface {}, actionName string) {
+    controller.Initialize()
+    controller.Start()
+
+    //controller.setOnSignal()
+    //controller.initAction()
+    //controller.beforeAction()
+    action := reflect.ValueOf(parent).MethodByName(actionName)
+    if action.IsValid() {
+    	action.Call([]reflect.Value{})
+    } else {
+   		fmt.Println("Action does not exists !")
+    }
+
+    //parentController.Call([]reflect.Value{})
+
+    //controller.afterAction()
+    //controller.waitResponse()
+    controller.Test()
+    controller.Flow.Graph()
 }
 
 // MVC -------------------------------------
@@ -116,6 +139,7 @@ func (controller Controller) Start() {
 
 // Action initialization
 func (controller Controller) InitAction() {
+	controller.Flow.Pick("init action")
 
 	// Broadcast signal
 	controller.Signal <- SignalInitAction
@@ -145,6 +169,7 @@ func (controller *Controller) SetOnSignal() {
 				break
 			}
 		}
+		controller.Flow.Pick("exit on signal")
 	}(controller)
 }
 

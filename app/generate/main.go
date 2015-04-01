@@ -9,7 +9,6 @@ import (
 	. "github.com/penlook/pengo"
     . "github.com/penlook/pengo/module"
     "github.com/penlook/pengo/app/controller"
-    "fmt"
 )
 
 func Handle(controller_name string, action_name string) func(response http.ResponseWriter, request *http.Request, _ httprouter.Params) {
@@ -32,20 +31,7 @@ func Handle(controller_name string, action_name string) func(response http.Respo
             },
 	  	}
 
-        // Life cycle
-        controller.Initialize()
-        controller.Start()
-
-        //controller.SetOnSignal()
-        //controller.InitAction()
-        //controller.BeforeAction()
-        controller.Index()
-        //controller.AfterAction()
-        //controller.WaitResponse()
-        controller.Test()
-
-        fmt.Println("Show Graph")
-        controller.Flow.Graph()
+        controller.LifeCycle(controller, "Index")
 	}
 }
 

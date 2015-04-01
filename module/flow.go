@@ -83,7 +83,8 @@ func (flow *Flow) Pick(message string) {
 func (flow Flow) Graph() {
 
 	if flow.Tracking.Len() < 2 {
-		panic("Application not running !")
+		fmt.Println("Not enough data to generate graph")
+		return
 	}
 
 	firstnode := flow.Tracking.Front()
