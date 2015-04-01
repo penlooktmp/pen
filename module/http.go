@@ -28,29 +28,32 @@ package pengo
 
 import (
 	"net/http"
+	"github.com/julienschmidt/httprouter"
 )
 
 type Http struct {
+	Method string
 	Request *http.Request
 	Response http.ResponseWriter
+	Router httprouter.Params
 }
 
-func (http Http) GET(key string) string {
-	return "GET"
+func (http Http) GET(name string) string {
+	return http.Router.ByName(name)
 }
 
-func (http Http) POST(key string) string {
-	return "POST"
+func (http Http) POST(name string) string {
+	return http.Router.ByName(name)
 }
 
-func (http Http) PUT(key string) string {
-	return "PUT"
+func (http Http) PUT(name string) string {
+	return http.Router.ByName(name)
 }
 
-func (http Http) PATCH(key string) string {
-	return "PATCH"
+func (http Http) PATCH(name string) string {
+	return http.Router.ByName(name)
 }
 
-func (http Http) DELETE(key string) string {
-	return "DELETE"
+func (http Http) DELETE(name string) string {
+	return http.Router.ByName(name)
 }

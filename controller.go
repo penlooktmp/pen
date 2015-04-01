@@ -29,6 +29,8 @@ package pengo
 import (
 	engine "github.com/flosch/pongo2"
 	. "github.com/penlook/pengo/module"
+	"container/list"
+	"time"
 	"fmt"
 )
 
@@ -48,6 +50,7 @@ type Controller struct {
 	End chan bool
 
 	Model Model
+	Flow Flow
 	Module Module
 }
 
@@ -84,11 +87,18 @@ func (controller *Controller) Initialize() {
 	}
 
 	// Setup for model
-	controller.Model = Model {}
-	controller.Model.Connect()
+	//controller.Model = Model {}
+	//controller.Model.Connect()
 
 	// Setup for module
 	controller.Module = Module {}
+
+	// Setup for flow
+	controller.Flow = Flow {
+		Tracking: list.New(),
+		Unit: time.Millisecond * 10, // Millisecond
+		Mode: "DEBUG",
+	}
 
 	// Multiple signal in life cycle
 	controller.Signal = make(chan int, 10)
@@ -98,9 +108,10 @@ func (controller *Controller) Initialize() {
 
 	// End flag for controller
 	controller.End = make(chan bool, 1)
+}
 
-	// Listen system signal
-	controller.OnSignal()
+func (controller Controller) Start() {
+	controller.Flow.Pick("start controller")
 }
 
 // Action initialization
@@ -120,7 +131,7 @@ func (controller *Controller) AddDataToView(data Data) {
 }
 
 // Listen signal from system
-func (controller *Controller) OnSignal() {
+func (controller *Controller) SetOnSignal() {
 	go func(controller *Controller) {
 		loop := true
 		for {
@@ -148,7 +159,6 @@ func (controller Controller) ProcessSignal(signal int, loop *bool) {
 func (controller Controller) BeforeAction() {
 	// Broadcast signal
 	controller.Signal <- SignalBeforeAction
-
 }
 
 func (controller *Controller) AfterAction() {
@@ -171,11 +181,19 @@ func (controller Controller) RenderTemplate() {
 
 func (controller Controller) WaitResponse() {
 	select {
-		case <- controller.End:
+		case <- controller.End :
 	}
 }
 
+func (controller Controller) Test() {
+	fmt.Fprint(controller.Http.Response, "Welcome!\n")
+}
+
 // MODULE ----------------------------------
+
+func (controller Controller) Pick(message string) {
+	controller.Flow.Pick(message)
+}
 
 func (controller Controller) Service(service string) string {
 	return "Service"

@@ -24,67 +24,14 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package controller
+package pengo
 
 import (
-	. "github.com/penlook/pengo"
-	//"fmt"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
-type App struct {
-	Controller
-}
-
-func (app App) Index() {
-
-	app.Pick("get by name")
-	/*user := app.GET("name")
-	app.Pick("for loop")
-
-	b := 0
-	for i:=1; i<=1000000; i++ {
-		b = b + 1
-	}
-
-	b = 0
-	for i:=1; i<=1000000; i++ {
-		b = b + 1
-	}
-
-	b = 0
-	for i:=1; i<=1000000; i++ {
-		b = b + 1
-	}
-
-	app.Pick("after ")
-
-	b = 0
-	for i:=1; i<=1000000; i++ {
-		b = b + 1
-	}
-
-	b = 0
-	for i:=1; i<=1000000; i++ {
-		b = b + 1
-	}
-
-	app.Pick("2222222222")
-	fmt.Println("USER", user)
-
-	/*table    := app.Table("User")
-	fmt.Println(table)
-
-	//document := app.Document("Status").Find()
-	//username := app.POST("username")
-	
-	*/
-	app.View <- Data {
-		"key1" : "value1",
-		"key2" : "abc",
-	}
-
-	app.View <- Data {
-		"key3" : "software developer",
-		"key4" : "value2",
-	}
+func TestSession(t *testing.T) {
+	assert := assert.New(t)
+	assert.Equal("test", "test")
 }

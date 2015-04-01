@@ -11,8 +11,8 @@ Build status
 
 Road map
 
-1. MVC Architecture (done)
-2. Template engine (done)
+1. MVC Architecture (testing)
+2. Template engine (testing)
 3. Hot-code reload (not started)
 4. Improve performance (implementing)
 5. Command line for development (implementing)
@@ -20,6 +20,7 @@ Road map
 7. Unit - Integration test structure (implementing)
 8. Multiple languages (implementing)
 9. Documentation (not started)
+10. Flow Tracking (testing)
 
 Architecture
 
