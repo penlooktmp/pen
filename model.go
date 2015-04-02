@@ -26,11 +26,12 @@
  */
 package pengo
 
+
 import (
 	. "github.com/penlook/pengo/model"
 )
 
-type Driver {
+type Driver struct {
 	Table Table
 	Document Document
 	KeyValue KeyValue
@@ -94,7 +95,7 @@ func (model *Model) ConnectGraph() {
 // API ------------------------------------
 
 func (model Model) Table(table string) string {
-	return model.
+	return model.Driver.Table.
 }
 
 func (model Model) Document(document string) string {
@@ -108,5 +109,3 @@ func (model Model) Key(key string) string {
 func (model Model) Graph(graph string) string {
 	return graph
 }
-
-

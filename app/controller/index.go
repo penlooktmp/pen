@@ -46,9 +46,9 @@ func (i Index) After() {
 // @router /index/:name
 func (i Index) Index() {
 	i.Pick("Test Index Action")
-	user := i.Table("User")
+	//user := i.Table("User")
 
-	fmt.Println(user)
+	//fmt.Println(user)
 	//alex := user.First()
 
 }

@@ -30,6 +30,14 @@ Architecture
 4. Object Relational Mapping
 5. Object Document Mapping
 
+Database Model
+
+1. MySQL      -   Table      - ORM  (testing)
+2. Cassandra  -   Table      - CQL  (not started)
+3. MongoDB    -   Document   - ODM  (implemeting)
+4. Redis      -   Key-value         (implemeting)
+5. Graph      -   Javascript        (not started)
+
 Quality Assurance
 
 1. Unit Testing
