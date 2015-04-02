@@ -35,19 +35,40 @@ type App struct {
 	Controller
 }
 
+func (app App) Before() {
+	app.Pick("Before action")
+}
+
+func (app App) After() {
+	app.Pick("After action")
+}
+
+// @router /index/loint
 func (app App) Index() {
 
-	app.Pick("get by name")
-
+	app.Pick("Assign Title")
 	app.View <- Data {
-		"key1" : "value1",
-		"key2" : "abc",
+		"title" : "Index Page",
 	}
 
+	app.Pick("Assign slogan and author")
 	app.View <- Data {
-		"key3" : "software developer",
-		"key4" : "value2",
+		"slogan" : "Welcome to Index Page",
+		"author" : "Loi Nguyen",
+	}
+}
+
+// @router /home/loint
+func (app App) Home() {
+
+	app.Pick("Assign Title")
+	app.View <- Data {
+		"title" : "Home Page",
 	}
 
-	app.Pick("after assign to view")
+	app.Pick("Assign sample")
+	app.View <- Data {
+		"sample" : "This is Homepage",
+		"image" : "http://image.spreadshirtmedia.com/image-server/v1/products/16685204/views/1,width=378,height=378,appearanceId=2/Golang-Fan-Shirt.jpg",
+	}
 }

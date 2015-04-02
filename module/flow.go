@@ -30,6 +30,7 @@ import (
  	"github.com/olekukonko/tablewriter"
  	"container/list"
  	"os"
+ 	"os/exec"
  	"strconv"
  	"time"
  	"strings"
@@ -57,7 +58,7 @@ func (flow Flow) getLastFunction() string {
     	runtime.Callers(i, pc)
     	f := runtime.FuncForPC(pc[0])
 	    funcName := f.Name()
-	    if strings.HasPrefix(funcName, "main") {
+	    if strings.HasPrefix(funcName, "main") || strings.HasPrefix(funcName, "runtime") {
 	    	break
 	    } else {
 	    	last = funcName
@@ -71,8 +72,6 @@ func (flow Flow) getLastFunction() string {
 
 func (flow *Flow) Pick(message string) {
 	funcName := flow.getLastFunction()
-	fmt.Println(funcName)
-
 	flow.Tracking.PushBack(Block {
 		Time: time.Now().UnixNano(),
 		Message: message,
@@ -80,7 +79,23 @@ func (flow *Flow) Pick(message string) {
 	})
 }
 
+func (flow *Flow) PickGo(functionName string, message string) {
+	flow.Tracking.PushBack(Block {
+		Time: time.Now().UnixNano(),
+		Message: message,
+		Function: "daemon." + functionName,
+	})
+}
+
+func (flow Flow) clear() {
+	cmd := exec.Command("cmd", "/c", "cls")
+    cmd.Stdout = os.Stdout
+    cmd.Run()
+}
+
 func (flow Flow) Graph() {
+
+	flow.clear()
 
 	if flow.Tracking.Len() < 2 {
 		fmt.Println("Not enough data to generate graph")
@@ -105,15 +120,17 @@ func (flow Flow) Graph() {
 	}
 
 	data := [][]string{}
+	var total int64 = 0
 
 	for i:=0; i<count; i++ {
 		block := segment[i]
+		total += block.Time
 		data = append(data, []string { block.Function, block.Message, strconv.FormatInt(block.Time, 10)})
 	}
 
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Function", "Message", "Elapsed"})
-	table.SetFooter([]string{"", "Total", "$146.93"})
+	table.SetHeader([]string{"Function", "Message", ""})
+	table.SetFooter([]string{"", "Total", strconv.FormatInt(total, 10)})
 	table.SetBorder(false)
 	table.AppendBulk(data)
 	table.Render()

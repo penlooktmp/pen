@@ -27,22 +27,11 @@
 package pengo
 
 import (
-	"time"
 	"fmt"
 	"strings"
 	"os/exec"
     "sync"
 )
-
-func Now() time.Time {
-	return time.Now()
-}
-
-func Runtime(start time.Time, name string) {
-    elapsed := time.Since(start)
-    fmt.Printf("%s took %s", name, elapsed)
-    fmt.Println("")
-}
 
 func run(cmd string, wg *sync.WaitGroup) [] byte {
     out, err := exec.Command(cmd).Output()

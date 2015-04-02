@@ -64,28 +64,6 @@ type ViewBridge struct {
 	ViewData engine.Context
 }
 
-func (controller Controller) LifeCycle(parent interface {}, actionName string) {
-    controller.Initialize()
-    controller.Start()
-
-    //controller.setOnSignal()
-    //controller.initAction()
-    //controller.beforeAction()
-    action := reflect.ValueOf(parent).MethodByName(actionName)
-    if action.IsValid() {
-    	action.Call([]reflect.Value{})
-    } else {
-   		fmt.Println("Action does not exists !")
-    }
-
-    //parentController.Call([]reflect.Value{})
-
-    //controller.afterAction()
-    //controller.waitResponse()
-    controller.Test()
-    controller.Flow.Graph()
-}
-
 // MVC -------------------------------------
 
 // Controller initialization
@@ -119,7 +97,7 @@ func (controller *Controller) Initialize() {
 	// Setup for flow
 	controller.Flow = Flow {
 		Tracking: list.New(),
-		Unit: time.Millisecond * 10, // Millisecond
+		Unit: time.Millisecond * 10,
 		Mode: "DEBUG",
 	}
 
@@ -139,7 +117,6 @@ func (controller Controller) Start() {
 
 // Action initialization
 func (controller Controller) InitAction() {
-	controller.Flow.Pick("init action")
 
 	// Broadcast signal
 	controller.Signal <- SignalInitAction
@@ -169,7 +146,7 @@ func (controller *Controller) SetOnSignal() {
 				break
 			}
 		}
-		controller.Flow.Pick("exit on signal")
+		controller.Flow.PickGo("SetOnSignal", "Exit Signal Listener")
 	}(controller)
 }
 
@@ -181,12 +158,28 @@ func (controller Controller) ProcessSignal(signal int, loop *bool) {
 	}
 }
 
-func (controller Controller) BeforeAction() {
-	// Broadcast signal
-	controller.Signal <- SignalBeforeAction
+func (controller Controller) BeforeAction(parent interface {}) {
+	beforeActionVal := reflect.ValueOf(parent).MethodByName("Before")
+    if beforeActionVal.IsValid() {
+    	beforeActionInterface := beforeActionVal.Interface()
+    	beforeAction := beforeActionInterface.(func())
+    	beforeAction()
+    }
 }
 
-func (controller *Controller) AfterAction() {
+func (controller Controller) Action(parent interface {}) {
+    actionVal := reflect.ValueOf(parent).MethodByName(controller.ActionName)
+    if actionVal.IsValid() {
+    	actionInterface := actionVal.Interface()
+    	action := actionInterface.(func())
+    	action()
+    } else {
+   		fmt.Println("Action does not exists !")
+    }
+}
+
+func (controller *Controller) AfterAction(parent interface {}) {
+
 	controller.TotalDeclared = len(controller.View)
 	go func(controller *Controller) {
 		for {
@@ -197,6 +190,13 @@ func (controller *Controller) AfterAction() {
 		}
 		fmt.Println(" --> AfterAction Done")
 	}(controller)
+
+	afterActionVal := reflect.ValueOf(parent).MethodByName("After")
+    if afterActionVal.IsValid() {
+    	afterActionInterface := afterActionVal.Interface()
+    	afterAction := afterActionInterface.(func())
+    	afterAction()
+    }
 }
 
 func (controller Controller) RenderTemplate() {
