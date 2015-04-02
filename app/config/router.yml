@@ -1,4 +1,0 @@
-index:
-	url: /abc/:action
-    method: GET
-    action: App.Index

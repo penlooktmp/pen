@@ -169,6 +169,7 @@ func (controller Controller) BeforeAction(parent interface {}) {
 
 func (controller Controller) Action(parent interface {}) {
     actionVal := reflect.ValueOf(parent).MethodByName(controller.ActionName)
+    fmt.Println(controller.ActionName)
     if actionVal.IsValid() {
     	actionInterface := actionVal.Interface()
     	action := actionInterface.(func())
@@ -188,7 +189,7 @@ func (controller *Controller) AfterAction(parent interface {}) {
 				break
 			}
 		}
-		fmt.Println(" --> AfterAction Done")
+		controller.Flow.PickGo("AfterAction", "Exit Waiting for Variables")
 	}(controller)
 
 	afterActionVal := reflect.ValueOf(parent).MethodByName("After")
@@ -207,6 +208,7 @@ func (controller Controller) RenderTemplate() {
 func (controller Controller) WaitResponse() {
 	select {
 		case <- controller.End :
+			controller.Flow.Pick("Response to Client")
 	}
 }
 

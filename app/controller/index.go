@@ -30,46 +30,31 @@ import (
 	. "github.com/penlook/pengo"
 )
 
-type App struct {
+type Index struct {
 	Controller
 }
 
-func (a App) Before() {
-	a.Pick("Before action")
+func (i Index) Before() {
+	i.Pick("Before action")
 }
 
-func (a App) After() {
-	a.Pick("After action")
+func (i Index) After() {
+	i.Pick("After action")
 }
 
 // @router /index/:name
-func (a App) Index() {
+func (i Index) Index() {
 
-	a.Pick("Assign Title")
-	a.View <- Data {
+	i.Pick("Assign Title")
+	i.View <- Data {
 		"title" : "Index Page",
 	}
 
-	a.Pick("Assign slogan and author")
-	name := a.GET("name")
+	i.Pick("Assign slogan and author")
+	name := i.GET("name")
 
-	a.View <- Data {
+	i.View <- Data {
 		"slogan" : "Welcome to Index Page",
 		"author" : name,
-	}
-}
-
-// @router /home/loint
-func (a App) Home() {
-
-	a.Pick("Assign Title")
-	a.View <- Data {
-		"title" : "Home Page",
-	}
-
-	a.Pick("Assign sample")
-	a.View <- Data {
-		"sample" : "This is Homepage",
-		"image" : "http://image.spreadshirtmedia.com/image-server/v1/products/16685204/views/1,width=378,height=378,appearanceId=2/Golang-Fan-Shirt.jpg",
 	}
 }

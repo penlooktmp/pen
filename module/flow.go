@@ -95,7 +95,7 @@ func (flow Flow) clear() {
 
 func (flow Flow) Graph() {
 
-	flow.clear()
+	//flow.clear()
 
 	if flow.Tracking.Len() < 2 {
 		fmt.Println("Not enough data to generate graph")

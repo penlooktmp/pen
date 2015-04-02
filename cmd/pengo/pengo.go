@@ -24,6 +24,27 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package cmd
+package main
 
-// Command line for application development
+import (
+    "os"
+  	"github.com/codegangsta/cli"
+)
+
+func main() {
+    app := cli.NewApp()
+    app.Name = "pengo"
+    app.Usage = `
+  		pengo <subcommand> <app folder>
+
+  		Subcommand:
+  		    run     Run application in development mode
+  		    build   Build application for production mode
+  			test    Run all test file in application
+  	`
+  	app.Action = func(c *cli.Context) {
+    	println("Hello friend!")
+  	}
+
+  	app.Run(os.Args)
+}
