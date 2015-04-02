@@ -24,13 +24,53 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package pengo
+package model
 
 import (
-	model "github.com/penlook/pengo/model/table"
+	"crypto/md5"
+	"fmt"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
-// Middleware
-type Table struct {
-	model.MySql
+type User struct {
+	Id       int64
+	Username string `sql:"type:varchar(100);"`
+	Email    string `sql:"type:varchar(100);"`
+	Password string `sql:"type:varchar(200);"`
+}
+
+func TestMySql(t *testing.T) {
+
+	assert := assert.New(t)
+
+	mysql := MySql {
+		Name:     "Penlook",
+		Server:   "localhost",
+		Port:     3306,
+		Database: "test",
+		Charset:  "utf8",
+		Username: "root",
+	}.Connect()
+
+	mysql.DropTableIfExists(&User{})
+	mysql.CreateTable(&User{})
+
+	for i := 0; i < 100; i++ {
+		mysql.Create(User{
+			Username: "loint",
+			Email:    "loint@penlook.com",
+			Password: fmt.Sprintf("%x", md5.Sum([]byte("12345"))),
+		})
+	}
+
+	var users []User
+	var count int
+
+	// Assert number of rows
+	mysql.Find(&users).Count(&count)
+	assert.Equal(100, count)
+
+	// Cleanup
+	mysql.DropTableIfExists(&User{})
 }

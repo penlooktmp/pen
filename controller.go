@@ -88,8 +88,11 @@ func (controller *Controller) Initialize() {
 	}
 
 	// Setup for model
-	//controller.Model = Model {}
-	//controller.Model.Connect()
+	controller.Model = Model {
+		Flow: controller.Flow,
+	}
+
+	controller.Model.Initialize()
 
 	// Setup for module
 	controller.Module = Module {}

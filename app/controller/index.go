@@ -28,6 +28,7 @@ package controller
 
 import (
 	. "github.com/penlook/pengo"
+	"fmt"
 )
 
 type Index struct {
@@ -44,17 +45,10 @@ func (i Index) After() {
 
 // @router /index/:name
 func (i Index) Index() {
+	i.Pick("Test Index Action")
+	user := i.Table("User")
 
-	i.Pick("Assign Title")
-	i.View <- Data {
-		"title" : "Index Page",
-	}
+	fmt.Println(user)
+	//alex := user.First()
 
-	i.Pick("Assign slogan and author")
-	name := i.GET("name")
-
-	i.View <- Data {
-		"slogan" : "Welcome to Index Page",
-		"author" : name,
-	}
 }

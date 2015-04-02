@@ -30,17 +30,21 @@ import (
 	. "github.com/penlook/pengo/model"
 )
 
-type Model struct {
-	Config Config
-
-	table Table
-	document Document
-	keyValue KeyValue
-	graph Graph
+type Driver {
+	Table Table
+	Document Document
+	KeyValue KeyValue
+	Graph Graph
 }
 
-func (model Model) New() {
+type Model struct {
+	Config Config
+	Driver Driver
+	Flow Flow
+}
 
+func (model *Model) Initialize() {
+	model.Driver = Driver {}
 }
 
 func (model Model) Connect() {
@@ -48,13 +52,24 @@ func (model Model) Connect() {
 	model.ConnectDocument()
 	model.ConnectKeyValue()
 	model.ConnectGraph()
+	model.Flow("after model connection")
 }
 
 // Fork concurrency connection to increase performance
 
 func (model *Model) ConnectTable() {
 	go func(model *Model) {
-		model.table.Connect()
+		model.Driver.Table = Table {
+			Name:     "SQL Connection",
+			Server:   "localhost",
+			Port:     3306,
+			Database: "test",
+			Charset:  "utf8",
+			Username: "root",
+			Password: "root",
+		}
+		model.Driver.Table.Connect()
+		model.Flow("after table connection")
 	}(model)
 }
 
@@ -79,7 +94,7 @@ func (model *Model) ConnectGraph() {
 // API ------------------------------------
 
 func (model Model) Table(table string) string {
-	return table
+	return model.
 }
 
 func (model Model) Document(document string) string {

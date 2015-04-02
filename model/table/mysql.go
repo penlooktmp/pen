@@ -24,13 +24,52 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package pengo
+package model
 
 import (
-	model "github.com/penlook/pengo/model/table"
+	"fmt"
+	"github.com/penlook/gorm"
+	_ "github.com/penlook/mysql"
 )
 
-// Middleware
-type Table struct {
-	model.MySql
+type MySql struct {
+	Name     string
+	Server   string
+	Port     int
+	Database string
+	Charset  string
+	Username string
+	Password string
+	Connection gorm.DB
+}
+
+func (mysql *MySql) Connect() {
+
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=True",
+		mysql.Username,
+		mysql.Password,
+		mysql.Server,
+		mysql.Port,
+		mysql.Database,
+		mysql.Charset,
+	)
+
+	connection, err := gorm.Open("mysql", dsn)
+
+	if err != nil {
+		panic(err)
+	}
+
+	connection.DB()
+	err = connection.DB().Ping()
+
+	if err != nil {
+		panic(err)
+	}
+
+	connection.DB().SetMaxIdleConns(10)
+	connection.DB().SetMaxOpenConns(100)
+	connection.SingularTable(true)
+
+	mysql.Connection = connection
 }
