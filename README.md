@@ -35,8 +35,10 @@ Database Model
 1. MySQL      -   Table      - ORM  (testing)
 2. Cassandra  -   Table      - CQL  (not started)
 3. MongoDB    -   Document   - ODM  (implemeting)
+4. CouchDB    -   Document          (not started)
+5. Memcache   -   Key-value         (not started)
 4. Redis      -   Key-value         (implemeting)
-5. Graph      -   Javascript        (not started)
+5. Cayley     -   Graph             (not started)
 
 Quality Assurance
 
