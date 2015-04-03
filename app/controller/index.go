@@ -58,14 +58,7 @@ func (i Index) Index() {
 	// Create first user
 	user.Create()
 
-	// Create second user
-	user.Create()
-
 	// Select first user
 	user.First()
-
-
-	//fmt.Println(user)
-	//alex := user.First()
 
 }

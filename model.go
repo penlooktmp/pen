@@ -57,7 +57,7 @@ func (model *Model) Table() Table {
 	if ! model.Driver.Table.Connected {
 
 		// Lazy connection
-		go func(model *Model) {
+		/*go func(model *Model) {
 			model.Driver.Table = Table {
 				Name:     "SQL Connection",
 				Server:   "localhost",
@@ -69,7 +69,7 @@ func (model *Model) Table() Table {
 			}
 			model.Driver.Table.Connect()
 			model.Flow.Pick("after table connection")
-		}(model)
+		}(model)*/
 	}
 
 	return model.Driver.Table

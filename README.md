@@ -29,6 +29,7 @@ Architecture
 3. Event Driven
 4. Object Relational Mapping
 5. Object Document Mapping
+6. Lazy Connection
 
 Database Model
 

@@ -26,6 +26,10 @@
  */
 package model
 
+import (
+ 	"fmt"
+)
+
 // Middleware
 type Table struct {
 	Name     string
@@ -40,4 +44,12 @@ type Table struct {
 
 func (table Table) Connect() string {
 	return "MySQL Connection"
+}
+
+func (table Table) Create() {
+	fmt.Println("Create new record")
+}
+
+func (table Table) First() {
+	fmt.Println("Select first record")
 }
