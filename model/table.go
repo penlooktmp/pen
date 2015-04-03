@@ -50,6 +50,14 @@ func (table Table) ByConnection() string {
 	return "by connection"
 }
 
+func (table Table) ByTableName(name string) string {
+	return "by connection"
+}
+
+func (table Table) ByTableSchema(name string, schema interface {}) string {
+	return "by connection"
+}
+
 func (table Table) Create() {
 	fmt.Println("Create new record")
 }

@@ -29,7 +29,6 @@ package controller
 import (
 	. "github.com/penlook/pengo"
 	. "github.com/penlook/pengo/app/generate"
-	//"fmt"
 )
 
 type Index struct {

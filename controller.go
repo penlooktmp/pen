@@ -29,12 +29,11 @@ package pengo
 import (
 	engine "github.com/flosch/pongo2"
 	"github.com/penlook/pengo/module"
-	"github.com/penlook/pengo/model"
+	//"github.com/penlook/pengo/model"
 	"container/list"
 	"time"
 	"reflect"
 	"fmt"
-	"errors"
 )
 
 type Controller struct {
@@ -245,7 +244,7 @@ func (controller Controller) Translate(word string) string {
 
 // MODEL Alias --------------------------------
 
-func (controller Controller) Table(args ...interface {}) (model.Table, error) {
+func (controller Controller) Table(args ...interface {}) interface {} {
 
 	controller.Model.Table()
 
