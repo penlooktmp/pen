@@ -28,7 +28,8 @@ package controller
 
 import (
 	. "github.com/penlook/pengo"
-	"fmt"
+	. "github.com/penlook/pengo/app/generate"
+	//"fmt"
 )
 
 type Index struct {
@@ -45,8 +46,24 @@ func (i Index) After() {
 
 // @router /index/:name
 func (i Index) Index() {
+
 	i.Pick("Test Index Action")
-	//user := i.Table("User")
+
+	user := i.Table("User", Schema {
+		Username: "Loi Nguyen",
+		Email: "loint@penlook.com",
+		Password: "12345",
+	})
+
+	// Create first user
+	user.Create()
+
+	// Create second user
+	user.Create()
+
+	// Select first user
+	user.First()
+
 
 	//fmt.Println(user)
 	//alex := user.First()

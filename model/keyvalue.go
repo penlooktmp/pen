@@ -24,7 +24,7 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package pengo
+package model
 
 import (
  	"fmt"

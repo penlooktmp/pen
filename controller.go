@@ -28,7 +28,8 @@ package pengo
 
 import (
 	engine "github.com/flosch/pongo2"
-	. "github.com/penlook/pengo/module"
+	"github.com/penlook/pengo/module"
+	"github.com/penlook/pengo/model"
 	"container/list"
 	"time"
 	"reflect"
@@ -38,20 +39,20 @@ import (
 type Controller struct {
 	Name string
 	ActionName string
-	Http Http
-	Router Router
+	Http module.Http
+	Router module.Router
 	ViewData engine.Context
 	View chan Data
 	Template View
 	TotalDeclared int
 	TotalEmit int
-	Translator Translator
+	Translator module.Translator
 	Signal chan int
 	StopOnSignal chan bool
 	End chan bool
 
 	Model Model
-	Flow Flow
+	Flow module.Flow
 	Module Module
 }
 
@@ -59,8 +60,8 @@ type Controller struct {
 type ViewBridge struct {
 	Name string
 	ActionName string
-	Http Http
-	Router Router
+	Http module.Http
+	Router module.Router
 	ViewData engine.Context
 }
 
@@ -98,7 +99,7 @@ func (controller *Controller) Initialize() {
 	controller.Module = Module {}
 
 	// Setup for flow
-	controller.Flow = Flow {
+	controller.Flow = module.Flow {
 		Tracking: list.New(),
 		Unit: time.Millisecond * 10,
 		Mode: "DEBUG",
@@ -243,20 +244,20 @@ func (controller Controller) Translate(word string) string {
 
 // MODEL Alias --------------------------------
 
-func (controller Controller) Table(table string) interface {} {
-	return controller.Model.Table(table)
+func (controller Controller) Table(table string, schema interface {}) model.Table {
+	return controller.Model.Table()
 }
 
 func (controller Controller) Document(document string) interface {} {
-	return controller.Model.Document(document)
+	return "controller.Model.Document(document)"
 }
 
 func (controller Controller) Key(key string) interface {} {
-	return controller.Model.Key(key)
+	return "controller.Model.Key(key)"
 }
 
 func (controller Controller) Graph(graph string) interface {} {
-	return controller.Model.Graph(graph)
+	return "controller.Model.Graph(graph)"
 }
 
 // Http Alias -----------------------------------

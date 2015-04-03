@@ -29,6 +29,7 @@ package pengo
 
 import (
 	. "github.com/penlook/pengo/model"
+	. "github.com/penlook/pengo/module"
 )
 
 type Driver struct {
@@ -46,66 +47,48 @@ type Model struct {
 
 func (model *Model) Initialize() {
 	model.Driver = Driver {}
+	model.Driver.Table = Table {
+		Connected: false,
+	}
 }
 
-func (model Model) Connect() {
-	model.ConnectTable()
-	model.ConnectDocument()
-	model.ConnectKeyValue()
-	model.ConnectGraph()
-	model.Flow("after model connection")
-}
+func (model *Model) Table() Table {
 
-// Fork concurrency connection to increase performance
+	if ! model.Driver.Table.Connected {
 
-func (model *Model) ConnectTable() {
-	go func(model *Model) {
-		model.Driver.Table = Table {
-			Name:     "SQL Connection",
-			Server:   "localhost",
-			Port:     3306,
-			Database: "test",
-			Charset:  "utf8",
-			Username: "root",
-			Password: "root",
-		}
-		model.Driver.Table.Connect()
-		model.Flow("after table connection")
-	}(model)
+		// Lazy connection
+		go func(model *Model) {
+			model.Driver.Table = Table {
+				Name:     "SQL Connection",
+				Server:   "localhost",
+				Port:     3306,
+				Database: "test",
+				Charset:  "utf8",
+				Username: "root",
+				Password: "root",
+			}
+			model.Driver.Table.Connect()
+			model.Flow.Pick("after table connection")
+		}(model)
+	}
+
+	return model.Driver.Table
 }
 
 func (model *Model) ConnectDocument() {
-	go func(model *Model) {
+	/*go func(model *Model) {
 		model.document.Connect()
-	}(model)
+	}(model)*/
 }
 
 func (model *Model) ConnectKeyValue() {
-	go func(model *Model) {
+	/*go func(model *Model) {
 		model.keyValue.Connect()
-	}(model)
+	}(model)*/
 }
 
 func (model *Model) ConnectGraph() {
-	go func(model *Model) {
+	/*go func(model *Model) {
 		model.graph.Connect()
-	}(model)
-}
-
-// API ------------------------------------
-
-func (model Model) Table(table string) string {
-	return model.Driver.Table.
-}
-
-func (model Model) Document(document string) string {
-	return document
-}
-
-func (model Model) Key(key string) string {
-	return key
-}
-
-func (model Model) Graph(graph string) string {
-	return graph
+	}(model)*/
 }

@@ -24,13 +24,20 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package pengo
-
-import (
-	model "github.com/penlook/pengo/model/table"
-)
+package model
 
 // Middleware
 type Table struct {
-	model.MySql
+	Name     string
+	Server   string
+	Port     int
+	Database string
+	Charset  string
+	Username string
+	Password string
+	Connected bool
+}
+
+func (table Table) Connect() string {
+	return "MySQL Connection"
 }

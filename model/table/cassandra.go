@@ -24,7 +24,7 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package cql
+package model
 
 type Cql struct {
 	Name     string
