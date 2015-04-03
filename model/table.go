@@ -46,6 +46,10 @@ func (table Table) Connect() string {
 	return "MySQL Connection"
 }
 
+func (table Table) ByConnection() string {
+	return "by connection"
+}
+
 func (table Table) Create() {
 	fmt.Println("Create new record")
 }

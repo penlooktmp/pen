@@ -34,6 +34,7 @@ import (
 	"time"
 	"reflect"
 	"fmt"
+	"errors"
 )
 
 type Controller struct {
@@ -244,8 +245,23 @@ func (controller Controller) Translate(word string) string {
 
 // MODEL Alias --------------------------------
 
-func (controller Controller) Table(table string, schema interface {}) model.Table {
-	return controller.Model.Table()
+func (controller Controller) Table(args ...interface {}) (model.Table, error) {
+
+	controller.Model.Table()
+
+	switch len(args) {
+		case 0:
+			return controller.Model.Driver.Table.ByConnection()
+		case 1:
+			tableName := args[0].(string)
+			return controller.Model.Driver.Table.ByTableName(tableName)
+		case 2:
+			tableName := args[0].(string)
+			schema := args[1]
+			return controller.Model.Driver.Table.ByTableSchema(tableName, schema)
+		default:
+			return nil
+	}
 }
 
 func (controller Controller) Document(document string) interface {} {

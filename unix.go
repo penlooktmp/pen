@@ -53,3 +53,6 @@ func System(bash string) {
 	}
 }
 
+func Print(message string) {
+	fmt.Println(message)
+}
