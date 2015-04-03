@@ -8,6 +8,13 @@ Build status
 ![Pengo](http://s16.postimg.org/g7no9g5k5/Capture.png)
 
 
+Feature
+
+1. Mvc Architecture
+2. Scalable by using C
+3. Flexible template engine
+4. Lazy model communication
+5. Tracking performance
 
 Road map
 
