@@ -1,5 +1,4 @@
 // AUTO GENERATED
-// DO NOT MODIFIED IT
 
 package main
 
@@ -43,12 +42,10 @@ func HandleApp(actionName string) func(response http.ResponseWriter, request *ht
         }
         controller.Initialize()
         controller.Start()
-        controller.SetOnSignal()
         controller.InitAction()
         controller.BeforeAction(controller)
         controller.Action(controller)
         controller.AfterAction(controller)
-        controller.WaitResponse()
         controller.Flow.Graph()
 	}
 }
@@ -60,12 +57,10 @@ func HandleIndex(actionName string) func(response http.ResponseWriter, request *
         }
         controller.Initialize()
         controller.Start()
-        controller.SetOnSignal()
         controller.InitAction()
         controller.BeforeAction(controller)
         controller.Action(controller)
         controller.AfterAction(controller)
-        controller.WaitResponse()
         controller.Flow.Graph()
     }
 }

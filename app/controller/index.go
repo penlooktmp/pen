@@ -48,16 +48,16 @@ func (i Index) Index() {
 
 	i.Pick("Test Index Action")
 
-	user := i.Table("User", Schema {
+	i.Table("User", Schema {
 		Username: "Loi Nguyen",
 		Email: "loint@penlook.com",
 		Password: "12345",
 	})
 
 	// Create first user
-	user.Create()
+	//user.Create()
 
 	// Select first user
-	user.First()
+	//user.First()
 
 }

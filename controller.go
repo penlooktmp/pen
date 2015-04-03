@@ -42,7 +42,6 @@ type Controller struct {
 	Http module.Http
 	Router module.Router
 	ViewData engine.Context
-	View chan Data
 	Template View
 	TotalDeclared int
 	TotalEmit int
@@ -71,7 +70,6 @@ type ViewBridge struct {
 func (controller *Controller) Initialize() {
 
 	// Properties initialization
-	controller.View = make(chan Data, 20)
 	controller.ViewData = engine.Context {}
 	controller.TotalDeclared = 0
 	controller.TotalEmit = 0
@@ -127,38 +125,9 @@ func (controller Controller) InitAction() {
 }
 
 // Add data to View
-func (controller *Controller) AddDataToView(data Data) {
+func (controller *Controller) View(data Data) {
 	for key, value := range data {
 		controller.ViewData[key] = value
-	}
-	// Remember number variable was passed
-	controller.TotalEmit = controller.TotalEmit + 1
-}
-
-// Listen signal from system
-func (controller *Controller) SetOnSignal() {
-	go func(controller *Controller) {
-		loop := true
-		for {
-			select {
-				case data := <- controller.View :
-					controller.AddDataToView(data)
-				case signal := <- controller.Signal :
-					controller.ProcessSignal(signal, &loop)
-			}
-			if ! loop {
-				break
-			}
-		}
-		controller.Flow.PickGo("SetOnSignal", "Exit Signal Listener")
-	}(controller)
-}
-
-func (controller Controller) ProcessSignal(signal int, loop *bool) {
-	switch (signal) {
-		case SignalResponse :
-			*loop = false
-			controller.End <- true
 	}
 }
 
@@ -185,35 +154,18 @@ func (controller Controller) Action(parent interface {}) {
 
 func (controller *Controller) AfterAction(parent interface {}) {
 
-	controller.TotalDeclared = len(controller.View)
-	go func(controller *Controller) {
-		for {
-			if controller.TotalEmit == controller.TotalDeclared {
-				controller.RenderTemplate()
-				break
-			}
-		}
-		controller.Flow.PickGo("AfterAction", "Exit Waiting for Variables")
-	}(controller)
-
 	afterActionVal := reflect.ValueOf(parent).MethodByName("After")
     if afterActionVal.IsValid() {
     	afterActionInterface := afterActionVal.Interface()
     	afterAction := afterActionInterface.(func())
     	afterAction()
     }
+
+    controller.RenderTemplate()
 }
 
 func (controller Controller) RenderTemplate() {
 	controller.Template.Render()
-    controller.Signal <- SignalResponse
-}
-
-func (controller Controller) WaitResponse() {
-	select {
-		case <- controller.End :
-			controller.Flow.Pick("Response to Client")
-	}
 }
 
 func (controller Controller) Test() {
