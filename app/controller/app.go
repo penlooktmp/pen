@@ -49,10 +49,11 @@ func (a App) Index() {
 	a.View(Data{
 		"title" : "Index Page",
 	})
+
 	a.Pick("Assign slogan and author")
 	name := a.GET("name")
 
-	a.View(Data {
+	a.View(Data{
 		"slogan" : "Welcome to Index Page",
 		"author" : name,
 	})

@@ -43,7 +43,7 @@ func main() {
   			test    Run all test file in application
   	`
   	app.Action = func(c *cli.Context) {
-    	println("Hello friend!")
+        println("Hello friend!")
   	}
 
   	app.Run(os.Args)

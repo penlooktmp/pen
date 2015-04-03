@@ -44,18 +44,18 @@ func (i Index) After() {
 }
 
 // @router /index/:name
+// @method GET
 func (i Index) Index() {
 
 	i.Pick("Test Index Action")
 
-	i.Table("User", Schema {
+	user := i.Table("User", Schema {
 		Username: "Loi Nguyen",
 		Email: "loint@penlook.com",
 		Password: "12345",
 	})
 
-	// Create first user
-	//user.Create()
+	user.Create()
 
 	// Select first user
 	//user.First()

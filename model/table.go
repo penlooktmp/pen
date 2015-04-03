@@ -26,10 +26,6 @@
  */
 package model
 
-import (
- 	"fmt"
-)
-
 // Middleware
 type Table struct {
 	Name     string
@@ -46,22 +42,14 @@ func (table Table) Connect() string {
 	return "MySQL Connection"
 }
 
-func (table Table) ByConnection() string {
-	return "by connection"
+func (table Table) ByTable(name string, schema interface {}) Table {
+	return table
 }
 
-func (table Table) ByTableName(name string) string {
-	return "by connection"
+func (table Table) Create() bool {
+	return true
 }
 
-func (table Table) ByTableSchema(name string, schema interface {}) string {
-	return "by connection"
-}
-
-func (table Table) Create() {
-	fmt.Println("Create new record")
-}
-
-func (table Table) First() {
-	fmt.Println("Select first record")
+func (table Table) First() string {
+	return "abc"
 }

@@ -29,7 +29,7 @@ package pengo
 import (
 	engine "github.com/flosch/pongo2"
 	"github.com/penlook/pengo/module"
-	//"github.com/penlook/pengo/model"
+	"github.com/penlook/pengo/model"
 	"container/list"
 	"time"
 	"reflect"
@@ -140,19 +140,23 @@ func (controller Controller) BeforeAction(parent interface {}) {
     }
 }
 
-func (controller Controller) Action(parent interface {}) {
+func (controller *Controller) Action(parent interface {}) {
     actionVal := reflect.ValueOf(parent).MethodByName(controller.ActionName)
-    fmt.Println(controller.ActionName)
     if actionVal.IsValid() {
     	actionInterface := actionVal.Interface()
     	action := actionInterface.(func())
     	action()
     } else {
-   		fmt.Println("Action does not exists !")
+   		controller.ActionName = ""
     }
 }
 
 func (controller *Controller) AfterAction(parent interface {}) {
+
+	if controller.ActionName == "" {
+		Print("Action does not exist !")
+		return
+	}
 
 	afterActionVal := reflect.ValueOf(parent).MethodByName("After")
     if afterActionVal.IsValid() {
@@ -196,22 +200,19 @@ func (controller Controller) Translate(word string) string {
 
 // MODEL Alias --------------------------------
 
-func (controller Controller) Table(args ...interface {}) interface {} {
-
+func (controller Controller) Table(args ...interface {}) model.Table {
 	controller.Model.Table()
-
 	switch len(args) {
-		case 0:
-			return controller.Model.Driver.Table.ByConnection()
 		case 1:
 			tableName := args[0].(string)
-			return controller.Model.Driver.Table.ByTableName(tableName)
+			type Empty struct {}
+			return controller.Model.Driver.Table.ByTable(tableName, Empty {})
 		case 2:
 			tableName := args[0].(string)
 			schema := args[1]
-			return controller.Model.Driver.Table.ByTableSchema(tableName, schema)
+			return controller.Model.Driver.Table.ByTable(tableName, schema)
 		default:
-			return nil
+			return model.Table {}
 	}
 }
 
