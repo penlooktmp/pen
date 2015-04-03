@@ -24,57 +24,36 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package controller
+package lib
 
 import (
-	. "github.com/penlook/pengo"
-	. "github.com/penlook/pengo/app/generate"
+  	"github.com/codegangsta/cli"
+  	"log"
+    "os"
+    "path/filepath"
 )
 
-type Index struct {
-	Controller
+
+type Run struct {
+	Context *cli.Context
+	Directory string
+	Parser Parser
 }
 
-func (i Index) Before() {
-	i.Pick("Before action")
+func (run *Run) GetCurrentDirectory(appName string) {
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]) + "/" + appName)
+    if err != nil {
+        log.Fatal(err)
+    }
+    run.Directory = dir
 }
 
-func (i Index) After() {
-	i.Pick("After action")
-}
-
-// @Router /index/:name
-// @Method GET POST
-func (i Index) Index() {
-
-	i.Pick("Test Index Action")
-
-	user := i.Table("User", Schema {
-		Username: "Loi Nguyen",
-		Email: "loint@penlook.com",
-		Password: "12345",
-	})
-
-	user.Create()
-
-	// Select first user
-	//user.First()
-}
-
-// @Router /home
-// @Method GET
-func (i Index) Home() {
-
-	i.Pick("Test Index Action")
-
-	user := i.Table("User", Schema {
-		Username: "Loi Nguyen",
-		Email: "loint@penlook.com",
-		Password: "12345",
-	})
-
-	user.Create()
-
-	// Select first user
-	//user.First()
+func (run *Run) Run() {
+	run.GetCurrentDirectory(run.Context.Args().First())
+	parser := Parser {}
+    dir, err := filepath.Abs(run.Directory + "/controller")
+    if err != nil {
+        panic("Controller does not exist !")
+    }
+	parser.Controller(dir)
 }

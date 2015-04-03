@@ -29,22 +29,25 @@ package main
 import (
     "os"
   	"github.com/codegangsta/cli"
+    "github.com/penlook/pengo/cmd/pengo/lib"
 )
 
 func main() {
     app := cli.NewApp()
     app.Name = "pengo"
-    app.Usage = `
-  		pengo <subcommand> <app folder>
-
-  		Subcommand:
-  		    run     Run application in development mode
-  		    build   Build application for production mode
-  			test    Run all test file in application
-  	`
-  	app.Action = func(c *cli.Context) {
-        println("Hello friend!")
-  	}
+  	app.Commands = [] cli.Command{
+        {
+            Name:      "run",
+            Aliases:   []string{"-r"},
+            Usage:     "Run application in development mode",
+            Action: func(context *cli.Context) {
+                runner := lib.Run {
+                    Context: context,
+                }
+                runner.Run()
+            },
+        },
+    }
 
   	app.Run(os.Args)
 }

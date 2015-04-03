@@ -28,53 +28,48 @@ package controller
 
 import (
 	. "github.com/penlook/pengo"
-	. "github.com/penlook/pengo/app/generate"
 )
 
-type Index struct {
+type App struct {
 	Controller
 }
 
-func (i Index) Before() {
-	i.Pick("Before action")
+func (a App) Before() {
+	a.Pick("Before action")
 }
 
-func (i Index) After() {
-	i.Pick("After action")
+func (a App) After() {
+	a.Pick("After action")
 }
 
-// @Router /index/:name
-// @Method GET POST
-func (i Index) Index() {
+// @router /index/:name
+func (a App) Index() {
 
-	i.Pick("Test Index Action")
-
-	user := i.Table("User", Schema {
-		Username: "Loi Nguyen",
-		Email: "loint@penlook.com",
-		Password: "12345",
+	a.Pick("Assign Title")
+	a.View(Data{
+		"title" : "Index Page",
 	})
 
-	user.Create()
+	a.Pick("Assign slogan and author")
+	name := a.GET("name")
 
-	// Select first user
-	//user.First()
+	a.View(Data{
+		"slogan" : "Welcome to Index Page",
+		"author" : name,
+	})
 }
 
-// @Router /home
-// @Method GET
-func (i Index) Home() {
+// @router /home/loint
+func (a App) Home() {
 
-	i.Pick("Test Index Action")
-
-	user := i.Table("User", Schema {
-		Username: "Loi Nguyen",
-		Email: "loint@penlook.com",
-		Password: "12345",
+	a.Pick("Assign Title")
+	a.View(Data{
+		"title" : "Home Page",
 	})
 
-	user.Create()
-
-	// Select first user
-	//user.First()
+	a.Pick("Assign sample")
+	a.View(Data{
+		"sample" : "This is Homepage",
+		"image" : "http://image.spreadshirtmedia.com/image-server/v1/products/16685204/views/1,width=378,height=378,appearanceId=2/Golang-Fan-Shirt.jpg",
+	})
 }

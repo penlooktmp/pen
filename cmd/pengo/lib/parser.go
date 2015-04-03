@@ -24,57 +24,15 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package controller
+package lib
 
 import (
-	. "github.com/penlook/pengo"
-	. "github.com/penlook/pengo/app/generate"
+ 	"fmt"
 )
 
-type Index struct {
-	Controller
+type Parser struct {
 }
 
-func (i Index) Before() {
-	i.Pick("Before action")
-}
-
-func (i Index) After() {
-	i.Pick("After action")
-}
-
-// @Router /index/:name
-// @Method GET POST
-func (i Index) Index() {
-
-	i.Pick("Test Index Action")
-
-	user := i.Table("User", Schema {
-		Username: "Loi Nguyen",
-		Email: "loint@penlook.com",
-		Password: "12345",
-	})
-
-	user.Create()
-
-	// Select first user
-	//user.First()
-}
-
-// @Router /home
-// @Method GET
-func (i Index) Home() {
-
-	i.Pick("Test Index Action")
-
-	user := i.Table("User", Schema {
-		Username: "Loi Nguyen",
-		Email: "loint@penlook.com",
-		Password: "12345",
-	})
-
-	user.Create()
-
-	// Select first user
-	//user.First()
+func (parser Parser) Controller(path string) {
+	fmt.Println(path)
 }
