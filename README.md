@@ -21,6 +21,7 @@ Road map
 8. Multiple languages (implementing)
 9. Documentation (not started)
 10. Flow Tracking (testing)
+11. Extend framework by using C (implementing)
 
 Architecture
 
@@ -45,6 +46,7 @@ Quality Assurance
 
 1. Unit Testing
 2. Integration Testing
+3. Benchmark Performance
 2. Continuous Integration
 3. Coding Convention
 4. Documentation
