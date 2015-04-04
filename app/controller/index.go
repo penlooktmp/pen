@@ -43,12 +43,13 @@ func (i Index) After() {
 	i.Pick("After action")
 }
 
-// @Router /index/:name
-// @Method GET POST
+// @router /index/:id
+// @less abc.less
+// @dart xxx.dart
+// @error 408
 func (i Index) Index() {
 
 	i.Pick("Test Index Action")
-
 	user := i.Table("User", Schema {
 		Username: "Loi Nguyen",
 		Email: "loint@penlook.com",
@@ -64,6 +65,10 @@ func (i Index) Index() {
 // @Router /home
 // @Method GET
 func (i Index) Home() {
+
+	i.GET("abc")
+	i.POST("pl")
+	i.Session()
 
 	i.Pick("Test Index Action")
 
