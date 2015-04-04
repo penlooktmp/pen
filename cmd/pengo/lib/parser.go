@@ -71,3 +71,6 @@ func (parser Parser) Controller(rootPath string) {
    		fmt.Println(linestack[i])
    	}
 }
+
+func (parser Parser) CGoInterface(rootPath string) {
+}

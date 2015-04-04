@@ -44,6 +44,7 @@ func (i Index) After() {
 }
 
 // @router /index/:id
+// @method GET POST
 // @less abc.less
 // @dart xxx.dart
 // @error 408
@@ -65,10 +66,6 @@ func (i Index) Index() {
 // @Router /home
 // @Method GET
 func (i Index) Home() {
-
-	i.GET("abc")
-	i.POST("pl")
-	i.Session()
 
 	i.Pick("Test Index Action")
 
