@@ -28,11 +28,46 @@ package lib
 
 import (
  	"fmt"
+ 	"os"
+ 	"log"
+ 	"strings"
+ 	"bufio"
+ 	"path/filepath"
 )
 
 type Parser struct {
 }
 
-func (parser Parser) Controller(path string) {
-	fmt.Println(path)
+func (parser Parser) Controller(rootPath string) {
+	rules := [] string {"// @router", "// @method", "func "}
+	rules_count := len(rules)
+	linestack := [] string {}
+	linestack_count := 0
+
+   	filepath.Walk(rootPath, func(path string, f os.FileInfo, err error) error {
+        file, err := os.Open(path)
+		if err != nil {
+		    log.Fatal(err)
+		}
+		defer file.Close()
+		scanner := bufio.NewScanner(file)
+		for scanner.Scan() {
+			line := scanner.Text()
+		    for i:=0; i<rules_count; i++ {
+		    	line = strings.TrimSpace(line)
+		    	if len(line) == 0 {
+		    		continue
+		    	}
+		    	if strings.HasPrefix(line, rules[i]) {
+		    		linestack = append(linestack, line)
+		    		linestack_count += 1
+		    	}
+		    }
+		}
+        return nil
+    })
+
+   	for i:=0; i<linestack_count; i++ {
+   		fmt.Println(linestack[i])
+   	}
 }

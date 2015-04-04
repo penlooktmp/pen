@@ -33,7 +33,6 @@ import (
     "path/filepath"
 )
 
-
 type Run struct {
 	Context *cli.Context
 	Directory string

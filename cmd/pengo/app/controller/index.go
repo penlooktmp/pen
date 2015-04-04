@@ -43,8 +43,8 @@ func (i Index) After() {
 	i.Pick("After action")
 }
 
-// @Router /index/:name
-// @Method GET POST
+// @router /index/:name
+// @method GET POST
 func (i Index) Index() {
 
 	i.Pick("Test Index Action")
@@ -61,8 +61,9 @@ func (i Index) Index() {
 	//user.First()
 }
 
-// @Router /home
-// @Method GET
+// @router /home
+// @method GET
+// @error 404
 func (i Index) Home() {
 
 	i.Pick("Test Index Action")
