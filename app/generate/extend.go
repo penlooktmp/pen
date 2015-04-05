@@ -1,7 +1,7 @@
 // AUTO GENERATED
 package generate
 
-// #include "parser.h"
+// #include "extend_parser.h"
 import "C"
 
 func Pk() {

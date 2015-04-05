@@ -9,7 +9,7 @@ import (
     "github.com/julienschmidt/httprouter"
 	. "github.com/penlook/pengo"
     . "github.com/penlook/pengo/module"
-    . "github.com/penlook/pengo/app/controller"
+    . "github.com/penlook/pengo/app/generate"
 )
 
 func Base(controllerName string, actionName string, response http.ResponseWriter, request *http.Request, params httprouter.Params) Controller {

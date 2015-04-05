@@ -31,13 +31,14 @@ import (
   	"log"
     "os"
     "path/filepath"
-    "fmt"
+    //"fmt"
 )
 
 type Run struct {
 	Context *cli.Context
 	Directory string
 	Parser Parser
+    Data Data
 }
 
 func (run *Run) GetCurrentDirectory(appName string) {
@@ -48,30 +49,40 @@ func (run *Run) GetCurrentDirectory(appName string) {
     run.Directory = dir
 }
 
-func (run *Run) Run() {
-	run.GetCurrentDirectory(run.Context.Args().First())
-	parser := Parser {}
-    data := Data {}
+func (run *Run) ParseApplication() {
+    parser := Parser {}
+    run.Data = Data {}
 
     // Parse controller
     dir, err := filepath.Abs(run.Directory + "/controller")
     if err != nil {
         panic("Folder name 'controller' does not exist !")
     }
-	data["controller"] = parser.Controller(dir)
+    run.Data["controller"] = parser.Controller(dir)
 
     // Parse model
     dir, err = filepath.Abs(run.Directory + "/model")
     if err != nil {
         panic("Folder name 'model' does not exist !")
     }
-    data["model"]      = parser.Model(dir)
+    run.Data["model"]      = parser.Model(dir)
 
     // Parse extend
     dir, err = filepath.Abs(run.Directory + "/extend")
     if err != nil {
         panic("Folder name 'model' does not exist !")
     }
-    data["extend"]      = parser.Extend(dir)
-    fmt.Println(data)
+    run.Data["extend"]      = parser.Extend(dir)
+}
+
+func (run *Run) Generate() {
+    main_path, _ := filepath.Abs(run.Directory + "/build/main.go")
+    generator := Generate {}
+    generator.Main(main_file, main_path, run.Data)
+}
+
+func (run *Run) Run() {
+	run.GetCurrentDirectory(run.Context.Args().First())
+    run.ParseApplication()
+    run.Generate()
 }

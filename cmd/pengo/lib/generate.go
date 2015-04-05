@@ -26,15 +26,38 @@
  */
 package lib
 
+import (
+  	"os"
+  	"strings"
+)
+
 type Data map[string] interface{}
 
-type Generate struct {
-	Template string
-	Filepath string
-	Data Data
+type Generate struct {}
+
+func (gen Generate) Clean(path string) {
+	err := os.Remove(path)
+	if err != nil {
+	  	return
+	}
 }
 
-func (gen Generate) Write() {
+func (gen Generate) Write(template string, path string) {
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+    	os.Create(path)
+	}
+	file, err := os.OpenFile(path, os.O_APPEND, 0666)
+	defer file.Close()
+	if err != nil {
+		panic(err)
+	}
+	file.WriteString(template)
+}
+
+func (gen Generate) Replace(template string, variable string, content string) string {
+	variable = "{{ " + variable + " }}"
+	template = strings.Replace(template, variable, content, -1)
+	return template
 }
 
 func (gen Generate) Schema() {
@@ -43,6 +66,10 @@ func (gen Generate) Schema() {
 func (gen Generate) Extend() {
 }
 
-func (gen Generate) Main() {
-	gen.Write()
+func (gen Generate) Main(template string, path string, data Data) {
+	gen.Clean(path)
+	template = gen.Replace(template, "router", `
+		ABCDEF
+	`)
+	gen.Write(template, path)
 }
