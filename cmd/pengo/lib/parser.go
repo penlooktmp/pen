@@ -89,6 +89,8 @@ func (parser Parser) Controller(rootPath string) interface {} {
    				array[1] : array[2],
    			})
    		} else {
+
+   			// Function or action ?
    			linestack[i] = funcPattern.ReplaceAllString(linestack[i], "")
    			array := strings.Split(linestack[i], " ")
    			controllers[array[2]] = append(controllers[array[2]], Action {
@@ -100,5 +102,16 @@ func (parser Parser) Controller(rootPath string) interface {} {
    	return controllers
 }
 
-func (parser Parser) CGoInterface(rootPath string) {
+func (parser Parser) Model(rootPath string) interface{} {
+	filepath.Walk(rootPath, func(path string, f os.FileInfo, err error) error {
+		return nil
+	})
+	return "Model"
+}
+
+func (parser Parser) Extend(rootPath string) interface {} {
+	filepath.Walk(rootPath, func(path string, f os.FileInfo, err error) error {
+		return nil
+	})
+	return "Extend"
 }

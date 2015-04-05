@@ -51,11 +51,27 @@ func (run *Run) GetCurrentDirectory(appName string) {
 func (run *Run) Run() {
 	run.GetCurrentDirectory(run.Context.Args().First())
 	parser := Parser {}
+    data := Data {}
+
+    // Parse controller
     dir, err := filepath.Abs(run.Directory + "/controller")
     if err != nil {
-        panic("Controller does not exist !")
+        panic("Folder name 'controller' does not exist !")
     }
+	data["controller"] = parser.Controller(dir)
 
-    data := Data {}
-	data["controllers"] = parser.Controller(dir)
+    // Parse model
+    dir, err = filepath.Abs(run.Directory + "/model")
+    if err != nil {
+        panic("Folder name 'model' does not exist !")
+    }
+    data["model"]      = parser.Model(dir)
+
+    // Parse extend
+    dir, err = filepath.Abs(run.Directory + "/extend")
+    if err != nil {
+        panic("Folder name 'model' does not exist !")
+    }
+    data["extend"]      = parser.Extend(dir)
+    fmt.Println(data)
 }

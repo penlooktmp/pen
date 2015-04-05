@@ -26,23 +26,13 @@
  */
 package lib
 
-type Data map[string] interface{}
+import (
+ 	"fmt"
+)
 
-type Generate struct {
-	Template string
-	Filepath string
-	Data Data
+type Http struct {
 }
 
-func (gen Generate) Write() {
-}
-
-func (gen Generate) Schema() {
-}
-
-func (gen Generate) Extend() {
-}
-
-func (gen Generate) Main() {
-	gen.Write()
+func (http Http) Run() {
+	fmt.Println("Starting http proxy")
 }
