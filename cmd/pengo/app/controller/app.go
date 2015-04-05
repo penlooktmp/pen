@@ -42,7 +42,11 @@ func (a App) After() {
 	a.Pick("After action")
 }
 
-// @router /index/:name
+// @router /index/:id
+// @method GET POST
+// @less abc.less
+// @dart xxx.dart
+// @error 408
 func (a App) Index() {
 
 	a.Pick("Assign Title")

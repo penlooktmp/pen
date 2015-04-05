@@ -31,6 +31,7 @@ import (
   	"log"
     "os"
     "path/filepath"
+    "fmt"
 )
 
 type Run struct {
@@ -54,5 +55,7 @@ func (run *Run) Run() {
     if err != nil {
         panic("Controller does not exist !")
     }
-	parser.Controller(dir)
+
+    data := Data {}
+	data["controllers"] = parser.Controller(dir)
 }

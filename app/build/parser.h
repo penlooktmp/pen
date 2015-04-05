@@ -1,2 +1,0 @@
-void Pk();
-char* Abc();

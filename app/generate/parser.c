@@ -3,7 +3,12 @@
 #include <string.h>
 
 void Pk() {
-	printf("PK Function ");
+	int i;
+	int b = 0;
+	for (i=1; i<100000000; i++) {
+		b += 1;
+	}
+	printf("SUM B = %d\n", b);
 }
 
 char* Abc() {

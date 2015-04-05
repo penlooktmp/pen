@@ -24,55 +24,26 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package controller
+package lib
 
-import (
-	. "github.com/penlook/pengo"
-	. "github.com/penlook/pengo/app/generate"
-)
 
-type App struct {
-	Controller
+type Data map[string] interface{}
+
+type Generate struct {
+	Template string
+	Filepath string
+	Data Data
 }
 
-func (a App) Before() {
-	a.Pick("Before action")
+func (gen Generate) Write() {
 }
 
-func (a App) After() {
-	a.Pick("After action")
+func (gen Generate) Schema() {
 }
 
-func (a App) Index() {
-	a.Pick("Assign Title")
-	a.View(Data{
-		"title" : "Index Page",
-	})
-
-	a.Pick("Before call pk")
-	Pk()
-	a.Pick("After call pk")
-
-	a.Pick("Assign slogan and author")
-	name := a.GET("name")
-
-	a.View(Data{
-		"slogan" : "Welcome to Index Page",
-		"author" : name,
-	})
+func (gen Generate) Extend() {
 }
 
-// @router /home/loint
-func (a App) Home() {
-
-	a.Pick("Assign Title")
-	a.View(Data{
-		"title" : "Home Page",
-	})
-
-	a.Pick("Assign sample")
-	a.View(Data{
-		"sample" : "This is Homepage",
-		"image" : "http://image.spreadshirtmedia.com/image-server/v1/products/16685204/views/1,width=378,height=378,appearanceId=2/Golang-Fan-Shirt.jpg",
-	})
+func (gen Generate) Main() {
+	gen.Write()
 }

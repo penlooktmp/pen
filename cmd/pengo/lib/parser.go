@@ -27,19 +27,26 @@
 package lib
 
 import (
- 	"fmt"
  	"os"
  	"log"
  	"strings"
  	"bufio"
  	"path/filepath"
+ 	"regexp"
 )
 
 type Parser struct {
 }
 
-func (parser Parser) Controller(rootPath string) {
-	rules := [] string {"// @router", "// @method", "func "}
+func (parser Parser) Controller(rootPath string) interface {} {
+	rules := [] string {
+		"// @router",
+		"// @method",
+		"// @error",
+		"// @less",
+		"// @dart",
+		"func ",
+	}
 	rules_count := len(rules)
 	linestack := [] string {}
 	linestack_count := 0
@@ -67,9 +74,30 @@ func (parser Parser) Controller(rootPath string) {
         return nil
     })
 
+    controllers := Controller {}
+    annotation := [] Annotation {}
+    funcPattern, _ := regexp.Compile("[(){]+")
+
    	for i:=0; i<linestack_count; i++ {
-   		fmt.Println(linestack[i])
+   		// Is Annotation ?
+   		if strings.HasPrefix(linestack[i], "// @") {
+   			array := strings.Split(linestack[i], " ")
+   			if len(array) < 3 {
+   				panic("Invalid argument for annotation !")
+   			}
+   			annotation = append(annotation, Annotation {
+   				array[1] : array[2],
+   			})
+   		} else {
+   			linestack[i] = funcPattern.ReplaceAllString(linestack[i], "")
+   			array := strings.Split(linestack[i], " ")
+   			controllers[array[2]] = append(controllers[array[2]], Action {
+   				array[3] : annotation,
+   			})
+   		}
    	}
+
+   	return controllers
 }
 
 func (parser Parser) CGoInterface(rootPath string) {
