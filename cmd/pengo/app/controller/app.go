@@ -45,8 +45,8 @@ func After() {
 // @method GET
 func Index() {
 	@Pick("Assign Title")
-	@@title = "Index Page"
-
+	$title = "Index Page"
+	$hello = "Welcome to Index Page"
 	@Pick("Before call pk")
 	Pk()
 	@Pick("After call pk")
