@@ -43,7 +43,7 @@ type Compiler struct {
 func (compiler Compiler) ParseController() {
 	targetDirectory, _ := filepath.Abs(compiler.Directory + "/controller")
 	//destDirectory, _   := filepath.Abs(compiler.Directory + "/generate")
-	//struct_alias, _      := regexp.Compile("@[A-Z]")
+	struct_alias, _      := regexp.Compile("@[A-Z]")
 	template_variable := regexp.MustCompile("@[a-z]")
 	filepath.Walk(targetDirectory, func(path string, f os.FileInfo, err error) error {
     	file, err := os.Open(path)
@@ -62,31 +62,43 @@ func (compiler Compiler) ParseController() {
 	    		array := strings.Split(line, " ")
 	    		controllerName = array[1]
 	    		content = content + "type " + controllerName + " struct { Controller } \n"
-	    	} else {
-	    		if strings.HasPrefix(line, "@") {
-	    			if controllerName == "" {
-	    				fmt.Println("Controller must be declared in", path)
-	    				return nil
-	    			}
-	    			content = content + "// " + line + "\n"
-	    		} else {
-	    			if strings.HasPrefix(line, "func") {
-	    				content = content + "func (" + strings.ToLower(controllerName) + " " + controllerName + ")" + line[4:] + "\n"
-	    			} else {
-	    				//fmt.Println(struct_alias.FindStringIndex(line))
-	    				loc := template_variable.FindStringIndex(line)
-	    				if (len(loc) > 0) {
-	    					array := strings.Split(line[loc[0]:], "=")
-	    					if len(array) == 2 {
-	    						content = content + "\t" + strings.ToLower(controllerName) + ".View(Data{\"" + strings.TrimSpace(array[0][1:]) + "\":" + array[1] + "},) \n"
-	    					}
-	    				} else {
-	    					content = content + line + "\n"
-	    				}
-	    			}
-	    		}
+	    		continue
 	    	}
+
+	    	// Annotation
+    		if strings.HasPrefix(line, "@") {
+    			if controllerName == "" {
+    				fmt.Println("Controller must be declared in", path)
+    				return nil
+    			}
+    			content = content + "// " + line + "\n"
+    			continue
+    		}
+
+    		// Function
+			if strings.HasPrefix(line, "func") {
+				content = content + "func (" + strings.ToLower(controllerName) + " " + controllerName + ")" + line[4:] + "\n"
+				continue
+			}
+
+			loc := template_variable.FindStringIndex(line)
+			if len(loc) > 0 {
+				array := strings.Split(line[loc[0]:], "=")
+				if len(array) == 2 {
+					content = content + "\t" + strings.ToLower(controllerName) + ".View(Data{\"" + strings.TrimSpace(array[0][1:]) + "\":" + array[1] + "},) \n"
+					continue
+				}
+			}
+
+			loc = struct_alias.FindStringIndex(line)
+			if len(loc) > 0 {
+				content = content + "\t" + strings.ToLower(controllerName) + "." + line[loc[0] + 1:] + "\n"
+				continue
+			}
+
+			content = content + line + "\n"
 		}
+
 		fmt.Println(content)
     	return nil
 	})
