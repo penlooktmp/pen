@@ -24,18 +24,31 @@ func After() {
 @route /app/:name
 @method GET
 func Home() {
-	@Pick("Home action")
-
 	// Pass variable to template
 	@title  = "Home Page"
 	@sample = "Welcome to home page"
-	@image  = ""
+}
+```
 
-	// SELECT * FROM `User` WHERE id=1
-	//user := #User.Find(1)
+###Extend Go with C
+extend/hello.c
+```c
+#include <stdio.h>
 
-	// Print username
-	//Print(user.Name)
+void Hello() {
+	printf("Hello World");
+}
+```
+controller/app.go
+```go
+// App Controller
+@Controller App
+
+@route /app/hello
+@method GET
+func Home() {
+	// Call C function
+	Hello()
 }
 ```
 
