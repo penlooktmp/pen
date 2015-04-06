@@ -10,29 +10,32 @@ Build status
 ###Taste of Pengo
 
 ```go
-import (
-	. "github.com/penlook/pengo"
-)
-
+// App Controller
 @controller App
+
+func Before() {
+	@Pick("Before action")
+}
+
+func After() {
+	@Pick("After action")
+}
 
 @route /app/:name
 @method GET
 func Home() {
+	@Pick("Home action")
 
 	// Pass variable to template
-	@title = "Index Page"
-	@sample = "Welcome to application home"
-	@image = "https://golang.org/doc/gopher/frontpage.png"
-
-	// Call parent controller function
-	@Pick("Before call pk")
+	@title  = "Home Page"
+	@sample = "Welcome to home page"
+	@image  = ""
 
 	// SELECT * FROM `User` WHERE id=1
-	user := #User.Find(1)
+	//user := #User.Find(1)
 
 	// Print username
-	Print(user.Name)
+	//Print(user.Name)
 }
 ```
 

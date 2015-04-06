@@ -39,9 +39,9 @@ func Base(controllerName string, actionName string, response http.ResponseWriter
 
 func main() {
     router := httprouter.New()
-    router.GET("/index/index", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
-    		c := Index {
-        		Base("Index", "Index", response, request, params),
+    router.GET("/app/:name", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
+    		c := App {
+        		Base("App", "Home", response, request, params),
     		}
     		c.Initialize()
     		c.Start()
@@ -51,9 +51,9 @@ func main() {
     		c.AfterAction(c)
     		c.Flow.Graph()
 		})
-	router.GET("/app/:name", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
-    		c := App {
-        		Base("App", "Home", response, request, params),
+	router.GET("/index/index", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
+    		c := Index {
+        		Base("Index", "Index", response, request, params),
     		}
     		c.Initialize()
     		c.Start()
