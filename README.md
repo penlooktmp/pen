@@ -23,7 +23,7 @@ func Home() {
 	// Pass variable to template
 	@title = "Index Page"
 	@sample = "Welcome to application home"
-	@image = "http://img3.wikia.nocookie.net/__cb20140410201208/pokemon/images/e/ef/025Pikachu_SSB4.png"
+	@image = "https://golang.org/doc/gopher/frontpage.png"
 
 	// Call parent controller function
 	@Pick("Before call pk")
