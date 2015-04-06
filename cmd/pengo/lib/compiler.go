@@ -51,7 +51,7 @@ func (compiler Compiler) ParseController() {
 	struct_alias, _      := regexp.Compile("@[A-Z]")
 
 	// Template variable pattern
-	template_variable := regexp.MustCompile("@[a-z]")
+	template_variable := regexp.MustCompile("\\$[a-z]")
 
 	// Loop in target controller
 	filepath.Walk(targetDirectory, func(path string, f os.FileInfo, err error) error {
@@ -97,7 +97,31 @@ func (compiler Compiler) ParseController() {
 
     		// Function full pattern
 			if strings.HasPrefix(line, "func") {
-				content = content + "func (" + strings.ToLower(controllerName) + " " + controllerName + ")" + line[4:] + "\n"
+				first := strings.Index(line, "(")
+				last  := strings.Index(line, ")")
+
+				if first < 0 || last < 0 {
+					fmt.Println("Syntax error ", line)
+					return nil
+				}
+
+				funcFull := strings.TrimSpace(line[4: first])
+
+				if last - first > 1 {
+					param_array := strings.Split(line[first + 1 : last], ",")
+					args := ""
+					for i:=0; i<len(param_array); i++ {
+						args += strings.TrimSpace(param_array[i]) + " string, "
+					}
+					funcFull += "(" + args[0:len(args) - 2] + ") {"
+				}
+
+				if string(funcFull[len(funcFull) - 1]) == "{" {
+				} else {
+					funcFull += "() {"
+				}
+
+				content = content + "func (" + strings.ToLower(controllerName) + " " + controllerName + ") " + funcFull + "\n"
 				continue
 			}
 

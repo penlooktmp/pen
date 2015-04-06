@@ -36,15 +36,18 @@ func After() {
 	@Pick("After action")
 }
 
-@route /app/:name
+@route /login/:user/:password/:tmp
 @method GET
-func Home() {
+func Login(user, password, tmp) {
+
+	Print(user)
+
 	@Pick("Home action")
 
-	// Pass variable to template
-	@title = "Index Page"
-	@sample = "Welcome to application home"
-	@image = "http://img3.wikia.nocookie.net/__cb20140410201208/pokemon/images/e/ef/025Pikachu_SSB4.png"
+	// Assign variable to template
+	$title  = "Index Page"
+	$sample = "Welcome to application home"
+	$image  = "http://img3.wikia.nocookie.net/__cb20140410201208/pokemon/images/e/ef/025Pikachu_SSB4.png"
 
 	// SELECT * FROM `User` WHERE id=1
 	//user := #User.Find(1)

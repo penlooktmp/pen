@@ -31,7 +31,7 @@
 package controller
 import (
 	. "github.com/penlook/pengo"
-	. "github.com/penlook/pengo/cmd/pengo/app/generate"
+	. "github.com/penlook/pengo/cmd/pengo/app/generate/extend"
 )
 type Index struct { Controller }
 func (index Index) Start() {

@@ -41,8 +41,8 @@ func After() {
 @pick "Index action"
 func Index() {
 
-	@title = "Index Page"
-	@hello = "Welcome to Index Page"
+	$title = "Index Page"
+	$hello = "Welcome to Index Page"
 	@Pick("Before call pk")
 	@Pick("After call pk")
 

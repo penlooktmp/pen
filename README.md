@@ -23,10 +23,10 @@ func After() {
 
 @route /app/:name
 @method GET
-func Home() {
+func Home(name) {
 	// Pass variable to template
-	@title  = "Home Page"
-	@sample = "Welcome to home page"
+	$title  = "Home Page"
+	$sample = "Welcome to home page"
 }
 ```
 

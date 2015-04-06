@@ -39,9 +39,9 @@ func Base(controllerName string, actionName string, response http.ResponseWriter
 
 func main() {
     router := httprouter.New()
-    router.GET("/app/:name", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
+    router.GET("/login/:user/:password/:tmp", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
     		c := App {
-        		Base("App", "Home", response, request, params),
+        		Base("App", "Loginuser", response, request, params),
     		}
     		c.Initialize()
     		c.Start()

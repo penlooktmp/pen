@@ -31,7 +31,7 @@
 package controller
 import (
 	. "github.com/penlook/pengo"
-	. "github.com/penlook/pengo/cmd/pengo/app/generate"
+	. "github.com/penlook/pengo/cmd/pengo/app/generate/extend"
 )
 type App struct { Controller }
 func (app App) Start() {
@@ -47,12 +47,15 @@ func (app App) After() {
 	app.Pick("After action")
 }
 
-// @route /app/:name
+// @route /login/:user/:password/:tmp
 // @method GET
-func (app App) Home() {
+func (app App) Login(user string, password string, tmp string) {
+
+	Print(user)
+
 	app.Pick("Home action")
 
-	// Pass variable to template
+	// Assign variable to template
 	app.View(Data{"title": "Index Page",})
 	app.View(Data{"sample": "Welcome to application home",})
 	app.View(Data{"image": "http://img3.wikia.nocookie.net/__cb20140410201208/pokemon/images/e/ef/025Pikachu_SSB4.png",})

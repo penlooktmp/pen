@@ -143,6 +143,7 @@ func (controller Controller) BeforeAction(parent interface {}) {
 
 func (controller *Controller) Action(parent interface {}) {
     actionVal := reflect.ValueOf(parent).MethodByName(controller.ActionName)
+    Print(actionVal)
     if actionVal.IsValid() {
     	actionInterface := actionVal.Interface()
     	action := actionInterface.(func())
