@@ -77,13 +77,22 @@ func (run *Run) ParseApplication() {
 
 func (run *Run) Generate() {
     main_path, _ := filepath.Abs(run.Directory + "/build/main.go")
-    generator := Generate {}
+    generator := Generator {}
     generator.Main(BuildMain, main_path, run.Data)
+}
+
+func (run Run) Compile() {
+    path, _ := filepath.Abs(run.Directory)
+    compiler := Compiler {
+        Directory : path,
+    }
+    compiler.ParseController()
+    compiler.ParseModel()
 }
 
 func (run *Run) Run() {
 	run.GetCurrentDirectory(run.Context.Args().First())
-    run.Compile
-    run.ParseApplication()
-    run.Generate()
+    run.Compile()
+    //run.ParseApplication()
+    //run.Generate()
 }

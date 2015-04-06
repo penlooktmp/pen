@@ -31,26 +31,27 @@ import (
 	. "github.com/penlook/pengo/cmd/pengo/app/generate"
 )
 
-type Index struct {
-	Controller
+@controller Index
+
+@pick "Before action"
+func Before() {
+
 }
 
-func (i Index) Before() {
-	i.Pick("Before action")
+@pick "After action"
+func After() {
+
 }
 
-func (i Index) After() {
-	i.Pick("After action")
-}
+@route /index/index
+@method GET
+@pick "Index action"
+func Index() {
 
-// @route /index/index
-// @method GET
-func (i Index) Index() {
-	Pk()
-}
+	@title = "Index Page"
+	@hello = "Welcome to Index Page"
+	@Pick("Before call pk")
+	@Pick("After call pk")
 
-// @route /home/:name
-// @method GET
-func (i Index) Home() {
-
+	@Pick("Assign slogan and author")
 }

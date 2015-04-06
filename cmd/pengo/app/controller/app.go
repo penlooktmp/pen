@@ -31,24 +31,26 @@ import (
 	. "github.com/penlook/pengo/cmd/pengo/app/generate"
 )
 
-@Controller App
+@controller App
 
+@pick "Before action"
 func Before() {
-	@Pick("Before action")
+	a := 1
 }
 
+@pick "After action"
 func After() {
-	@Pick("After action")
+
 }
 
-// @route /app/index
-// @method GET
+@route /app/index
+@method GET
+@pick "Index action"
 func Index() {
-	@Pick("Assign Title")
-	$title = "Index Page"
-	$hello = "Welcome to Index Page"
+
+	@title = "Index Page"
+	@hello = "Welcome to Index Page"
 	@Pick("Before call pk")
-	Pk()
 	@Pick("After call pk")
 
 	@Pick("Assign slogan and author")
