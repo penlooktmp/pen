@@ -68,7 +68,7 @@ func (compiler Compiler) ParseController() {
 		header = header + "package controller\n"
 		header = header + "import (\n"
 		header = header + "\t. \"github.com/penlook/pengo\"\n"
-		header = header + "\t. \"github.com/penlook/pengo/cmd/pengo/app/generate\"\n"
+		header = header + "\t. \"github.com/penlook/pengo/cmd/pengo/app/generate/extend\"\n"
 		header = header + ")\n"
 		content := ""
 

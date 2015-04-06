@@ -1,5 +1,5 @@
 // AUTO GENERATED
-package generate
+package model
 
 type Schema struct {
 	Id       interface {}
