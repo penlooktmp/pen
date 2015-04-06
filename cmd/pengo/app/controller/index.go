@@ -26,7 +26,7 @@
  */
 
 // Index Controller
-@controller Index
+@Controller Index
 
 func Before() {
 	// TODO

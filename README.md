@@ -11,7 +11,7 @@ Build status
 
 ```go
 // App Controller
-@controller App
+@Controller App
 
 func Before() {
 	@Pick("Before action")

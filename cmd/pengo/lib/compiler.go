@@ -77,7 +77,7 @@ func (compiler Compiler) ParseController() {
 			line := scanner.Text()
 
 			// Controller declaration
-	    	if strings.HasPrefix(line, "@controller") {
+	    	if strings.HasPrefix(line, "@Controller") {
 	    		array := strings.Split(line, " ")
 	    		controllerName = array[1]
 	    		content = content + header + "type " + controllerName + " struct { Controller }\n"
