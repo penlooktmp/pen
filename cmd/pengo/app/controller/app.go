@@ -28,6 +28,7 @@ package controller
 
 import (
 	. "github.com/penlook/pengo"
+	. "github.com/penlook/pengo/cmd/pengo/app/generate"
 )
 
 type App struct {
@@ -42,17 +43,17 @@ func (a App) After() {
 	a.Pick("After action")
 }
 
-// @router /index/:id
-// @method GET POST
-// @less abc.less
-// @dart xxx.dart
-// @error 408
+// @route /app/index
+// @method GET
 func (a App) Index() {
-
 	a.Pick("Assign Title")
 	a.View(Data{
 		"title" : "Index Page",
 	})
+
+	a.Pick("Before call pk")
+	Pk()
+	a.Pick("After call pk")
 
 	a.Pick("Assign slogan and author")
 	name := a.GET("name")
@@ -60,20 +61,5 @@ func (a App) Index() {
 	a.View(Data{
 		"slogan" : "Welcome to Index Page",
 		"author" : name,
-	})
-}
-
-// @router /home/loint
-func (a App) Home() {
-
-	a.Pick("Assign Title")
-	a.View(Data{
-		"title" : "Home Page",
-	})
-
-	a.Pick("Assign sample")
-	a.View(Data{
-		"sample" : "This is Homepage",
-		"image" : "http://image.spreadshirtmedia.com/image-server/v1/products/16685204/views/1,width=378,height=378,appearanceId=2/Golang-Fan-Shirt.jpg",
 	})
 }

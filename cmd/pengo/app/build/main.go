@@ -10,7 +10,7 @@ import (
     "github.com/julienschmidt/httprouter"
 	. "github.com/penlook/pengo"
     . "github.com/penlook/pengo/module"
-    . "github.com/penlook/pengo/app/controller"
+    . "github.com/penlook/pengo/cmd/pengo/app/controller"
 )
 
 func Base(controllerName string, actionName string, response http.ResponseWriter, request *http.Request, params httprouter.Params) Controller {
@@ -36,42 +36,32 @@ func Base(controllerName string, actionName string, response http.ResponseWriter
     }
 }
 
-func HandleApp(actionName string) func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
-    return func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
-        controller := App {
-            Base("App", actionName, response, request, params),
-        }
-        controller.Initialize()
-        controller.Start()
-        controller.InitAction()
-        controller.BeforeAction(controller)
-        controller.Action(controller)
-        controller.AfterAction(controller)
-        controller.Flow.Graph()
-	}
-}
-
-func HandleIndex(actionName string) func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
-    return func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
-        controller := Index {
-            Base("Index", actionName, response, request, params),
-        }
-        controller.Initialize()
-        controller.Start()
-        controller.InitAction()
-        controller.BeforeAction(controller)
-        controller.Action(controller)
-        controller.AfterAction(controller)
-        controller.Flow.Graph()
-    }
-}
-
 func main() {
     router := httprouter.New()
-    
-		ABCDEF
+    router.GET("/app/index", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
+    		c := App {
+        		Base("App", "Index", response, request, params),
+    		}
+    		c.Initialize()
+    		c.Start()
+    		c.InitAction()
+    		c.BeforeAction(c)
+    		c.Action(c)
+    		c.AfterAction(c)
+    		c.Flow.Graph()
+		})
+	router.GET("/index/index", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
+    		c := Index {
+        		Base("Index", "Index", response, request, params),
+    		}
+    		c.Initialize()
+    		c.Start()
+    		c.InitAction()
+    		c.BeforeAction(c)
+    		c.Action(c)
+    		c.AfterAction(c)
+    		c.Flow.Graph()
+		})
 	
-    router.GET("/",  HandleIndex("Index"))
-    router.GET("/app/:action", HandleApp("*"))
     http.ListenAndServe(":80", router)
 }

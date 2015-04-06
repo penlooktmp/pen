@@ -29,6 +29,7 @@ package lib
 import (
   	"os"
   	"strings"
+  	//"fmt"
 )
 
 type Data map[string] interface{}
@@ -68,8 +69,50 @@ func (gen Generate) Extend() {
 
 func (gen Generate) Main(template string, path string, data Data) {
 	gen.Clean(path)
-	template = gen.Replace(template, "router", `
-		ABCDEF
-	`)
+
+	type Router struct {
+		Route string
+		Method string
+		Controller string
+		Action string
+	}
+
+	routers := [] Router {}
+
+	for controller, actionIndex := range data["controller"].(Controller) {
+		for _, actionMap := range actionIndex {
+			for action, annotationMap := range actionMap {
+				if action == "Before" || action == "After" {
+					continue
+				}
+				routers = append(routers, Router {
+					Controller: controller,
+					Action: action,
+					Route: annotationMap["@route"],
+					Method: annotationMap["@method"],
+				})
+			}
+		}
+	}
+
+	router_code := ""
+	for _, router := range routers {
+		if router.Method == "" {
+			router.Method = "GET"
+		}
+		router_code += "router." + router.Method + "(\"" + router.Route + "\""+ `, func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
+    		c := ` + router.Controller + ` {
+        		Base("` + router.Controller + `", "` + router.Action + `", response, request, params),
+    		}
+    		c.Initialize()
+    		c.Start()
+    		c.InitAction()
+    		c.BeforeAction(c)
+    		c.Action(c)
+    		c.AfterAction(c)
+    		c.Flow.Graph()
+		})` + "\n\t"
+	}
+	template = gen.Replace(template, "router", router_code)
 	gen.Write(template, path)
 }

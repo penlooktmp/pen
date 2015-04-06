@@ -40,7 +40,7 @@ type Parser struct {
 
 func (parser Parser) Controller(rootPath string) interface {} {
 	rules := [] string {
-		"// @router",
+		"// @route",
 		"// @method",
 		"// @error",
 		"// @less",
@@ -75,7 +75,7 @@ func (parser Parser) Controller(rootPath string) interface {} {
     })
 
     controllers := Controller {}
-    annotation := [] Annotation {}
+    annotation  := Annotation {}
     funcPattern, _ := regexp.Compile("[(){]+")
 
    	for i:=0; i<linestack_count; i++ {
@@ -85,9 +85,7 @@ func (parser Parser) Controller(rootPath string) interface {} {
    			if len(array) < 3 {
    				panic("Invalid argument for annotation !")
    			}
-   			annotation = append(annotation, Annotation {
-   				array[1] : array[2],
-   			})
+   			annotation[array[1]] = array[2]
    		} else {
 
    			// Function or action ?
@@ -96,6 +94,7 @@ func (parser Parser) Controller(rootPath string) interface {} {
    			controllers[array[2]] = append(controllers[array[2]], Action {
    				array[3] : annotation,
    			})
+   			annotation = Annotation {}
    		}
    	}
 

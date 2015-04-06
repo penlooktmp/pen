@@ -27,5 +27,5 @@
 package lib
 
 type Annotation map[string] string
-type Action map[string] [] Annotation
+type Action map[string] Annotation
 type Controller map[string] [] Action

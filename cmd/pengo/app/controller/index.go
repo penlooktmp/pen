@@ -28,7 +28,7 @@ package controller
 
 import (
 	. "github.com/penlook/pengo"
-	. "github.com/penlook/pengo/app/generate"
+	. "github.com/penlook/pengo/cmd/pengo/app/generate"
 )
 
 type Index struct {
@@ -43,42 +43,8 @@ func (i Index) After() {
 	i.Pick("After action")
 }
 
-// @router /index/:id
-// @method GET POST
-// @less abc.less
-// @dart xxx.dart
-// @error 408
-func (i Index) Index() {
-
-	i.Pick("Test Index Action")
-
-	user := i.Table("User", Schema {
-		Username: "Loi Nguyen",
-		Email: "loint@penlook.com",
-		Password: "12345",
-	})
-
-	user.Create()
-
-	// Select first user
-	//user.First()
-}
-
-// @router /home
+// @route /index/index
 // @method GET
-// @error 404
-func (i Index) Home() {
-
-	i.Pick("Test Index Action")
-
-	user := i.Table("User", Schema {
-		Username: "Loi Nguyen",
-		Email: "loint@penlook.com",
-		Password: "12345",
-	})
-
-	user.Create()
-
-	// Select first user
-	//user.First()
+func (i Index) Index() {
+	Pk()
 }
