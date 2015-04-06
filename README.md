@@ -7,7 +7,7 @@ Build status
 
 ![Pengo](http://s16.postimg.org/g7no9g5k5/Capture.png)
 
-Taste of Pengo
+###Taste of Pengo
 
 ```go
 import (
@@ -36,7 +36,7 @@ func Home() {
 }
 ```
 
-Feature (In Progress)
+###Feature (In Progress)
 
 1. Mvc Architecture
 2. Scalable by using C-CPP
@@ -44,7 +44,7 @@ Feature (In Progress)
 4. Lazy model communication
 5. Tracking performance
 
-Road map
+###Road map
 
 1. MVC Architecture (testing)
 2. Template engine (testing)
@@ -59,7 +59,7 @@ Road map
 11. Extend framework by using C (implementing)
 12. Annotation Parser (not started)
 
-Database Model
+####Database Model
 
 1. MySQL      -   Table      - ORM  (testing)
 2. Cassandra  -   Table      - CQL  (not started)
@@ -69,7 +69,7 @@ Database Model
 4. Redis      -   Key-value         (implemeting)
 5. Cayley     -   Graph             (not started)
 
-Quality Assurance
+###Quality Assurance
 
 1. Unit Testing
 2. Integration Testing
