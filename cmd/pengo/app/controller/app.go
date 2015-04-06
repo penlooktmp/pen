@@ -33,27 +33,29 @@ import (
 
 @controller App
 
-@pick "Before action"
 func Before() {
 
 }
 
-@pick "After action"
 func After() {
 
 }
 
-@route /app/home
+@route /app/:name
 @method GET
-@pick "Home action"
 func Home() {
 
+	// Pass variable to template
 	@title = "Index Page"
 	@sample = "Welcome to application home"
 	@image = "http://img3.wikia.nocookie.net/__cb20140410201208/pokemon/images/e/ef/025Pikachu_SSB4.png"
-	@Pick("Before call pk")
-	Pk()
-	@Pick("After call pk")
 
-	@Pick("Assign slogan and author")
+	// Call parent controller function
+	@Pick("Before call pk")
+
+	// SELECT * FROM `User` WHERE id=1
+	user := #User.Find(1)
+
+	// Print username
+	Print(user.Name)
 }

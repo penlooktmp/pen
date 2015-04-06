@@ -46,8 +46,8 @@ func (app App) After() {
 // @route /app/home
 // @method GET
 // @pick "Home action"
-func (app App) Home() {
-
+func (app App) Home(name string) {
+	Print(name)
 	app.View(Data{"title": "Index Page",})
 	app.View(Data{"sample": "Welcome to application home",})
 	app.View(Data{"image": "http://img3.wikia.nocookie.net/__cb20140410201208/pokemon/images/e/ef/025Pikachu_SSB4.png",})
