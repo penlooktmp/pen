@@ -36,11 +36,11 @@ func After() {
 	@Pick("After action")
 }
 
-@route /login/:user/:password/:tmp
+@route /login/:id/:password
 @method GET
-func Login(user, password, tmp) {
+func Login(id int, password string) {
 
-	Print(user)
+	Print(id)
 
 	@Pick("Home action")
 

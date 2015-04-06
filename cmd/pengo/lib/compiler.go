@@ -111,7 +111,7 @@ func (compiler Compiler) ParseController() {
 					param_array := strings.Split(line[first + 1 : last], ",")
 					args := ""
 					for i:=0; i<len(param_array); i++ {
-						args += strings.TrimSpace(param_array[i]) + " string, "
+						args += strings.TrimSpace(param_array[i]) + ", "
 					}
 					funcFull += "(" + args[0:len(args) - 2] + ") {"
 				}

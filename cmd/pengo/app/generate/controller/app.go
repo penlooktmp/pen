@@ -47,11 +47,11 @@ func (app App) After() {
 	app.Pick("After action")
 }
 
-// @route /login/:user/:password/:tmp
+// @route /login/:id/:password
 // @method GET
-func (app App) Login(user string, password string, tmp string) {
+func (app App) Login(id int, password string) {
 
-	Print(user)
+	Print(id)
 
 	app.Pick("Home action")
 

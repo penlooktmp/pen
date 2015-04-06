@@ -31,6 +31,7 @@ import (
  	"log"
  	"strings"
  	"bufio"
+ 	"fmt"
  	"path/filepath"
  	"regexp"
 )
@@ -76,7 +77,9 @@ func (parser Parser) Controller(rootPath string) interface {} {
 
     controllers := Controller {}
     annotation  := Annotation {}
-    funcPattern, _ := regexp.Compile("[(){]+")
+    arguments   := Arguments {}
+    funcPattern, _ := regexp.Compile("\\((|[a-zA-Z0-9,\\s]+)\\)[\\s]+{")
+    specialChar, _ := regexp.Compile("[\\(|\\)]")
 
    	for i:=0; i<linestack_count; i++ {
    		// Is Annotation ?
@@ -88,13 +91,19 @@ func (parser Parser) Controller(rootPath string) interface {} {
    			annotation[array[1]] = array[2]
    		} else {
 
+   			fmt.Println(funcPattern.MatchString(linestack[i]))
+
    			// Function or action ?
    			linestack[i] = funcPattern.ReplaceAllString(linestack[i], "")
+   			linestack[i] = specialChar.ReplaceAllString(linestack[i], "")
+
    			array := strings.Split(linestack[i], " ")
    			controllers[array[2]] = append(controllers[array[2]], Action {
-   				array[3] : annotation,
+   				Annotation : annotation,
+   				Arguments  : arguments,
    			})
    			annotation = Annotation {}
+   			arguments  = Arguments {}
    		}
    	}
 

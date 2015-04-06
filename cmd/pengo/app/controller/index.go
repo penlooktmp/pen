@@ -43,6 +43,7 @@ func Index() {
 
 	$title = "Index Page"
 	$hello = "Welcome to Index Page"
+
 	@Pick("Before call pk")
 	@Pick("After call pk")
 

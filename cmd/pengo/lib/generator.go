@@ -97,7 +97,9 @@ func (gen Generator) Main(template string, path string, data Data) {
 	for controller, actionIndex := range data["controller"].(Controller) {
 		for _, actionMap := range actionIndex {
 			for action, annotationMap := range actionMap {
-				if action == "Start" || action == "Before" || action == "After" {
+				fmt.Println(annotationMap)
+				fmt.Println(action)
+				/*if action == "Start" || action == "Before" || action == "After" {
 					continue
 				}
 				routers = append(routers, Router {
@@ -105,7 +107,7 @@ func (gen Generator) Main(template string, path string, data Data) {
 					Action: action,
 					Route: annotationMap["@route"],
 					Method: annotationMap["@method"],
-				})
+				})*/
 			}
 		}
 	}
