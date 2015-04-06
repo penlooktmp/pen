@@ -27,4 +27,5 @@
 package pengo
 
 type Config struct {
+	ViewRoot string
 }

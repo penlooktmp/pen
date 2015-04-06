@@ -1,6 +1,6 @@
 
 // AUTO GENERATED
-// DO NOT MODIFY IT
+// DO NOT MODIFY
 package main
 
 import (
@@ -10,7 +10,7 @@ import (
     "github.com/julienschmidt/httprouter"
 	. "github.com/penlook/pengo"
     . "github.com/penlook/pengo/module"
-    . "github.com/penlook/pengo/cmd/pengo/app/controller"
+    . "github.com/penlook/pengo/cmd/pengo/app/generate/controller"
 )
 
 func Base(controllerName string, actionName string, response http.ResponseWriter, request *http.Request, params httprouter.Params) Controller {
@@ -20,14 +20,15 @@ func Base(controllerName string, actionName string, response http.ResponseWriter
             actionName = "index"
         }
     }
-
     array := []rune(strings.ToLower(actionName))
     array[0] = unicode.ToUpper(array[0])
     actionName = string(array)
-
     return Controller {
         Name: controllerName,
         ActionName: actionName,
+        Config: Config {
+            ViewRoot: "./view",
+        },
         Http: Http {
             Request : request,
             Response : response,
@@ -53,6 +54,18 @@ func main() {
 	router.GET("/index/index", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
     		c := Index {
         		Base("Index", "Index", response, request, params),
+    		}
+    		c.Initialize()
+    		c.Start()
+    		c.InitAction()
+    		c.BeforeAction(c)
+    		c.Action(c)
+    		c.AfterAction(c)
+    		c.Flow.Graph()
+		})
+	router.GET("/home/:name", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
+    		c := Index {
+        		Base("Index", "Home", response, request, params),
     		}
     		c.Initialize()
     		c.Start()

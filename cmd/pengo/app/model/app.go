@@ -24,4 +24,7 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package lib
+package model
+
+type App struct {
+}

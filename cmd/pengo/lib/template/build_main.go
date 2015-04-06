@@ -24,11 +24,11 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package lib
+package template
 
-var main_file string = `
+var BuildMain string = `
 // AUTO GENERATED
-// DO NOT MODIFY IT
+// DO NOT MODIFY
 package main
 
 import (
@@ -38,7 +38,7 @@ import (
     "github.com/julienschmidt/httprouter"
 	. "github.com/penlook/pengo"
     . "github.com/penlook/pengo/module"
-    . "github.com/penlook/pengo/cmd/pengo/app/controller"
+    . "github.com/penlook/pengo/cmd/pengo/app/generate/controller"
 )
 
 func Base(controllerName string, actionName string, response http.ResponseWriter, request *http.Request, params httprouter.Params) Controller {
@@ -48,14 +48,15 @@ func Base(controllerName string, actionName string, response http.ResponseWriter
             actionName = "index"
         }
     }
-
     array := []rune(strings.ToLower(actionName))
     array[0] = unicode.ToUpper(array[0])
     actionName = string(array)
-
     return Controller {
         Name: controllerName,
         ActionName: actionName,
+        Config: Config {
+            ViewRoot: "./view",
+        },
         Http: Http {
             Request : request,
             Response : response,

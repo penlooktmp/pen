@@ -48,3 +48,9 @@ func (i Index) After() {
 func (i Index) Index() {
 	Pk()
 }
+
+// @route /home/:name
+// @method GET
+func (i Index) Home() {
+
+}

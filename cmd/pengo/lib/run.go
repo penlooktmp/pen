@@ -31,7 +31,7 @@ import (
   	"log"
     "os"
     "path/filepath"
-    //"fmt"
+    . "github.com/penlook/pengo/cmd/pengo/lib/template"
 )
 
 type Run struct {
@@ -70,19 +70,20 @@ func (run *Run) ParseApplication() {
     // Parse extend
     dir, err = filepath.Abs(run.Directory + "/extend")
     if err != nil {
-        panic("Folder name 'model' does not exist !")
+        panic("Folder name 'extend' does not exist !")
     }
-    run.Data["extend"]      = parser.Extend(dir)
+    run.Data["extend"] = parser.Extend(dir)
 }
 
 func (run *Run) Generate() {
     main_path, _ := filepath.Abs(run.Directory + "/build/main.go")
     generator := Generate {}
-    generator.Main(main_file, main_path, run.Data)
+    generator.Main(BuildMain, main_path, run.Data)
 }
 
 func (run *Run) Run() {
 	run.GetCurrentDirectory(run.Context.Args().First())
+    run.Compile
     run.ParseApplication()
     run.Generate()
 }

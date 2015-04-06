@@ -24,32 +24,7 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package controller
+package model
 
-import (
-	. "github.com/penlook/pengo"
-	. "github.com/penlook/pengo/cmd/pengo/app/generate"
-)
-
-@Controller App
-
-func Before() {
-	@Pick("Before action")
-}
-
-func After() {
-	@Pick("After action")
-}
-
-// @route /app/index
-// @method GET
-func Index() {
-	@Pick("Assign Title")
-	@@title = "Index Page"
-
-	@Pick("Before call pk")
-	Pk()
-	@Pick("After call pk")
-
-	@Pick("Assign slogan and author")
+type Index struct {
 }

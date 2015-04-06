@@ -34,16 +34,16 @@ import (
 
 type Data map[string] interface{}
 
-type Generate struct {}
+type Generator struct {}
 
-func (gen Generate) Clean(path string) {
+func (gen Generator) Clean(path string) {
 	err := os.Remove(path)
 	if err != nil {
 	  	return
 	}
 }
 
-func (gen Generate) Write(template string, path string) {
+func (gen Generator) Write(template string, path string) {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
     	os.Create(path)
 	}
@@ -55,19 +55,19 @@ func (gen Generate) Write(template string, path string) {
 	file.WriteString(template)
 }
 
-func (gen Generate) Replace(template string, variable string, content string) string {
+func (gen Generator) Replace(template string, variable string, content string) string {
 	variable = "{{ " + variable + " }}"
 	template = strings.Replace(template, variable, content, -1)
 	return template
 }
 
-func (gen Generate) Schema() {
+func (gen Generator) Schema() {
 }
 
-func (gen Generate) Extend() {
+func (gen Generator) Extend() {
 }
 
-func (gen Generate) Main(template string, path string, data Data) {
+func (gen Generator) Main(template string, path string, data Data) {
 	gen.Clean(path)
 
 	type Router struct {
