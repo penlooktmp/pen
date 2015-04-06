@@ -51,6 +51,7 @@ func Index() {
 	@title = "Index Page"
 	@hello = "Welcome to Index Page"
 	@Pick("Before call pk")
+	Pk()
 	@Pick("After call pk")
 
 	@Pick("Assign slogan and author")

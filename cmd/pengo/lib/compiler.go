@@ -41,10 +41,19 @@ type Compiler struct {
 }
 
 func (compiler Compiler) ParseController() {
+	// Target controller directory
 	targetDirectory, _ := filepath.Abs(compiler.Directory + "/controller")
-	//destDirectory, _   := filepath.Abs(compiler.Directory + "/generate")
+
+	// Destination compiled controller
+	destDirectory, _   := filepath.Abs(compiler.Directory + "/generate/controller")
+
+	// Struct alias pattern
 	struct_alias, _      := regexp.Compile("@[A-Z]")
+
+	// Template variable pattern
 	template_variable := regexp.MustCompile("@[a-z]")
+
+	// Loop in target controller
 	filepath.Walk(targetDirectory, func(path string, f os.FileInfo, err error) error {
     	file, err := os.Open(path)
 		if err != nil {
@@ -61,7 +70,7 @@ func (compiler Compiler) ParseController() {
 	    	if strings.HasPrefix(line, "@controller") {
 	    		array := strings.Split(line, " ")
 	    		controllerName = array[1]
-	    		content = content + "type " + controllerName + " struct { Controller } \n"
+	    		content = content + "type " + controllerName + " struct { Controller }\n"
 	    		continue
 	    	}
 
@@ -75,21 +84,23 @@ func (compiler Compiler) ParseController() {
     			continue
     		}
 
-    		// Function
+    		// Function full pattern
 			if strings.HasPrefix(line, "func") {
 				content = content + "func (" + strings.ToLower(controllerName) + " " + controllerName + ")" + line[4:] + "\n"
 				continue
 			}
 
+			// Template variable
 			loc := template_variable.FindStringIndex(line)
 			if len(loc) > 0 {
 				array := strings.Split(line[loc[0]:], "=")
 				if len(array) == 2 {
-					content = content + "\t" + strings.ToLower(controllerName) + ".View(Data{\"" + strings.TrimSpace(array[0][1:]) + "\":" + array[1] + "},) \n"
+					content = content + "\t" + strings.ToLower(controllerName) + ".View(Data{\"" + strings.TrimSpace(array[0][1:]) + "\":" + array[1] + ",})\n"
 					continue
 				}
 			}
 
+			// Struct method or field name
 			loc = struct_alias.FindStringIndex(line)
 			if len(loc) > 0 {
 				content = content + "\t" + strings.ToLower(controllerName) + "." + line[loc[0] + 1:] + "\n"
@@ -99,7 +110,11 @@ func (compiler Compiler) ParseController() {
 			content = content + line + "\n"
 		}
 
-		fmt.Println(content)
+		if len(controllerName) > 1 {
+			generator := Generator {}
+    		generator.Controller(content, destDirectory, controllerName)
+    	}
+
     	return nil
 	})
 }

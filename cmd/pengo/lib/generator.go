@@ -29,7 +29,8 @@ package lib
 import (
   	"os"
   	"strings"
-  	//"fmt"
+  	"path/filepath"
+  	"fmt"
 )
 
 type Data map[string] interface{}
@@ -39,6 +40,7 @@ type Generator struct {}
 func (gen Generator) Clean(path string) {
 	err := os.Remove(path)
 	if err != nil {
+		fmt.Println(err)
 	  	return
 	}
 }
@@ -65,6 +67,12 @@ func (gen Generator) Schema() {
 }
 
 func (gen Generator) Extend() {
+}
+
+func (gen Generator) Controller(template string, controllerDirectory string, controllerName string) {
+	path, _ := filepath.Abs(controllerDirectory + "/" + strings.ToLower(controllerName) + ".go")
+	gen.Clean(path)
+	gen.Write(template, path)
 }
 
 func (gen Generator) Main(template string, path string, data Data) {

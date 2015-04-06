@@ -50,6 +50,7 @@ type Controller struct {
 	StopOnSignal chan bool
 	End chan bool
 
+	Config Config
 	Model Model
 	Flow module.Flow
 	Module Module

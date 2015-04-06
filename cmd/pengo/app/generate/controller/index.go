@@ -31,29 +31,28 @@ import (
 	. "github.com/penlook/pengo/cmd/pengo/app/generate"
 )
 
-@controller App
+type Index struct { Controller }
 
-@pick "Before action"
-func Before() {
-
-}
-
-@pick "After action"
-func After() {
+// @pick "Before action"
+func (index Index) Before() {
 
 }
 
-@route /app/home
-@method GET
-@pick "Home action"
-func Home() {
+// @pick "After action"
+func (index Index) After() {
 
-	@title = "Index Page"
-	@sample = "Welcome to application home"
-	@image = "http://img3.wikia.nocookie.net/__cb20140410201208/pokemon/images/e/ef/025Pikachu_SSB4.png"
-	@Pick("Before call pk")
+}
+
+// @route /index/index
+// @method GET
+// @pick "Index action"
+func (index Index) Index() {
+
+	index.View(Data{"title": "Index Page",})
+	index.View(Data{"hello": "Welcome to Index Page",})
+	index.Pick("Before call pk")
 	Pk()
-	@Pick("After call pk")
+	index.Pick("After call pk")
 
-	@Pick("Assign slogan and author")
+	index.Pick("Assign slogan and author")
 }

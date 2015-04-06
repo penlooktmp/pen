@@ -54,7 +54,7 @@ func (run *Run) ParseApplication() {
     run.Data = Data {}
 
     // Parse controller
-    dir, err := filepath.Abs(run.Directory + "/controller")
+    dir, err := filepath.Abs(run.Directory + "/generate/controller")
     if err != nil {
         panic("Folder name 'controller' does not exist !")
     }
@@ -87,12 +87,11 @@ func (run Run) Compile() {
         Directory : path,
     }
     compiler.ParseController()
-    compiler.ParseModel()
 }
 
 func (run *Run) Run() {
 	run.GetCurrentDirectory(run.Context.Args().First())
     run.Compile()
-    //run.ParseApplication()
-    //run.Generate()
+    run.ParseApplication()
+    run.Generate()
 }
