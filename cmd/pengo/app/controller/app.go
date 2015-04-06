@@ -28,7 +28,6 @@ package controller
 
 import (
 	. "github.com/penlook/pengo"
-	. "github.com/penlook/pengo/cmd/pengo/app/generate"
 )
 
 @controller App

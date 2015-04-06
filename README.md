@@ -7,6 +7,34 @@ Build status
 
 ![Pengo](http://s16.postimg.org/g7no9g5k5/Capture.png)
 
+Taste of Pengo
+
+```go
+import (
+	. "github.com/penlook/pengo"
+)
+
+@controller App
+
+@route /app/:name
+@method GET
+func Home() {
+
+	// Pass variable to template
+	@title = "Index Page"
+	@sample = "Welcome to application home"
+	@image = "http://img3.wikia.nocookie.net/__cb20140410201208/pokemon/images/e/ef/025Pikachu_SSB4.png"
+
+	// Call parent controller function
+	@Pick("Before call pk")
+
+	// SELECT * FROM `User` WHERE id=1
+	user := #User.Find(1)
+
+	// Print username
+	Print(user.Name)
+}
+```
 
 Feature (In Progress)
 
@@ -30,15 +58,6 @@ Road map
 10. Flow Tracking (testing)
 11. Extend framework by using C (implementing)
 12. Annotation Parser (not started)
-
-Architecture
-
-1. Model-View-Controler
-2. Dependency Injection
-3. Event Driven
-4. Object Relational Mapping
-5. Object Document Mapping
-6. Lazy Connection
 
 Database Model
 
