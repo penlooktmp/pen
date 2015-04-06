@@ -1,2 +1,2 @@
-void Pk();
+void Pengo();
 char* Abc();

@@ -90,7 +90,7 @@ func (gen Generator) Main(template string, path string, data Data) {
 	for controller, actionIndex := range data["controller"].(Controller) {
 		for _, actionMap := range actionIndex {
 			for action, annotationMap := range actionMap {
-				if action == "Before" || action == "After" {
+				if action == "Start" || action == "Before" || action == "After" {
 					continue
 				}
 				routers = append(routers, Router {

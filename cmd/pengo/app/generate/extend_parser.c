@@ -2,14 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-void Pk() {
-	int i;
-	int b = 0;
-	for (i=1; i<100000000; i++) {
-		b += 1;
-	}
-	printf("SUM B = %d\n", b);
-}
+void Pengo() {}
 
 char* Abc() {
     static char str[80];

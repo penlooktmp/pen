@@ -61,7 +61,17 @@ func (compiler Compiler) ParseController() {
 		}
 		defer file.Close()
 		scanner := bufio.NewScanner(file)
+
+		// Header declaration
+		header  := "// AUTO GENERATED\n"
+		header = header + "// DO NOT MODIFY\n"
+		header = header + "package controller\n"
+		header = header + "import (\n"
+		header = header + "\t. \"github.com/penlook/pengo\"\n"
+		header = header + "\t. \"github.com/penlook/pengo/cmd/pengo/app/generate\"\n"
+		header = header + ")\n"
 		content := ""
+
 		controllerName := ""
 		for scanner.Scan() {
 			line := scanner.Text()
@@ -70,7 +80,8 @@ func (compiler Compiler) ParseController() {
 	    	if strings.HasPrefix(line, "@controller") {
 	    		array := strings.Split(line, " ")
 	    		controllerName = array[1]
-	    		content = content + "type " + controllerName + " struct { Controller }\n"
+	    		content = content + header + "type " + controllerName + " struct { Controller }\n"
+	    		content = content + "func (" + strings.ToLower(controllerName) + " " + controllerName + ") Start() {\n\tPengo()\n\t"+ strings.ToLower(controllerName) +".Pick(\"Start\")\n}\n"
 	    		continue
 	    	}
 

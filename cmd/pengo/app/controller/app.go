@@ -24,37 +24,31 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package controller
 
-import (
-	. "github.com/penlook/pengo"
-)
-
+// App Controller
 @controller App
 
 func Before() {
-
+	@Pick("Before action")
 }
 
 func After() {
-
+	@Pick("After action")
 }
 
 @route /app/:name
 @method GET
 func Home() {
+	@Pick("Home action")
 
 	// Pass variable to template
 	@title = "Index Page"
 	@sample = "Welcome to application home"
 	@image = "http://img3.wikia.nocookie.net/__cb20140410201208/pokemon/images/e/ef/025Pikachu_SSB4.png"
 
-	// Call parent controller function
-	@Pick("Before call pk")
-
 	// SELECT * FROM `User` WHERE id=1
-	user := #User.Find(1)
+	//user := #User.Find(1)
 
 	// Print username
-	Print(user.Name)
+	//Print(user.Name)
 }

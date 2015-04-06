@@ -4,8 +4,8 @@ package generate
 // #include "extend_parser.h"
 import "C"
 
-func Pk() {
-	C.Pk()
+func Pengo() {
+	C.Pengo()
 }
 
 func Abc() string {

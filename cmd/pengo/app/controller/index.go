@@ -24,23 +24,16 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package controller
 
-import (
-	. "github.com/penlook/pengo"
-	. "github.com/penlook/pengo/cmd/pengo/app/generate"
-)
-
+// Index Controller
 @controller Index
 
-@pick "Before action"
 func Before() {
-
+	// TODO
 }
 
-@pick "After action"
 func After() {
-
+	// TODO
 }
 
 @route /index/index
@@ -51,7 +44,6 @@ func Index() {
 	@title = "Index Page"
 	@hello = "Welcome to Index Page"
 	@Pick("Before call pk")
-	Pk()
 	@Pick("After call pk")
 
 	@Pick("Assign slogan and author")

@@ -24,36 +24,42 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package controller
 
+// App Controller
+// AUTO GENERATED
+// DO NOT MODIFY
+package controller
 import (
 	. "github.com/penlook/pengo"
 	. "github.com/penlook/pengo/cmd/pengo/app/generate"
 )
-
 type App struct { Controller }
+func (app App) Start() {
+	Pengo()
+	app.Pick("Start")
+}
 
-// @pick "Before action"
 func (app App) Before() {
-
+	app.Pick("Before action")
 }
 
-// @pick "After action"
 func (app App) After() {
-
+	app.Pick("After action")
 }
 
-// @route /app/home
+// @route /app/:name
 // @method GET
-// @pick "Home action"
-func (app App) Home(name string) {
-	Print(name)
+func (app App) Home() {
+	app.Pick("Home action")
+
+	// Pass variable to template
 	app.View(Data{"title": "Index Page",})
 	app.View(Data{"sample": "Welcome to application home",})
 	app.View(Data{"image": "http://img3.wikia.nocookie.net/__cb20140410201208/pokemon/images/e/ef/025Pikachu_SSB4.png",})
-	app.Pick("Before call pk")
-	Pk()
-	app.Pick("After call pk")
 
-	app.Pick("Assign slogan and author")
+	// SELECT * FROM `User` WHERE id=1
+	//user := #User.Find(1)
+
+	// Print username
+	//Print(user.Name)
 }
