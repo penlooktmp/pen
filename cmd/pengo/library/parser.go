@@ -78,7 +78,10 @@ func (parser Parser) Controller(rootPath string) interface {} {
 
     controllers := Controller {}
     annotation  := Annotation {}
-    arguments   := Arguments {}
+    arguments   := Arguments {
+    	Order : []string {},
+    	Type  : Pair {},
+    }
     funcPattern, _ := regexp.Compile("\\((|[a-zA-Z0-9,\\s]+)\\)[\\s]+{")
     argsPattern, _ := regexp.Compile("\\(([a-zA-Z0-9,\\s]+)\\)")
     specialChar, _ := regexp.Compile("[\\(|\\)]")
@@ -108,7 +111,12 @@ func (parser Parser) Controller(rootPath string) interface {} {
    						fmt.Println("Syntax error ", linestack[i])
    						return nil
    					}
-   					arguments[argumentPair[0]] = argumentPair[1]
+
+   					argumentName := argumentPair[0]
+   					argumentType := argumentPair[1]
+
+   					arguments.Order = append(arguments.Order, argumentName)
+   					arguments.Type[argumentName] = argumentType
    				}
    			}
 
@@ -123,7 +131,10 @@ func (parser Parser) Controller(rootPath string) interface {} {
    				Arguments  : arguments,
    			})
    			annotation = Annotation {}
-   			arguments  = Arguments {}
+   			arguments  = Arguments {
+   				Order : []string {},
+   				Type  : Pair {},
+   			}
    		}
    	}
 

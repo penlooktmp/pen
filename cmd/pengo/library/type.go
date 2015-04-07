@@ -26,11 +26,19 @@
  */
 package library
 
+type Pair map[string] string
+
 type Annotation map[string] string
-type Arguments  map[string] string
+
+type Arguments struct {
+	Order [] string
+	Type map[string] string
+}
+
 type Action struct {
 	Name string
 	Annotation Annotation
 	Arguments Arguments
 }
+
 type Controller map[string] [] Action

@@ -35,7 +35,6 @@ import (
 	"time"
 	"reflect"
 	"fmt"
-	"strconv"
 )
 
 type Controller struct {
@@ -143,24 +142,11 @@ func (controller Controller) BeforeAction(parent interface {}) {
     }
 }
 
-func (controller *Controller) Action(parent interface {}, arguments string, params httprouter.Params) {
+func (controller *Controller) Action(parent interface {}, argumentString string, params httprouter.Params) {
     actionVal := reflect.ValueOf(parent).MethodByName(controller.ActionName)
     if actionVal.IsValid() {
-
-    	userid_val   := params.ByName("username")
-    	password_val := params.ByName("password")
-    	userid, _   := strconv.Atoi(userid_val)
-    	password    := string(password_val)
-
-		in := []reflect.Value{}
-		in = append(in, reflect.ValueOf(userid))
-		in = append(in, reflect.ValueOf(password))
-
-    	actionVal.Call(in)
-
-    	//actionInterface := actionVal.Interface()
-    	//action := actionInterface.(func())
-    	//action()
+		args := ReflectActionArgument(argumentString, params)
+    	actionVal.Call(args)
     } else {
    		controller.ActionName = ""
     }

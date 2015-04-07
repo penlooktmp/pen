@@ -27,3 +27,8 @@
 package pengo
 
 type Data map[string] interface{}
+
+type Arguments struct {
+	Order [] string
+	Type map[string] string
+}

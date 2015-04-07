@@ -41,7 +41,7 @@ type Compiler struct {
 	File string
 	Line string
 	Content string
-	Data Arguments
+	Data Pair
 }
 
 // Header file
@@ -163,7 +163,7 @@ func (compile *Compiler) ParseController() {
 		// Update context
 		compile.File = path
 		compile.Content = ""
-		compile.Data = Arguments {}
+		compile.Data = Pair {}
 
 		scanner := bufio.NewScanner(file)
 

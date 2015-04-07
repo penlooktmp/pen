@@ -45,7 +45,7 @@ func (app App) Before() {
 func (app App) After() {
 	// TODO
 }
-// @Route /login/:username/:password
+// @Route /login/:userid/:password
 // @Method GET
 // @Pick "Sample Login"
 func (app App) Login(userid int, password string) {

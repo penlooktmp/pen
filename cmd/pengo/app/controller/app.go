@@ -37,7 +37,7 @@ func After() {
 	// TODO
 }
 
-@Route /login/:username/:password
+@Route /login/:userid/:password
 @Method GET
 @Pick "Sample Login"
 func Login(userid int, password string) {
