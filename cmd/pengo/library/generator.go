@@ -24,7 +24,7 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package lib
+package library
 
 import (
   	"os"
@@ -104,8 +104,8 @@ func (gen Generator) Main(template string, path string, data Data) {
 			routers = append(routers, Router {
 				Controller: controllerName,
 				Action: action.Name,
-				Route : action.Annotation["@route"],
-				Method: action.Annotation["@method"],
+				Route : action.Annotation["@Route"],
+				Method: action.Annotation["@Method"],
 				Arguments: action.Arguments,
 			})
 		}

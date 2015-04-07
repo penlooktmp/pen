@@ -29,7 +29,7 @@ package main
 import (
     "os"
   	"github.com/codegangsta/cli"
-    "github.com/penlook/pengo/cmd/pengo/lib"
+    "github.com/penlook/pengo/cmd/pengo/library"
 )
 
 func main() {
@@ -41,7 +41,7 @@ func main() {
             Aliases:   []string{"-r"},
             Usage:     "Run application in development mode",
             Action: func(context *cli.Context) {
-                runner := lib.Run {
+                runner := library.Run {
                     Context: context,
                 }
                 runner.Run()

@@ -24,14 +24,14 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package lib
+package library
 
 import (
   	"github.com/codegangsta/cli"
   	"log"
     "os"
     "path/filepath"
-    . "github.com/penlook/pengo/cmd/pengo/lib/template"
+    . "github.com/penlook/pengo/cmd/pengo/library/template"
 )
 
 type Run struct {

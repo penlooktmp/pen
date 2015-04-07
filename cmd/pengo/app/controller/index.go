@@ -25,20 +25,21 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-// Index Controller
 @Controller Index
 
+@Pick "Before Action"
 func Before() {
 	// TODO
 }
 
+@Pick "After Action"
 func After() {
 	// TODO
 }
 
-@route /index/index
-@method GET
-@pick "Index action"
+@Route /index/index
+@Method GET
+@Pick "Index Action"
 func Index() {
 
 	$title = "Index Page"

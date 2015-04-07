@@ -24,15 +24,13 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package lib
+package library
 
-import (
- 	"fmt"
-)
-
-type Http struct {
+type Annotation map[string] string
+type Arguments  map[string] string
+type Action struct {
+	Name string
+	Annotation Annotation
+	Arguments Arguments
 }
-
-func (http Http) Run() {
-	fmt.Println("Starting http proxy")
-}
+type Controller map[string] [] Action

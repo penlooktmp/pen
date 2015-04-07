@@ -24,8 +24,6 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-
-// Index Controller
 // AUTO GENERATED
 // DO NOT MODIFY
 package controller
@@ -38,25 +36,17 @@ func (index Index) Start() {
 	Pengo()
 	index.Pick("Start")
 }
-
+// @Controller Index
+// @Pick "Before Action"
 func (index Index) Before() {
 	// TODO
 }
-
+// @Pick "After Action"
 func (index Index) After() {
 	// TODO
 }
-
-// @route /index/index
-// @method GET
-// @pick "Index action"
+// @Route /index/index
+// @Method GET
+// @Pick "Index Action"
 func (index Index) Index() {
-
-	index.View(Data{"title": "Index Page",})
-	index.View(Data{"hello": "Welcome to Index Page",})
-
-	index.Pick("Before call pk")
-	index.Pick("After call pk")
-
-	index.Pick("Assign slogan and author")
 }

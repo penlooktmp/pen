@@ -24,7 +24,7 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package lib
+package library
 
 import (
  	"os"
@@ -41,11 +41,12 @@ type Parser struct {
 
 func (parser Parser) Controller(rootPath string) interface {} {
 	rules := [] string {
-		"// @route",
-		"// @method",
-		"// @error",
-		"// @less",
-		"// @dart",
+		"// @Route",
+		"// @Method",
+		"// @Error",
+    	"// @Pick",
+		"// @Less",
+		"// @Dart",
 		"func ",
 	}
 	rules_count := len(rules)

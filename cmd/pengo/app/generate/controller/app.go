@@ -24,8 +24,6 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-
-// App Controller
 // AUTO GENERATED
 // DO NOT MODIFY
 package controller
@@ -38,31 +36,23 @@ func (app App) Start() {
 	Pengo()
 	app.Pick("Start")
 }
-
+// @Controller App
+// @Pick "Before Action"
 func (app App) Before() {
-	app.Pick("Before action")
+	// TODO
 }
-
+// @Pick "After Action"
 func (app App) After() {
-	app.Pick("After action")
+	// TODO
 }
-
-// @route /login/:id/:password
-// @method GET
+// @Route /login/:id/:password
+// @Method GET
+// @Pick "Sample Login"
 func (app App) Login(id int, password string) {
-
 	Print(id)
-
-	app.Pick("Home action")
-
 	// Assign variable to template
-	app.View(Data{"title": "Index Page",})
-	app.View(Data{"sample": "Welcome to application home",})
-	app.View(Data{"image": "http://img3.wikia.nocookie.net/__cb20140410201208/pokemon/images/e/ef/025Pikachu_SSB4.png",})
-
 	// SELECT * FROM `User` WHERE id=1
 	//user := #User.Find(1)
-
 	// Print username
 	//Print(user.Name)
 }

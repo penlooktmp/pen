@@ -25,28 +25,24 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-// Library
-@use penlook
-@use google as g
+@Controller App
 
-// App Controller
-@controller App
-
+@Pick "Before Action"
 func Before() {
-	@Pick("Before action")
+	// TODO
 }
 
+@Pick "After Action"
 func After() {
-	@Pick("After action")
+	// TODO
 }
 
-@route /login/:id/:password
-@method GET
+@Route /login/:id/:password
+@Method GET
+@Pick "Sample Login"
 func Login(id int, password string) {
 
 	Print(id)
-
-	@Pick("Home action")
 
 	// Assign variable to template
 	$title  = "Index Page"
