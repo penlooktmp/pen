@@ -29,6 +29,7 @@ package lib
 import (
   	"os"
   	"strings"
+  	"encoding/json"
   	"path/filepath"
   	"fmt"
 )
@@ -90,25 +91,23 @@ func (gen Generator) Main(template string, path string, data Data) {
 		Method string
 		Controller string
 		Action string
+		Arguments Arguments
 	}
 
 	routers := [] Router {}
 
-	for controller, actionIndex := range data["controller"].(Controller) {
-		for _, actionMap := range actionIndex {
-			for action, annotationMap := range actionMap {
-				fmt.Println(annotationMap)
-				fmt.Println(action)
-				/*if action == "Start" || action == "Before" || action == "After" {
-					continue
-				}
-				routers = append(routers, Router {
-					Controller: controller,
-					Action: action,
-					Route: annotationMap["@route"],
-					Method: annotationMap["@method"],
-				})*/
+	for controllerName, actionIndex := range data["controller"].(Controller) {
+		for _, action := range actionIndex {
+			if action.Name == "Start" || action.Name == "Before" || action.Name == "After" {
+				continue
 			}
+			routers = append(routers, Router {
+				Controller: controllerName,
+				Action: action.Name,
+				Route : action.Annotation["@route"],
+				Method: action.Annotation["@method"],
+				Arguments: action.Arguments,
+			})
 		}
 	}
 
@@ -116,6 +115,10 @@ func (gen Generator) Main(template string, path string, data Data) {
 	for _, router := range routers {
 		if router.Method == "" {
 			router.Method = "GET"
+		}
+		argumentString, err := json.Marshal(router.Arguments)
+		if err != nil {
+			fmt.Println("Syntax error ", router.Arguments)
 		}
 		router_code += "router." + router.Method + "(\"" + router.Route + "\""+ `, func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
     		c := ` + router.Controller + ` {
@@ -125,7 +128,7 @@ func (gen Generator) Main(template string, path string, data Data) {
     		c.Start()
     		c.InitAction()
     		c.BeforeAction(c)
-    		c.Action(c)
+    		c.Action(c, ` + "`" + string(argumentString) + "`" + `)
     		c.AfterAction(c)
     		c.Flow.Graph()
 		})` + "\n\t"

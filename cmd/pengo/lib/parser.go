@@ -79,6 +79,7 @@ func (parser Parser) Controller(rootPath string) interface {} {
     annotation  := Annotation {}
     arguments   := Arguments {}
     funcPattern, _ := regexp.Compile("\\((|[a-zA-Z0-9,\\s]+)\\)[\\s]+{")
+    argsPattern, _ := regexp.Compile("\\(([a-zA-Z0-9,\\s]+)\\)")
     specialChar, _ := regexp.Compile("[\\(|\\)]")
 
    	for i:=0; i<linestack_count; i++ {
@@ -91,7 +92,24 @@ func (parser Parser) Controller(rootPath string) interface {} {
    			annotation[array[1]] = array[2]
    		} else {
 
-   			fmt.Println(funcPattern.MatchString(linestack[i]))
+   			funcArray := argsPattern.FindAllString(linestack[i], -1)
+
+   			// Function has arguments
+   			if len(funcArray) == 2 {
+   				funcArgs := strings.TrimSpace(funcArray[1])
+   				// Remove "(" and ")"
+   				funcParameters := strings.Split(funcArgs[1: len(funcArgs) - 1], ",")
+   				for _, argument := range funcParameters {
+   					argument = strings.TrimSpace(argument)
+   					// Ex: "user string" -> [user string]
+   					argumentPair := strings.Split(argument, " ")
+   					if len(argumentPair) > 2 {
+   						fmt.Println("Syntax error ", linestack[i])
+   						return nil
+   					}
+   					arguments[argumentPair[0]] = argumentPair[1]
+   				}
+   			}
 
    			// Function or action ?
    			linestack[i] = funcPattern.ReplaceAllString(linestack[i], "")
@@ -99,6 +117,7 @@ func (parser Parser) Controller(rootPath string) interface {} {
 
    			array := strings.Split(linestack[i], " ")
    			controllers[array[2]] = append(controllers[array[2]], Action {
+   				Name: array[3],
    				Annotation : annotation,
    				Arguments  : arguments,
    			})

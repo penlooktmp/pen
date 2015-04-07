@@ -28,9 +28,9 @@ package lib
 
 type Annotation map[string] string
 type Arguments  map[string] string
-type ActionInterface struct {
+type Action struct {
+	Name string
 	Annotation Annotation
 	Arguments Arguments
 }
-type Action map[string] ActionInterface
 type Controller map[string] [] Action
