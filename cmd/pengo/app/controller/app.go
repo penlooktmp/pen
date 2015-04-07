@@ -32,33 +32,21 @@ func Before() {
 	// TODO
 }
 
+@Route /login/:uid/:password
+@Method GET
+@Pick "Simple Login Form"
+func Login(uid int, password string) {
+	// Assign variable to template
+	$title  = "Index Page"
+	$hello  = "Welcome to golang"
+	$avatar = "http://i.share.pho.to/fcf739b8_o.png"
+	$id     = uid
+	$pass   = password
+}
+
 @Pick "After Action"
 func After() {
 	// TODO
 }
 
-@Route /login/:userid/:password
-@Method GET
-@Pick "Sample Login"
-func Login(userid int, password string) {
 
-	@Pick("Start session")
-
-	// Assign to session
-	@Session("key", "value")
-
-	@Pick("End session")
-
-	// Assign variable to template
-	$title  = "Index Page"
-	$sample = "Welcome to golang"
-	$userid = userid
-	$password = password
-	$image  = "http://www.unixstickers.com/image/cache/data/stickers/golang/golang.sh-600x600.png"
-
-	// SELECT * FROM `User` WHERE id=1
-	//user := #User.Find(1)
-
-	// Print username
-	//Print(user.Name)
-}

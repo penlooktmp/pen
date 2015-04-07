@@ -40,15 +40,8 @@ type Parser struct {
 }
 
 func (parser Parser) Controller(rootPath string) interface {} {
-	rules := [] string {
-		"// @Route",
-		"// @Method",
-		"// @Error",
-    	"// @Pick",
-		"// @Less",
-		"// @Dart",
-		"func ",
-	}
+	rules := ANNOTATION_LIST
+	rules = append(rules, "func")
 	rules_count := len(rules)
 	linestack := [] string {}
 	linestack_count := 0

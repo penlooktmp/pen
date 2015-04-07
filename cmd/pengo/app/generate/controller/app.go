@@ -41,25 +41,18 @@ func (app App) Start() {
 func (app App) Before() {
 	// TODO
 }
+// @Route /login/:uid/:password
+// @Method GET
+// @Pick "Simple Login Form"
+func (app App) Login(uid int, password string) {
+	// Assign variable to template
+	app.View(Data{"title": "Index Page",})
+	app.View(Data{"hello": "Welcome to golang",})
+	app.View(Data{"avatar": "http://i.share.pho.to/fcf739b8_o.png",})
+	app.View(Data{"id": uid,})
+	app.View(Data{"pass": password,})
+}
 // @Pick "After Action"
 func (app App) After() {
 	// TODO
-}
-// @Route /login/:userid/:password
-// @Method GET
-// @Pick "Sample Login"
-func (app App) Login(userid int, password string) {
-	app.Pick("Start session")
-	// Assign to session
-	app.Session("key", "value")
-	app.Pick("End session")
-	// Assign variable to template
-	app.View(Data{"title": "Index Page",})
-	app.View(Data{"sample": "Welcome to golang",})
-	app.View(Data{"userid": userid,})
-	app.View(Data{"password": password,})
-	app.View(Data{"image": "http://www.unixstickers.com/image/cache/data/stickers/golang/golang.sh-600x600.png",})
-	// SELECT * FROM `User` WHERE id=1
-	// Print username
-	//Print(user.Name)
 }

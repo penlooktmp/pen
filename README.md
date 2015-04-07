@@ -10,23 +10,28 @@ Build status
 ###Taste of Pengo
 
 ```go
-// App Controller
 @Controller App
 
+@Pick "Before Action"
 func Before() {
-	@Pick("Before action")
+	// TODO
 }
 
+@Route /login/:uid/:password
+@Method GET
+@Pick "Simple Login Form"
+func Login(uid int, password string) {
+	// Assign variable to template
+	$title  = "Index Page"
+	$hello  = "Welcome to golang"
+	$avatar = "http://i.share.pho.to/fcf739b8_o.png"
+	$id     = uid
+	$pass   = password
+}
+
+@Pick "After Action"
 func After() {
-	@Pick("After action")
-}
-
-@route /app/:name
-@method GET
-func Home(name) {
-	// Pass variable to template
-	$title  = "Home Page"
-	$sample = "Welcome to home page"
+	// TODO
 }
 ```
 
@@ -74,6 +79,7 @@ func Home() {
 10. Flow Tracking (testing)
 11. Extend framework by using C (implementing)
 12. Annotation Parser (not started)
+13. Rest API
 
 ####Database Model
 
