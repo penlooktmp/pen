@@ -37,17 +37,24 @@ func After() {
 	// TODO
 }
 
-@Route /login/:id/:password
+@Route /login/:username/:password
 @Method GET
 @Pick "Sample Login"
-func Login(id int, password string) {
+func Login(userid int, password string) {
 
-	Print(id)
+	@Pick("Start session")
+
+	// Assign to session
+	@Session("key", "value")
+
+	@Pick("End session")
 
 	// Assign variable to template
 	$title  = "Index Page"
-	$sample = "Welcome to application home"
-	$image  = "http://img3.wikia.nocookie.net/__cb20140410201208/pokemon/images/e/ef/025Pikachu_SSB4.png"
+	$sample = "Welcome to golang"
+	$userid = userid
+	$password = password
+	$image  = "http://www.unixstickers.com/image/cache/data/stickers/golang/golang.sh-600x600.png"
 
 	// SELECT * FROM `User` WHERE id=1
 	//user := #User.Find(1)

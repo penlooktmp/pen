@@ -49,4 +49,9 @@ func (index Index) After() {
 // @Method GET
 // @Pick "Index Action"
 func (index Index) Index() {
+	index.View(Data{"title": "Index Page",})
+	index.View(Data{"hello": "Welcome to Index Page",})
+	index.Pick("Before call pk")
+	index.Pick("After call pk")
+	index.Pick("Assign slogan and author")
 }

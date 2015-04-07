@@ -39,7 +39,7 @@ func Base(controllerName string, actionName string, response http.ResponseWriter
 
 func main() {
     router := httprouter.New()
-    router.GET("/login/:id/:password", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
+    router.GET("/login/:username/:password", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
     		c := App {
         		Base("App", "Login", response, request, params),
     		}
@@ -47,7 +47,7 @@ func main() {
     		c.Start()
     		c.InitAction()
     		c.BeforeAction(c)
-    		c.Action(c, `{"id":"int","password":"string"}`)
+    		c.Action(c, `{"password":"string","userid":"int"}`, params)
     		c.AfterAction(c)
     		c.Flow.Graph()
 		})
@@ -59,7 +59,7 @@ func main() {
     		c.Start()
     		c.InitAction()
     		c.BeforeAction(c)
-    		c.Action(c, `{}`)
+    		c.Action(c, `{}`, params)
     		c.AfterAction(c)
     		c.Flow.Graph()
 		})

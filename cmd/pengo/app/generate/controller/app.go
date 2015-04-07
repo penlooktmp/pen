@@ -45,14 +45,21 @@ func (app App) Before() {
 func (app App) After() {
 	// TODO
 }
-// @Route /login/:id/:password
+// @Route /login/:username/:password
 // @Method GET
 // @Pick "Sample Login"
-func (app App) Login(id int, password string) {
-	Print(id)
+func (app App) Login(userid int, password string) {
+	app.Pick("Start session")
+	// Assign to session
+	app.Session("key", "value")
+	app.Pick("End session")
 	// Assign variable to template
+	app.View(Data{"title": "Index Page",})
+	app.View(Data{"sample": "Welcome to golang",})
+	app.View(Data{"userid": userid,})
+	app.View(Data{"password": password,})
+	app.View(Data{"image": "http://www.unixstickers.com/image/cache/data/stickers/golang/golang.sh-600x600.png",})
 	// SELECT * FROM `User` WHERE id=1
-	//user := #User.Find(1)
 	// Print username
 	//Print(user.Name)
 }

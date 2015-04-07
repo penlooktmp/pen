@@ -113,31 +113,15 @@ func (compile *Compiler) Function() {
 }
 
 // Start with @ (in function)
-func (compile Compiler) Method(loc []int) {
-	/*
-	// Struct alias pattern
-	struct_alias, _      := regexp.Compile("@[A-Z]")
-
-	// Template variable pattern
-
-
-
-	loc :=
-
-			// Struct method or field name
-			loc = struct_alias.FindStringIndex(line)
-			if len(loc) > 0 {
-				content = content + "\t" + strings.ToLower(controllerName) + "." + line[loc[0] + 1:] + "\n"
-				continue
-			}
-
-			content = content + line + "\n"
-	 */
+func (compile *Compiler) Method(loc []int) {
+	line := compile.Line
+	controllerName := compile.Data["controllerName"]
+	compile.Content += "\t" + strings.ToLower(controllerName) + "." + line[loc[0] + 1:] + "\n"
 }
 
 // Template variable
 // Start with $ (in function)
-func (compile Compiler) TemplateVariable(loc []int) {
+func (compile *Compiler) TemplateVariable(loc []int) {
 	line := compile.Line
 	array := strings.Split(line[loc[0]:], "=")
 	if len(array) == 2 {
@@ -146,8 +130,8 @@ func (compile Compiler) TemplateVariable(loc []int) {
 }
 
 // Start with # (in function)
-func (compiler Compiler) Model() {
-
+func (compile Compiler) Model(loc []int) {
+	// TODO
 }
 
 // Check pattern should be compiled
@@ -198,16 +182,24 @@ func (compile *Compiler) ParseController() {
 				compile.Annotation()
 				continue
 			}
+
 			if strings.HasPrefix(compile.Line, "func") {
 				compile.Function()
 				continue
 			}
+
 			if loc := compile.FindPattern("\\$[a-z]"); len(loc) > 0 {
 				compile.TemplateVariable(loc)
 				continue
 			}
+
 			if loc := compile.FindPattern("\\@[A-Z]"); len(loc) > 0 {
 				compile.Method(loc)
+				continue
+			}
+
+			if loc := compile.FindPattern("\\#[A-Z]"); len(loc) > 0 {
+				compile.Model(loc)
 				continue
 			}
 

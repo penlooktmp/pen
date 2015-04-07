@@ -128,7 +128,7 @@ func (gen Generator) Main(template string, path string, data Data) {
     		c.Start()
     		c.InitAction()
     		c.BeforeAction(c)
-    		c.Action(c, ` + "`" + string(argumentString) + "`" + `)
+    		c.Action(c, ` + "`" + string(argumentString) + "`" + `, params)
     		c.AfterAction(c)
     		c.Flow.Graph()
 		})` + "\n\t"

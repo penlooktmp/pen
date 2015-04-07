@@ -30,10 +30,12 @@ import (
 	engine "github.com/flosch/pongo2"
 	"github.com/penlook/pengo/module"
 	"github.com/penlook/pengo/model"
+	"github.com/julienschmidt/httprouter"
 	"container/list"
 	"time"
 	"reflect"
 	"fmt"
+	"strconv"
 )
 
 type Controller struct {
@@ -141,13 +143,24 @@ func (controller Controller) BeforeAction(parent interface {}) {
     }
 }
 
-func (controller *Controller) Action(parent interface {}, arguments string) {
+func (controller *Controller) Action(parent interface {}, arguments string, params httprouter.Params) {
     actionVal := reflect.ValueOf(parent).MethodByName(controller.ActionName)
-    Print(actionVal)
     if actionVal.IsValid() {
-    	actionInterface := actionVal.Interface()
-    	action := actionInterface.(func())
-    	action()
+
+    	userid_val   := params.ByName("username")
+    	password_val := params.ByName("password")
+    	userid, _   := strconv.Atoi(userid_val)
+    	password    := string(password_val)
+
+		in := []reflect.Value{}
+		in = append(in, reflect.ValueOf(userid))
+		in = append(in, reflect.ValueOf(password))
+
+    	actionVal.Call(in)
+
+    	//actionInterface := actionVal.Interface()
+    	//action := actionInterface.(func())
+    	//action()
     } else {
    		controller.ActionName = ""
     }
