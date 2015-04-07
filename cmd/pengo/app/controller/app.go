@@ -27,7 +27,7 @@
 
 // Library
 @use penlook
-@use google
+@use google as g
 
 // App Controller
 @controller App
