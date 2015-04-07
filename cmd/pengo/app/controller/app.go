@@ -25,8 +25,12 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
+// Library
+@use penlook
+@use google
+
 // App Controller
-@Controller App
+@controller App
 
 func Before() {
 	@Pick("Before action")
