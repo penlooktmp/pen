@@ -157,6 +157,9 @@ func (compile Compiler) FindPattern(pattern string) []int {
 // Return false to ignore currently line
 func (compile *Compiler) CommentBlock() bool {
 
+	return false
+
+	/*
 	if compile.Enable == true {
 		regex := regexp.MustCompile("\\/\\*")
 		loc := regex.FindStringIndex(compile.Line)
@@ -181,6 +184,8 @@ func (compile *Compiler) CommentBlock() bool {
 	fmt.Println("Blala")
 
 	return true
+	*/
+
 }
 
 // Compile controller

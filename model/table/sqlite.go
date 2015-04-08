@@ -24,37 +24,8 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
+package model
 
-@Controller App
-
-@Pick "Before Action"
-func Before() {
-	@@login = true
+type Sqlite struct {
+	Name     string
 }
-
-@Route /login/:uid/:password
-@Method GET
-@Pick "Simple Login Form"
-func Login(uid int, password string) {
-
-	// Save login data to session
-	@Session("id", uid)
-	@Session("password", password)
-
-	//user := app.Model("User").(Table).
-	//user := #User.First()
-
-	// Assign variable to template
-	$title  = "Index Page"
-	$hello  = "Welcome to golang"
-	$avatar = "http://i.share.pho.to/fcf739b8_o.png"
-	$id     = uid
-	$pass   = password
-}
-
-@Pick "After Action"
-func After() {
-	@@login = false
-}
-
-

@@ -83,6 +83,7 @@ func Home() {
 
 ####Database Model
 
+1. SQLite	  -   Table      - ORM  (implementing)
 1. MySQL      -   Table      - ORM  (testing)
 2. Cassandra  -   Table      - CQL  (not started)
 3. MongoDB    -   Document   - ODM  (implemeting)
