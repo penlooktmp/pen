@@ -115,7 +115,8 @@ func Home() {
 
 ###Author - License
 This is open source project for community development under GNU Affero General Public License
-Author:
+
+Author
 	- Loi Nguyen <loint@penlook.com>
 
 
