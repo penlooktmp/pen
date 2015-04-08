@@ -25,4 +25,9 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-@Database MongoDB
+@Document MongoDb
+@Server "localhost"
+@Port 27017
+@Database "test"
+
+

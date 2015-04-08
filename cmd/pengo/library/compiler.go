@@ -145,12 +145,25 @@ func (compile *Compiler) TemplateVariable(loc []int) {
 }
 
 // Start with # (in function)
-func (compile *Compiler) Model(loc []int) {
+// #User{}
+func (compile *Compiler) ModelTable(loc []int) {
 	line := compile.Line
 	if compile.Stack.Size() == 0 {
 		controllerName := compile.Data["controllerName"]
+		// Hard-code
 		compile.Content += line[0:loc[0]] + strings.ToLower(controllerName) + ".Table(\"User\", Schema {\n"
 		compile.Stack.Push("Model.Table")
+	}
+}
+
+// Start with # (in function)
+// #ListAll()
+func (compile *Compiler) ModelController(loc []int) {
+	line := compile.Line
+	if compile.Stack.Size() == 0 {
+		controllerName := compile.Data["controllerName"]
+		// Hard-code
+		compile.Content += line[0:loc[0]] + strings.ToLower(controllerName) + ".Model.Controller." + controllerName +"ListAll()\n"
 	}
 }
 
@@ -175,35 +188,23 @@ func (compile Compiler) FindPattern(pattern string) []int {
 // Return false to ignore currently line
 func (compile *Compiler) CommentBlock() bool {
 
-	return false
-
-	/*
-	if compile.Enable == true {
+	if compile.Enable {
 		regex := regexp.MustCompile("\\/\\*")
 		loc := regex.FindStringIndex(compile.Line)
 		if len(loc) > 0 {
-			fmt.Println(compile.Line)
 			compile.Enable = false
 			return true
 		}
-	}
-
-	if compile.Enable == false {
-
+		return false
+	} else {
 		regex := regexp.MustCompile(".+\\*\\/")
 		loc := regex.FindStringIndex(compile.Line)
 		if len(loc) > 0 {
-			fmt.Println(compile.Line)
 			compile.Enable = true
-			return false
+			return true
 		}
+		return true
 	}
-
-	fmt.Println("Blala")
-
-	return true
-	*/
-
 }
 
 // Compile controller
@@ -276,7 +277,12 @@ func (compile *Compiler) ParseController() {
 			}
 
 			if loc := compile.FindPattern("\\#[A-Z]{1}[a-zA-Z0-9\\s]+\\{"); len(loc) > 0 {
-				compile.Model(loc)
+				compile.ModelTable(loc)
+				continue
+			}
+
+			if loc := compile.FindPattern("\\#[A-Z]{1}[a-zA-Z0-9]+\\((|[a-zA-Z0-9,\\s\\&]+)\\)"); len(loc) > 0 {
+				compile.ModelController(loc)
 				continue
 			}
 
@@ -298,5 +304,65 @@ func (compile *Compiler) ParseController() {
 	})
 }
 
-func (compiler Compiler) ParseModel() {
+
+// Compile controller
+func (compile *Compiler) ParseModel() {
+
+	// Target controller directory
+	targetDirectory, _ := filepath.Abs(compile.Directory + "/model")
+
+	// Destination compiled controller
+	destDirectory, _   := filepath.Abs(compile.Directory + "/generate/model")
+
+	// Loop in target controller
+	filepath.Walk(targetDirectory, func(path string, f os.FileInfo, err error) error {
+
+    	file, err := os.Open(path)
+
+		if err != nil {
+	    	log.Fatal(err)
+		}
+
+		defer file.Close()
+
+		// Update context
+		compile.File    = path
+		compile.Content = ""
+		compile.Data    = Pair {}
+		compile.Enable  = true
+		compile.Stack   = lane.NewStack()
+
+		scanner := bufio.NewScanner(file)
+
+		// Compile file content
+		for scanner.Scan() {
+
+			// Update context
+			compile.Line = scanner.Text()
+
+			// Do not compile empty line
+			if len(strings.TrimSpace(compile.Line)) == 0 {
+				continue
+			}
+
+			if compile.CommentBlock() {
+				continue
+			}
+
+			if strings.HasPrefix(compile.Line, "@") {
+				compile.Annotation()
+				continue
+			}
+
+			compile.Content += compile.Line + "\n"
+		}
+
+		// Write content to file
+		if len(compile.Data["ModelName"]) > 0 {
+			generator := Generator {}
+    		generator.Controller(compile.Content, destDirectory, compile.Data["ModelName"])
+    	}
+
+    	return nil
+	})
 }

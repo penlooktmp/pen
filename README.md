@@ -27,12 +27,12 @@ func Login(uid int, password string) {
 	me := user.First()
 
 	// Pass my information to view
-	@name  = me.Name
-	@email = me.Email
+	$name  = me.Name
+	$email = me.Email
 
 	// Model of current controller
 	// Pass list user to view
-	@users = #@ListUser()
+	$users = #@ListUser()
 }
 ```
 
@@ -41,11 +41,12 @@ func Login(uid int, password string) {
 - Eliminating the complexity of the Go syntax and deep integrated with framework
 - All of your code will be compiled into Go as you wrote it.
 
-1. Annotation
-2. Template variable
-3. Cross-context variable
-4. Model accessible
-5. Component declaration
+	1. Flexible annotation
+	2. Template variable
+	3. Cross-context variable
+	4. Model accessible
+	5. Component declaration
+	6. Automatically imported
 
 ###Extend Go with C
 extend/hello.c

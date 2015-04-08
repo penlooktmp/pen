@@ -27,8 +27,8 @@
 
 @Model App
 
-@table
 func GetAllUser() {
-	@Create
+	user := #User {}
+	user.Find()
 }
 

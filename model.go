@@ -26,7 +26,6 @@
  */
 package pengo
 
-
 import (
 	. "github.com/penlook/pengo/model"
 	. "github.com/penlook/pengo/module"

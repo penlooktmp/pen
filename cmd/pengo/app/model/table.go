@@ -25,6 +25,6 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-@Database Sqlite
+@Table Sqlite
+@File "database.db"
 
-func 

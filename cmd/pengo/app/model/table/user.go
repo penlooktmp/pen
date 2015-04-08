@@ -24,24 +24,16 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-@Table User
 
-import (
-	"github.com/penlook/pengo/model"
-	"strings"
-)
-
-type User struct {
-	Model model.Table
-	Id       int64
-	Username string `sql:"type:varchar(100);"`
-	Email    string `sql:"type:varchar(100);"`
-	Password string `sql:"type:varchar(200);"`
+@Table User {
+	Id int(10)
+	Username varchar(100)
+	Email    varchar(100)
+	Password varchar(100)
 }
 
-// Custom model function
-func (user User) FormatUserName() string {
-	return strings.ToLower(user.Username)
+func FormatUserName() string {
+	return strings.ToLower(@Username)
 }
 
 

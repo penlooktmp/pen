@@ -51,9 +51,7 @@ func Login(uid int, password string) {
 	user.First()
 
 	// Call model of app controller
-	users := #@GetListUser()
-
-	//user := #User.First()
+	// users := #ListAll()
 
 	// Assign variable to template
 	$title  = "Index Page"
