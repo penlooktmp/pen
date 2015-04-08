@@ -24,8 +24,5 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package model
 
-type Sqlite struct {
-	Name string
-}
+@Database MongoDB

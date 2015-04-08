@@ -88,8 +88,6 @@ func (controller *Controller) Initialize() {
 		Directory: "view",
 	}
 
-	controller.Model.Initialize()
-
 	// Setup for module
 	controller.Module = Module {}
 

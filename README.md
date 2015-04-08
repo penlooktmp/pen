@@ -12,28 +12,37 @@ Build status
 ```go
 @Controller App
 
-@Pick "Before Action"
-func Before() {
-	// TODO
-}
-
 @Route /login/:uid/:password
 @Method GET
 @Pick "Simple Login Form"
 func Login(uid int, password string) {
-	// Assign variable to template
-	$title  = "Index Page"
-	$hello  = "Welcome to golang"
-	$avatar = "http://i.share.pho.to/fcf739b8_o.png"
-	$id     = uid
-	$pass   = password
-}
 
-@Pick "After Action"
-func After() {
-	// TODO
+	// Using table
+	user := #User {
+		Id: uid,
+		Password: password,
+	}
+
+	// Object relational mapping
+	me := user.First()
+
+	// Pass my information to view
+	@name  = me.Name
+	@email = me.Email
+
+	// Model of current controller
+	// Pass list user to view
+	@users = #@ListUser()
 }
 ```
+
+# Pengo Syntax
+Beside Go, you can use pengo syntax to create web application faster and more meaningful. Pengo do not hurt Go and it only support missing component without any performance problem. All of your code will be compiled into Go as you wrote it.
+
+1. Annotation
+2. Template variable
+3. Cross-Context variable
+3. Model access
 
 ###Extend Go with C
 extend/hello.c

@@ -24,12 +24,5 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package document
 
-import (
-	. "github.com/penlook/pengo/model"
-)
-
-type User struct {
-	Document
-}
+@Document Status

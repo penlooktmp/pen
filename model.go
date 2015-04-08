@@ -47,13 +47,6 @@ type Model struct {
 
 func (model *Model) Initialize() {
 	model.Driver = Driver {}
-	model.Driver.Table = Table {
-		Connected: false,
-	}
-	model.Driver.Table = Table {
-		Name: "SQLite Connection",
-		File: "database.db",
-	}
 	model.Driver.Table.Connect()
 }
 

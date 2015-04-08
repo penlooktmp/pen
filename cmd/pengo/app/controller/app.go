@@ -41,13 +41,17 @@ func Login(uid int, password string) {
 	@Session("id", uid)
 	@Session("password", password)
 
-	// app.Model.Table("User", Schema
+	// Get data from table User
 	user := #User {
 		Username: "Loi",
 		Password: 1234,
 	}
 
 	user.Create()
+	user.First()
+
+	// Call model of app controller
+	users := #@GetListUser()
 
 	//user := #User.First()
 

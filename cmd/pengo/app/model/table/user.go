@@ -24,7 +24,7 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package table
+@Table User
 
 import (
 	"github.com/penlook/pengo/model"

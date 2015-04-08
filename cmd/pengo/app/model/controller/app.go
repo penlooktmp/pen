@@ -24,7 +24,11 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package model
 
-type Index struct {
+@Model App
+
+@table
+func GetAllUser() {
+	@Create
 }
+
