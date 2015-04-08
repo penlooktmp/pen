@@ -88,11 +88,6 @@ func (controller *Controller) Initialize() {
 		Directory: "view",
 	}
 
-	// Setup for model
-	controller.Model = Model {
-		Flow: controller.Flow,
-	}
-
 	controller.Model.Initialize()
 
 	// Setup for module
@@ -113,6 +108,11 @@ func (controller *Controller) Initialize() {
 
 	// End flag for controller
 	controller.End = make(chan bool, 1)
+}
+
+func (controller *Controller) SetupModel(model Model) {
+	controller.Model = model
+	controller.Model.Flow = controller.Flow
 }
 
 func (controller Controller) Start() {

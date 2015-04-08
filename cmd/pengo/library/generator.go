@@ -127,6 +127,7 @@ func (gen Generator) Main(template string, path string, data Data) {
         		Base("` + router.Controller + `", "` + router.Action + `", response, request, params),
     		}
     		c.Initialize()
+    		c.SetupModel(model)
     		c.Start()
     		c.InitAction()
     		c.BeforeAction(c)

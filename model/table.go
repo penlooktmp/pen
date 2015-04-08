@@ -26,19 +26,25 @@
  */
 package model
 
+import (
+ 	"fmt"
+)
+
 // Middleware
 type Table struct {
-	Name     string
-	Server   string
-	Port     int
-	Database string
-	Charset  string
-	Username string
-	Password string
+	Name      string
+	Server    string
+	Port      int
+	Database  string
+	File 	  string
+	Charset   string
+	Username  string
+	Password  string
 	Connected bool
 }
 
 func (table Table) Connect() string {
+	fmt.Println("Connecting to Sqlite ...")
 	return "MySQL Connection"
 }
 
@@ -47,6 +53,7 @@ func (table Table) ByTable(name string, schema interface {}) Table {
 }
 
 func (table Table) Create() bool {
+	fmt.Println("Create new person")
 	return true
 }
 

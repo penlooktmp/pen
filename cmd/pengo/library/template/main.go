@@ -66,6 +66,10 @@ func Base(controllerName string, actionName string, response http.ResponseWriter
 }
 
 func main() {
+    model := Model{}
+    model.Initialize()
+
+    //{{ model }}
     router := httprouter.New()
     {{ router }}
     http.ListenAndServe(":80", router)

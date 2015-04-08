@@ -50,23 +50,14 @@ func (model *Model) Initialize() {
 	model.Driver.Table = Table {
 		Connected: false,
 	}
+	model.Driver.Table = Table {
+		Name: "SQLite Connection",
+		File: "database.db",
+	}
+	model.Driver.Table.Connect()
 }
 
 func (model *Model) Table() Table {
-
-	if ! model.Driver.Table.Connected {
-
-		// Lazy connection
-		go func(model *Model) {
-			model.Driver.Table = Table {
-				Name: "SQLite Connection",
-				File: "database.db",
-			}
-			model.Driver.Table.Connect()
-			model.Flow.Pick("After Table Connection")
-		}(model)
-	}
-
 	return model.Driver.Table
 }
 

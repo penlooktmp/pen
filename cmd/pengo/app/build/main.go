@@ -38,12 +38,17 @@ func Base(controllerName string, actionName string, response http.ResponseWriter
 }
 
 func main() {
+    model := Model{}
+    model.Initialize()
+
+    //{{ model }}
     router := httprouter.New()
     router.GET("/login/:uid/:password", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
     		c := App {
         		Base("App", "Login", response, request, params),
     		}
     		c.Initialize()
+    		c.SetupModel(model)
     		c.Start()
     		c.InitAction()
     		c.BeforeAction(c)
@@ -56,6 +61,7 @@ func main() {
         		Base("Index", "Index", response, request, params),
     		}
     		c.Initialize()
+    		c.SetupModel(model)
     		c.Start()
     		c.InitAction()
     		c.BeforeAction(c)
