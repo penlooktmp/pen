@@ -24,44 +24,17 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
+package template
 
-@Controller App
+var TemplateSchema = `
+// AUTO GENERATED
+// DO NOT MODIFY
+package controller
 
-@Pick "Before Action"
-func Before() {
-	@@login = true
+type Schema struct {
+	Id       interface {}
+	Username interface {}
+	Email    interface {}
+	Password interface {}
 }
-
-@Route /login/:uid/:password
-@Method GET
-@Pick "Simple Login Form"
-func Login(uid int, password string) {
-
-	// Save login data to session
-	@Session("id", uid)
-	@Session("password", password)
-
-	// app.Model.Table("User", Schema
-	user := #User {
-		Username: "Loi",
-		Password: 1234,
-	}
-
-	user.Create()
-
-	//user := #User.First()
-
-	// Assign variable to template
-	$title  = "Index Page"
-	$hello  = "Welcome to golang"
-	$avatar = "http://i.share.pho.to/fcf739b8_o.png"
-	$id     = uid
-	$pass   = password
-}
-
-@Pick "After Action"
-func After() {
-	@@login = false
-}
-
-
+`

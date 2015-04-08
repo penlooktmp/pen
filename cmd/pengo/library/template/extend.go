@@ -26,7 +26,7 @@
  */
 package template
 
-var BuildExend string = `
+var TemplateExend string = `
 // AUTO GENERATED
 // DO NOT MODIFY
 package extend

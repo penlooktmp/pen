@@ -34,6 +34,7 @@ import (
  	"fmt"
  	"strings"
  	"regexp"
+ 	"github.com/oleiade/lane"
 )
 
 type Compiler struct {
@@ -42,6 +43,7 @@ type Compiler struct {
 	Line string
 	Content string
 	Enable bool
+	Stack *lane.Stack
 	Data Pair
 }
 
@@ -143,8 +145,24 @@ func (compile *Compiler) TemplateVariable(loc []int) {
 }
 
 // Start with # (in function)
-func (compile Compiler) Model(loc []int) {
-	// TODO
+func (compile *Compiler) Model(loc []int) {
+	line := compile.Line
+	if compile.Stack.Size() == 0 {
+		controllerName := compile.Data["controllerName"]
+		compile.Content += line[0:loc[0]] + strings.ToLower(controllerName) + ".Table(\"User\", Schema {\n"
+		compile.Stack.Push("Model.Table")
+	}
+}
+
+ // Close incomplete bracket for corresponding case
+func (compile *Compiler) Complete() {
+	typeName := compile.Stack.Pop()
+	switch typeName.(string) {
+		case "Model.Table":
+			compile.Content += compile.Line + ")\n"
+		default:
+			compile.Content += compile.Line + "\n"
+	}
 }
 
 // Check pattern should be compiled
@@ -209,10 +227,11 @@ func (compile *Compiler) ParseController() {
 		defer file.Close()
 
 		// Update context
-		compile.File = path
+		compile.File    = path
 		compile.Content = ""
-		compile.Data = Pair {}
-		compile.Enable = true
+		compile.Data    = Pair {}
+		compile.Enable  = true
+		compile.Stack   = lane.NewStack()
 
 		scanner := bufio.NewScanner(file)
 
@@ -256,8 +275,13 @@ func (compile *Compiler) ParseController() {
 				continue
 			}
 
-			if loc := compile.FindPattern("\\#[A-Z]"); len(loc) > 0 {
+			if loc := compile.FindPattern("\\#[A-Z]{1}[a-zA-Z0-9\\s]+\\{"); len(loc) > 0 {
 				compile.Model(loc)
+				continue
+			}
+
+			if line := strings.TrimSpace(compile.Line); line == "}" && compile.Stack.Size() > 0 {
+				compile.Complete()
 				continue
 			}
 

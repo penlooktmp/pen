@@ -1,5 +1,7 @@
+
 // AUTO GENERATED
-package model
+// DO NOT MODIFY
+package controller
 
 type Schema struct {
 	Id       interface {}

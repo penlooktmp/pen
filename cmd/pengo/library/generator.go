@@ -64,7 +64,9 @@ func (gen Generator) Replace(template string, variable string, content string) s
 	return template
 }
 
-func (gen Generator) Schema() {
+func (gen Generator) Schema(template string, path string, data Data) {
+	gen.Clean(path)
+	gen.Write(template, path)
 }
 
 func (gen Generator) ExtendC(template string, path string) {

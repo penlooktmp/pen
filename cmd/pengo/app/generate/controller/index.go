@@ -1,3 +1,4 @@
+/**
  * Pengo Project
  *
  * Copyright (c) 2015 Penlook Development Team
@@ -22,6 +23,7 @@
  *
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
+ */
 // AUTO GENERATED
 // DO NOT MODIFY
 package controller

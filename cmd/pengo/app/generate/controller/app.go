@@ -1,3 +1,4 @@
+/**
  * Pengo Project
  *
  * Copyright (c) 2015 Penlook Development Team
@@ -22,6 +23,7 @@
  *
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
+ */
 // AUTO GENERATED
 // DO NOT MODIFY
 package controller
@@ -42,10 +44,16 @@ func (app App) Before() {
 // @Method GET
 // @Pick "Simple Login Form"
 func (app App) Login(uid int, password string) {
-		Print("Hey! You're already logged !")
 	// Save login data to session
 	app.Session("id", uid)
 	app.Session("password", password)
+	// app.Model.Table("User", Schema
+	user := app.Table("User", Schema {
+		Username: "Loi",
+		Password: 1234,
+	})
+	user.Create()
+	//user := #User.First()
 	// Assign variable to template
 	app.View(Data{"title": "Index Page",})
 	app.View(Data{"hello": "Welcome to golang",})

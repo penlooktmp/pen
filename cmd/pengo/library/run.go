@@ -65,7 +65,7 @@ func (run *Run) ParseApplication() {
     if err != nil {
         panic("Folder name 'model' does not exist !")
     }
-    run.Data["model"]      = parser.Model(dir)
+    run.Data["model"] = parser.Model(dir)
 
     // Parse extend
     dir, err = filepath.Abs(run.Directory + "/extend")
@@ -76,9 +76,13 @@ func (run *Run) ParseApplication() {
 }
 
 func (run *Run) Generate() {
-    main_path, _ := filepath.Abs(run.Directory + "/build/main.go")
     generator := Generator {}
-    generator.Main(BuildMain, main_path, run.Data)
+
+    main_path, _ := filepath.Abs(run.Directory + "/build/main.go")
+    generator.Main(TemplateMain, main_path, run.Data)
+
+    schema_path, _ := filepath.Abs(run.Directory + "/generate/controller/schema.go")
+    generator.Schema(TemplateSchema, schema_path, run.Data)
 }
 
 func (run Run) Compile() {

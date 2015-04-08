@@ -26,7 +26,7 @@
  */
 package template
 
-var BuildMain string = `
+var TemplateMain string = `
 // AUTO GENERATED
 // DO NOT MODIFY
 package main
