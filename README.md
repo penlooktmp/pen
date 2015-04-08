@@ -37,8 +37,8 @@ func Login(uid int, password string) {
 ```
 
 ### Pengo Syntax
-- Beside Go, you can use pengo syntax to create web application faster and more meaningful.
-- Pengo do not hurt Go and it only support missing component without any performance problem.
+- You can use Go mixed with Pengo syntax to create web application faster, more meaningful
+- Eliminating the complexity of the Go syntax and deep integrated with framework
 - All of your code will be compiled into Go as you wrote it.
 
 1. Annotation
