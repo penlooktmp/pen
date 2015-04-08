@@ -29,13 +29,23 @@
 
 @Pick "Before Action"
 func Before() {
-	// TODO
+	@@login = true
 }
 
 @Route /login/:uid/:password
 @Method GET
 @Pick "Simple Login Form"
 func Login(uid int, password string) {
+
+	/*
+	if @@login {
+		Print("Hey! You're already logged !")
+	}*/
+
+	// Save login data to session
+	@Session("id", uid)
+	@Session("password", password)
+
 	// Assign variable to template
 	$title  = "Index Page"
 	$hello  = "Welcome to golang"
@@ -46,7 +56,7 @@ func Login(uid int, password string) {
 
 @Pick "After Action"
 func After() {
-	// TODO
+	@@login = false
 }
 
 

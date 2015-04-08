@@ -187,7 +187,7 @@ func (controller Controller) Service(service string) string {
 	return "Service"
 }
 
-func (controller Controller) Session(key string, value string) string {
+func (controller Controller) Session(key string, value interface {}) string {
 	return "Session values"
 }
 

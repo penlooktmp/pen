@@ -41,6 +41,7 @@ type Compiler struct {
 	File string
 	Line string
 	Content string
+	Enable bool
 	Data Pair
 }
 
@@ -112,6 +113,18 @@ func (compile *Compiler) Function() {
 
 }
 
+// Global variable
+// Start with @@ (in function)
+func (compile *Compiler) CrossVariable(loc []int) {
+	/*
+	line := compile.Line
+	array := strings.Split(line[loc[0]:], "=")
+	if len(array) == 2 {
+		compile.Content += "\t" + strings.ToLower(compile.Data["controllerName"]) + ".View(Data{\"" + strings.TrimSpace(array[0][1:]) + "\":" + array[1] + ",})\n"
+	}
+	*/
+}
+
 // Start with @ (in function)
 func (compile *Compiler) Method(loc []int) {
 	line := compile.Line
@@ -140,6 +153,36 @@ func (compile Compiler) FindPattern(pattern string) []int {
 	return regex.FindStringIndex(compile.Line)
 }
 
+// Comment Block - Multiple lines
+// Return false to ignore currently line
+func (compile *Compiler) CommentBlock() bool {
+
+	if compile.Enable == true {
+		regex := regexp.MustCompile("\\/\\*")
+		loc := regex.FindStringIndex(compile.Line)
+		if len(loc) > 0 {
+			fmt.Println(compile.Line)
+			compile.Enable = false
+			return true
+		}
+	}
+
+	if compile.Enable == false {
+
+		regex := regexp.MustCompile(".+\\*\\/")
+		loc := regex.FindStringIndex(compile.Line)
+		if len(loc) > 0 {
+			fmt.Println(compile.Line)
+			compile.Enable = true
+			return false
+		}
+	}
+
+	fmt.Println("Blala")
+
+	return true
+}
+
 // Compile controller
 func (compile *Compiler) ParseController() {
 
@@ -164,6 +207,7 @@ func (compile *Compiler) ParseController() {
 		compile.File = path
 		compile.Content = ""
 		compile.Data = Pair {}
+		compile.Enable = true
 
 		scanner := bufio.NewScanner(file)
 
@@ -175,6 +219,10 @@ func (compile *Compiler) ParseController() {
 
 			// Do not compile empty line
 			if len(strings.TrimSpace(compile.Line)) == 0 {
+				continue
+			}
+
+			if compile.CommentBlock() {
 				continue
 			}
 
@@ -190,6 +238,11 @@ func (compile *Compiler) ParseController() {
 
 			if loc := compile.FindPattern("\\$[a-z]"); len(loc) > 0 {
 				compile.TemplateVariable(loc)
+				continue
+			}
+
+			if loc := compile.FindPattern("\\@@[a-z]"); len(loc) > 0 {
+				compile.CrossVariable(loc)
 				continue
 			}
 
