@@ -7,7 +7,7 @@ Build status
 
 ![Pengo](http://s16.postimg.org/g7no9g5k5/Capture.png)
 
-###Taste of Pengo
+###Taste of Pengo (technical preview)
 
 ```go
 @Controller App
@@ -36,13 +36,14 @@ func Login(uid int, password string) {
 }
 ```
 
-# Pengo Syntax
+### Pengo Syntax
 Beside Go, you can use pengo syntax to create web application faster and more meaningful. Pengo do not hurt Go and it only support missing component without any performance problem. All of your code will be compiled into Go as you wrote it.
 
 1. Annotation
 2. Template variable
-3. Cross-Context variable
-3. Model access
+3. Cross-context variable
+4. Model accessible
+5. Component declaration
 
 ###Extend Go with C
 extend/hello.c
