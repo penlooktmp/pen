@@ -1,5 +1,4 @@
-# Pengo [![Build Status](https://travis-ci.org/penlook/pengo.svg)](https://travis-ci.org/penlook/pengo) [![GoDoc](https://godoc.org/github.com/penlook/pengo?status.svg)](https://godoc.org/github.com/penlook/pengo) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/scala-ide/scala-ide?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
+# Pengo [![Build Status](https://travis-ci.org/penlook/pengo.svg)](https://travis-ci.org/penlook/pengo) [![GoDoc](https://godoc.org/github.com/penlook/pengo?status.svg)](https://godoc.org/github.com/penlook/pengo) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/penlook/pengo?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 ![Pengo](http://s16.postimg.org/g7no9g5k5/Capture.png)
 
 ###Taste of Pengo (technical preview)
