@@ -30,7 +30,7 @@ var (
 										}
 	ANNOTATION_LIBRARY				=   "@Library"
 	ANNOTATION_LIBRARY_PROPERTY		=   [] string {
-											"@Export"
+											"@Export",
 										}
 
 
