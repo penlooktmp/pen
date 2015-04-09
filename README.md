@@ -36,51 +36,51 @@ func Login(uid int, password string) {
 - Eliminating the complexity of the Go syntax and deep integrated with framework
 - All of your code will be compiled into Go as you wrote it.
 ```
-	1. Flexible annotation
-	2. Template variable
-	3. Cross-context variable
-	4. Model accessible
-	5. Component declaration
-	6. Automatically imported
+	- Flexible annotation
+	- Template variable
+	- Cross-context variable
+	- Model accessible
+	- Component declaration
+	- Automatically imported
 ```
 
 ###Road map
 
-1. MVC Architecture (testing)
-2. Template engine (testing)
-3. Hot-code reload (not started)
-4. Improve performance (implementing)
-5. Command line for development (implementing)
-6. Model engine (not started)
-7. Unit - Integration test structure (implementing)
-8. Multiple languages (implementing)
-9. Documentation (not started)
-10. Flow Tracking (testing)
-11. Extend framework by using C (implementing)
-12. Annotation Parser (not started)
-13. Rest API
+- MVC Architecture (testing)
+- Template engine (testing)
+- Hot-code reload (not started)
+- Improve performance (implementing)
+- Command line for development (implementing)
+- Model engine (not started)
+- Unit - Integration test structure (implementing)
+- Multiple languages (implementing)
+- Documentation (not started)
+- Flow Tracking (testing)
+- Extend framework by using C (implementing)
+- Annotation Parser (not started)
+- Rest API
 
-####Database Model
+####Database
 
-1. SQLite	  -   Table      - ORM  (implementing)
-1. MySQL      -   Table      - ORM  (testing)
-2. Cassandra  -   Table      - CQL  (not started)
-3. MongoDB    -   Document   - ODM  (implemeting)
-4. CouchDB    -   Document          (not started)
-5. Memcache   -   Key-value         (not started)
-4. Redis      -   Key-value         (implemeting)
-5. Cayley     -   Graph             (not started)
+- SQLite	  -   Table      - ORM  (implementing)
+- MySQL      -   Table      - ORM  (testing)
+- Cassandra  -   Table      - CQL  (not started)
+- MongoDB    -   Document   - ODM  (implemeting)
+- CouchDB    -   Document          (not started)
+- Memcache   -   Key-value         (not started)
+- Redis      -   Key-value         (implemeting)
+- Cayley     -   Graph             (not started)
 
-###Quality Assurance
+###Contributors
+We look forward to your pull requests. If you would like to be the contributor please accept some rules.
 
-1. Unit Testing
-2. Integration Testing
-3. Benchmark Performance
-2. Continuous Integration
-3. Coding Convention
-4. Documentation
+- The pull requests will be accepted only in "develop" branch
+- All modifications or additions should be tested
 
-###Author - License
+Thank you for your understanding.
+Open a pull request. We are waiting.
+
+###License
 This is open source project for community development under GNU Affero General Public License
 
 Author
