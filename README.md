@@ -1,8 +1,4 @@
-# Pengo Framework
-
-Build status
-
-[![Build Status](https://travis-ci.org/penlook/pengo.svg)](https://travis-ci.org/penlook/pengo)
+# pengo [![Build Status](https://travis-ci.org/penlook/pengo.svg)](https://travis-ci.org/penlook/pengo)
 [![GoDoc](https://godoc.org/github.com/penlook/pengo?status.svg)](https://godoc.org/github.com/penlook/pengo)
 
 ![Pengo](http://s16.postimg.org/g7no9g5k5/Capture.png)
@@ -40,43 +36,14 @@ func Login(uid int, password string) {
 - You can use Go mixed with Pengo syntax to create web application faster, more meaningful
 - Eliminating the complexity of the Go syntax and deep integrated with framework
 - All of your code will be compiled into Go as you wrote it.
-
+```
 	1. Flexible annotation
 	2. Template variable
 	3. Cross-context variable
 	4. Model accessible
 	5. Component declaration
 	6. Automatically imported
-
-###Extend Go with C
-extend/hello.c
-```c
-#include <stdio.h>
-
-void Hello() {
-	printf("Hello World");
-}
 ```
-controller/app.go
-```go
-// App Controller
-@Controller App
-
-@route /app/hello
-@method GET
-func Home() {
-	// Call C function
-	Hello()
-}
-```
-
-###Feature (In Progress)
-
-1. Mvc Architecture
-2. Scalable by using C-CPP
-3. Flexible template engine
-4. Lazy model communication
-5. Tracking performance
 
 ###Road map
 
