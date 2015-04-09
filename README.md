@@ -2,7 +2,7 @@
 
 
 
-![Pengo](https://www.imageupload.co.uk/images/2015/04/09/Capture.png)(https://github.com/penlook/pengo)
+![Go fly with Pengo](doc/image/gofly.png)
 
 ###Taste of Pengo (technical preview)
 
