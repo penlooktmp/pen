@@ -1,4 +1,7 @@
-# pengo [![GoDoc](https://godoc.org/github.com/penlook/pengo?status.svg)](https://godoc.org/github.com/penlook/pengo) [![Build Status](https://travis-ci.org/penlook/pengo.svg)](https://travis-ci.org/penlook/pengo) [![Build status](https://ci.appveyor.com/api/projects/status/u6m54q5v1tgl9sxh?svg=true)](https://ci.appveyor.com/project/loint/pengo) [![Coverage Status](https://coveralls.io/repos/penlook/pengo/badge.svg)](https://coveralls.io/r/penlook/pengo)
+# pengo [![GoDoc](https://img.shields.io/badge/doc-reference-green.svg)](https://godoc.org/github.com/penlook/pengo) [![Build Status](https://travis-ci.org/penlook/pengo.svg)](https://travis-ci.org/penlook/pengo) [![Build status](https://ci.appveyor.com/api/projects/status/u6m54q5v1tgl9sxh?svg=true)](https://ci.appveyor.com/project/loint/pengo) [![Coverage Status](https://coveralls.io/repos/penlook/pengo/badge.svg)](https://coveralls.io/r/penlook/pengo) [![Coverage Status](https://img.shields.io/badge/license-gnu-blue.svg)](https://coveralls.io/r/penlook/pengo)
+
+
+
 
 ![Pengo](https://www.imageupload.co.uk/images/2015/04/09/Capture.png)(https://github.com/penlook/pengo)
 
