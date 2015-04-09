@@ -14,6 +14,11 @@ var (
 											"@Test",
 										}
 	ANNOTATION_MODEL      			=   "@Model"
+	ANNOTATION_MODEL_TYPE			=	[] string {
+											"@Table",
+											"@Document",
+											"@Graph",
+										}
 	ANNOTATION_MODEL_PROPERTY		=   [] string {
 											"@Type",
 											"@Server",
