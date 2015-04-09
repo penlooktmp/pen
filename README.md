@@ -67,7 +67,7 @@ func Login(uid int, password string) {
 ###Contributors
 We look forward to your pull requests. If you would like to be the contributor please accept some rules.
 
-- The pull requests will be accepted only in "develop" branch
+- The pull requests will be accepted only in "development" branch
 - All modifications or additions should be tested
 
 Thank you for your understanding.
