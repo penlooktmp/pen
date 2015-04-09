@@ -31,20 +31,12 @@ func Login(uid int, password string) {
 }
 ```
 
-### Pengo Syntax
+### Pengo syntax
 - You can use Go mixed with Pengo syntax to create web application faster, more meaningful
 - Eliminating the complexity of the Go syntax and deep integrated with framework
 - All of your code will be compiled into Go as you wrote it.
-```
-	- Flexible annotation
-	- Template variable
-	- Cross-context variable
-	- Model accessible
-	- Component declaration
-	- Automatically imported
-```
 
-###Road map
+###Roadmap
 
 - MVC Architecture (testing)
 - Template engine (testing)
@@ -58,9 +50,10 @@ func Login(uid int, password string) {
 - Flow Tracking (testing)
 - Extend framework by using C (implementing)
 - Annotation Parser (not started)
-- Rest API
+- Rest API (not started)
+- Pengo website (not started)
 
-####Database
+####Support Database
 
 - SQLite	  -   Table      - ORM  (implementing)
 - MySQL      -   Table      - ORM  (testing)
