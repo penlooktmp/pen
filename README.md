@@ -1,6 +1,6 @@
 # pengo [![GoDoc](https://godoc.org/github.com/penlook/pengo?status.svg)](https://godoc.org/github.com/penlook/pengo) [![Build Status](https://travis-ci.org/penlook/pengo.svg)](https://travis-ci.org/penlook/pengo) [![Build status](https://ci.appveyor.com/api/projects/status/u6m54q5v1tgl9sxh?svg=true)](https://ci.appveyor.com/project/loint/pengo) [![Coverage Status](https://coveralls.io/repos/penlook/pengo/badge.svg)](https://coveralls.io/r/penlook/pengo)
 
-![Pengo](https://lh5.googleusercontent.com/6JNgXD3ILqj1FaMChBSVTCmjPxN9XQYRnCioxdlEJRLwXrYfF81zsJqxtiNTdrQwEHnUCSggV_ceNck=w1896-h815)
+![Pengo](https://www.imageupload.co.uk/images/2015/04/09/Capture.png)
 
 ###Taste of Pengo (technical preview)
 
