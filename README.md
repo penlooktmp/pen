@@ -9,7 +9,7 @@
 
 @Route /login/:uid/:password
 @Method GET
-@Pick "Simple Login Form"
+@Pick "Login Form"
 func Login(uid int, password string) {
 
 	// Using table
@@ -27,7 +27,7 @@ func Login(uid int, password string) {
 
 	// Model of current controller
 	// Pass list user to view
-	$users = #@ListUser()
+	$users = @ListUser()
 }
 ```
 
@@ -71,13 +71,14 @@ We look forward to your pull requests. If you would like to be the contributor p
 - All modifications or additions should be tested
 
 Thank you for your understanding.
-Open a pull request. We are waiting.
+Open a pull request, we are waiting.
 
 ###License
 This is open source project for community development under GNU Affero General Public License
 
-Author
+Authors
 	- Loi Nguyen <loint@penlook.com>
+	- and contributors
 
 
 
