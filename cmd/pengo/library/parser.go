@@ -40,9 +40,16 @@ type Parser struct {
 }
 
 func (parser Parser) Controller(rootPath string) interface {} {
-	rules := ANNOTATION_LIST
+	rules := ANNOTATION_CONTROLLER_PROPERTY
+    rules_count := len(rules)
+
+    for i:=0; i<rules_count; i++ {
+        rules[i] = "// " + rules[i]
+    }
+
 	rules = append(rules, "func")
-	rules_count := len(rules)
+    rules_count += 1
+
 	linestack := [] string {}
 	linestack_count := 0
 
