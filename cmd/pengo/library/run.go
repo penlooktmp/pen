@@ -96,6 +96,6 @@ func (run Run) Compile() {
 func (run *Run) Run() {
 	run.GetCurrentDirectory(run.Context.Args().First())
     run.Compile()
-    run.ParseApplication()
-    run.Generate()
+    //run.ParseApplication()
+    //run.Generate()
 }

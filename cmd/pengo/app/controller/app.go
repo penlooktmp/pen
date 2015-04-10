@@ -28,14 +28,14 @@
 @Controller App
 
 @Pick "Before Action"
-func Before() {
+@Before() {
 	@@login = true
 }
 
 @Route /login/:uid/:password
 @Method GET
 @Pick "Simple Login Form"
-func Login(uid int, password string) {
+@Login(uid int, password string) {
 
 	// Save login data to session
 	@Session("id", uid)
@@ -61,8 +61,12 @@ func Login(uid int, password string) {
 	$pass   = password
 }
 
+@Abc() {
+	// TODO
+}
+
 @Pick "After Action"
-func After() {
+@After() {
 	@@login = false
 }
 

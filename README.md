@@ -12,7 +12,7 @@
 @Route /login/:uid/:password
 @Method GET
 @Pick "Login Form"
-func Login(uid int, password string) {
+@Login(uid int, password string) {
 
 	// Using table
 	user := #User {
