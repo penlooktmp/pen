@@ -66,6 +66,19 @@ func Login(uid int, password string) {
 - Redis      -   Key-value         (implemeting)
 - Cayley     -   Graph             (not started)
 
+###Instruction
+
+Installation
+
+- Go 1.4
+- TDM-GCC  
+
+Build application
+
+- cd cmd/pengo
+- ./get.sh
+- ./build.sh
+
 ###Contributors
 We look forward to your pull requests. If you would like to be the contributor please accept some rules.
 
