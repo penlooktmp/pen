@@ -28,19 +28,19 @@
 @Controller Index
 
 @Pick "Before Action"
-func Before() {
+@Before() {
 	// TODO
 }
 
 @Pick "After Action"
-func After() {
+@After() {
 	// TODO
 }
 
 @Route /index/index
 @Method GET
 @Pick "Index Action"
-func Index() {
+@Index() {
 
 	$title = "Index Page"
 	$hello = "Welcome to Index Page"

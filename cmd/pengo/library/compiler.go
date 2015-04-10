@@ -60,7 +60,7 @@ func (compiler Compiler) Header() string {
 }
 
 // Start with "@" (out of function)
-func (compile *Compiler) Annotation() {
+func (compile *Compiler) Annotation(loc []int) {
 
 	line := compile.Line
 
@@ -82,7 +82,7 @@ func (compile *Compiler) Annotation() {
 }
 
 // Start with "func"
-func (compile *Compiler) Function() {
+func (compile *Compiler) Function(loc []int) {
 
 	line := compile.Line
 	first := strings.Index(line, "(")
@@ -94,10 +94,11 @@ func (compile *Compiler) Function() {
 		panic("Syntax error")
 	}
 
-	argumentString := strings.TrimSpace(line[4: first])
+	argumentString := strings.TrimSpace(line[1: first])
 
 	if last - first > 1 {
 		param_array := strings.Split(line[first + 1 : last], ",")
+		fmt.Println(param_array)
 		args := ""
 		for i:=0; i<len(param_array); i++ {
 			args += strings.TrimSpace(param_array[i]) + ", "
@@ -138,7 +139,7 @@ func (compile *Compiler) Method(loc []int) {
 // Start with $ (in function)
 func (compile *Compiler) TemplateVariable(loc []int) {
 	line := compile.Line
-	array := strings.Split(line[loc[0]:], "=")
+	array := strings.Split(line[1:], "=")
 	if len(array) == 2 {
 		compile.Content += "\t" + strings.ToLower(compile.Data["controllerName"]) + ".View(Data{\"" + strings.TrimSpace(array[0][1:]) + "\":" + array[1] + ",})\n"
 	}
@@ -251,37 +252,38 @@ func (compile *Compiler) ParseController() {
 				continue
 			}
 
-			if strings.HasPrefix(compile.Line, "@") {
-				compile.Annotation()
+			if loc := compile.FindPattern(PATTERN_ANNOTATION); len(loc) > 0 {
+				compile.Annotation(loc)
 				continue
 			}
 
-			if strings.HasPrefix(compile.Line, "func") {
-				compile.Function()
+			if loc := compile.FindPattern(PATTERN_FUNCTION_DEFINE); len(loc) > 0 {
+				compile.Function(loc)
 				continue
 			}
 
-			if loc := compile.FindPattern("\\$[a-z]"); len(loc) > 0 {
+			if loc := compile.FindPattern(PATTERN_VARIABLE_TEMPLATE); len(loc) > 0 {
+				fmt.Println(compile.Line)
 				compile.TemplateVariable(loc)
 				continue
 			}
 
-			if loc := compile.FindPattern("\\@@[a-z]"); len(loc) > 0 {
+			if loc := compile.FindPattern(PATTERN_VARIABLE_CONTEXT); len(loc) > 0 {
 				compile.CrossVariable(loc)
 				continue
 			}
 
-			if loc := compile.FindPattern("\\@[A-Z]"); len(loc) > 0 {
+			if loc := compile.FindPattern(PATTERN_FUNCTION_CALL); len(loc) > 0 {
 				compile.Method(loc)
 				continue
 			}
 
-			if loc := compile.FindPattern("\\#[A-Z]{1}[a-zA-Z0-9\\s]+\\{"); len(loc) > 0 {
+			if loc := compile.FindPattern(PATTERN_MODEL_TABLE); len(loc) > 0 {
 				compile.ModelTable(loc)
 				continue
 			}
 
-			if loc := compile.FindPattern("\\#[A-Z]{1}[a-zA-Z0-9]+\\((|[a-zA-Z0-9,\\s\\&]+)\\)"); len(loc) > 0 {
+			if loc := compile.FindPattern(PATTERN_CONTROLLER_MODEL); len(loc) > 0 {
 				compile.ModelController(loc)
 				continue
 			}
@@ -308,6 +310,7 @@ func (compile *Compiler) ParseController() {
 // Compile controller
 func (compile *Compiler) ParseModel() {
 
+	/*
 	// Target controller directory
 	targetDirectory, _ := filepath.Abs(compile.Directory + "/model")
 
@@ -360,9 +363,10 @@ func (compile *Compiler) ParseModel() {
 		// Write content to file
 		if len(compile.Data["ModelName"]) > 0 {
 			generator := Generator {}
+			fmt.Println(compile.Content)
     		generator.Controller(compile.Content, destDirectory, compile.Data["ModelName"])
     	}
 
     	return nil
-	})
+	})*/
 }

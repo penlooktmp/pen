@@ -13,6 +13,7 @@ func (app App) Start() {
 // @Controller App
 // @Pick "Before Action"
 func (app App) Before() {
+	@@login = true
 }
 // @Route /login/:uid/:password
 // @Method GET
@@ -37,6 +38,10 @@ func (app App) Login(uid int, password string) {
 	app.View(Data{"id": uid,})
 	app.View(Data{"pass": password,})
 }
+func (app App) Abc() {
+	// TODO
+}
 // @Pick "After Action"
 func (app App) After() {
+	@@login = false
 }
