@@ -13,7 +13,6 @@ func (app App) Start() {
 // @Controller App
 // @Pick "Before Action"
 func (app App) Before() {
-	@@login = true
 }
 // @Route /login/:uid/:password
 // @Method GET
@@ -27,8 +26,7 @@ func (app App) Login(uid int, password string) {
 		Username: "Loi",
 		Password: 1234,
 	})
-	user.Create()
-	user.First()
+	Print(user)
 	// Call model of app controller
 	// users := app.Model.Controller.AppListAll()
 	// Assign variable to template
@@ -43,5 +41,4 @@ func (app App) Abc() {
 }
 // @Pick "After Action"
 func (app App) After() {
-	@@login = false
 }

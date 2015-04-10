@@ -98,7 +98,6 @@ func (compile *Compiler) Function(loc []int) {
 
 	if last - first > 1 {
 		param_array := strings.Split(line[first + 1 : last], ",")
-		fmt.Println(param_array)
 		args := ""
 		for i:=0; i<len(param_array); i++ {
 			args += strings.TrimSpace(param_array[i]) + ", "
@@ -263,7 +262,6 @@ func (compile *Compiler) ParseController() {
 			}
 
 			if loc := compile.FindPattern(PATTERN_VARIABLE_TEMPLATE); len(loc) > 0 {
-				fmt.Println(compile.Line)
 				compile.TemplateVariable(loc)
 				continue
 			}

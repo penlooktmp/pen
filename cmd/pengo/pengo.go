@@ -37,14 +37,25 @@ func main() {
     app.Name = "pengo"
   	app.Commands = [] cli.Command{
         {
-            Name:      "run",
-            Aliases:   []string{"-r"},
+            Name:      "debug",
+            Aliases:   []string{"-d"},
             Usage:     "Run application in development mode",
             Action: func(context *cli.Context) {
                 runner := library.Run {
                     Context: context,
                 }
-                runner.Run()
+                runner.Development()
+            },
+        },
+        {
+            Name:      "start",
+            Aliases:   []string{"-p"},
+            Usage:     "Start application in production mode as daemon service",
+            Action: func(context *cli.Context) {
+                runner := library.Run {
+                    Context: context,
+                }
+                runner.Production()
             },
         },
     }

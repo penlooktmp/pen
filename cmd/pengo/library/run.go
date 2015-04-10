@@ -38,6 +38,7 @@ type Run struct {
 	Context *cli.Context
 	Directory string
 	Parser Parser
+    MainTemplate string
     Data Data
 }
 
@@ -79,7 +80,7 @@ func (run *Run) Generate() {
     generator := Generator {}
 
     main_path, _ := filepath.Abs(run.Directory + "/build/main.go")
-    generator.Main(TemplateMain, main_path, run.Data)
+    generator.Main(MainTemplate, main_path, run.Data)
 
     schema_path, _ := filepath.Abs(run.Directory + "/generate/controller/schema.go")
     generator.Schema(TemplateSchema, schema_path, run.Data)
@@ -93,9 +94,20 @@ func (run Run) Compile() {
     compiler.ParseController()
 }
 
-func (run *Run) Run() {
-	run.GetCurrentDirectory(run.Context.Args().First())
+func (run *Run) Development() {
+    run.MainTemplate = TemplateDevelopment
+    run.GetCurrentDirectory(run.Context.Args().First())
     run.Compile()
+    run.ParseApplication()
+    run.Generate()
+}
+
+func (run *Run) Production() {
+    run.MainTemplate = TemplateProduction
+    //run.GetCurrentDirectory(run.Context.Args().First())
+    //run.Compile()
     //run.ParseApplication()
     //run.Generate()
 }
+
+

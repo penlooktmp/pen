@@ -47,8 +47,7 @@
 		Password: 1234,
 	}
 
-	user.Create()
-	user.First()
+	Print(user)
 
 	// Call model of app controller
 	// users := #ListAll()
