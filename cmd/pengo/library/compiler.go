@@ -85,13 +85,23 @@ func (compile *Compiler) Annotation(loc []int) {
 func (compile *Compiler) Function(loc []int) {
 
 	line := compile.Line
+
+	// With argument
+	// @Example(string a, string b) {
+	// }
 	first := strings.Index(line, "(")
 	last  := strings.Index(line, ")")
 
 	// Function syntax
 	if first < 0 || last < 0 {
-		fmt.Println("Missing '(' or ')' in ", line)
-		panic("Syntax error")
+		// None argument
+		// @Example {
+		// }
+		bracket_loc := strings.Index(line, "{")
+		if bracket_loc < 0 {
+			fmt.Println("Syntax error ", "Missing { in " + compile.Line)
+		}
+		first = bracket_loc - 1
 	}
 
 	argumentString := strings.TrimSpace(line[1: first])

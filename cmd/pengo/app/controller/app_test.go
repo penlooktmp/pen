@@ -25,48 +25,19 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-@Controller App
+/*
+@Test App
 
-@Pick "Before Action"
-@Before {
-	@@login = true
+@Setup {
+	// Before run test
 }
 
-@Route /login/:uid/:password
-@Method GET
-@Pick "Simple Login Form"
-@Login(uid int, password string) {
-
-	// Save login data to session
-	@Session("id", uid)
-	@Session("password", password)
-
-	// Get data from table User
-	user := #User {
-		Username: "Loi",
-		Password: 1234,
-	}
-
-	Print(user)
-
-	// Call model of app controller
-	// users := #ListAll()
-
-	// Assign variable to template
-	$title  = "Index Page"
-	$hello  = "Welcome to golang"
-	$avatar = "http://i.share.pho.to/fcf739b8_o.png"
-	$id     = uid
-	$pass   = password
+@TestLogin {
+	a := @Login(1234, "loint")
+	@assert(true, a)
 }
 
-@Abc {
-	// TODO
+@Teardown {
+	// After run test
 }
-
-@Pick "After Action"
-@After {
-	@@login = false
-}
-
-
+*/
