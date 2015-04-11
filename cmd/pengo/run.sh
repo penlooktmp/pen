@@ -1,2 +1,5 @@
 go build
-./pengo.exe --d app
+./pengo.exe debug app
+cd build/development
+go run main.go
+

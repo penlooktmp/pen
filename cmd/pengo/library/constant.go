@@ -1,6 +1,9 @@
 package library
 
 var (
+	MODE_DEVELOPMENT                = 0
+	MODE_PRODUCTION                 = 1
+
 	ANNOTATION_CONTROLLER           =   "@Controller"
 	ANNOTATION_CONTROLLER_PROPERTY  =   []string {
 											"@Route",

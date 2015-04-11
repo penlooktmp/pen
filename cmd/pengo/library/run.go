@@ -30,6 +30,7 @@ import (
   	"github.com/codegangsta/cli"
   	"log"
     "os"
+    "fmt"
     "path/filepath"
     . "github.com/penlook/pengo/cmd/pengo/library/template"
 )
@@ -38,7 +39,7 @@ type Run struct {
 	Context *cli.Context
 	Directory string
 	Parser Parser
-    MainTemplate string
+    Mode int
     Data Data
 }
 
@@ -77,10 +78,21 @@ func (run *Run) ParseApplication() {
 }
 
 func (run *Run) Generate() {
+    template  := ""
+    buildpath := ""
+
+    if run.Mode == MODE_DEVELOPMENT {
+        template  = TemplateDevelopment
+        buildpath = "/buid/development"
+    } else {
+        template  = TemplateProduction
+        buildpath = "/build/production"
+    }
+
     generator := Generator {}
 
-    main_path, _ := filepath.Abs(run.Directory + "/build/main.go")
-    generator.Main(MainTemplate, main_path, run.Data)
+    main_path, _ := filepath.Abs(run.Directory + buildpath + "/main.go")
+    generator.Main(template, main_path, run.Data)
 
     schema_path, _ := filepath.Abs(run.Directory + "/generate/controller/schema.go")
     generator.Schema(TemplateSchema, schema_path, run.Data)
@@ -94,16 +106,22 @@ func (run Run) Compile() {
     compiler.ParseController()
 }
 
+func (run Run) Run() {
+    fmt.Println(MODE_DEVELOPMENT)
+}
+
 func (run *Run) Development() {
-    run.MainTemplate = TemplateDevelopment
+    fmt.Println("Development")
+    run.Mode = MODE_DEVELOPMENT
     run.GetCurrentDirectory(run.Context.Args().First())
     run.Compile()
     run.ParseApplication()
     run.Generate()
+    run.Run()
 }
 
 func (run *Run) Production() {
-    run.MainTemplate = TemplateProduction
+    run.Mode = MODE_PRODUCTION
     //run.GetCurrentDirectory(run.Context.Args().First())
     //run.Compile()
     //run.ParseApplication()
