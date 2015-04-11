@@ -83,7 +83,7 @@ func (run *Run) Generate() {
 
     if run.Mode == MODE_DEVELOPMENT {
         template  = TemplateDevelopment
-        buildpath = "/buid/development"
+        buildpath = "/build/development"
     } else {
         template  = TemplateProduction
         buildpath = "/build/production"

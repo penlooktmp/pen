@@ -26,8 +26,6 @@
  */
 
 /*
-@Test App
-
 @Setup {
 	// Before run test
 }

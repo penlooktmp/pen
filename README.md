@@ -7,8 +7,6 @@
 ###Taste of Pengo (technical preview)
 
 ```go
-@Controller App
-
 @Route /login/:uid/:password
 @Method GET
 @Pick "Login Form"

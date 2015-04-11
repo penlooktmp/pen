@@ -10,13 +10,10 @@ func (app App) Start() {
 	Pengo()
 	app.Pick("Start")
 }
-// @Controller App
-// @Pick "Before Action"
 func (app App) Before() {
 }
 // @Route /login/:uid/:password
 // @Method GET
-// @Pick "Simple Login Form"
 func (app App) Login(uid int, password string) {
 	// Save login data to session
 	app.Session("id", uid)
@@ -39,6 +36,5 @@ func (app App) Login(uid int, password string) {
 func (app App) Abc() {
 	// TODO
 }
-// @Pick "After Action"
 func (app App) After() {
 }

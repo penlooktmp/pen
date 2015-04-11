@@ -33,6 +33,7 @@ import (
  	"bufio"
  	"fmt"
  	"strings"
+ 	"unicode"
  	"regexp"
  	"github.com/oleiade/lane"
 )
@@ -59,26 +60,41 @@ func (compiler Compiler) Header() string {
 	return header
 }
 
-// Start with "@" (out of function)
-func (compile *Compiler) Annotation(loc []int) {
+func (compile *Compiler) AddHeader() {
 
-	line := compile.Line
+	header := compile.Header()
+	regex  := regexp.MustCompile(PATTERN_FILENAME_CONTROLLER)
+	loc    := regex.FindStringIndex(compile.File)
 
-	if strings.HasPrefix(line, ANNOTATION_CONTROLLER) {
-		array := strings.Split(line, " ")
-		header := compile.Header()
-		controllerName := array[1]
+	// Find the last splash
+	if len(loc) > 0 {
+		// Ignore .go extenstion and parent directory
+		controllerName := compile.File[loc[0]:loc[1] - 3]
+
+		// Multiple part of name
+		// app_example_a
+		array := strings.Split(controllerName, "_")
+		controllerName = ""
+
+		for i:=0; i<len(array); i++ {
+			array_char := []rune(strings.ToLower(array[i]))
+    		array_char[0] = unicode.ToUpper(array_char[0])
+			controllerName += string(array_char)
+		}
+
 		compile.Content += header  + "type " + controllerName + " struct { Controller }\n"
 		compile.Content += "func (" + strings.ToLower(controllerName) + " " + controllerName + ") Start() {\n\tPengo()\n\t"+ strings.ToLower(controllerName) +".Pick(\"Start\")\n}\n"
 		compile.Data["controllerName"] = controllerName
+		return
 	}
 
-	if compile.Data["controllerName"] == "" {
-		fmt.Println("Controller must be declared in", compile.File)
-		panic("Controller does not defined !")
-	}
+	fmt.Println("Your file name is not match with standard at " + compile.File)
+	panic("Filename error !")
+}
 
-	compile.Content += "// " + line + "\n"
+// Start with "@" (out of function)
+func (compile *Compiler) Annotation(loc []int) {
+	compile.Content += "// " + compile.Line + "\n"
 }
 
 // Start with "func"
@@ -244,7 +260,15 @@ func (compile *Compiler) ParseController() {
 		compile.Enable  = true
 		compile.Stack   = lane.NewStack()
 
+		// Other format and test file need to be ignored
+		if ! strings.HasSuffix(compile.File, ".go") || strings.HasSuffix(compile.File, "_test.go") {
+			return nil
+		}
+
 		scanner := bufio.NewScanner(file)
+
+		// Header Initialize
+		compile.AddHeader()
 
 		// Compile file content
 		for scanner.Scan() {

@@ -25,16 +25,12 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-@Controller App
-
-@Pick "Before Action"
 @Before {
 	@@login = true
 }
 
 @Route /login/:uid/:password
 @Method GET
-@Pick "Simple Login Form"
 @Login(uid int, password string) {
 
 	// Save login data to session
@@ -64,7 +60,6 @@
 	// TODO
 }
 
-@Pick "After Action"
 @After {
 	@@login = false
 }

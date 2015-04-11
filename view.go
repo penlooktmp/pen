@@ -38,7 +38,7 @@ type View struct {
 
 func (view View) Render() {
 	// Testing
-    var template = engine.Must(engine.FromFile("../" + strings.ToLower(view.Directory) + "/" + strings.ToLower(view.Controller.Name) + "/" + strings.ToLower(view.Controller.ActionName) + ".html"))
+    var template = engine.Must(engine.FromFile("../../" + strings.ToLower(view.Directory) + "/" + strings.ToLower(view.Controller.Name) + "/" + strings.ToLower(view.Controller.ActionName) + ".html"))
     err := template.ExecuteWriter(view.Controller.ViewData, view.Controller.Http.Response)
     if err != nil {
         panic(err)

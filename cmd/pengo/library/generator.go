@@ -115,6 +115,9 @@ func (gen Generator) Main(template string, path string, data Data) {
 
 	router_code := ""
 	for _, router := range routers {
+		if router.Route == "" {
+			continue
+		}
 		if router.Method == "" {
 			router.Method = "GET"
 		}

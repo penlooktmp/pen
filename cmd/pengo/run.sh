@@ -1,5 +1,5 @@
 go build
 ./pengo.exe debug app
-cd build/development
+cd app/build/development
 go run main.go
 
