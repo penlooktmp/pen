@@ -46,5 +46,5 @@ var (
 	PATTERN_CONTROLLER_MODEL        =   "\\#[A-Z]{1}[a-zA-Z0-9]+\\((|[a-zA-Z0-9,\\s\\&]+)\\)"
 	PATTERN_VARIABLE_TEMPLATE       =   "([\t]+)\\$[a-z\\s]+\\=[\\s]+"
 	PATTERN_VARIABLE_CONTEXT        =   "([\t]+)\\@\\@[a-z]"
-	PATTERN_MODEL_TABLE             =   "\\#[A-Z]{1}[a-zA-Z0-9\\s]+{(([\\s]+)|)(\\}|)"
+	PATTERN_MODEL_TABLE             =   "\\#[A-Z]{1}[a-zA-Z0-9\\s]+(\\{|)(|\\s+)(\\}|)"
 )

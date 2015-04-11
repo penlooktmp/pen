@@ -23,16 +23,18 @@ func (app App) Login(uid int, password string) {
 		Username: "Loi",
 		Password: 1234,
 	})
+	abc := app.Table("User", Schema {
+	//abc.Create()
 	Print(user)
+	Print(abc)
 	// Call model of app controller
-	// users := app.Model.Controller.AppListAll()
 	// Assign variable to template
 	app.View(Data{"title": "Index Page",})
 	app.View(Data{"hello": "Welcome to golang",})
 	app.View(Data{"avatar": "http://i.share.pho.to/fcf739b8_o.png",})
 	app.View(Data{"id": uid,})
 	app.View(Data{"pass": password,})
-}
+})
 func (app App) Abc() {
 	// TODO
 }

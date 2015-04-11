@@ -10,7 +10,6 @@ func (index Index) Start() {
 	Pengo()
 	index.Pick("Start")
 }
-// @Controller Index
 // @Pick "Before Action"
 func (index Index) Before() {
 	// TODO

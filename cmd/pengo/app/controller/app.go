@@ -43,7 +43,11 @@
 		Password: 1234,
 	}
 
+	abc := #Abc
+	//abc.Create()
+
 	Print(user)
+	Print(abc)
 
 	// Call model of app controller
 	// users := #ListAll()

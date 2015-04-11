@@ -107,11 +107,10 @@ func (run Run) Compile() {
 }
 
 func (run Run) Run() {
-    fmt.Println(MODE_DEVELOPMENT)
+    fmt.Println("Exec main file")
 }
 
 func (run *Run) Development() {
-    fmt.Println("Development")
     run.Mode = MODE_DEVELOPMENT
     run.GetCurrentDirectory(run.Context.Args().First())
     run.Compile()

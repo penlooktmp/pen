@@ -154,6 +154,7 @@ func (compile *Compiler) CrossVariable(loc []int) {
 }
 
 // Start with @ (in function)
+// @Pick("Run action")
 func (compile *Compiler) Method(loc []int) {
 	line := compile.Line
 	controllerName := compile.Data["controllerName"]
@@ -162,6 +163,7 @@ func (compile *Compiler) Method(loc []int) {
 
 // Template variable
 // Start with $ (in function)
+// $title = "Hello"
 func (compile *Compiler) TemplateVariable(loc []int) {
 	line := compile.Line
 	array := strings.Split(line[1:], "=")
@@ -171,14 +173,23 @@ func (compile *Compiler) TemplateVariable(loc []int) {
 }
 
 // Start with # (in function)
-// #User{}
+// #User
+// #User {
+// 	   Name: "ABC"
+// }
 func (compile *Compiler) ModelTable(loc []int) {
 	line := compile.Line
 	if compile.Stack.Size() == 0 {
 		controllerName := compile.Data["controllerName"]
 		// Hard-code
 		compile.Content += line[0:loc[0]] + strings.ToLower(controllerName) + ".Table(\"User\", Schema {\n"
-		compile.Stack.Push("Model.Table")
+		source := strings.TrimSpace(compile.Line[loc[0]:loc[1]])
+		if strings.HasSuffix(source, "}") {
+			compile.Content += "})"
+		} else {
+			// Remember that bracket was not closed
+			compile.Stack.Push("Model.Table")
+		}
 	}
 }
 
