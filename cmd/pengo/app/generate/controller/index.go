@@ -12,11 +12,9 @@ func (index Index) Start() {
 }
 // @Pick "Before Action"
 func (index Index) Before() {
-	// TODO
 }
 // @Pick "After Action"
 func (index Index) After() {
-	// TODO
 }
 // @Route /index/index
 // @Method GET

@@ -178,18 +178,26 @@ func (compile *Compiler) TemplateVariable(loc []int) {
 // 	   Name: "ABC"
 // }
 func (compile *Compiler) ModelTable(loc []int) {
-	line := compile.Line
+	line  := compile.Line
+	match := line[loc[0]:loc[1]]
 	if compile.Stack.Size() == 0 {
 		controllerName := compile.Data["controllerName"]
-		// Hard-code
+
+		// #Example {
 		compile.Content += line[0:loc[0]] + strings.ToLower(controllerName) + ".Table(\"User\", Schema {"
 		line = strings.TrimSpace(line)
-		if strings.HasSuffix(line, "}") {
-			compile.Content += "})"
-		} else {
-			compile.Stack.Push("Model.Table")
+		regex := regexp.MustCompile("\\{")
+		loc_bracket := regex.FindStringIndex(match)
+
+		// #Example or #Example {}
+		if len(loc_bracket) == 0 || strings.HasSuffix(line, "}") {
+			compile.Content += "})\n"
+			return
 		}
+
+		// Missing }
 		compile.Content += "\n"
+		compile.Stack.Push("Model.Table")
 	}
 }
 
@@ -224,6 +232,11 @@ func (compile Compiler) FindPattern(pattern string) []int {
 // Comment Block - Multiple lines
 // Return false to ignore currently line
 func (compile *Compiler) CommentBlock() bool {
+
+	line := strings.TrimSpace(compile.Line)
+	if strings.HasPrefix(line, "//") {
+		return true
+	}
 
 	if compile.Enable {
 		regex := regexp.MustCompile("\\/\\*")

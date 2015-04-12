@@ -46,10 +46,11 @@
 
 	abc := #Abc{}
 
-	abd := #Abd {}
+	abd := #Abd
 
 	Print(abc)
 	Print(abd)
+	Print(user)
 
 	// Call model of app controller
 	// users := #ListAll()
