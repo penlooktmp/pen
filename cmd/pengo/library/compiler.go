@@ -182,14 +182,14 @@ func (compile *Compiler) ModelTable(loc []int) {
 	if compile.Stack.Size() == 0 {
 		controllerName := compile.Data["controllerName"]
 		// Hard-code
-		compile.Content += line[0:loc[0]] + strings.ToLower(controllerName) + ".Table(\"User\", Schema {\n"
-		source := strings.TrimSpace(compile.Line[loc[0]:loc[1]])
-		if strings.HasSuffix(source, "}") {
+		compile.Content += line[0:loc[0]] + strings.ToLower(controllerName) + ".Table(\"User\", Schema {"
+		line = strings.TrimSpace(line)
+		if strings.HasSuffix(line, "}") {
 			compile.Content += "})"
 		} else {
-			// Remember that bracket was not closed
 			compile.Stack.Push("Model.Table")
 		}
+		compile.Content += "\n"
 	}
 }
 

@@ -11,10 +11,11 @@ func (app App) Start() {
 	app.Pick("Start")
 }
 func (app App) Before() {
+	///
 }
 // @Route /login/:uid/:password
 // @Method GET
-func (app App) Login(uid int, password string) {
+func (app App) Login(uid string, password string) {
 	// Save login data to session
 	app.Session("id", uid)
 	app.Session("password", password)
@@ -23,18 +24,20 @@ func (app App) Login(uid int, password string) {
 		Username: "Loi",
 		Password: 1234,
 	})
-	abc := app.Table("User", Schema {
-	//abc.Create()
-	Print(user)
+	abc := app.Table("User", Schema {})
+	abd := app.Table("User", Schema {})
 	Print(abc)
+	Print(abd)
 	// Call model of app controller
+	// users := app.Model.Controller.AppListAll()
 	// Assign variable to template
 	app.View(Data{"title": "Index Page",})
 	app.View(Data{"hello": "Welcome to golang",})
 	app.View(Data{"avatar": "http://i.share.pho.to/fcf739b8_o.png",})
 	app.View(Data{"id": uid,})
 	app.View(Data{"pass": password,})
-})
+}
+// @Route /abc
 func (app App) Abc() {
 	// TODO
 }
