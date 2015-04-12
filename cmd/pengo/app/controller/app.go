@@ -27,11 +27,12 @@
 
 @Before {
 	@@login = true
+	///
 }
 
 @Route /login/:uid/:password
 @Method GET
-@Login(uid int, password string) {
+@Login(uid string, password string) {
 
 	// Save login data to session
 	@Session("id", uid)
@@ -43,6 +44,12 @@
 		Password: 1234,
 	}
 
+	abc := #Abc{}
+
+	abd := #Abd {}
+
+	Print(abc)
+	Print(abd)
 	Print(user)
 
 	// Call model of app controller
@@ -56,6 +63,8 @@
 	$pass   = password
 }
 
+
+@Route /abc
 @Abc {
 	// TODO
 }

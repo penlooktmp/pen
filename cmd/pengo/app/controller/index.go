@@ -25,8 +25,6 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-@Controller Index
-
 @Pick "Before Action"
 @Before() {
 	// TODO

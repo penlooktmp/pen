@@ -11,10 +11,11 @@ func (app App) Start() {
 	app.Pick("Start")
 }
 func (app App) Before() {
+	///
 }
 // @Route /login/:uid/:password
 // @Method GET
-func (app App) Login(uid int, password string) {
+func (app App) Login(uid string, password string) {
 	// Save login data to session
 	app.Session("id", uid)
 	app.Session("password", password)
@@ -23,6 +24,10 @@ func (app App) Login(uid int, password string) {
 		Username: "Loi",
 		Password: 1234,
 	})
+	abc := app.Table("User", Schema {})
+	abd := app.Table("User", Schema {})
+	Print(abc)
+	Print(abd)
 	Print(user)
 	// Call model of app controller
 	// users := app.Model.Controller.AppListAll()
@@ -33,6 +38,7 @@ func (app App) Login(uid int, password string) {
 	app.View(Data{"id": uid,})
 	app.View(Data{"pass": password,})
 }
+// @Route /abc
 func (app App) Abc() {
 	// TODO
 }

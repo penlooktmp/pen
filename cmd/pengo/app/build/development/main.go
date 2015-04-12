@@ -52,7 +52,20 @@ func main() {
     		c.Start()
     		c.InitAction()
     		c.BeforeAction(c)
-    		c.Action(c, `{"Order":["uid","password"],"Type":{"password":"string","uid":"int"}}`, params)
+    		c.Action(c, `{"Order":["uid","password"],"Type":{"password":"string","uid":"string"}}`, params)
+    		c.AfterAction(c)
+    		c.Flow.Graph()
+		})
+	router.GET("/abc", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
+    		c := App {
+        		Base("App", "Abc", response, request, params),
+    		}
+    		c.Initialize()
+    		c.SetupModel(model)
+    		c.Start()
+    		c.InitAction()
+    		c.BeforeAction(c)
+    		c.Action(c, `{"Order":[],"Type":{}}`, params)
     		c.AfterAction(c)
     		c.Flow.Graph()
 		})

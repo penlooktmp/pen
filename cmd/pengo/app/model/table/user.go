@@ -25,14 +25,15 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-@Table User {
-	Id int(10)
-	Username varchar(100)
-	Email    varchar(100)
-	Password varchar(100)
+@Table {
+	Id int 10
+	Username varchar 100
+	Email    varchar 100
+	Password varchar 100
 }
 
-func FormatUserName() string {
+@FormatUserName() string {
+
 	return strings.ToLower(@Username)
 }
 

@@ -177,8 +177,14 @@ func (compile *Compiler) ModelTable(loc []int) {
 	if compile.Stack.Size() == 0 {
 		controllerName := compile.Data["controllerName"]
 		// Hard-code
-		compile.Content += line[0:loc[0]] + strings.ToLower(controllerName) + ".Table(\"User\", Schema {\n"
-		compile.Stack.Push("Model.Table")
+		compile.Content += line[0:loc[0]] + strings.ToLower(controllerName) + ".Table(\"User\", Schema {"
+		line = strings.TrimSpace(line)
+		if strings.HasSuffix(line, "}") {
+			compile.Content += "})"
+		} else {
+			compile.Stack.Push("Model.Table")
+		}
+		compile.Content += "\n"
 	}
 }
 
