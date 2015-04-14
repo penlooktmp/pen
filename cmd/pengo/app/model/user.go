@@ -24,10 +24,15 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
+@Table {
+	Id       int 10
+	Username string 100
+	Email    string 100
+	Password string 100
+}
 
-@Document MongoDb
-@Server "localhost"
-@Port 27017
-@Database "test"
+@FormatUserName string {
+	return strings.ToLower(@Username)
+}
 
 

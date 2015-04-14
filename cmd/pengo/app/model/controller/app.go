@@ -25,9 +25,7 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-@Model App
-
-func GetAllUser() {
+@GetAllUser() {
 	user := #User {}
 	user.Find()
 }

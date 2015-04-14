@@ -24,6 +24,14 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
+@Collection {
+	Id      int     15
+	From    int     15
+	To      int     15
+	Message string  20
+	Time    int     20
+}
 
-@Document Status
-
+@FormatUserName string {
+	return strings.ToLower(@Username)
+}

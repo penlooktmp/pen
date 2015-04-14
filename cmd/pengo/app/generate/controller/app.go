@@ -21,11 +21,7 @@ func (app App) Login(uid string, password string) {
 		Username: "Loi",
 		Password: 1234,
 	})
-	abc := app.Table("User", Schema {})
-	abd := app.Table("User", Schema {})
-	Print(abc)
-	Print(abd)
-	Print(user)
+	user.Create()
 	app.View(Data{"title": "Index Page",})
 	app.View(Data{"hello": "Welcome to golang",})
 	app.View(Data{"avatar": "http://i.share.pho.to/fcf739b8_o.png",})

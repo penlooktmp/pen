@@ -32,7 +32,7 @@
 
 @Route /login/:uid/:password
 @Method GET
-@Login(uid string, password string) {
+Login(uid string, password string) {
 
 	// Save login data to session
 	@Session("id", uid)
@@ -44,16 +44,9 @@
 		Password: 1234,
 	}
 
-	abc := #Abc{}
-
-	abd := #Abd
-
-	Print(abc)
-	Print(abd)
-	Print(user)
+	user.Create()
 
 	// Call model of app controller
-	// users := #ListAll()
 
 	// Assign variable to template
 	$title  = "Index Page"
