@@ -44,12 +44,22 @@ var (
 
 // Compile pattern
 var (
+	// Function and Annotation
 	PATTERN_ANNOTATION              =   "^\\@[A-Z]{1}[a-zA-Z0-9]+[\\s]+[\\w\\/\\:\"\\s]+"
 	PATTERN_FUNCTION_DEFINE         =   "^\\@[A-Z]{1}[a-zA-Z0-9]+(|([\\(a-zA-Z0-9\\s,\\)]+))\\{"
 	PATTERN_FUNCTION_CALL           =   "\\@[A-Z]"
+
 	PATTERN_FILENAME_CONTROLLER     =   "[a-z_]+\\.go"
-	PATTERN_CONTROLLER_MODEL        =   "\\#[A-Z]{1}[a-zA-Z0-9]+\\((|[a-zA-Z0-9,\\s\\&]+)\\)"
+
+	// Context and Template Variable
 	PATTERN_VARIABLE_TEMPLATE       =   "([\t]+)\\$[a-z\\s]+\\=[\\s]+"
 	PATTERN_VARIABLE_CONTEXT        =   "([\t]+)\\@\\@[a-z]"
-	PATTERN_MODEL_TABLE             =   "\\#[A-Z]{1}[a-zA-Z0-9\\s]+(\\{|)(|\\s+)(\\}|)"
+
+	// Model pattern (start with #)
+	// Model function for controller
+	PATTERN_CONTROLLER_MODEL        =   "\\#[A-Z]{1}[a-zA-Z0-9]+\\((|[a-zA-Z0-9,\\s\\&]+)\\)"
+	// Table or collection
+	PATTERN_TABLE_COLLECTION        =   "\\#[A-Z]{1}[a-zA-Z0-9\\s]+(\\{|)(|\\s+)(\\}|)"
+	// Key-value
+	PATTERN_KEY_VALUE               =   "\\#\\([a-zA-Z0-9\\_\\-\"\\s]+\\)"
 )

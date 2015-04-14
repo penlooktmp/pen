@@ -172,12 +172,14 @@ func (compile *Compiler) TemplateVariable(loc []int) {
 	}
 }
 
+// Syntax for table and collection
+// Name unique
 // Start with # (in function)
 // #User
 // #User {
 // 	   Name: "ABC"
 // }
-func (compile *Compiler) ModelTable(loc []int) {
+func (compile *Compiler) TableCollection(loc []int) {
 	line  := compile.Line
 	match := line[loc[0]:loc[1]]
 	if compile.Stack.Size() == 0 {
@@ -199,6 +201,12 @@ func (compile *Compiler) ModelTable(loc []int) {
 		compile.Content += "\n"
 		compile.Stack.Push("Model.Table")
 	}
+}
+
+func (compile *Compiler) KeyValue(loc []int) {
+	line  := compile.Line
+	match := line[loc[0]:loc[1]]
+	fmt.Println(match)
 }
 
 // Start with # (in function)
@@ -334,8 +342,13 @@ func (compile *Compiler) ParseController() {
 				continue
 			}
 
-			if loc := compile.FindPattern(PATTERN_MODEL_TABLE); len(loc) > 0 {
-				compile.ModelTable(loc)
+			if loc := compile.FindPattern(PATTERN_TABLE_COLLECTION); len(loc) > 0 {
+				compile.TableCollection(loc)
+				continue
+			}
+
+			if loc := compile.FindPattern(PATTERN_KEY_VALUE); len(loc) > 0 {
+				compile.KeyValue(loc)
 				continue
 			}
 

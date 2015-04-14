@@ -52,7 +52,7 @@ type Controller struct {
 	End chan bool
 
 	Config Config
-	Model Model
+	Model interface {}
 	Flow module.Flow
 	Module Module
 }
@@ -108,9 +108,8 @@ func (controller *Controller) Initialize() {
 	controller.End = make(chan bool, 1)
 }
 
-func (controller *Controller) SetupModel(model Model) {
+func (controller *Controller) SetupModel(model interface {}) {
 	controller.Model = model
-	controller.Model.Flow = controller.Flow
 }
 
 func (controller Controller) Start() {

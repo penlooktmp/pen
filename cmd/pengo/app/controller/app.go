@@ -32,18 +32,22 @@
 
 @Route /login/:uid/:password
 @Method GET
-Login(uid string, password string) {
+@Login(uid string, password string) {
 
 	// Save login data to session
 	@Session("id", uid)
 	@Session("password", password)
 
-	// Get data from table User
 	user := #User {
 		Username: "Loi",
 		Password: 1234,
 	}
 
+	//abc := "KEY_BY_VARIBALE"
+	//key1 := #(abc)
+	//Println(key1)
+
+	//key1 := #("KEY_BY_VALUE")
 	user.Create()
 
 	// Call model of app controller

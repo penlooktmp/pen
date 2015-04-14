@@ -1,4 +1,4 @@
-# pengo [![GoDoc](https://img.shields.io/badge/doc-reference-blue.svg)](https://godoc.org/github.com/penlook/pengo) [![Build Status](https://travis-ci.org/penlook/pengo.svg)](https://travis-ci.org/penlook/pengo) [![Build status](https://ci.appveyor.com/api/projects/status/u6m54q5v1tgl9sxh?svg=true)](https://ci.appveyor.com/project/loint/pengo) [![Coverage Status](https://coveralls.io/repos/penlook/pengo/badge.svg?branch=master)](https://coveralls.io/r/penlook/pengo?branch=master)
+# pengo [![GoDoc](https://img.shields.io/badge/doc-reference-blue.svg)](https://godoc.org/github.com/penlook/pengo) [![Build Status](https://travis-ci.org/penlook/pengo.svg)](https://travis-ci.org/penlook/pengo)[![Coverage Status](https://coveralls.io/repos/penlook/pengo/badge.svg?branch=master)](https://coveralls.io/r/penlook/pengo?branch=master)
 
 
 
