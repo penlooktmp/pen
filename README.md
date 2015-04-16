@@ -40,10 +40,10 @@
 
 - MVC Architecture (testing)
 - Template engine (testing)
-- Hot-code reload (not started)
+- Hot-code reload (implementing)
 - Improve performance (implementing)
 - Command line for development (implementing)
-- Model engine (not started)
+- Model engine (designing)
 - Unit - Integration test structure (implementing)
 - Multiple languages (implementing)
 - Documentation (not started)
@@ -55,10 +55,10 @@
 
 ####Support Database
 
-- SQLite	  -   Table      - ORM  (implementing)
-- MySQL      -   Table      - ORM  (testing)
+- SQLite	  -   Table      - ORM  (not started)
+- MySQL      -   Table      - ORM  (not started)
 - Cassandra  -   Table      - CQL  (not started)
-- MongoDB    -   Document   - ODM  (implemeting)
+- MongoDB    -   Document   - ODM  (not started)
 - CouchDB    -   Document          (not started)
 - Memcache   -   Key-value         (not started)
 - Redis      -   Key-value         (implemeting)

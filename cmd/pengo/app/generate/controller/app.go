@@ -4,11 +4,8 @@ package controller
 import (
 	. "github.com/penlook/pengo"
 	. "github.com/penlook/pengo/cmd/pengo/app/generate/extend"
-	model "github.com/penlook/pengo/cmd/pengo/app/generate/model"
-	modelcontroller "github.com/penlook/pengo/cmd/pengo/app/generate/controller"
 )
 type App struct { Controller }
-
 func (app App) Start() {
 	Pengo()
 	app.Pick("Start")
