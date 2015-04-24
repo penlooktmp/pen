@@ -50,13 +50,16 @@ type Compiler struct {
 
 // Header file
 func (compiler Compiler) Header() string {
-	header := "// AUTO GENERATED\n"
-	header = header + "// DO NOT MODIFY\n"
-	header = header + "package controller\n"
-	header = header + "import (\n"
-	header = header + "\t. \"github.com/penlook/pengo\"\n"
-	header = header + "\t. \"github.com/penlook/pengo/cmd/pengo/app/generate/extend\"\n"
-	header = header + ")\n"
+	header := `
+	// AUTO GENERATED
+	// DO NOT MODIFY
+	package controller
+	import (
+		. "github.com/penlook/pengo"
+		. "github.com/penlook/pengo/cmd/pengo/app/generate/extend"
+		. "github.com/penlook/pengo/cmd/pengo/app/generate/model"
+	)
+	`
 	return header
 }
 

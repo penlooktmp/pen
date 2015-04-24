@@ -35,10 +35,10 @@
 @Login(uid string, password string) {
 
 	// Save login data to session
-	@Session("id", uid)
-	@Session("password", password)
+	Session("id", uid)
+	Ssession("password", password)
 
-	user := #User {
+	user := #mysql.User {
 		Username: "Loi",
 		Password: 1234,
 	}

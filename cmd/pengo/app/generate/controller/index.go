@@ -1,11 +1,13 @@
-// AUTO GENERATED
-// DO NOT MODIFY
-package controller
-import (
-	. "github.com/penlook/pengo"
-	. "github.com/penlook/pengo/cmd/pengo/app/generate/extend"
-)
-type Index struct { Controller }
+
+	// AUTO GENERATED
+	// DO NOT MODIFY
+	package controller
+	import (
+		. "github.com/penlook/pengo"
+		. "github.com/penlook/pengo/cmd/pengo/app/generate/extend"
+		. "github.com/penlook/pengo/cmd/pengo/app/generate/model"
+	)
+	type Index struct { Controller }
 func (index Index) Start() {
 	Pengo()
 	index.Pick("Start")

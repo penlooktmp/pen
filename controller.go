@@ -199,7 +199,6 @@ func (controller Controller) Translate(word string) string {
 // MODEL Alias --------------------------------
 
 func (controller Controller) Table(args ...interface {}) model.Table {
-	controller.Model.Table()
 	switch len(args) {
 		case 1:
 			tableName := args[0].(string)
