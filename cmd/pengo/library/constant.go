@@ -59,7 +59,7 @@ var (
 	// Model function for controller
 	PATTERN_CONTROLLER_MODEL        =   "\\#[A-Z]{1}[a-zA-Z0-9]+\\((|[a-zA-Z0-9,\\s\\&]+)\\)"
 	// Table or collection
-	PATTERN_TABLE_COLLECTION        =   "\\#[A-Z]{1}[a-zA-Z0-9\\s]+(\\{|)(|\\s+)(\\}|)"
+	PATTERN_TABLE_COLLECTION        =   "\\#[a-z]+.[a-zA-Z0-9]+\\s+\\{"
 	// Key-value
 	PATTERN_KEY_VALUE               =   "\\#\\([a-zA-Z0-9\\_\\-\"\\s]+\\)"
 )

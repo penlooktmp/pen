@@ -43,6 +43,7 @@
 		Password: 1234,
 	}
 
+
 	//abc := "KEY_BY_VARIBALE"
 	//key1 := #(abc)
 	//Println(key1)
