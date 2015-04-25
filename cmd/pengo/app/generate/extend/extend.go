@@ -7,3 +7,7 @@ import "C"
 func Pengo() {
 	C.Pengo()
 }
+
+func Send() {
+	C.Send()
+}

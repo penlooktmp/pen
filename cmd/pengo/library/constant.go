@@ -44,22 +44,30 @@ var (
 
 // Compile pattern
 var (
-	// Function and Annotation
+	// Annotation
 	PATTERN_ANNOTATION              =   "^\\@[A-Z]{1}[a-zA-Z0-9]+[\\s]+[\\w\\/\\:\"\\s]+"
-	PATTERN_FUNCTION_DEFINE         =   "^\\@[A-Z]{1}[a-zA-Z0-9]+(|([\\(a-zA-Z0-9\\s,\\)]+))\\{"
+
+	// Action syntax
+	PATTERN_FUNCTION_DEFINE         =   "^[A-Z]{1}[a-zA-Z0-9\\s]+\\((|([a-zA-Z0-9\\s,]+))\\)\\s+\\{"
+
+	// Method of current context
 	PATTERN_FUNCTION_CALL           =   "\\@[A-Z]"
 
+	// Controller filename
 	PATTERN_FILENAME_CONTROLLER     =   "[a-z_]+\\.go"
 
-	// Context and Template Variable
+	// Template Variable
 	PATTERN_VARIABLE_TEMPLATE       =   "([\t]+)\\$[a-z\\s]+\\=[\\s]+"
+
+	// Context variable
 	PATTERN_VARIABLE_CONTEXT        =   "([\t]+)\\@\\@[a-z]"
 
-	// Model pattern (start with #)
-	// Model function for controller
-	PATTERN_CONTROLLER_MODEL        =   "\\#[A-Z]{1}[a-zA-Z0-9]+\\((|[a-zA-Z0-9,\\s\\&]+)\\)"
-	// Table or collection
-	PATTERN_TABLE_COLLECTION        =   "\\#[a-z]+.[a-zA-Z0-9]+\\s+\\{"
-	// Key-value
-	PATTERN_KEY_VALUE               =   "\\#\\([a-zA-Z0-9\\_\\-\"\\s]+\\)"
+	// Model function
+	PATTERN_MODEL_FUNCTION          =   "\\#[A-Z]{1}[a-zA-Z0-9]+\\((|[a-zA-Z0-9,\\s\\&]+)\\)"
+
+	// Model entity
+	PATTERN_MODEL_ENTITY            =   "\\#[a-z]+\\.[a-zA-Z]+(\\s+|)(\\{|)"
+
+	// C function
+	PATTERN_C_FUNCTION				=   "\\*[A-Z]{1}[a-zA-Z0-9\\s]+\\((|([a-zA-Z0-9\\s,]+))\\)"
 )

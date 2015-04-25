@@ -1,2 +1,1 @@
-void Pk();
-char* Abc();
+void Send();

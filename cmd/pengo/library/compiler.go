@@ -57,7 +57,6 @@ func (compiler Compiler) Header() string {
 	import (
 		. "github.com/penlook/pengo"
 		. "github.com/penlook/pengo/cmd/pengo/app/generate/extend"
-		. "github.com/penlook/pengo/cmd/pengo/app/generate/model"
 	)
 	`
 	return header
@@ -106,24 +105,17 @@ func (compile *Compiler) Function(loc []int) {
 	line := compile.Line
 
 	// With argument
-	// @Example(string a, string b) {
+	// Example(string a, string b) {
 	// }
 	first := strings.Index(line, "(")
 	last  := strings.Index(line, ")")
 
 	// Function syntax
 	if first < 0 || last < 0 {
-		// None argument
-		// @Example {
-		// }
-		bracket_loc := strings.Index(line, "{")
-		if bracket_loc < 0 {
-			fmt.Println("Syntax error ", "Missing { in " + compile.Line)
-		}
-		first = bracket_loc - 1
+		fmt.Println("Syntax error ", "Missing { in " + compile.Line)
 	}
 
-	argumentString := strings.TrimSpace(line[1: first])
+	argumentString := strings.TrimSpace(line[0: first])
 
 	if last - first > 1 {
 		param_array := strings.Split(line[first + 1 : last], ",")
@@ -345,17 +337,12 @@ func (compile *Compiler) ParseController() {
 				continue
 			}
 
-			if loc := compile.FindPattern(PATTERN_TABLE_COLLECTION); len(loc) > 0 {
+			if loc := compile.FindPattern(PATTERN_MODEL_ENTITY); len(loc) > 0 {
 				compile.TableCollection(loc)
 				continue
 			}
 
-			if loc := compile.FindPattern(PATTERN_KEY_VALUE); len(loc) > 0 {
-				compile.KeyValue(loc)
-				continue
-			}
-
-			if loc := compile.FindPattern(PATTERN_CONTROLLER_MODEL); len(loc) > 0 {
+			if loc := compile.FindPattern(PATTERN_MODEL_FUNCTION); len(loc) > 0 {
 				compile.ModelController(loc)
 				continue
 			}

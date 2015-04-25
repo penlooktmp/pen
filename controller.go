@@ -29,7 +29,6 @@ package pengo
 import (
 	engine "github.com/flosch/pongo2"
 	"github.com/penlook/pengo/module"
-	"github.com/penlook/pengo/model"
 	"github.com/julienschmidt/httprouter"
 	"container/list"
 	"time"
@@ -198,19 +197,20 @@ func (controller Controller) Translate(word string) string {
 
 // MODEL Alias --------------------------------
 
-func (controller Controller) Table(args ...interface {}) model.Table {
+func (controller Controller) Table(args ...interface {}) {
+	/*
 	switch len(args) {
 		case 1:
-			tableName := args[0].(string)
+			//tableName := args[0].(string)
 			type Empty struct {}
-			return controller.Model.Driver.Table.ByTable(tableName, Empty {})
+			//return nulk
+			//return controller.Model.Driver.Table.ByTable(tableName, Empty {})
 		case 2:
-			tableName := args[0].(string)
-			schema := args[1]
-			return controller.Model.Driver.Table.ByTable(tableName, schema)
-		default:
-			return model.Table {}
-	}
+			//tableName := args[0].(string)
+			//schema := args[1]
+			//return controller.Model.Driver.Table.ByTable(tableName, schema)
+			//return model.Table {}
+	}*/
 }
 
 func (controller Controller) Document(document string) interface {} {

@@ -25,35 +25,21 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-@Before {
+Before() {
 	@@login = true
-	///
 }
 
-@Route /login/:uid/:password
+@Route /hello/:uid/:password
 @Method GET
-@Login(uid string, password string) {
+Login(uid string, password string) {
+
+	//user := #mysql.User
+	//user.Find()
 
 	// Save login data to session
 	Session("id", uid)
-	Ssession("password", password)
+	Session("password", password)
 
-	user := #mysql.User {
-		Username: "Loi",
-		Password: 1234,
-	}
-
-
-	//abc := "KEY_BY_VARIBALE"
-	//key1 := #(abc)
-	//Println(key1)
-
-	//key1 := #("KEY_BY_VALUE")
-	user.Create()
-
-	// Call model of app controller
-
-	// Assign variable to template
 	$title  = "Index Page"
 	$hello  = "Welcome to golang"
 	$avatar = "http://i.share.pho.to/fcf739b8_o.png"
@@ -61,13 +47,14 @@
 	$pass   = password
 }
 
-
-@Route /abc
-@Abc {
-	// TODO
+@Route /demo
+Abc() {
+	Send()
+	a := "ABC"
+	$name = a
 }
 
-@After {
+After() {
 	@@login = false
 }
 

@@ -26,19 +26,19 @@
  */
 
 @Pick "Before Action"
-@Before() {
+Before() {
 	// TODO
 }
 
 @Pick "After Action"
-@After() {
+After() {
 	// TODO
 }
 
 @Route /index/index
 @Method GET
 @Pick "Index Action"
-@Index() {
+Index() {
 
 	$title = "Index Page"
 	$hello = "Welcome to Index Page"

@@ -1,20 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 
-void Pk() {
-	printf("PK Function ");
-}
-
-char* Abc() {
-    static char str[80];
+void Send() {
 	int i;
-
-	printf("Enter a string: ");
-	fgets(str, 10, stdin);
-
-	i = strlen(str)-1;
-	if (str[i] == '\n') {
-	  	str[i] = '\0';
+	for (i=1; i<=100; i++) {
+		printf("Hello %s", i);
 	}
-	return str;
 }
