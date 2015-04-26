@@ -29,20 +29,30 @@ Before() {
 	@@login = true
 }
 
-@Route /hello/:uid/:password
+@Route /hello/:uid/:password/:action
 @Method GET
-Login(uid string, password string) {
+Login(uid string, password string, action int) {
 
-	//user := #mysql.User
+	user := #mysql.User
+	status := #mongo.Status
+
+	Abc()
+	Abc()
+
+
+
+	//$listUser = #GetAllUser()
+
 	//user.Find()
 
 	// Save login data to session
-	Session("id", uid)
-	Session("password", password)
+	//Session("id", uid)
+	//Session("password", password)
 
 	$title  = "Index Page"
 	$hello  = "Welcome to golang"
 	$avatar = "http://i.share.pho.to/fcf739b8_o.png"
+	$action = action
 	$id     = uid
 	$pass   = password
 }

@@ -25,17 +25,20 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-/*
-@Setup {
+
+Setup() {
 	// Before run test
 }
 
-@TestLogin {
-	a := @Login(1234, "loint")
-	@assert(true, a)
+Login() {
+	a := Login(1234, "loint")
+	
 }
 
-@Teardown {
+Abc() {
+
+}
+
+Teardown() {
 	// After run test
 }
-*/

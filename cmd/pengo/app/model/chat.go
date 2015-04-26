@@ -32,6 +32,6 @@
 	Time    int     20
 }
 
-@FormatUserName string {
-	return strings.ToLower(@Username)
+FormatUserName string {
+	return strings.ToLower(#Username)
 }

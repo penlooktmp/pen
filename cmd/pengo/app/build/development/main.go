@@ -43,7 +43,7 @@ func main() {
 
     //{{ model }}
     router := httprouter.New()
-    router.GET("/hello/:uid/:password", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
+    router.GET("/hello/:uid/:password/:action", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
     		c := App {
         		Base("App", "Login", response, request, params),
     		}
@@ -52,7 +52,7 @@ func main() {
     		c.Start()
     		c.InitAction()
     		c.BeforeAction(c)
-    		c.Action(c, `{"Order":["uid","password"],"Type":{"password":"string","uid":"string"}}`, params)
+    		c.Action(c, `{"Order":["uid","password","action"],"Type":{"action":"int","password":"string","uid":"string"}}`, params)
     		c.AfterAction(c)
     		c.Flow.Graph()
 		})

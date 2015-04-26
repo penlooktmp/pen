@@ -25,8 +25,10 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-@GetAllUser() {
+GetAllUser() {
 	user := #User {}
 	user.Find()
 }
+
+
 

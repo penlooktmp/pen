@@ -48,8 +48,13 @@ type Compiler struct {
 	Data Pair
 }
 
+func (compiler Compiler) HeaderC() string {
+	header := " "
+	return header
+}
 // Header file
 func (compiler Compiler) Header() string {
+
 	header := `
 	// AUTO GENERATED
 	// DO NOT MODIFY
@@ -148,12 +153,19 @@ func (compile *Compiler) CrossVariable(loc []int) {
 	*/
 }
 
-// Start with @ (in function)
-// @Pick("Run action")
-func (compile *Compiler) Method(loc []int) {
+// Start as normal function
+// Pick("Run action")
+func (compile *Compiler) GoMethod(loc []int) {
 	line := compile.Line
 	controllerName := compile.Data["controllerName"]
 	compile.Content += "\t" + strings.ToLower(controllerName) + "." + line[loc[0] + 1:] + "\n"
+}
+
+// Start with ~
+// ~SampleC()
+func (compile *Compiler) CFunction(loc []int) {
+	line := compile.Line
+	compile.Content += "\t" + line[loc[0] + 1:] + "\n"
 }
 
 // Template variable
@@ -332,8 +344,13 @@ func (compile *Compiler) ParseController() {
 				continue
 			}
 
-			if loc := compile.FindPattern(PATTERN_FUNCTION_CALL); len(loc) > 0 {
-				compile.Method(loc)
+			if loc := compile.FindPattern(PATTERN_GO_METHOD); len(loc) > 0 {
+				compile.GoMethod(loc)
+				continue
+			}
+
+			if loc := compile.FindPattern(PATTERN_C_FUNCTION); len(loc) > 0 {
+				compile.CFunction(loc)
 				continue
 			}
 

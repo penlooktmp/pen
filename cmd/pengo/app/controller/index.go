@@ -43,8 +43,8 @@ Index() {
 	$title = "Index Page"
 	$hello = "Welcome to Index Page"
 
-	@Pick("Before call pk")
-	@Pick("After call pk")
+	//Pick("Before call pk")
+	//Pick("After call pk")
 
-	@Pick("Assign slogan and author")
+	//Pick("Assign slogan and author")
 }

@@ -13,14 +13,13 @@ func (app App) Start() {
 }
 func (app App) Before() {
 }
-// @Route /hello/:uid/:password
+// @Route /hello/:uid/:password/:action
 // @Method GET
-func (app App) Login(uid string, password string) {
-	Session("id", uid)
-	Session("password", password)
+func (app App) Login(uid string, password string, action int) {
 	app.View(Data{"title": "Index Page",})
 	app.View(Data{"hello": "Welcome to golang",})
 	app.View(Data{"avatar": "http://i.share.pho.to/fcf739b8_o.png",})
+	app.View(Data{"action": action,})
 	app.View(Data{"id": uid,})
 	app.View(Data{"pass": password,})
 }
