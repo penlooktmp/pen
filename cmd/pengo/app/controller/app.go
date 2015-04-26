@@ -34,9 +34,8 @@ Before() {
 Login(uid string, password string, action int) {
 
 	user := #mysql.User
-	status := #mongo.Status
+	status := #mongo.Status   
 
-	Abc()
 	Abc()
 
 
