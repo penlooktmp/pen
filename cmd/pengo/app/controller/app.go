@@ -33,8 +33,11 @@ Before() {
 @Method GET
 Login(uid string, password string, action int) {
 
-	user := #mysql.User
-	status := #mongo.Status   
+	Session()
+	fmt.Println(#redis["abc"])
+
+	user := #mysql["user"]
+	status := #mongo["status"]
 
 	Abc()
 
