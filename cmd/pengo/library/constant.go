@@ -66,7 +66,7 @@ var (
 	PATTERN_MODEL_FUNCTION          =   "\\#[A-Z]{1}[a-zA-Z0-9]+\\((|[a-zA-Z0-9,\\s\\&]+)\\)"
 
 	// Model entity
-	PATTERN_MODEL_ENTITY            =   "\\#[a-z]+\\.[a-zA-Z]+(\\s+|)(\\{|)"
+	PATTERN_MODEL_ENTITY            =   "\\#[a-z]+\\[\"[a-zA-Z]+\"\\]"
 
 	// Go method
 	PATTERN_GO_METHOD				=   "\\[A-Z]{1}[a-zA-Z0-9\\s]+\\((|([a-zA-Z0-9\\s,]+))\\)"

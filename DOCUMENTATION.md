@@ -3,7 +3,7 @@
 + Router & Action
 
 ```go
-@Router /hello/username
+@Router /hello/:username
 Login(username string) {
 	// Assign username to view
 	$username = username
