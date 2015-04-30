@@ -26,7 +26,6 @@
  */
 
 Before() {
-	@@login = true
 }
 
 @Route /hello/:uid/:password/:action
@@ -69,5 +68,3 @@ Abc() {
 After() {
 	@@login = false
 }
-
-

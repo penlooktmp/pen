@@ -32,7 +32,6 @@ Setup() {
 
 Login() {
 	a := Login(1234, "loint")
-	
 }
 
 Abc() {

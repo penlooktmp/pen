@@ -34,7 +34,7 @@ Cassandra, MySQL, SQL Server, PostgreSQL, Oracle
 	user := #mysql["user"]
 
 	// Insert new record
-	user {
+	user.Create({
 		FirstName: "Loi",
 		LastName: "Nguyen",
 	})

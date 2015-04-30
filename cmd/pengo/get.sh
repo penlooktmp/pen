@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 go get "github.com/stretchr/testify/assert"
 go get "github.com/codegangsta/cli"
 go get "github.com/flosch/pongo2"

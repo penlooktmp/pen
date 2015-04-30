@@ -16,3 +16,8 @@ void Abc() {
 
 	printf("This is your string: %s", str);
 }
+
+int main() {
+	Abc();
+	return 0;
+}
