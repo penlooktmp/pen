@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <stdio.h>
 #include <string.h>
+#include <assert.h>
 
 void Abc() {
     char str[80];
@@ -8,6 +8,7 @@ void Abc() {
 
 	printf("Enter a string: ");
 	fgets(str, 10, stdin);
+	int a = 1;
 
 	i = strlen(str)-1;
 	if (str[i] == '\n') {

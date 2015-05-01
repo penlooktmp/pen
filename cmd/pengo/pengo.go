@@ -48,13 +48,16 @@ func main() {
                     Name: "Proxy Server",
                     Port: 80,
                 }
+                runner := compiler.Run {
+                    Context: context,
+                    Daemon: make(chan bool, 1),
+                }
+                runner.Daemon <- true
                 proxy.Handle(func() {
-                    fmt.Println("Start compile")
-                    runner := compiler.Run {
-                        Context: context,
-                    }
+                    fmt.Println("Start request")
                     runner.Development()
-                    fmt.Println("End compile")
+                    runner.Daemon <- false
+                    fmt.Println("End request")
                 })
                 proxy.Listen()
             },

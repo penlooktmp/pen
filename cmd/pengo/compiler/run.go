@@ -31,7 +31,6 @@ import (
   	"log"
     "os"
     "os/exec"
-    "fmt"
     "bytes"
     "path/filepath"
     . "github.com/penlook/pengo/cmd/pengo/compiler/template"
@@ -43,6 +42,7 @@ type Run struct {
 	Parser Parser
     Mode int
     Data Data
+    Daemon chan bool
 }
 
 func (run *Run) GetCurrentDirectory(appName string) {
@@ -113,14 +113,19 @@ func (run Run) Compile() {
 func (run Run) Run(buildDir string) {
     go func() {
         os.Chdir(buildDir)
-        cmd := exec.Command("go", "run", "./main.go", "&")
+        cmd := exec.Command("go", "run", "./main.go")
         var out bytes.Buffer
         cmd.Stdout = &out
-        err := cmd.Run()
-        if err != nil {
-            log.Fatal(err)
-        }
-        fmt.Printf(out.String())
+        cmd.Start()
+        go func() {
+            select {
+                case mode := <- run.Daemon:
+                    if mode == false {
+                        cmd.Process.Kill()
+                    }
+            }
+        }()
+        cmd.Wait()
     }()
 }
 

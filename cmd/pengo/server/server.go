@@ -4,6 +4,7 @@ import (
  	"net/http"
  	"fmt"
  	"strconv"
+    "time"
  	"io/ioutil"
  	"os"
 )
@@ -30,9 +31,26 @@ func (server Server) Handler() func(writer http.ResponseWriter, request *http.Re
 
         server.Callback()
 
+        time.Sleep(time.Second * 2)
         debugPort := 8080
         url := "http://" + request.Host + ":" + strconv.Itoa(debugPort) + request.RequestURI
 
+        response, err := http.Get(url)
+
+        if err != nil {
+            fmt.Printf("%s", err)
+            os.Exit(1)
+        } else {
+            defer response.Body.Close()
+            contents, err := ioutil.ReadAll(response.Body)
+            if err != nil {
+                fmt.Printf("%s", err)
+                os.Exit(1)
+            }
+            fmt.Fprintf(writer, string(contents[:]))
+        }
+
+        /*
         response, err := http.Get(url)
         if err != nil {
             fmt.Printf("%s", err)
@@ -46,6 +64,8 @@ func (server Server) Handler() func(writer http.ResponseWriter, request *http.Re
             }
             fmt.Fprintf(writer, string(contents[:]))
         }
+        */
+
         server.Unlocked <- true
     }
 }
