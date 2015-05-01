@@ -43,22 +43,9 @@ func main() {
 
     //{{ model }}
     router := httprouter.New()
-    router.GET("/hello/:uid/:password/:action", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
-    		c := App {
-        		Base("App", "Login", response, request, params),
-    		}
-    		c.Initialize()
-    		c.SetupModel(model)
-    		c.Start()
-    		c.InitAction()
-    		c.BeforeAction(c)
-    		c.Action(c, `{"Order":["uid","password","action"],"Type":{"action":"int","password":"string","uid":"string"}}`, params)
-    		c.AfterAction(c)
-    		c.Flow.Graph()
-		})
-	router.GET("/demo", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
-    		c := App {
-        		Base("App", "Abc", response, request, params),
+    router.GET("/index/index", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
+    		c := Index {
+        		Base("Index", "Index", response, request, params),
     		}
     		c.Initialize()
     		c.SetupModel(model)
@@ -69,9 +56,22 @@ func main() {
     		c.AfterAction(c)
     		c.Flow.Graph()
 		})
-	router.GET("/index/index", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
-    		c := Index {
-        		Base("Index", "Index", response, request, params),
+	router.GET("/login/:uid/:password", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
+    		c := App {
+        		Base("App", "Login", response, request, params),
+    		}
+    		c.Initialize()
+    		c.SetupModel(model)
+    		c.Start()
+    		c.InitAction()
+    		c.BeforeAction(c)
+    		c.Action(c, `{"Order":["uid","password"],"Type":{"password":"string","uid":"int"}}`, params)
+    		c.AfterAction(c)
+    		c.Flow.Graph()
+		})
+	router.GET("/demo", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
+    		c := App {
+        		Base("App", "Abc", response, request, params),
     		}
     		c.Initialize()
     		c.SetupModel(model)

@@ -28,17 +28,17 @@
 Before() {
 }
 
-@Route /hello/:uid/:password/:action
+@Route /login/:uid/:password
 @Method GET
-Login(uid string, password string, action int) {
+Login(uid int, password string) {
 
-	Session()
-	fmt.Println(#redis["abc"])
+	//Session()
+	//fmt.Println(#redis["abc"])
 
-	user := #mysql["user"]
-	status := #mongo["status"]
+	//user := #mysql["user"]
+	//status := #mongo["status"]
 
-	Abc()
+	//Abc()
 
 
 
@@ -53,7 +53,6 @@ Login(uid string, password string, action int) {
 	$title  = "Index Page"
 	$hello  = "Welcome to golang"
 	$avatar = "http://i.share.pho.to/fcf739b8_o.png"
-	$action = action
 	$id     = uid
 	$pass   = password
 }

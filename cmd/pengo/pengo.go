@@ -24,33 +24,42 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
+
 package main
 
 import (
     "os"
   	"github.com/codegangsta/cli"
     "github.com/penlook/pengo/cmd/pengo/library"
+    "github.com/penlook/pengo/cmd/pengo/server"
 )
 
 func main() {
     app := cli.NewApp()
     app.Name = "pengo"
-  	app.Commands = [] cli.Command{
+  	app.Commands = [] cli.Command {
         {
             Name:      "debug",
             Aliases:   []string{"-d"},
             Usage:     "Run application in development mode",
             Action: func(context *cli.Context) {
-                runner := library.Run {
-                    Context: context,
+                proxy := server.Server {
+                    Name: "Proxy Server",
+                    Port: 80,
                 }
-                runner.Development()
+                proxy.Handle(func(url string) {
+                    runner := library.Run {
+                        Context: context,
+                    }
+                    runner.Development()
+                })
+                proxy.Listen()
             },
         },
         {
-            Name:      "start",
-            Aliases:   []string{"-p"},
-            Usage:     "Start application in production mode as daemon service",
+            Name:      "build",
+            Aliases:   []string{"-b"},
+            Usage:     "Build pengo application and ready for production",
             Action: func(context *cli.Context) {
                 runner := library.Run {
                     Context: context,
