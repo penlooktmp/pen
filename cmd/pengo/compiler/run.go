@@ -24,15 +24,17 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package library
+package compiler
 
 import (
   	"github.com/codegangsta/cli"
   	"log"
     "os"
+    "os/exec"
     "fmt"
+    "bytes"
     "path/filepath"
-    . "github.com/penlook/pengo/cmd/pengo/library/template"
+    . "github.com/penlook/pengo/cmd/pengo/compiler/template"
 )
 
 type Run struct {
@@ -77,7 +79,7 @@ func (run *Run) ParseApplication() {
     run.Data["extend"] = parser.Extend(dir)
 }
 
-func (run *Run) Generate() {
+func (run *Run) Generate() string {
     template  := ""
     buildpath := ""
 
@@ -91,11 +93,13 @@ func (run *Run) Generate() {
 
     generator := Generator {}
 
-    main_path, _ := filepath.Abs(run.Directory + buildpath + "/main.go")
-    generator.Main(template, main_path, run.Data)
+    mainPath, _ := filepath.Abs(run.Directory + buildpath + "/main.go")
+    generator.Main(template, mainPath, run.Data)
 
-    schema_path, _ := filepath.Abs(run.Directory + "/generate/controller/schema.go")
-    generator.Schema(TemplateSchema, schema_path, run.Data)
+    schemaPath, _ := filepath.Abs(run.Directory + "/generate/controller/schema.go")
+    generator.Schema(TemplateSchema, schemaPath, run.Data)
+
+    return run.Directory + buildpath
 }
 
 func (run Run) Compile() {
@@ -106,8 +110,18 @@ func (run Run) Compile() {
     compiler.ParseController()
 }
 
-func (run Run) Run() {
-    fmt.Println("Exec main file")
+func (run Run) Run(buildDir string) {
+    go func() {
+        os.Chdir(buildDir)
+        cmd := exec.Command("go", "run", "./main.go", "&")
+        var out bytes.Buffer
+        cmd.Stdout = &out
+        err := cmd.Run()
+        if err != nil {
+            log.Fatal(err)
+        }
+        fmt.Printf(out.String())
+    }()
 }
 
 func (run *Run) Development() {
@@ -115,8 +129,7 @@ func (run *Run) Development() {
     run.GetCurrentDirectory(run.Context.Args().First())
     run.Compile()
     run.ParseApplication()
-    run.Generate()
-    run.Run()
+    run.Run(run.Generate())
 }
 
 func (run *Run) Production() {

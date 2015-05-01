@@ -30,8 +30,9 @@ package main
 import (
     "os"
   	"github.com/codegangsta/cli"
-    "github.com/penlook/pengo/cmd/pengo/library"
+    "github.com/penlook/pengo/cmd/pengo/compiler"
     "github.com/penlook/pengo/cmd/pengo/server"
+    "fmt"
 )
 
 func main() {
@@ -47,11 +48,13 @@ func main() {
                     Name: "Proxy Server",
                     Port: 80,
                 }
-                proxy.Handle(func(url string) {
-                    runner := library.Run {
+                proxy.Handle(func() {
+                    fmt.Println("Start compile")
+                    runner := compiler.Run {
                         Context: context,
                     }
                     runner.Development()
+                    fmt.Println("End compile")
                 })
                 proxy.Listen()
             },
@@ -61,7 +64,7 @@ func main() {
             Aliases:   []string{"-b"},
             Usage:     "Build pengo application and ready for production",
             Action: func(context *cli.Context) {
-                runner := library.Run {
+                runner := compiler.Run {
                     Context: context,
                 }
                 runner.Production()

@@ -24,7 +24,7 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-package library
+package compiler
 
 import (
  	"os"

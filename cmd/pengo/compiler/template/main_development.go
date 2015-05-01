@@ -72,6 +72,6 @@ func main() {
     //{{ model }}
     router := httprouter.New()
     {{ router }}
-    http.ListenAndServe(":80", router)
+    http.ListenAndServe(":8080", router)
 }
 `

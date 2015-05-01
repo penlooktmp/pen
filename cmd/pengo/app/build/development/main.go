@@ -43,20 +43,7 @@ func main() {
 
     //{{ model }}
     router := httprouter.New()
-    router.GET("/index/index", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
-    		c := Index {
-        		Base("Index", "Index", response, request, params),
-    		}
-    		c.Initialize()
-    		c.SetupModel(model)
-    		c.Start()
-    		c.InitAction()
-    		c.BeforeAction(c)
-    		c.Action(c, `{"Order":[],"Type":{}}`, params)
-    		c.AfterAction(c)
-    		c.Flow.Graph()
-		})
-	router.GET("/login/:uid/:password", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
+    router.GET("/login/:uid/:password", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
     		c := App {
         		Base("App", "Login", response, request, params),
     		}
@@ -82,6 +69,19 @@ func main() {
     		c.AfterAction(c)
     		c.Flow.Graph()
 		})
+	router.GET("/index/index", func(response http.ResponseWriter, request *http.Request, params httprouter.Params) {
+    		c := Index {
+        		Base("Index", "Index", response, request, params),
+    		}
+    		c.Initialize()
+    		c.SetupModel(model)
+    		c.Start()
+    		c.InitAction()
+    		c.BeforeAction(c)
+    		c.Action(c, `{"Order":[],"Type":{}}`, params)
+    		c.AfterAction(c)
+    		c.Flow.Graph()
+		})
 	
-    http.ListenAndServe(":80", router)
+    http.ListenAndServe(":8080", router)
 }
