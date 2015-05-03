@@ -24,6 +24,7 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
+
 package compiler
 
 import (
@@ -32,6 +33,8 @@ import (
     "os"
     "os/exec"
     "bytes"
+    "strings"
+    "fmt"
     "path/filepath"
     . "github.com/penlook/pengo/cmd/pengo/compiler/template"
 )
@@ -99,7 +102,7 @@ func (run *Run) Generate() string {
     schemaPath, _ := filepath.Abs(run.Directory + "/generate/controller/schema.go")
     generator.Schema(TemplateSchema, schemaPath, run.Data)
 
-    return run.Directory + buildpath
+    return buildpath
 }
 
 func (run Run) Compile() {
@@ -116,7 +119,6 @@ func (run Run) Run(buildDir string) {
         cmd := exec.Command("go", "run", "./main.go")
         var out bytes.Buffer
         cmd.Stdout = &out
-        cmd.Start()
         go func() {
             select {
                 case mode := <- run.Daemon:
@@ -125,16 +127,35 @@ func (run Run) Run(buildDir string) {
                     }
             }
         }()
+        cmd.Start()
         cmd.Wait()
     }()
+}
+
+func (run *Run) HasChanged() bool {
+    //checklist := [] string {"controller", "model", "library", "extend"}
+    fmt.Println(run.Directory)
+    filepath.Walk(run.Directory, func(path string, f os.FileInfo, err error) error {
+        paths := strings.Split(path, run.Directory)
+        baseDirectory := paths[1]
+        if len(baseDirectory) > 1 {
+            fmt.Println(baseDirectory[1:])
+        }
+        return nil
+    })
+    os.Exit(1)
+    return true
 }
 
 func (run *Run) Development() {
     run.Mode = MODE_DEVELOPMENT
     run.GetCurrentDirectory(run.Context.Args().First())
-    run.Compile()
-    run.ParseApplication()
-    run.Run(run.Generate())
+    if run.HasChanged() {
+        run.Compile()
+        run.ParseApplication()
+        run.Generate()
+    }
+    run.Run(run.Directory + "/build/development")
 }
 
 func (run *Run) Production() {

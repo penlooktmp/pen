@@ -1,3 +1,30 @@
+/**
+ * Pengo Project
+ *
+ * Copyright (c) 2015 Penlook Development Team
+ *
+ * --------------------------------------------------------------------
+ *
+ * This program is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License
+ * as published by the Free Software Foundation, either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this program.
+ * If not, see <http://www.gnu.org/licenses/>.
+ *
+ * --------------------------------------------------------------------
+ *
+ * Author:
+ *     Loi Nguyen       <loint@penlook.com>
+ */
+
 package server
 
 import (
@@ -32,6 +59,7 @@ func (server Server) Handler() func(writer http.ResponseWriter, request *http.Re
         server.Callback()
 
         time.Sleep(time.Second * 2)
+
         debugPort := 8080
         url := "http://" + request.Host + ":" + strconv.Itoa(debugPort) + request.RequestURI
 
@@ -49,23 +77,6 @@ func (server Server) Handler() func(writer http.ResponseWriter, request *http.Re
             }
             fmt.Fprintf(writer, string(contents[:]))
         }
-
-        /*
-        response, err := http.Get(url)
-        if err != nil {
-            fmt.Printf("%s", err)
-            os.Exit(1)
-        } else {
-            defer response.Body.Close()
-            contents, err := ioutil.ReadAll(response.Body)
-            if err != nil {
-                fmt.Printf("%s", err)
-                os.Exit(1)
-            }
-            fmt.Fprintf(writer, string(contents[:]))
-        }
-        */
-
         server.Unlocked <- true
     }
 }

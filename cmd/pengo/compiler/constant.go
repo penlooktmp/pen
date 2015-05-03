@@ -24,6 +24,7 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
+
 package compiler
 
 // Application mode

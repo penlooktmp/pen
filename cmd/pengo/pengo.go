@@ -54,7 +54,6 @@ func main() {
                 }
                 runner.Daemon <- true
                 proxy.Handle(func() {
-                    fmt.Println("Start request")
                     runner.Development()
                     runner.Daemon <- false
                     fmt.Println("End request")
