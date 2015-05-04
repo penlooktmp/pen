@@ -133,13 +133,26 @@ func (run Run) Run(buildDir string) {
 }
 
 func (run *Run) HasChanged() bool {
+
     //checklist := [] string {"controller", "model", "library", "extend"}
+    appDirectories := [] string {
+        "controller",
+        "model",
+        "extend",
+        "library",
+    }
+
     fmt.Println(run.Directory)
     filepath.Walk(run.Directory, func(path string, f os.FileInfo, err error) error {
         paths := strings.Split(path, run.Directory)
-        baseDirectory := paths[1]
-        if len(baseDirectory) > 1 {
-            fmt.Println(baseDirectory[1:])
+        relativeFilePath := paths[1]
+        if len(relativeFilePath) > 1 {
+            relativeFilePath := relativeFilePath[1:]
+            for _, directoryName := range appDirectories {
+                if strings.HasPrefix(relativeFilePath, directoryName) {
+                    
+                }
+            }
         }
         return nil
     })
