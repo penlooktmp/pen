@@ -35,7 +35,13 @@ Login(uid int, password string) {
 	//Session()
 	//fmt.Println(#redis["abc"])
 
-	//user := #mysql["user"]
+	user := #mysql["user"] {
+		Username: "Loi Nguyen",
+		Password: "12345",
+	}
+
+	user.Create()
+
 	//status := #mongo["status"]
 
 	//Abc()
