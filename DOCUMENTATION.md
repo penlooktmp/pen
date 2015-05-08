@@ -1,3 +1,26 @@
+# Pengo Cli
++ Create new application
+```bash
+pengo new app
+```
+
++ Run application under debugging mode
+```bash
+pengo run app
+```
+
++ Build application and ready for production
+```bash
+pengo build app
+```
+
++ Analys application for development
+```bash
+pengo debug router
+pengo debug controller
+pengo debug model
+```
+
 # Pengo syntax
 
 + Router & Action

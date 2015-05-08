@@ -26,6 +26,7 @@
  */
 
 Before() {
+
 }
 
 @Route /login/:uid/:password
@@ -45,8 +46,6 @@ Login(uid int, password string) {
 	//status := #mongo["status"]
 
 	//Abc()
-
-
 
 	//$listUser = #GetAllUser()
 
