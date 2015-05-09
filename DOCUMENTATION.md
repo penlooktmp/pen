@@ -1,20 +1,42 @@
 # Pengo Cli
 + Create new application
+
 ```bash
 pengo new app
 ```
 
++ Create new controller
+
+```bash
+pengo new controller:home
+```
+
++ Create new model
+
+```bash
+pengo new mysql>user
+```
+
++ Create new view
+
+```bash
+pengo new app/index
+```
+
 + Run application under debugging mode
+
 ```bash
 pengo run app
 ```
 
 + Build application and ready for production
+
 ```bash
 pengo build app
 ```
 
-+ Analys application for development
++ Analyze application for debugging mode
+
 ```bash
 pengo debug router
 pengo debug controller

@@ -27,6 +27,7 @@
 package model
 
 type Queue struct {
+	
 }
 
 // Message Queue
