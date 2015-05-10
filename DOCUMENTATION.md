@@ -1,7 +1,5 @@
 # Pengo Framework Design
-
-Author: Loi Nguyen <loint@penlook.com>
-Date: 05/10/2015 
+Author: Loi Nguyen <loint@penlook.com>  |  Date: 05/10/2015 
 
 ### Pengo Cli
 + Create new application
@@ -158,13 +156,18 @@ person := Person {
 person.Age == 21 ?
 ```
 
-+ Assertion Not Equal (assert.NotEqual)
-```go 
-person.Age != 21 ?
-```
-
 + Assertion Not Nil (assert.NotNil)
 ```go
 person.Age != nil ?
+```
+
++ Assertion True
+```go
+person.Age ?
+```
+
++ Assertion False
+```go
+! person.Age ?
 ```
 
