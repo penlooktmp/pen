@@ -1,4 +1,6 @@
-# Pengo Cli
+Pengo Framework Design 
+
+### Pengo Cli
 + Create new application
 
 ```bash
@@ -8,7 +10,7 @@ pengo new app
 + Create new controller
 
 ```bash
-pengo new controller:home
+pengo new home:index
 ```
 
 + Create new model
@@ -20,7 +22,7 @@ pengo new mysql>user
 + Create new view
 
 ```bash
-pengo new app/index
+pengo new home/index
 ```
 
 + Run application under debugging mode
@@ -39,59 +41,63 @@ pengo build app
 
 ```bash
 pengo debug router
+```
+```bash
 pengo debug controller
+```
+```bash
 pengo debug model
 ```
 
-# Pengo syntax
+### Pengo Controller
 
-+ Router & Action
-
++ Controller declaration
+@Controller <controller>
 ```go
-@Router /hello/:username
-Login(username string) {
-	// Assign username to view
-	$username = username
+@Controller app
+```
+
++ Controller declaration and extend from another controller
+@Controller <controller> <parent controller>
+```go
+@Controller app base
+```
+
++ Router - Method - Action mapping
+```go
+@Router /hello/:userid/:password
+@Method GET POST PUT
+func Login(userid int, password string) {
 }
 ```
 
-+ Model manipulation - For Key - Value
++ Model manipulation
 
-Session, Redis, Memcache
+Select all users from user table
 ```go
-	// Multiple assignation
-   	#session <- {
-   		"username": "Bob",
-   		"password": "123",
-   	}
-
-   	// Single assignation
-   	#session["username"] = "Bob"
-
-	// Single retrieve
-	fmt.Println(#session["username"])
-```
-
-+ Model manipulation - For Table Family
-
-Cassandra, MySQL, SQL Server, PostgreSQL, Oracle
-```go
-	user := #mysql["user"]
-
-	// Insert new record
-	user.Create({
-		FirstName: "Loi",
-		LastName: "Nguyen",
+	user := mysql>User{}
+	listUser = user.Find({
+		Id: 3	
 	})
-
-	// Pass all users to view
-	$listUser = user.Find()
 ```
 
-+ Model manipulation - For Document Family
-
-Mongo, Couch, Rethink
+Create new status
 ```go
-	status := #mongo["status"]
+	status := mongo>Status{
+		Username: "Loi Nguyen",
+		Content: "Have a nice day !",
+	}
+	status.Create()
 ```
 
+Save login information using session
+```go
+	session>Username = "loint"
+	session>Login = true 
+```
+
+Assign and retrive dynamic key to redis
+```go
+	redis>"abc" = "hello"
+	fmt.Println(redis>"abc")
+```
