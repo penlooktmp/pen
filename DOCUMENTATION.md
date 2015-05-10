@@ -71,33 +71,52 @@ func Login(userid int, password string) {
 }
 ```
 
-+ Model manipulation
-
-Select all users from user table
-```go
-	user := mysql>User{}
-	listUser = user.Find({
-		Id: 3	
-	})
+### Pengo Model
+```
+instance := [entity]>[field | key]
+[entity]>[field | key] = value
+[entity]>"[field string | key string ]" = value
 ```
 
-Create new status
++ Select all users from user table
 ```go
-	status := mongo>Status{
-		Username: "Loi Nguyen",
-		Content: "Have a nice day !",
-	}
-	status.Create()
+user := mysql>User 
+listUser = user.Find({
+	Id: 3
+})
 ```
 
-Save login information using session
++ Create new status
 ```go
-	session>Username = "loint"
-	session>Login = true 
+status := mongo>Status {
+	Username: "Loi Nguyen",
+	Content: "Have a nice day !",
+}
+status.Create()
 ```
 
-Assign and retrive dynamic key to redis
++ Save login information using session
 ```go
-	redis>"abc" = "hello"
-	fmt.Println(redis>"abc")
+session>Username = "loint"
+session>Login = true 
+```
+
++ Assign and retrive dynamic key to redis
+```go
+redis>"abc" = "hello"
+fmt.Println(redis>"abc")
+```
+
+### Pengo Template
++ Assign function to template
+```go
+@compress = func(html string) {
+	return html + " is using compress function"
+}
+```
+
++ Assign variable to template
+```go
+$title = "Pengo Application"	
+$messsage = "Hello World"
 ```
