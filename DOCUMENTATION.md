@@ -52,13 +52,11 @@ pengo debug model
 ### Pengo Controller
 
 + Controller declaration
-- @Controller [controller]
 ```go
 @Controller app
 ```
 
-+ Controller declaration and extend from another controller
-- @Controller [controller] [parent controller]
++ Controller declaration and extend from base controller
 ```go
 @Controller app base
 ```
@@ -72,11 +70,6 @@ func Login(userid int, password string) {
 ```
 
 ### Pengo Model
-```
-instance := [entity]>[field | key]
-[entity]>[field | key] = value
-[entity]>"[field string | key string ]" = value
-```
 
 + Select all users from user table
 ```go
