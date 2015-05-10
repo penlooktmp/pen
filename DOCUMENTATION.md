@@ -1,5 +1,5 @@
 # Pengo Framework Design
-Author: Loi Nguyen <loint@penlook.com>  |  Date: 05/10/2015 
+Author: Loi Nguyen <loint@penlook.com>  |  Date: 05/10/2015
 
 ### Pengo Cli
 After create a new application, you need to go into your application directory for the next manipulation.
@@ -86,12 +86,21 @@ func Login(userid int, password string) {
 }
 ```
 
++ Custom template path
+
+```go
+@Router /hello/:userid/:password
+@Template /hello/custom/path
+func Login(userid int, password string) {
+}
+```
+
 ### Pengo Model
 
 + Select user who has id = 3 from user table
 
 ```go
-user := mysql>User 
+user := mysql>User
 listUser = user.Find({
 	Id: 3
 })
@@ -121,11 +130,6 @@ redis>"abc" = "hello"
 fmt.Println(redis>"abc")
 ```
 
-+ Assign and retrieve dynamic key with aerospike
-
-```go
-```
-
 + Graph query with cayley
 
 ```go
@@ -146,7 +150,7 @@ $compress = func(html string) {
 + Assign normal variable to template
 
 ```go
-$title = "Pengo Application"	
+$title = "Pengo Application"
 $message = "Hello World"
 ```
 
@@ -157,7 +161,7 @@ $message = "Hello World"
 	<title>{{ title }}</title>
 <body>
 	<h1>{{ message }}</h1>
-	<p>{{ "abc" | compress }}</p>	
+	<p>{{ "abc" | compress }}</p>
 </body>
 </html>
 ```
