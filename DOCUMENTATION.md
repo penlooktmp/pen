@@ -82,7 +82,7 @@ listUser = user.Find({
 + Create new status
 ```go
 status := mongo>Status {
-	Username: "Loi Nguyen",
+	Username: "loint",
 	Content: "Have a nice day !",
 }
 status.Create()
@@ -101,15 +101,28 @@ fmt.Println(redis>"abc")
 ```
 
 ### Pengo Template
-+ Assign function to template
++ Assign function variable to template
 ```go
-@compress = func(html string) {
+$compress = func(html string) {
 	return html + " is using compress function"
 }
 ```
 
-+ Assign variable to template
++ Assign normal variable to template
 ```go
 $title = "Pengo Application"	
-$messsage = "Hello World"
+$message = "Hello World"
 ```
+
++ Template manipulation
+```html
+<html>
+	<title>{{ title }}</title>
+<body>
+	<h1>{{ message }}</h1>
+	<p>{{ "abc" | compress }}</p>	
+</body>
+</html>
+```
+
+### Pengo Testing
