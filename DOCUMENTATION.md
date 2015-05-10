@@ -52,13 +52,13 @@ pengo debug model
 ### Pengo Controller
 
 + Controller declaration
-@Controller <controller>
+- @Controller [controller]
 ```go
 @Controller app
 ```
 
 + Controller declaration and extend from another controller
-@Controller <controller> <parent controller>
+- @Controller [controller] [parent controller]
 ```go
 @Controller app base
 ```
