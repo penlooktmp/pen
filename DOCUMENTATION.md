@@ -2,6 +2,8 @@
 Author: Loi Nguyen <loint@penlook.com>  |  Date: 05/10/2015 
 
 ### Pengo Cli
+After create a new application, you need to go into your application directory for the next manipulation.
+
 + Create new application
 
 ```bash
@@ -26,16 +28,16 @@ pengo new mysql>user
 pengo new home/index
 ```
 
-+ Run application under debugging mode
++ Run application under hot-code reload mode
 
 ```bash
-pengo run app
+pengo run
 ```
 
 + Build application and ready for production
 
 ```bash
-pengo build app
+pengo build
 ```
 
 + Analyze application for debugging mode
@@ -50,6 +52,18 @@ pengo debug controller
 pengo debug model
 ```
 
++ Unit testing
+
+```bash
+pengo test
+```
+
++ Benchmark testing
+
+```bash
+pengo test 1000
+```
+
 ### Pengo Controller
 
 + Controller declaration
@@ -58,11 +72,13 @@ pengo debug model
 ```
 
 + Controller declaration and extend from base controller
+
 ```go
 @Controller app base
 ```
 
 + Router - Method - Action mapping
+
 ```go
 @Router /hello/:userid/:password
 @Method GET POST PUT
@@ -73,6 +89,7 @@ func Login(userid int, password string) {
 ### Pengo Model
 
 + Select user who has id = 3 from user table
+
 ```go
 user := mysql>User 
 listUser = user.Find({
@@ -81,6 +98,7 @@ listUser = user.Find({
 ```
 
 + Create new status
+
 ```go
 status := mongo>Status {
 	Username: "loint",
@@ -90,19 +108,23 @@ status.Create()
 ```
 
 + Save login information using session
+
 ```go
 session>Username = "loint"
 session>Login = true 
 ```
 
-+ Assign and retrive dynamic key to redis
++ Assign and retrieve dynamic key with redis
+
 ```go
 redis>"abc" = "hello"
 fmt.Println(redis>"abc")
 ```
 
 ### Pengo Template
+
 + Assign function variable to template
+
 ```go
 $compress = func(html string) {
 	return html + " is using compress function"
@@ -110,12 +132,14 @@ $compress = func(html string) {
 ```
 
 + Assign normal variable to template
+
 ```go
 $title = "Pengo Application"	
 $message = "Hello World"
 ```
 
 + Template manipulation
+
 ```html
 <html>
 	<title>{{ title }}</title>
@@ -129,12 +153,14 @@ $message = "Hello World"
 ### Pengo Testing
 
 + Setup
+
 ```go
 func Setup() {
 }
 ```
 
 + Testing
+
 ```go
 @Test
 func Login() {
@@ -142,12 +168,14 @@ func Login() {
 ```
 
 + Teardown
+
 ```go
 func Teardown() {
 }
 ```
 
 + Assertion Equal (assert.Equal)
+
 ```go
 person := Person {
 	Name: "Loi Nguyen",
@@ -157,16 +185,19 @@ person.Age == 21 ?
 ```
 
 + Assertion Not Nil (assert.NotNil)
+
 ```go
 person.Age != nil ?
 ```
 
 + Assertion True
+
 ```go
 person.Age ?
 ```
 
 + Assertion False
+
 ```go
 ! person.Age ?
 ```
