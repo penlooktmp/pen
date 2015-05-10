@@ -16,7 +16,7 @@ pengo new app
 pengo new home:index
 ```
 
-+ Create new entity
++ Create new repository
 
 ```bash
 pengo new mysql>user
@@ -111,14 +111,26 @@ status.Create()
 
 ```go
 session>Username = "loint"
-session>Login = true 
+session>Login = true
 ```
 
-+ Assign and retrieve dynamic key with redis
++ Assign and retrieve custom key with redis
 
 ```go
 redis>"abc" = "hello"
 fmt.Println(redis>"abc")
+```
+
++ Assign and retrieve dynamic key with aerospike
+
+```go
+```
+
++ Graph query with cayley
+
+```go
+vertex := cayley>"Vertex_AtoB"
+vertex.All()
 ```
 
 ### Pengo Template
