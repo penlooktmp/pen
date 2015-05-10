@@ -1,4 +1,7 @@
-# Pengo Framework Design 
+# Pengo Framework Design
+
+Author: Loi Nguyen <loint@penlook.com>
+Date: 05/10/2015 
 
 ### Pengo Cli
 + Create new application
@@ -7,13 +10,13 @@
 pengo new app
 ```
 
-+ Create new controller
++ Create new action
 
 ```bash
 pengo new home:index
 ```
 
-+ Create new model
++ Create new entity
 
 ```bash
 pengo new mysql>user
@@ -71,7 +74,7 @@ func Login(userid int, password string) {
 
 ### Pengo Model
 
-+ Select all users from user table
++ Select user who has id = 3 from user table
 ```go
 user := mysql>User 
 listUser = user.Find({
@@ -126,3 +129,42 @@ $message = "Hello World"
 ```
 
 ### Pengo Testing
+
++ Setup
+```go
+func Setup() {
+}
+```
+
++ Testing
+```go
+@Test
+func Login() {
+}
+```
+
++ Teardown
+```go
+func Teardown() {
+}
+```
+
++ Assertion Equal (assert.Equal)
+```go
+person := Person {
+	Name: "Loi Nguyen",
+	Age: 21,
+}
+person.Age == 21 ?
+```
+
++ Assertion Not Equal (assert.NotEqual)
+```go 
+person.Age != 21 ?
+```
+
++ Assertion Not Nil (assert.NotNil)
+```go
+person.Age != nil ?
+```
+
