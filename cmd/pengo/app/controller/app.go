@@ -24,19 +24,25 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
+@Controller app base
 
-Before() {
-
+func Before() {
+	a := app.Login()
+	a := mysql:User {
+		Username: "Loi Nguyen",
+		Password: "12345",
+	}
+	a.Create().Delete() 
 }
 
 @Route /login/:uid/:password
-@Method GET
-Login(uid int, password string) {
+@Method GET POST PUT DELETE
+func Login(uid int, password string) {
 
 	//Session()
 	//fmt.Println(#redis["abc"])
 
-	user := #mysql["user"] {
+	user := mysql["user"] {
 		Username: "Loi Nguyen",
 		Password: "12345",
 	}

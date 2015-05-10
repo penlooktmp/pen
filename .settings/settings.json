@@ -2,6 +2,7 @@
 {
 	"editor.fontFamily": "",
 	"editor.fontSize": 19,
-	"editor.lineHeight": 32,
-	"editor.tabSize": 4
+	"editor.lineHeight": 34,
+	"editor.tabSize": 4,
+	"editor.formatOnType": true
 }
