@@ -97,11 +97,19 @@ func Login(userid int, password string) {
 
 ### Pengo Model
 
-+ Select user who has id = 3 from user table
++ Select user who has id = 3 from user table (full)
 
 ```go
 user := mysql>User
-listUser = user.Find({
+listUser := user.Find({
+	Id: 3
+})
+```
+
++ Select user who has id = 3 from user table (short)
+
+```go
+listUser := mysql>User.Find({
 	Id: 3
 })
 ```
@@ -218,3 +226,22 @@ person.Age ?
 ! person.Age ?
 ```
 
+### Pengo Extensibility
+
++ Using C function in Go controller (function consolidation)
+
+```c
+#include <stdio.h>
+char* Concat(char* str1, char* str2 ) {
+	// TODO
+}
+```
+```go
+@Router /process
+func Process() {
+	number := Concat("Hello", "World")
+	fmt.Println(number) // Output: Hello World
+}
+```
+
++ Using C++ beside Golang
