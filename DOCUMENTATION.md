@@ -228,7 +228,7 @@ person.Age ?
 
 ### Pengo Extensibility
 
-+ Using C function in Go controller (function consolidation)
++ Using C function in Go controller (consolidation function)
 
 ```c
 #include <stdio.h>
@@ -245,3 +245,9 @@ func Process() {
 ```
 
 + Using C++ beside Golang
+```cpp
+
+```
+```go
+
+```
