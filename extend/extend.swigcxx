@@ -1,0 +1,9 @@
+%module extend
+
+%{
+#include <string>
+#include "extend.hpp"
+%}
+
+%include "std_string.i"
+%include "extend.hpp"

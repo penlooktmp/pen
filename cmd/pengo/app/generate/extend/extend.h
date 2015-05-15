@@ -1,2 +1,0 @@
-void Pengo();
-void Send();
