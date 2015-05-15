@@ -244,7 +244,7 @@ func Process() {
 }
 ```
 
-+ Using C++ beside Golang
++ Using C++ & Golang 
 ```cpp
 
 ```
