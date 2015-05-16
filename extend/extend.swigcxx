@@ -1,9 +1,9 @@
-%module extend
+%module main
 
 %{
 #include <string>
-#include "extend.hpp"
+#include "callback.h"
 %}
 
 %include "std_string.i"
-%include "extend.hpp"
+%include "callback.h"
