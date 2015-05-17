@@ -1,9 +1,0 @@
-%module main
-
-%{
-#include <string>
-#include "callback.h"
-%}
-
-%include "std_string.i"
-%include "callback.h"
