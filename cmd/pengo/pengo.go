@@ -31,7 +31,7 @@ import (
     "os"
   	"github.com/codegangsta/cli"
     "github.com/penlook/pengo/cmd/pengo/compiler"
-    "github.com/penlook/pengo/cmd/pengo/server"
+    "github.com/penlook/pengo/cmd/pengo/proxy"
     "fmt"
 )
 
@@ -44,7 +44,7 @@ func main() {
             Aliases:   []string{"-d"},
             Usage:     "Run application in development mode",
             Action: func(context *cli.Context) {
-                proxy := server.Server {
+                server := proxy.Server {
                     Name: "Proxy Server",
                     Port: 80,
                 }
@@ -53,12 +53,12 @@ func main() {
                     Daemon: make(chan bool, 1),
                 }
                 runner.Daemon <- true
-                proxy.Handle(func() {
+                server.Handle(func() {
                     runner.Development()
                     runner.Daemon <- false
                     fmt.Println("End request")
                 })
-                proxy.Listen()
+                server.Listen()
             },
         },
         {

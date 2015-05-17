@@ -97,7 +97,4 @@ var (
 
 	// Go method
 	PATTERN_GO_METHOD				=   "\\[A-Z]{1}[a-zA-Z0-9\\s]+\\((|([a-zA-Z0-9\\s,]+))\\)"
-
-	// C function
-	PATTERN_C_FUNCTION				=   "\\~[A-Z]{1}[a-zA-Z0-9\\s]+\\((|([a-zA-Z0-9\\s,]+))\\)"
 )

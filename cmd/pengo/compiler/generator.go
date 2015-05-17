@@ -70,16 +70,6 @@ func (gen Generator) Schema(template string, path string, data Data) {
 	gen.Write(template, path)
 }
 
-func (gen Generator) ExtendC(template string, path string) {
-	gen.Clean(path)
-	gen.Write(template, path)
-}
-
-func (gen Generator) Extend(template string, path string, data Data) {
-	gen.Clean(path)
-	gen.Write(template, path)
-}
-
 func (gen Generator) Controller(template string, controllerDirectory string, controllerName string) {
 	path, _ := filepath.Abs(controllerDirectory + "/" + strings.ToLower(controllerName) + ".go")
 	gen.Clean(path)

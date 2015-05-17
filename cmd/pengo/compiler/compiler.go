@@ -62,7 +62,6 @@ func (compiler Compiler) Header() string {
 	package controller
 	import (
 		. "github.com/penlook/pengo"
-		. "github.com/penlook/pengo/cmd/pengo/app/generate/extend"
 	)
 	`
 	return header
@@ -347,11 +346,6 @@ func (compile *Compiler) ParseController() {
 
 			if loc := compile.FindPattern(PATTERN_GO_METHOD); len(loc) > 0 {
 				compile.GoMethod(loc)
-				continue
-			}
-
-			if loc := compile.FindPattern(PATTERN_C_FUNCTION); len(loc) > 0 {
-				compile.CFunction(loc)
 				continue
 			}
 

@@ -33,7 +33,7 @@ import (
     "os"
     "os/exec"
     "bytes"
-    "strings"
+    //"strings"
     "fmt"
     "path/filepath"
     . "github.com/penlook/pengo/cmd/pengo/compiler/template"
@@ -61,7 +61,7 @@ func (run *Run) ParseApplication() {
     run.Data = Data {}
 
     // Parse controller
-    dir, err := filepath.Abs(run.Directory + "/generate/controller")
+    dir, err := filepath.Abs(run.Directory + "/build/generate/controller")
     if err != nil {
         panic("Folder name 'controller' does not exist !")
     }
@@ -99,7 +99,7 @@ func (run *Run) Generate() string {
     mainPath, _ := filepath.Abs(run.Directory + buildpath + "/main.go")
     generator.Main(template, mainPath, run.Data)
 
-    schemaPath, _ := filepath.Abs(run.Directory + "/generate/controller/schema.go")
+    schemaPath, _ := filepath.Abs(run.Directory + "/build/generate/controller/schema.go")
     generator.Schema(TemplateSchema, schemaPath, run.Data)
 
     return buildpath
@@ -132,16 +132,28 @@ func (run Run) Run(buildDir string) {
     }()
 }
 
+func (run *Run) CheckHistory() {
+    buildHistory := run.Directory + "/build/build.json"
+    if _, err := os.Stat(buildHistory); err == nil {
+        
+    }
+}
+
 func (run *Run) HasChanged() bool {
 
+    run.CheckHistory()
+    
     //checklist := [] string {"controller", "model", "library", "extend"}
-    appDirectories := [] string {
-        "controller",
-        "model",
-        "extend",
-        "library",
-    }
-
+    //appDirectories := [] string {
+    //    "controller",
+    //    "model",
+    //}
+    
+    //for _, directory := range appDirectories {
+    //}
+    
+    os.Exit(0)
+    /*
     filepath.Walk(run.Directory, func(path string, f os.FileInfo, err error) error {
         paths := strings.Split(path, run.Directory)
         relativeFilePath := paths[1]
@@ -155,7 +167,7 @@ func (run *Run) HasChanged() bool {
         }
         return nil
     })
-    os.Exit(1)
+    os.Exit(1)*/
     return true
 }
 

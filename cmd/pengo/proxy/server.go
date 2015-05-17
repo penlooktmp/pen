@@ -25,7 +25,7 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-package server
+package proxy
 
 import (
  	"net/http"

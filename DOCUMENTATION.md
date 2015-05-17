@@ -225,29 +225,3 @@ person.Age ?
 ```go
 ! person.Age ?
 ```
-
-### Pengo Extensibility
-
-+ Using C function in Go controller (consolidation function)
-
-```c
-#include <stdio.h>
-char* Concat(char* str1, char* str2 ) {
-	// TODO
-}
-```
-```go
-@Router /process
-func Process() {
-	number := Concat("Hello", "World")
-	fmt.Println(number) // Output: Hello World
-}
-```
-
-+ Using C++ & Golang 
-```cpp
-
-```
-```go
-
-```
