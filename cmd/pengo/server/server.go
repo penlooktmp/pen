@@ -55,16 +55,13 @@ func (server Server) Handler() func(writer http.ResponseWriter, request *http.Re
         select {
             case <- server.Unlocked:
         }
-
+        
         server.Callback()
-
         time.Sleep(time.Second * 2)
-
         debugPort := 8080
         url := "http://" + request.Host + ":" + strconv.Itoa(debugPort) + request.RequestURI
-
         response, err := http.Get(url)
-
+        
         if err != nil {
             fmt.Printf("%s", err)
             os.Exit(1)

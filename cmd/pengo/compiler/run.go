@@ -142,7 +142,6 @@ func (run *Run) HasChanged() bool {
         "library",
     }
 
-    fmt.Println(run.Directory)
     filepath.Walk(run.Directory, func(path string, f os.FileInfo, err error) error {
         paths := strings.Split(path, run.Directory)
         relativeFilePath := paths[1]
