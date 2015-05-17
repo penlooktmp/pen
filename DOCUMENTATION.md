@@ -55,13 +55,13 @@ pengo --debug=model
 + Unit testing
 
 ```bash
-pengo --utest
+pengo --test=unit
 ```
 
 + Benchmark testing
 
 ```bash
-pengo --btest 1000
+pengo --test=benchmark
 ```
 
 ### Pengo Controller
