@@ -1,3 +1,4 @@
+#!/bin/bash
 #
 # Pengo Project
 #
@@ -24,6 +25,7 @@
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
 
+clear
 make debug
 echo -e "---------------------------------------\n"
 CMD="pengo --host=localhost --port=1234"

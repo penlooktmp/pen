@@ -26,8 +26,8 @@
 
 PROG    = pengo
 CC      = g++
-BUILD   = -std=c++0x -O3 -W
-DEBUG   = -std=c++0x -g0 -fno-inline
+BUILD   = -O3 -W 
+DEBUG   = -g0 -fno-inline
 BINARY  = /usr/bin/$(PROG)
 INCLUDE = ./src
 SOURCES = $(shell find ./ -name '*.cpp')
