@@ -7,61 +7,61 @@ After create a new application, you need to go into your application directory f
 + Create new application
 
 ```bash
-pengo new app
+pengo --new=app
 ```
 
 + Create new action
 
 ```bash
-pengo new home:index
+pengo --new=home:index
 ```
 
 + Create new repository
 
 ```bash
-pengo new mysql>user
+pengo --new=mysql>user
 ```
 
 + Create new view
 
 ```bash
-pengo new home/index
+pengo --new=home/index
 ```
 
 + Run application under hot-code reload mode
 
 ```bash
-pengo run
+pengo --run
 ```
 
 + Build application and ready for production
 
 ```bash
-pengo build
+pengo --build
 ```
 
 + Analyze application for debugging mode
 
 ```bash
-pengo debug router
+pengo --debug=router
 ```
 ```bash
-pengo debug controller
+pengo --debug=controller
 ```
 ```bash
-pengo debug model
+pengo --debug=model
 ```
 
 + Unit testing
 
 ```bash
-pengo test
+pengo --utest
 ```
 
 + Benchmark testing
 
 ```bash
-pengo test 1000
+pengo --btest 1000
 ```
 
 ### Pengo Controller
