@@ -32,7 +32,7 @@ using namespace cmdline;
 
 int main(int argc, char *argv[]) {
 	handler callback;
-	/*cli pengo;
+	cli pengo;
 	pengo.name("pengo")
 	  	 .add<string>("new",   'n',  "Create application", false, "")
 	  	 .add<string>("build", 'b',  "Build and install application", false)
@@ -46,6 +46,6 @@ int main(int argc, char *argv[]) {
 		return 0;
 	}
 	pengo.run();
-	*/
+	
 	return 0;
 }
