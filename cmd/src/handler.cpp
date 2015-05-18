@@ -27,27 +27,31 @@
 
 #include "handler.hpp"
 
-using namespace pengo;
+using namespace std;
 
 // Controller
 // Model
 // View
 void handler::create(string component) 
 {
+	cout << "Create new component";
 }
 
 // Unit test
 // Benchmark
 void handler::test(string type)
 {
+	cout << "Test pengo application";
 }
 
 // Build application
 void handler::build() 
 {	
+	cout << "Build application for production";
 }
 
 // Run application under hot-code reload
-handler::run() 
+void handler::run() 
 {	
+	cout << "Run application under hot-code reload";
 }

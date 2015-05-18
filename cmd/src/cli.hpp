@@ -43,9 +43,9 @@ class cli {
   public:
 	cli &add(
            const string &name,
+           const function<string(string)> &func,
            char  short_name = 0,
-           const string &desc = "",
-           const function<string(string)> &func) {
+           const string &desc = "") {
         callback[name] = func;
         cmd.add(name, short_name, desc);
         return *this;
@@ -54,24 +54,24 @@ class cli {
   	template <class T>
   	cli &add(
            const string &name,
-           char  short_name=0,
+           const function<string(string)> &func,
+           char  short_name = 0,
            const string &desc ="",
-           const T def = T(),
-           const function<string(string)> &func) {
+           const T def = T()){
         callback[name] = func;
-        cmd.add<T>(name, short_name, desc, need, def);
+        cmd.add<T>(name, short_name, desc, def);
         return *this;
   	}
 
   	template <class T, class F>
   	cli &add(
            const string &name,
+           const function<string(string)> &func,
            char  short_name = 0,
            const string &desc = "",
            bool  need = true,
            const T def = T(),
-           F reader = F(),
-           const function<string(string)> &func) {
+           F reader = F()) {
         callback[name] = func;
         cmd.add<T, F>(name, short_name, desc, need, def, reader);
         return *this;

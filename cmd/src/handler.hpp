@@ -29,7 +29,6 @@
 
 using namespace std;
 
-namespace pengo {
 class handler {
   public:
   	void create(string component);
@@ -37,5 +36,4 @@ class handler {
   	void build();
 	void run();
 };
-}
  

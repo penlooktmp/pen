@@ -31,7 +31,7 @@
 using namespace cmdline; 
 
 int main(int argc, char *argv[]) {
-	callback handler;
+	handler callback;
 	/*cli pengo;
 	pengo.name("pengo")
 	  	 .add<string>("new",   'n',  "Create application", false, "")
