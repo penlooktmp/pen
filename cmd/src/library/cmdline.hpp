@@ -39,9 +39,9 @@
 #include <cxxabi.h>
 #include <cstdlib>
 
-namespace cmdline{
+namespace cmdline {
 
-namespace detail{
+namespace detail {
 
 template <typename Target, typename Source, bool Same>
 class lexical_cast_t{

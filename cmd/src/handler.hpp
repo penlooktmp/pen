@@ -25,27 +25,17 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include "handler.hpp"
-#include "cli.hpp"
+#include <iostream>
 
-using namespace cmdline; 
+using namespace std;
 
-int main(int argc, char *argv[]) {
-	callback handler;
-	/*cli pengo;
-	pengo.name("pengo")
-	  	 .add<string>("new",   'n',  "Create application", false, "")
-	  	 .add<string>("build", 'b',  "Build and install application", false)
-	  	 .add<string>("test",  't',  "Test application", false, "unit",
-							oneof<string>("unit", "benchmark"))
-		 .add("run",   '\0', "Run application under hot-code reload")
-	  	 .add("help", 0, "Show pengo help")
-	  	 .parse(argc, argv);
-	if (argc==1 || !pengo.valid()) {
-		cerr << pengo.error() << endl << pengo.usage();
-		return 0;
-	}
-	pengo.run();
-	*/
-	return 0;
+namespace pengo {
+class handler {
+  public:
+  	void create(string component);
+	void test(string type);
+  	void build();
+	void run();
+};
 }
+ 

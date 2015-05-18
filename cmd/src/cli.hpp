@@ -25,72 +25,86 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <library/cmdline.hpp>
+#include <library/cmdline.hpp> 
+#include <functional>
+#include <iostream>
+#include <map>
+
 using namespace std;
 
-namespace cmdline {
-class Cli {
+namespace pengo {
+class cli {
 
   private:
-  	cmdline::parser cli;
+  	cmdline::parser cmd;
+    map<string, function<string(string)>> callback;
     bool is_valid;
 
-  public:   
-	Cli &add(
+  public:
+	cli &add(
            const string &name,
-           char short_name = 0,
-           const string &desc = "") {
-        cli.add(name, short_name, desc);
+           char  short_name = 0,
+           const string &desc = "",
+           const function<string(string)> &func) {
+        callback[name] = func;
+        cmd.add(name, short_name, desc);
         return *this;
     }
 
   	template <class T>
-  	Cli &add(
+  	cli &add(
            const string &name,
-           char short_name=0,
+           char  short_name=0,
            const string &desc ="",
-           bool need = true,
-           const T def = T()) {
-        cli.add<T>(name, short_name, desc, need, def);
+           const T def = T(),
+           const function<string(string)> &func) {
+        callback[name] = func;
+        cmd.add<T>(name, short_name, desc, need, def);
         return *this;
   	}
 
   	template <class T, class F>
-  	Cli &add(
+  	cli &add(
            const string &name,
-           char short_name = 0,
+           char  short_name = 0,
            const string &desc = "",
-           bool need = true,
+           bool  need = true,
            const T def = T(),
-           F reader = F()) {
-        cli.add<T, F>(name, short_name, desc, need, def, reader);
+           F reader = F(),
+           const function<string(string)> &func) {
+        callback[name] = func;
+        cmd.add<T, F>(name, short_name, desc, need, def, reader);
         return *this;
 	}
     
-    Cli &name(const string &name) {
-        cli.set_program_name(name);
+    cli &name(const string &name) {
+        cmd.set_program_name(name);
         return *this;
     }
   
-    Cli &parse(int argc, const char * const argv[]) {
-        is_valid = cli.parse(argc, argv);
+    cli &parse(int argc, const char * const argv[]) {
+        is_valid = cmd.parse(argc, argv);
+        return *this;
     }
     
     bool valid() {
         return is_valid;
     }
     
-    std::string error() const {
-        return cli.error();
+    string error() const {
+        return cmd.error();
     }
     
-    std::string usage() const {
-        return cli.usage();
+    string usage() const {
+        return cmd.usage();
     }
     
     int size() {
-        return cli.rest().size();
+        return cmd.rest().size();
     }
-
+    
+    void run() {
+        cout << "Run console"; 
+    }
 };
 }

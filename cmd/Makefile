@@ -27,9 +27,10 @@
 PROG    = pengo
 TEST	= ptest
 CC      = g++
-BUILD   = -Wall -O3
-DEBUG   = -g0 -fno-inline
-TESTF	= -g -L/opt/gtest/lib -lgtest -lgtest_main -lpthread -I/opt/gtest/include
+CCVER 	= c++11
+BUILD   = -std=$(CCVER) -Wall -O3
+DEBUG   = -std=$(CCVER) -pipe -g0 -fno-inline
+TESTF	= -std=$(CCVER) -g -L/opt/gtest/lib -lgtest -lgtest_main -lpthread -I/opt/gtest/include
 BINARY  = /usr/bin/$(PROG)
 INCLUDE = ./src
 SOURCES = $(shell find ./src  -name *.cpp)

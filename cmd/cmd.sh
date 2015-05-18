@@ -28,15 +28,6 @@
 clear
 make debug
 echo -e "---------------------------------------\n"
-CMD="pengo"
-echo -e "$CMD \n"
-$CMD
-CMD="pengo --test=unit"
-echo -e "$CMD \n"
-$CMD
-CMD="pengo --test=help"
-echo -e "$CMD \n"
-$CMD
 CMD="pengo --test=unit"
 echo -e "$CMD \n"
 $CMD

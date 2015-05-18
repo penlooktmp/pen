@@ -26,26 +26,28 @@
  */
 
 #include "handler.hpp"
-#include "cli.hpp"
 
-using namespace cmdline; 
+using namespace pengo;
 
-int main(int argc, char *argv[]) {
-	callback handler;
-	/*cli pengo;
-	pengo.name("pengo")
-	  	 .add<string>("new",   'n',  "Create application", false, "")
-	  	 .add<string>("build", 'b',  "Build and install application", false)
-	  	 .add<string>("test",  't',  "Test application", false, "unit",
-							oneof<string>("unit", "benchmark"))
-		 .add("run",   '\0', "Run application under hot-code reload")
-	  	 .add("help", 0, "Show pengo help")
-	  	 .parse(argc, argv);
-	if (argc==1 || !pengo.valid()) {
-		cerr << pengo.error() << endl << pengo.usage();
-		return 0;
-	}
-	pengo.run();
-	*/
-	return 0;
+// Controller
+// Model
+// View
+void handler::create(string component) 
+{
+}
+
+// Unit test
+// Benchmark
+void handler::test(string type)
+{
+}
+
+// Build application
+void handler::build() 
+{	
+}
+
+// Run application under hot-code reload
+handler::run() 
+{	
 }
