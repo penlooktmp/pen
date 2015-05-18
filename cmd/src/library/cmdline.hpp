@@ -526,13 +526,13 @@ public:
 
   void parse_check(const std::string &arg){
     if (!options.count("help"))
-        add("help", '?', "print this message");
+      add("help", '?', "print this message");
     check(0, parse(arg));
   }
 
   void parse_check(const std::vector<std::string> &args){
     if (!options.count("help"))
-        add("help", '?', "print this message");
+      add("help", '?', "print this message");
     check(args.size(), parse(args));
   }
 

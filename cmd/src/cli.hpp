@@ -28,47 +28,69 @@
 #include <library/cmdline.hpp>
 using namespace std;
 
-class Cli
-{
-  protected:
-  	cmdline::parser cli;
+namespace cmdline {
+class Cli {
 
-  public:
-	template <class T>
-	Cli addOption(const string &name,
-           char short_name=0,
-           const string &desc="") 
-    {
+  private:
+  	cmdline::parser cli;
+    bool is_valid;
+
+  public:   
+	Cli &add(
+           const string &name,
+           char short_name = 0,
+           const string &desc = "") {
         cli.add(name, short_name, desc);
         return *this;
     }
 
   	template <class T>
-  	Cli addOption(const string &name,
+  	Cli &add(
+           const string &name,
            char short_name=0,
-           const string &desc="",
-           bool need=true,
-           const T def=T()) 
-    {
+           const string &desc ="",
+           bool need = true,
+           const T def = T()) {
         cli.add<T>(name, short_name, desc, need, def);
         return *this;
   	}
 
   	template <class T, class F>
-  	Cli addOption(const string &name,
-           char short_name=0,
-           const string &desc="",
-           bool need=true,
-           const T def=T(),
-           F reader=F())
-    {
+  	Cli &add(
+           const string &name,
+           char short_name = 0,
+           const string &desc = "",
+           bool need = true,
+           const T def = T(),
+           F reader = F()) {
         cli.add<T, F>(name, short_name, desc, need, def, reader);
         return *this;
 	}
     
-    Cli setName(const string &name)
-    {
+    Cli &name(const string &name) {
         cli.set_program_name(name);
         return *this;
     }
+  
+    Cli &parse(int argc, const char * const argv[]) {
+        is_valid = cli.parse(argc, argv);
+    }
+    
+    bool valid() {
+        return is_valid;
+    }
+    
+    std::string error() const {
+        return cli.error();
+    }
+    
+    std::string usage() const {
+        return cli.usage();
+    }
+    
+    int size() {
+        return cli.rest().size();
+    }
+
 };
+}

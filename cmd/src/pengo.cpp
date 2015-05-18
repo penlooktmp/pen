@@ -27,15 +27,24 @@
 
 #include "cli.hpp"
 
-int main(int argc, char *argv[])
-{
+using namespace cmdline; 
+
+int main(int argc, char *argv[]) {
 	Cli pengo;
-	pengo.setName("pengo")
-		 .addOption<string>("new", 'n', "Create application", false, "")
-		 .addOption("run", '\0', "Run application under hot-code reload")
-		 .addOption<string>("build", 'b', "Build and install application", false)
-		 .addOption<string>("test", 't', "Test application", false, "unit", 
-								cmdline::oneof<string>("unit", "benchmark"))
-		 .addOption("help", 0, "Show pengo help");
+	pengo.name("pengo")
+	  	 .add<string>("new", 'n', "Create application", false, "")
+	  	 .add("run", '\0', "Run application under hot-code reload")
+	  	 .add<string>("build", 'b', "Build and install application", false)
+	  	 .add<string>("test", 't', "Test application", false, "unit", 
+							oneof<string>("unit", "benchmark"))
+	  	 .add("help", 0, "Show pengo help")
+	  	 .parse(argc, argv);
+	
+	std::cout << "Argument:" << pengo.size();
+	
+	if (argc==1 || !pengo.valid()) {
+		cerr << pengo.error() << endl << pengo.usage();
+	}
+
 	return 0;
 }
