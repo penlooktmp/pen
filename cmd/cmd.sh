@@ -28,7 +28,7 @@
 clear
 make debug
 echo -e "---------------------------------------\n"
-CMD="pengo --host=localhost --port=1234"
+CMD="pengo --run"
 echo -e "$CMD \n"
 $CMD
 echo -e "\n"

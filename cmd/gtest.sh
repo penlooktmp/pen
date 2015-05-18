@@ -1,3 +1,4 @@
+#!/bin/bash
 #
 # Pengo Project
 #
@@ -24,44 +25,18 @@
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
 
-PROG    = pengo
-TEST	= ptest
-CC      = g++
-BUILD   = -Wall -O3
-DEBUG   = -g0 -fno-inline
-TESTF	= -g -L/opt/gtest/lib -lgtest -lgtest_main -lpthread -I/opt/gtest/include
-BINARY  = /usr/bin/$(PROG)
-INCLUDE = ./src
-SOURCES = $(shell find ./src  -name *.cpp)
-TESTS   = $(shell find ./test -name *.cpp )
-OBJECTS = $(SOURCES:.cpp=.o)
-OBJECTT = $(TESTS:.cpp=.o)
-FLAGS   = $(BUILD)
-
-.PHONY: all test clean
-
-all: $(PROG)
-
-$(PROG): $(OBJECTS)
-	$(CC) $(OBJECTS) -o $(PROG)
-	
-%.o: %.cpp
-	$(CC) -c $(FLAGS) -I$(INCLUDE) $< -o $@
-
-debug:
-	make FLAGS="$(DEBUG)"
-	rm -f $(EXEC) $(OBJECTS)
-	mv -f ./$(PROG) $(BINARY)
-
-install:
-	cp -f ./$(PROG) $(BINARY)
-
-test:
-	make OBJECTS="$(OBJECTT)" FLAGS="$(TESTF)" PROG="$(TEST)"
-	./$(TEST)
-	rm ./$(TEST)
-		
-clean:
-	rm $(EXEC) $(OBJECTS)
-	rm ./$(PROG) 
-	rm $(BINARY) 
+# Google C++ Testing Framework
+sudo apt-get install unzip
+cd /tmp
+wget https://googletest.googlecode.com/files/gtest-1.7.0.zip
+unzip gtest-1.7.0.zip
+cd gtest-1.7.0
+sudo mkdir /opt/gtest /opt/gtest/include /opt/gtest/lib
+./configure --prefix=/opt/gtest
+make
+sudo cp -a include/gtest/ /opt/gtest/include
+sudo cp -a lib/.libs/* /opt/gtest/lib
+rm /opt/gtest/lib/libgtest.la
+rm /opt/gtest/lib/libgtest_main.la
+sudo cp -a lib/libgtest.la /opt/gtest/lib
+sudo cp -a lib/libgtest_main.la /opt/gtest/lib
