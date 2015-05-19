@@ -25,31 +25,18 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include "cli/handler.hpp"
-#include "cli/cli.hpp"
+#include <iostream>
+#include <map>
+#include <http/http.h>
 
-int main(int argc, char *argv[]) {
-	handler cmd;
-	cli pengo;
-	
-	pengo.name("pengo")
-	  	 .add<string>("new",   (callback) cmd.create, 'n',   "Create application", false, "")
-	  	 .add<string>("build", (callback) cmd.build,  'b',  "Build and install application", false)
-	  	 .add<string>("test",  (callback) cmd.test,   't',   "Test application", false, "unit",
-		 		oneof<string>(
-					 "unit", 
-					 "benchmark"
-				)
-		 )
-		 .add("run",  (callback) cmd.run, '\0', "Run application under hot-code reload")
-	  	 .add("help", (callback) cmd.help,  0,   "Show pengo help")
-	  	 .parse(argc, argv);
+using namespace std;
+using namespace WPP;
 
-	if (argc==1 || !pengo.valid()) {
-		cerr << pengo.error() << endl << pengo.usage();
-		return 0;
-	}
-	
-	pengo.run();	
-	return 0;
+class Http {
+  private:
+    Server server;
+ 
+  public:
+    void get(string router);
+    void listen();
 }

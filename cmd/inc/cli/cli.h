@@ -37,6 +37,7 @@ using namespace cmdline;
 class cli {
 
   private:
+
   	parser cmd;
     map<string, callback> func;
     map<string, string> argument;
@@ -44,7 +45,7 @@ class cli {
 
   public:
 
-    map<string, callback> getFunc() {
+    map<string, callback> getFunction() {
         return func;
     }
     
@@ -118,5 +119,4 @@ class cli {
     void run() {
         cout << "Run console"; 
     }
-
 };

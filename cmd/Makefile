@@ -31,38 +31,47 @@ CCVER 	= c++0x
 BUILD   = -std=$(CCVER) -Wall -O3
 DEBUG   = -std=$(CCVER) -pipe -g0 -fno-inline -Wall
 TESTF	= -std=$(CCVER) -g -L/opt/gtest/lib -lgtest -lgtest_main -lpthread -I/opt/gtest/include
-BINARY  = /usr/bin/$(PROG)
+EXECUTE = /usr/bin/$(PROG)
 INCLUDE = ./inc
-CURRENT = ./src/
-SOURCES = $(shell find $(CURRENT)  -name *.cpp)
+SOURCED = src
+OBJECTD = obj
+SOURCES = $(shell find $(SOURCED) -name *.cpp)
 TESTS   = $(shell find ./test -name *.cpp )
-OBJECTS = $(SOURCES:.cpp=.o)
+OBJECTS = $(addprefix $(OBJECTD)/, $(patsubst %.cpp, %.o, $(SOURCES)))
+BINARY = $(OBJECTD)/$(SOURCED)/$(PROG)
 OBJECTT = $(TESTS:.cpp=.o)
 FLAGS   = $(BUILD)
 
-.PHONY: all test clean
+.PHONY: all clean
 
 all: $(PROG)
 
 $(PROG): $(OBJECTS)
-	$(CC) $(OBJECTS) -o $(PROG)
+	$(CC) $(OBJECTS) -o $(BINARY)
 
-%.o: %.cpp
+$(OBJECTD)/%.o: %.cpp
 	$(CC) -c $(FLAGS) -I$(INCLUDE) $< -o $@
 
+$(OBJECTS): mk
+
+mk:
+	for file in $(OBJECTS) ; do if [ ! -e $$file ]; then mkdir -p $$file && rm -rf $$file; fi done
+
 debug:
-	make CURRENT="$(CURRENT)$(path)" FLAGS="$(DEBUG)"
-	mv -f ./$(PROG) $(BINARY)
+	make SOURCED="$(SOURCED)$(path)" FLAGS="$(DEBUG)"
+	cp -f $(BINARY) $(EXECUTE)
 
 install:
-	cp -f ./$(PROG) $(BINARY)
+	cp -f $(BINARY) $(EXECUTE)
 
 test:
 	make OBJECTS="$(OBJECTT)" FLAGS="$(TESTF)" PROG="$(TEST)"
 	./$(TEST)
-	rm ./$(TEST)
+	rm -rf ./$(TEST)
 		
 clean:
-	rm $(EXEC) $(OBJECTS)
-	rm ./$(PROG) 
-	rm $(BINARY) 
+	rm -rf $(OBJECTS)
+	rm -rf $(BINARY)
+
+remove:
+	rm -rf $(EXECUTE)
