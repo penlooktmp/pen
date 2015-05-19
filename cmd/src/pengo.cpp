@@ -25,24 +25,24 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include "cli/handler.hpp"
-#include "cli/cli.hpp"
+#include "cli/handler.h"
+#include "cli/cli.h"
 
 int main(int argc, char *argv[]) {
-	handler cmd;
-	cli pengo;
+	Handler cmd;
+	Cli pengo;
 	
 	pengo.name("pengo")
-	  	 .add<string>("new",   (callback) cmd.create, 'n',   "Create application", false, "")
-	  	 .add<string>("build", (callback) cmd.build,  'b',  "Build and install application", false)
-	  	 .add<string>("test",  (callback) cmd.test,   't',   "Test application", false, "unit",
+	  	 .add<string>("new",   (cli_callback) cmd.create, 'n',   "Create application", false, "")
+	  	 .add<string>("build", (cli_callback) cmd.build,  'b',  "Build and install application", false)
+	  	 .add<string>("test",  (cli_callback) cmd.test,   't',   "Test application", false, "unit",
 		 		oneof<string>(
 					 "unit", 
 					 "benchmark"
 				)
 		 )
-		 .add("run",  (callback) cmd.run, '\0', "Run application under hot-code reload")
-	  	 .add("help", (callback) cmd.help,  0,   "Show pengo help")
+		 .add("run",  (cli_callback) cmd.run, '\0', "Run application under hot-code reload")
+	  	 .add("help", (cli_callback) cmd.help,  0,   "Show pengo help")
 	  	 .parse(argc, argv);
 
 	if (argc==1 || !pengo.valid()) {
@@ -50,6 +50,6 @@ int main(int argc, char *argv[]) {
 		return 0;
 	}
 	
-	pengo.run();	
+	pengo.run();
 	return 0;
 }

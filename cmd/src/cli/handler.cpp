@@ -25,44 +25,42 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <cli/handler.hpp>
-
-using namespace std;
+#include <cli/handler.h>
 
 // Controller
 // Model
 // View
-void handler::create(string component) 
+void Handler::create(string component)
 {
 	cout << "Create new component";
 }
 
 // Unit test
 // Benchmark
-void handler::test(string type)
+void Handler::test(string type)
 {
 	cout << "Test pengo application";
 }
 
 // Build application
-void handler::build(string mode)
+void Handler::build(string mode)
 {	
 	cout << "Build application for production";
 }
 
 // Debug application components
-void handler::debug(string mode)
+void Handler::debug(string mode)
 {
 	cout << "Debug mode";
 }
 
 // Run application under hot-code reload
-void handler::run(string mode)
+void Handler::run(string mode)
 {	
 	cout << "Run application under hot-code reload";
 }
 
-void handler::help(string doc)
+void Handler::help(string doc)
 {
 	cout << "Pengo help !";
 }

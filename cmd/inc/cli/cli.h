@@ -25,27 +25,27 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include "cmdline.hpp"
+#include "cmdline.h"
 #include <functional>
 #include <iostream>
 #include <map>
-#define callback function<void(string)>
+#define cli_callback function<void(string)>
 
 using namespace std;
 using namespace cmdline;
 
-class cli {
+class Cli {
 
   private:
 
   	parser cmd;
-    map<string, callback> func;
+    map<string, cli_callback> func;
     map<string, string> argument;
     bool is_valid;
 
   public:
 
-    map<string, callback> getFunction() {
+    map<string, cli_callback> getFunction() {
         return func;
     }
     
@@ -53,9 +53,9 @@ class cli {
         return argument;
     }
     
-	cli &add(
+	Cli &add(
            const string &name,
-           const callback &func_name,
+           const cli_callback &func_name,
            char  short_name = 0,
            const string &desc = "") {
         func[name] = func_name;
@@ -64,9 +64,9 @@ class cli {
     }
 
   	template <class T>
-  	cli &add(
+  	Cli &add(
            const string &name,
-           const callback &func_name,
+           const cli_callback &func_name,
            char  short_name = 0,
            const string &desc ="",
            bool  need = true,
@@ -77,9 +77,9 @@ class cli {
   	}
 
   	template <class T, class F>
-  	cli &add(
+  	Cli &add(
            const string &name,
-           const callback &func_name,
+           const cli_callback &func_name,
            char  short_name = 0,
            const string &desc = "",
            bool  need = true,
@@ -90,33 +90,32 @@ class cli {
         return *this;
 	}
     
-    cli &name(const string &name) {
+    Cli &name(const string &name) {
         cmd.set_program_name(name);
         return *this;
     }
-  
-    cli &parse(int argc, const char * const argv[]) {
+
+    Cli &parse(int argc, const char * const argv[]) {
         is_valid = cmd.parse(argc, argv);
         return *this;
     }
-    
+
     bool valid() {
         return is_valid;
     }
-    
+
     string error() const {
         return cmd.error();
     }
-    
+
     string usage() const {
         return cmd.usage();
     }
-    
+
     int size() {
         return cmd.rest().size();
     }
-    
-    void run() {
-        cout << "Run console"; 
-    }
+
+    void run();
+    string get(string option_name);
 };

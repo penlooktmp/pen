@@ -27,7 +27,10 @@
 
 #include <iostream>
 #include <map>
-#include <http/http.h>
+#include <http/wpp.h>
+
+#define HttpRequest  Request*
+#define HttpResponse Response*
 
 using namespace std;
 using namespace WPP;
@@ -35,8 +38,14 @@ using namespace WPP;
 class Http {
   private:
     Server server;
- 
+
   public:
-    void get(string router);
+    template <typename Callback>
+    void get(string router,  Callback http_callback);
+    
+    template <typename Callback>
+    void post(string router, Callback http_callback);
+    
     void listen();
-}
+    
+};

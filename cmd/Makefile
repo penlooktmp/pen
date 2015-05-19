@@ -42,8 +42,6 @@ BINARY = $(OBJECTD)/$(SOURCED)/$(PROG)
 OBJECTT = $(TESTS:.cpp=.o)
 FLAGS   = $(BUILD)
 
-.PHONY: all clean
-
 all: $(PROG)
 
 $(PROG): $(OBJECTS)
@@ -75,3 +73,5 @@ clean:
 
 remove:
 	rm -rf $(EXECUTE)
+
+.PHONY: all clean debug

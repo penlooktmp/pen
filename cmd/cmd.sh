@@ -26,7 +26,7 @@
 #     Loi Nguyen       <loint@penlook.com>
 
 clear
-make debug
+make debug -j
 echo -e "---------------------------------------\n"
 CMD="pengo --test=unit"
 echo -e "$CMD \n"

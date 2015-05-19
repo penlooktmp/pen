@@ -84,7 +84,7 @@ namespace WPP {
     map<string, string> mime;
 
     void list_dir(Request* req, Response* res) {
-        unsigned char isFile = 0x8, isFolder = 0x4;
+        unsigned isFolder = 0x4;
         struct dirent *dir;
         int status;
         struct stat st_buf;
@@ -541,9 +541,8 @@ namespace WPP {
             // append extra crlf to indicate start of body
             strcat(header_buffer, "\r\n");
 
-            ssize_t t;
-            t = write(newsc, header_buffer, strlen(header_buffer));
-            t = write(newsc, body.c_str(), body_len);
+            write(newsc, header_buffer, strlen(header_buffer));
+            write(newsc, body.c_str(), body_len);
         }
     }
 

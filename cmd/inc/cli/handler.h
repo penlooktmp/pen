@@ -29,7 +29,7 @@
 
 using namespace std;
 
-class handler {
+class Handler {
   public:
   	static void create(string component);
 	static void test(string type);
