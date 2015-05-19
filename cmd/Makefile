@@ -29,7 +29,7 @@ TEST	= ptest
 CC      = g++
 CCVER 	= c++0x
 BUILD   = -std=$(CCVER) -Wall -O3
-DEBUG   = -std=$(CCVER) -pipe -g0 -fno-inline
+DEBUG   = -std=$(CCVER) -pipe -g0 -fno-inline -Wall
 TESTF	= -std=$(CCVER) -g -L/opt/gtest/lib -lgtest -lgtest_main -lpthread -I/opt/gtest/include
 BINARY  = /usr/bin/$(PROG)
 INCLUDE = ./inc
@@ -52,7 +52,6 @@ $(PROG): $(OBJECTS)
 
 debug:
 	make CURRENT="$(CURRENT)$(path)" FLAGS="$(DEBUG)"
-	rm -f $(EXEC) $(OBJECTS)
 	mv -f ./$(PROG) $(BINARY)
 
 install:
