@@ -25,28 +25,39 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <library/cmdline.hpp> 
+#include "cmdline.hpp"
 #include <functional>
 #include <iostream>
 #include <map>
+#define callback function<void(string)>
 
 using namespace std;
+using namespace cmdline;
 
-namespace pengo {
 class cli {
 
   private:
-  	cmdline::parser cmd;
-    map<string, function<string(string)>> callback;
+  	parser cmd;
+    map<string, callback> func;
+    map<string, string> argument;
     bool is_valid;
 
   public:
+
+    map<string, callback> getFunc() {
+        return func;
+    }
+    
+    map<string, string> getArgument() {
+        return argument;
+    }
+    
 	cli &add(
            const string &name,
-           const function<string(string)> &func,
+           const callback &func_name,
            char  short_name = 0,
            const string &desc = "") {
-        callback[name] = func;
+        func[name] = func_name;
         cmd.add(name, short_name, desc);
         return *this;
     }
@@ -54,25 +65,26 @@ class cli {
   	template <class T>
   	cli &add(
            const string &name,
-           const function<string(string)> &func,
+           const callback &func_name,
            char  short_name = 0,
            const string &desc ="",
+           bool  need = true,
            const T def = T()){
-        callback[name] = func;
-        cmd.add<T>(name, short_name, desc, def);
+        func[name] = func_name;
+        cmd.add<T>(name, short_name, desc, need, def);
         return *this;
   	}
 
   	template <class T, class F>
   	cli &add(
            const string &name,
-           const function<string(string)> &func,
+           const callback &func_name,
            char  short_name = 0,
            const string &desc = "",
            bool  need = true,
            const T def = T(),
            F reader = F()) {
-        callback[name] = func;
+        func[name] = func_name;
         cmd.add<T, F>(name, short_name, desc, need, def, reader);
         return *this;
 	}
@@ -106,5 +118,5 @@ class cli {
     void run() {
         cout << "Run console"; 
     }
+
 };
-}

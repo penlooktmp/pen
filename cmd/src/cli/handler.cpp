@@ -25,7 +25,7 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include "handler.hpp"
+#include <cli/handler.hpp>
 
 using namespace std;
 
@@ -45,13 +45,24 @@ void handler::test(string type)
 }
 
 // Build application
-void handler::build() 
+void handler::build(string mode)
 {	
 	cout << "Build application for production";
 }
 
+// Debug application components
+void handler::debug(string mode)
+{
+	cout << "Debug mode";
+}
+
 // Run application under hot-code reload
-void handler::run() 
+void handler::run(string mode)
 {	
 	cout << "Run application under hot-code reload";
+}
+
+void handler::help(string doc)
+{
+	cout << "Pengo help !";
 }

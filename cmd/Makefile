@@ -27,13 +27,14 @@
 PROG    = pengo
 TEST	= ptest
 CC      = g++
-CCVER 	= c++11
+CCVER 	= c++0x
 BUILD   = -std=$(CCVER) -Wall -O3
 DEBUG   = -std=$(CCVER) -pipe -g0 -fno-inline
 TESTF	= -std=$(CCVER) -g -L/opt/gtest/lib -lgtest -lgtest_main -lpthread -I/opt/gtest/include
 BINARY  = /usr/bin/$(PROG)
-INCLUDE = ./src
-SOURCES = $(shell find ./src  -name *.cpp)
+INCLUDE = ./inc
+CURRENT = ./src/
+SOURCES = $(shell find $(CURRENT)  -name *.cpp)
 TESTS   = $(shell find ./test -name *.cpp )
 OBJECTS = $(SOURCES:.cpp=.o)
 OBJECTT = $(TESTS:.cpp=.o)
@@ -45,12 +46,12 @@ all: $(PROG)
 
 $(PROG): $(OBJECTS)
 	$(CC) $(OBJECTS) -o $(PROG)
-	
+
 %.o: %.cpp
 	$(CC) -c $(FLAGS) -I$(INCLUDE) $< -o $@
 
 debug:
-	make FLAGS="$(DEBUG)"
+	make CURRENT="$(CURRENT)$(path)" FLAGS="$(DEBUG)"
 	rm -f $(EXEC) $(OBJECTS)
 	mv -f ./$(PROG) $(BINARY)
 

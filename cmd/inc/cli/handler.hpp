@@ -31,9 +31,11 @@ using namespace std;
 
 class handler {
   public:
-  	void create(string component);
-	void test(string type);
-  	void build();
-	void run();
+  	static void create(string component);
+	static void test(string type);
+	static void debug(string mode);
+  	static void build(string mode);
+	static void run(string mode);
+	static void help(string doc);
 };
  
