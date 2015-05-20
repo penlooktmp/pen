@@ -1,6 +1,4 @@
-build.sh~RFf7a27a.TMP
-.idea
-pengo.iml
 /cmd/pengo/*.exe
 /cmd/pengo/pengo
-src
+/cmd/obj/src/*
+
