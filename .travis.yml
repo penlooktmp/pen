@@ -1,8 +1,9 @@
 language:
+    - cpp
     - go
 
-go:
-  - tip
+compiler:
+  - gcc
 
 before_install:
   - go get github.com/axw/gocov/gocov
@@ -16,8 +17,10 @@ install:
     - go get "github.com/julienschmidt/httprouter"
     - go get "github.com/olekukonko/tablewriter"
     - go get "github.com/oleiade/lane"
+    - (cd cmd; make && make install)
 
 script:
    - $HOME/gopath/bin/goveralls -service=travis-ci
    - go test -v
+   - (cd cmd; make test)
 
