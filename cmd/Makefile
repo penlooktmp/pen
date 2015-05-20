@@ -27,7 +27,7 @@
 PROG    = pengo
 TEST	= ptest
 CC      = g++
-CCVER 	= c++0x
+CCVER 	= c++14
 BUILD   = -std=$(CCVER) -Wall -O3
 DEBUG   = -std=$(CCVER) -pipe -g0 -fno-inline -Wall
 TESTF	= -std=$(CCVER) -g -L/opt/gtest/lib -lgtest -lgtest_main -lpthread -I/opt/gtest/include

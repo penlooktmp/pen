@@ -25,97 +25,22 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include "cmdline.h"
 #include <functional>
 #include <iostream>
 #include <map>
+
 #define cli_callback function<void(string)>
 
 using namespace std;
-using namespace cmdline;
 
 class Cli {
 
   private:
-
-  	parser cmd;
-    map<string, cli_callback> func;
-    map<string, string> argument;
-    bool is_valid;
+    map<string, cli_callback> callback;
+    map<string, string> option;
 
   public:
-
-    map<string, cli_callback> getFunction() {
-        return func;
-    }
-    
-    map<string, string> getArgument() {
-        return argument;
-    }
-    
-	Cli &add(
-           const string &name,
-           const cli_callback &func_name,
-           char  short_name = 0,
-           const string &desc = "") {
-        func[name] = func_name;
-        cmd.add(name, short_name, desc);
-        return *this;
-    }
-
-  	template <class T>
-  	Cli &add(
-           const string &name,
-           const cli_callback &func_name,
-           char  short_name = 0,
-           const string &desc ="",
-           bool  need = true,
-           const T def = T()){
-        func[name] = func_name;
-        cmd.add<T>(name, short_name, desc, need, def);
-        return *this;
-  	}
-
-  	template <class T, class F>
-  	Cli &add(
-           const string &name,
-           const cli_callback &func_name,
-           char  short_name = 0,
-           const string &desc = "",
-           bool  need = true,
-           const T def = T(),
-           F reader = F()) {
-        func[name] = func_name;
-        cmd.add<T, F>(name, short_name, desc, need, def, reader);
-        return *this;
-	}
-    
-    Cli &name(const string &name) {
-        cmd.set_program_name(name);
-        return *this;
-    }
-
-    Cli &parse(int argc, const char * const argv[]) {
-        is_valid = cmd.parse(argc, argv);
-        return *this;
-    }
-
-    bool valid() {
-        return is_valid;
-    }
-
-    string error() const {
-        return cmd.error();
-    }
-
-    string usage() const {
-        return cmd.usage();
-    }
-
-    int size() {
-        return cmd.rest().size();
-    }
-
-    void run();
-    string get(string option_name);
+    Cli(int argc, char* argv[]);
+    Cli &add(string name, string desc, cli_callback func);
+    Cli &run();
 };

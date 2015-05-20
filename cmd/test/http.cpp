@@ -12,7 +12,6 @@ void web(Request* req, Response* res) {
 int main(int argc, const char* argv[]) {
     try {
         std::cout << "Listening on port 5000" << std::endl;
-
         WPP::Server server;
         server.get("/", &web);
         server.all("/dir", "./");

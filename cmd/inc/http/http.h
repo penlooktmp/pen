@@ -42,10 +42,10 @@ class Http {
   public:
     template <typename Callback>
     void get(string router,  Callback http_callback);
-    
+
     template <typename Callback>
     void post(string router, Callback http_callback);
-    
-    void listen();
+
+    void listen(int port);
     
 };
