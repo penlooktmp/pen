@@ -14,7 +14,7 @@ install:
     - go get "github.com/julienschmidt/httprouter"
     - go get "github.com/olekukonko/tablewriter"
     - go get "github.com/oleiade/lane"
-    - (cd cmd; make && make install)
+    - (cd cmd; make && sudo make install)
 
 script:
    - $HOME/gopath/bin/goveralls -service=travis-ci
