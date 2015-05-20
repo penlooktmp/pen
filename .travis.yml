@@ -1,9 +1,6 @@
 language:
-    - cpp
     - go
-
-compiler:
-  - gcc
+    - cpp
 
 before_install:
   - go get github.com/axw/gocov/gocov
