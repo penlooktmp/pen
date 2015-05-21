@@ -28,19 +28,24 @@
 #include <functional>
 #include <iostream>
 #include <map>
+#include <vector>
+#include <cli/option.h>
 
 #define cli_callback function<void(string)>
 
 using namespace std;
 
-class Cli {
+namespace cli {
+    class Cmd {
+    private:
+        map<string, Option> options;
+        int argc;
+        char **argv;
 
-  private:
-    map<string, cli_callback> callback;
-    map<string, string> option;
-
-  public:
-    Cli(int argc, char* argv[]);
-    Cli &add(string name, string desc, cli_callback func);
-    Cli &run();
-};
+    public:
+        Cmd(int argc, char* argv[]);
+        Cmd &add(string name, string desc, cli_callback func);
+        void run();
+        void runOption(string name, string param);
+    };
+}

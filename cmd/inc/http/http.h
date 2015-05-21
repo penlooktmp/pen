@@ -33,7 +33,8 @@
 #define HttpResponse Response*
 
 using namespace std;
-using namespace WPP;
+
+namespace http {
 
 class Http {
   private:
@@ -47,5 +48,6 @@ class Http {
     void post(string router, Callback http_callback);
 
     void listen(int port);
-    
 };
+
+}

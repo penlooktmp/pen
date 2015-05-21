@@ -27,24 +27,28 @@
 
 #include <http/http.h> 
 
-template <typename Callback>
-void Http::get(string router, Callback http_callback)
-{
-    server.get(router, &http_callback);
-}
-
-template <typename Callback>
-void Http::post(string router, Callback http_callback)
-{
-    server.get(router, &http_callback);
-}
-
-void Http::listen(int port = 80)
-{
-    try {
-        cout << "Listening on port " << port << endl;
-        server.start(port);
-    } catch(Exception e) {
-        cerr << "WebServer: " << e.what() << endl;
+namespace http {
+    
+    template <typename Callback>
+    void Http::get(string router, Callback http_callback)
+    {
+        server.get(router, &http_callback);
     }
+    
+    template <typename Callback>
+    void Http::post(string router, Callback http_callback)
+    {
+        server.get(router, &http_callback);
+    }
+    
+    void Http::listen(int port = 80)
+    {
+        try {
+            cout << "Listening on port " << port << endl;
+            server.start(port);
+        } catch(Exception e) {
+            cerr << "WebServer: " << e.what() << endl;
+        }
+    }
+
 }

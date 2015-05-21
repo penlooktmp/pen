@@ -29,13 +29,14 @@
 
 using namespace std;
 
-class Handler {
-  public:
-  	static void create(string component);
-	static void test(string type);
-	static void debug(string mode);
-  	static void build(string mode);
-	static void run(string mode);
-	static void help(string doc);
-};
- 
+namespace cli {
+	class Handler {
+  	public:
+  		static void create(string component);
+		static void test(string type);
+		static void debug(string mode);
+  		static void build(string mode);
+		static void run(string mode);
+		static void help(string doc);
+	};
+}

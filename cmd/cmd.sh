@@ -28,8 +28,9 @@
 clear
 make debug -j
 echo -e "---------------------------------------\n"
-CMD="pengo --test=unit"
-echo -e "$CMD \n"
-$CMD
+pengo
 echo -e "\n"
-
+pengo xxx
+echo -e "\n"
+pengo test
+echo -e "\n"

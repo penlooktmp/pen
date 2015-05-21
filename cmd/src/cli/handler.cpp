@@ -27,40 +27,41 @@
 
 #include <cli/handler.h>
 
-// Controller
-// Model
-// View
-void Handler::create(string component)
-{
-	cout << "Create new component";
-}
+namespace cli {
 
-// Unit test
-// Benchmark
-void Handler::test(string type)
-{
-	cout << "Test pengo application";
-}
-
-// Build application
-void Handler::build(string mode)
-{	
-	cout << "Build application for production";
-}
-
-// Debug application components
-void Handler::debug(string mode)
-{
-	cout << "Debug mode";
-}
-
-// Run application under hot-code reload
-void Handler::run(string mode)
-{	
-	cout << "Run application under hot-code reload";
-}
-
-void Handler::help(string doc)
-{
-	cout << "Pengo help !";
+	void Handler::create(string component)
+	{
+		cout << "Create new component";
+	}
+	
+	// Unit test
+	// Benchmark
+	void Handler::test(string type)
+	{
+		cout << "Test pengo application";
+	}
+	
+	// Build application
+	void Handler::build(string mode)
+	{	
+		cout << "Build application for production";
+	}
+	
+	// Debug application components
+	void Handler::debug(string mode)
+	{
+		cout << "Debug mode";
+	}
+	
+	// Run application under hot-code reload
+	void Handler::run(string mode)
+	{	
+		cout << "Run application under hot-code reload";
+	}
+	
+	void Handler::help(string doc)
+	{
+		cout << "Pengo help !";
+	}
+ 
 }

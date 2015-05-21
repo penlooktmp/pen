@@ -24,7 +24,7 @@
 
 using namespace std;
 
-namespace WPP {
+namespace http {
     class Request {
         public:
             std::string method;
@@ -72,10 +72,8 @@ namespace WPP {
             const char* what() const throw () { return pMessage; }
         private:
             const char* pMessage;
-    //        const int pCode;
     };
 
-    
     void list_dir(Request* req, Response* res);
 
     struct Route {

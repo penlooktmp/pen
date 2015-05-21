@@ -26,23 +26,19 @@
  */
 
 #include "cli/handler.h"
-#include "cli/cli.h"
+#include "cli/cmd.h"
+
+using namespace cli;
 
 int main(int argc, char* argv[]) {
-	Handler cmd;
-	Cli pengo = Cli(argc, argv);
-	pengo.add("new",   "Create new application", 
-			(cli_callback) cmd.create)
-		 .add("run",   "Run app under hot-code reload", 
-		 	(cli_callback) cmd.run)
-		 .add("build", "Build app for production mode",
-		 	(cli_callback) cmd.build)
-		 .add("debug", "Debug application components",
-		 	(cli_callback) cmd.debug)
-		 .add("test",  "Run unit or benchmark testing",
-		 	(cli_callback) cmd.test)
-		 .add("help", "Pengo help !",
-		 	(cli_callback) cmd.help)
+	Handler func;
+	Cmd pengo = Cmd(argc, argv);
+	pengo.add("new",   "Create new application",     	 (cli_callback) func.create)
+		 .add("run",   "Run app under hot-code reload",	 (cli_callback) func.run)
+		 .add("build", "Build app for production mode",  (cli_callback) func.build)
+		 .add("debug", "Debug application components",	 (cli_callback) func.debug)
+		 .add("test",  "Run unit or benchmark testing",  (cli_callback) func.test)
+		 .add("help",  "Pengo show help for options",    (cli_callback) func.help)
 		 .run();
 	return 0;
 }

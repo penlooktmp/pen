@@ -25,22 +25,48 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <cli/cli.h>
+#include <cli/cmd.h>
 
-Cli::Cli(int argc, char* argv[])
-{
-	cout << "Init parameter";
-}
+namespace cli {
 
-Cli &Cli::add(string name, string desc, cli_callback func)
-{
-	callback[name] = func;
-	//option[name] = option_value;
-	return *this;
-}
+	Cmd::Cmd(int _argc, char* _argv[])
+	{
+		argc = _argc;
+		argv = _argv;
+	}
+	
+	Cmd &Cmd::add(string name, string desc, cli_callback func)
+	{
+		Option option;
+		option.setName(name)
+			  .setDescription(desc)
+			  .setCallback(func);
+		options[name] = option;
+		return *this;
+	}
+	
+	void Cmd::runOption(string name, string param = "")
+	{
+		if (options.find(name) == options.end()) {
+			runOption("help");
+			return;
+		}
+		Option option = options[name];
+		cli_callback callback = option.getCallback();
+		callback(param);
+	}
 
-Cli &Cli::run()
-{
-	cout << "Cli run !";
-	return *this;
+	void Cmd::run()
+	{
+		if (argc < 2) {
+			runOption("help");
+			return;
+		}	
+		string name  = argv[1];
+		if (argc == 3) {
+			runOption(name, argv[2]);
+		}
+		runOption(name);
+	}
+	
 }
