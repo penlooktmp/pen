@@ -29,19 +29,17 @@
 
 namespace http {
     
-    template <typename Callback>
-    void Http::get(string router, Callback http_callback)
+    void Http::get(string router, http_callback callback)
     {
-        server.get(router, &http_callback);
+        server.get(router, callback);
+    }
+
+    void Http::post(string router, http_callback callback)
+    {
+        server.get(router, callback);
     }
     
-    template <typename Callback>
-    void Http::post(string router, Callback http_callback)
-    {
-        server.get(router, &http_callback);
-    }
-    
-    void Http::listen(int port = 80)
+    void Http::listen(int port)
     {
         try {
             cout << "Listening on port " << port << endl;

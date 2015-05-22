@@ -24,57 +24,25 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-@Controller app base
 
-func Before() {
-	a := app.Login()
-	a := mysql:User {
-		Username: "Loi Nguyen",
-		Password: "12345",
-	}
-	a.Create().Delete()
+#include <http/http.h>
+
+void Http::get(string router, <Func> http_callback)
+{
+    server.get(router, &http_callback);
 }
 
-@Route /login/:uid/:password
-@Method GET POST PUT DELETE
-func Login(uid int, password string) {
-
-	//Session()
-	//fmt.Println(#redis["abc"])
-
-	user := mysql["user"] {
-		Username: "Loi Nguyen",
-		Password: "12345",
-	}
-
-	user.Create()
-
-	//status := #mongo["status"]
-
-	//Abc()
-
-	//$listUser = #GetAllUser()
-
-	//user.Find()
-
-	// Save login data to session
-	//Session("id", uid)
-	//Session("password", password)
-
-	$title  = "Index Page"
-	$hello  = "Welcome to golang"
-	$avatar = "http://i.share.pho.to/fcf739b8_o.png"
-	$id     = uid
-	$pass   = password
+void Http::post(string router, function<void(Request* req, Response* res)> http_callback)
+{
+    server.get(router, &http_callback);
 }
 
-@Route /demo
-Abc() {
-	Send()
-	a := "ABC"
-	$name = a
-}
-
-After() {
-	@@login = false
+void Http::listen(int port = 80)
+{
+    try {
+        cout << "Listening on port " << port << endl;
+        server.start(port);
+    } catch(Exception e) {
+        cerr << "WebServer: " << e.what() << endl;
+    }
 }

@@ -31,6 +31,7 @@
 
 #define HttpRequest  Request*
 #define HttpResponse Response*
+#define http_callback void (*callback)(Request*, Response*)
 
 using namespace std;
 
@@ -41,13 +42,9 @@ class Http {
     Server server;
 
   public:
-    template <typename Callback>
-    void get(string router,  Callback http_callback);
-
-    template <typename Callback>
-    void post(string router, Callback http_callback);
-
-    void listen(int port);
+    void get(string router, http_callback callback);
+    void post(string router, http_callback callback);
+    void listen(int port = 80);
 };
 
 }

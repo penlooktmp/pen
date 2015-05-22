@@ -26,6 +26,10 @@
  */
 
 #include <cli/handler.h>
+#include <http/http.h>
+
+using namespace std;
+using namespace http;
 
 namespace cli {
 
@@ -56,7 +60,11 @@ namespace cli {
 	// Run application under hot-code reload
 	void Handler::run(string mode)
 	{	
-		cout << "Run application under hot-code reload";
+		Http proxy;
+		proxy.get("/", [](Request* req, Response* res) {
+			std::cout << "Hello Server";
+		});
+		proxy.listen(80);
 	}
 	
 	void Handler::help(string doc)
