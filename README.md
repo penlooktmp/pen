@@ -1,38 +1,8 @@
 # pengo [![GoDoc](https://img.shields.io/badge/doc-reference-blue.svg)](DOCUMENTATION.md) [![Build Status](https://travis-ci.org/penlook/pengo.svg)](https://travis-ci.org/penlook/pengo) [![Coverage Status](https://coveralls.io/repos/penlook/pengo/badge.svg?branch=master)](https://coveralls.io/r/penlook/pengo?branch=master)
 
 
-
-![Go fly with Pengo](doc/image/gofly.png)
-
-###Taste of Pengo (technical preview)
-
-```go
-@Route /login/:uid/:password
-@Method GET
-@Pick "Login Form"
-@Login(uid int, password string) {
-
-	// Using table
-	user := #User {
-		Id: uid,
-		Password: password,
-	}
-
-	// Object relational mapping
-	me := user.First()
-
-	// Pass my information to view
-	$name  = me.Name
-	$email = me.Email
-
-	// Model of current controller
-	// Pass list user to view
-	$users = @ListUser()
-}
-```
-
-### Pengo syntax
-- You can use Go mixed with Pengo syntax to create web application faster, more meaningful
+### Pen++ syntax
+- You can use Go mixed with Pen++ syntax to create web application faster, more meaningful
 - Eliminating the complexity of the Go syntax and deep integrated with framework
 - All of your code will be compiled into Go as you wrote it.
 
@@ -51,7 +21,6 @@
 - Extend framework by using C (implementing)
 - Annotation Parser (not started)
 - Rest API (not started)
-- Pengo website (not started)
 
 ####Support Database
 
@@ -63,19 +32,6 @@
 - Memcache   -   Key-value         (not started)
 - Redis      -   Key-value         (implemeting)
 - Cayley     -   Graph             (not started)
-
-###Instruction
-
-Installation
-
-- Go 1.4
-- TDM-GCC  
-
-Build application
-
-- cd cmd/pengo
-- ./get.sh
-- ./build.sh
 
 ###Contributors
 We look forward to your pull requests. If you would like to be the contributor please accept some rules.

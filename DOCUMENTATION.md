@@ -1,70 +1,70 @@
-# Pengo Framework Design
+# Pen++ Framework Design
 Author: Loi Nguyen <loint@penlook.com>  |  Date: 05/10/2015
 
-### Pengo Cli
+### Pen++ Cli
 After create a new application, you need to go into your application directory for the next manipulation.
 
 + Create new application
 
 ```bash
-pengo new app
+pen new app
 ```
 
 + Create new action
 
 ```bash
-pengo new home:index
+pen new home:index
 ```
 
 + Create new repository
 
 ```bash
-pengo new mysql-user
+pen new mysql-user
 ```
 
 + Create new view
 
 ```bash
-pengo new home/index
+pen new home/index
 ```
 
 + Run application under hot-code reload mode
 
 ```bash
-pengo run
+pen run
 ```
 
 + Build application and ready for production
 
 ```bash
-pengo build
+pen build
 ```
 
 + Analyze application for debugging mode
 
 ```bash
-pengo debug=router
+pen debug=router
 ```
 ```bash
-pengo debug=controller
+pen debug=controller
 ```
 ```bash
-pengo debug=model
+pen debug=model
 ```
 
 + Unit testing
 
 ```bash
-pengo test unit
+pen test unit
 ```
 
 + Benchmark testing
 
 ```bash
-pengo test benchmark
+pen test benchmark
 ```
 
-### Pengo Controller
+### Pen++ Controller
 
 + Controller declaration
 ```go
@@ -82,7 +82,7 @@ pengo test benchmark
 ```go
 @Router /hello/:userid/:password
 @Method GET POST PUT
-func Login(userid int, password string) {
+Login(userid int, password string) {
 }
 ```
 
@@ -91,7 +91,7 @@ func Login(userid int, password string) {
 ```go
 @Router /hello/:userid/:password
 @Template /hello/custom/path
-func Login(userid int, password string) {
+Login(userid int, password string) {
 }
 ```
 
