@@ -1,2 +1,0 @@
-
-#define echo$x 
