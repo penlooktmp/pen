@@ -25,6 +25,7 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
+#include <sys/core.h>
 #include <cli/handler.h>
 #include <http/http.h>
 
@@ -33,9 +34,10 @@ using namespace http;
 
 namespace cli {
 
-	void Handler::create(string component)
+	void Handler::create(string name)
 	{
-		cout << "Create new component";
+		Creator creator = Creator(name);
+		creator.create();
 	}
 	
 	// Unit test
@@ -62,7 +64,8 @@ namespace cli {
 	{	
 		Http proxy;
 		proxy.get("/", [](Request* req, Response* res) {
-			std::cout << "Hello Server";
+			cout << "Hello Server";
+			cout.flush();
 		});
 		proxy.listen(80);
 	}

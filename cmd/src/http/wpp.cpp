@@ -296,7 +296,7 @@ namespace http {
         }
     }
     
-    void Server::get(string path, void (*callback)(Request*, Response*)) {
+    void Server::get(string path, http_callback) {
         Route r = {
              path,
              "GET",
@@ -306,7 +306,7 @@ namespace http {
         ROUTES.push_back(r);
     }
     
-    void Server::post(string path, void (*callback)(Request*, Response*)) {
+    void Server::post(string path, http_callback) {
         Route r = {
              path,
              "POST",
@@ -316,7 +316,7 @@ namespace http {
         ROUTES.push_back(r);
     }
     
-    void Server::all(string path, void (*callback)(Request*, Response*)) {
+    void Server::all(string path, http_callback) {
         Route r = {
              path,
              "ALL",

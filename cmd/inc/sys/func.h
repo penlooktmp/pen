@@ -25,24 +25,9 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <http/http.h>
+#include <string>
+#include <iostream>
 
-void Http::get(string router, <Func> http_callback)
-{
-    server.get(router, &http_callback);
-}
+using namespace std;
 
-void Http::post(string router, function<void(Request* req, Response* res)> http_callback)
-{
-    server.get(router, &http_callback);
-}
-
-void Http::listen(int port = 80)
-{
-    try {
-        cout << "Listening on port " << port << endl;
-        server.start(port);
-    } catch(Exception e) {
-        cerr << "WebServer: " << e.what() << endl;
-    }
-}
+int indexof(string str_origin, string str_find);

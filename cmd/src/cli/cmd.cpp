@@ -27,8 +27,9 @@
 
 #include <cli/cmd.h>
 
-namespace cli {
-
+namespace cli 
+{
+	
 	Cmd::Cmd(int _argc, char* _argv[])
 	{
 		argc = _argc;
@@ -65,6 +66,7 @@ namespace cli {
 		string name  = argv[1];
 		if (argc == 3) {
 			runOption(name, argv[2]);
+			return;
 		}
 		runOption(name);
 	}

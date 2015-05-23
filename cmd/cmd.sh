@@ -27,10 +27,3 @@
 
 clear
 make debug -j
-echo -e "---------------------------------------\n"
-pengo
-echo -e "\n"
-pengo xxx
-echo -e "\n"
-pengo test
-echo -e "\n"

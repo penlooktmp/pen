@@ -25,22 +25,31 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <limits.h>
-#include <gtest/gtest.h>
-#include <setup.hpp>
+#include <unistd.h>
+#include <iostream>
 
-class SetupTest : public ::testing::Test {
-	protected:
-  	virtual void SetUp() {
-  	}
-  	virtual void TearDown() {
-    }
-};
+using namespace std;
+const int PATH_MAX = 10000;
 
-TEST_F(SetupTest, setup){
-    const int x = 4;
-    const int y = 5;
-    Addition addition;
-    EXPECT_EQ(9, addition.twoValues(x,y));
-    EXPECT_EQ(5, addition.twoValues(2,3));
+namespace cli 
+{
+	class Creator 
+	{
+		Creator(string name) 
+		{
+			
+		}
+	}
+	
+	std::string getcwd_string( void ) {
+		char buff[PATH_MAX];
+		getcwd( buff, PATH_MAX );
+		std::string cwd( buff );
+		return cwd;
+	}
+
+	void creatApplication()
+	{
+		
+	}
 }

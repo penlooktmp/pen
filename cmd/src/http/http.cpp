@@ -29,12 +29,12 @@
 
 namespace http {
     
-    void Http::get(string router, http_callback callback)
+    void Http::get(string router, http_callback)
     {
         server.get(router, callback);
     }
 
-    void Http::post(string router, http_callback callback)
+    void Http::post(string router, http_callback)
     {
         server.get(router, callback);
     }

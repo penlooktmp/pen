@@ -29,22 +29,15 @@
 #include <map>
 #include <http/wpp.h>
 
-#define HttpRequest  Request*
-#define HttpResponse Response*
-#define http_callback void (*callback)(Request*, Response*)
-
 using namespace std;
 
 namespace http {
-
-class Http {
-  private:
-    Server server;
-
-  public:
-    void get(string router, http_callback callback);
-    void post(string router, http_callback callback);
-    void listen(int port = 80);
-};
-
+    class Http {
+    private:
+        Server server;
+    public:
+        void get(string, http_callback);
+        void post(string, http_callback);
+        void listen(int port = 80);
+    };
 }

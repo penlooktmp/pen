@@ -19,7 +19,7 @@
 
 #define SERVER_NAME "Pengo"
 #define SERVER_VERSION "1.0.1"
-
+#define http_callback void (*callback)(Request*, Response*)
 #define BUFSIZE 8096
 
 using namespace std;
@@ -79,19 +79,19 @@ namespace http {
     struct Route {
         string path;
         string method;
-        void (*callback)(Request*, Response*);
+        http_callback;
         string params;
     };
 
     class Server {
         public:
-            void get(string, void (*callback)(Request*, Response*));
-            void post(string, void (*callback)(Request*, Response*));
-            void all(string, void (*callback)(Request*, Response*));
-            void get(string, string);
+            void get(string,  http_callback);
+            void post(string, http_callback);
+            void all(string,  http_callback);
+            void get(string,  string);
             void post(string, string);
-            void all(string, string);
-            bool start(int, string);
+            void all(string,  string);
+            bool start(int,   string);
             bool start(int);
             bool start();
         private:
