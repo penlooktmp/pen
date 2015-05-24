@@ -6,9 +6,9 @@ Before()
 	
 }
 
-@Route /index
+@Route /index/:uid/:password
 @Method GET POST
-Index(int uid, string password) 
+Index(int uid, string password)
 {
 	$title = "Index Page";
 	$id = uid;
