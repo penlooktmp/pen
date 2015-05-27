@@ -1,7 +1,7 @@
-#define NGX_CONFIGURE " --prefix=/opt/nginx --sbin-path=/usr/sbin/nginx --conf-path=/opt/nginx/nginx.conf --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock --with-http_ssl_module --add-module=../src"
+#define NGX_CONFIGURE " --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock --with-http_ssl_module --with-pcre --with-ld-opt=-lstdc++ --with-cc=cc --add-module=../module"
 
 #ifndef NGX_COMPILER
-#define NGX_COMPILER  "gcc 4.9.2 (Ubuntu 4.9.2-0ubuntu1~12.04) "
+#define NGX_COMPILER  "gcc 4.8.2 (Ubuntu 4.8.2-19ubuntu1) "
 #endif
 
 
@@ -115,6 +115,11 @@
 
 #ifndef NGX_HAVE_KEEPALIVE_TUNABLE
 #define NGX_HAVE_KEEPALIVE_TUNABLE  1
+#endif
+
+
+#ifndef NGX_HAVE_TCP_FASTOPEN
+#define NGX_HAVE_TCP_FASTOPEN  1
 #endif
 
 
@@ -323,6 +328,11 @@
 #endif
 
 
+#ifndef NGX_HAVE_PCRE_JIT
+#define NGX_HAVE_PCRE_JIT  1
+#endif
+
+
 #ifndef NGX_OPENSSL
 #define NGX_OPENSSL  1
 #endif
@@ -364,12 +374,12 @@
 
 
 #ifndef NGX_PREFIX
-#define NGX_PREFIX  "/opt/nginx/"
+#define NGX_PREFIX  "/etc/nginx/"
 #endif
 
 
 #ifndef NGX_CONF_PREFIX
-#define NGX_CONF_PREFIX  "/opt/nginx/"
+#define NGX_CONF_PREFIX  "/etc/nginx/"
 #endif
 
 
@@ -379,7 +389,7 @@
 
 
 #ifndef NGX_CONF_PATH
-#define NGX_CONF_PATH  "/opt/nginx/nginx.conf"
+#define NGX_CONF_PATH  "/etc/nginx/nginx.conf"
 #endif
 
 

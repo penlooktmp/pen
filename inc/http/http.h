@@ -40,4 +40,23 @@ namespace http {
         void post(string, http_callback);
         void listen(int port = 80);
     };
+    
+    class Request {
+    private:
+        string content_type;
+        string charset;
+        string query;
+        string uri;
+    public:
+        string getQuery();
+        string getContentType();
+    }
+    
+    class Response {
+    private:
+        string body;
+    public:
+        Response &setBody();
+        string getBody();
+    }
 }

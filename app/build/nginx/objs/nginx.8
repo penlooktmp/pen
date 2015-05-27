@@ -61,7 +61,7 @@ for details.
 .It Fl p Ar prefix
 Set the prefix path.
 The default value is
-.Pa /opt/nginx .
+.Pa /etc/nginx .
 .It Fl q
 Suppress non-error messages during configuration testing.
 .It Fl s Ar signal
@@ -164,9 +164,9 @@ and should not be set directly by the user.
 Contains the process ID of
 .Nm .
 The contents of this file are not sensitive, so it can be world-readable.
-.It Pa /opt/nginx/nginx.conf
+.It Pa /etc/nginx/nginx.conf
 The main configuration file.
-.It Pa /opt/nginx/logs/error.log
+.It Pa /etc/nginx/logs/error.log
 Error log file.
 .El
 .Sh EXIT STATUS

@@ -48,5 +48,4 @@ namespace http {
             cerr << "WebServer: " << e.what() << endl;
         }
     }
-
 }

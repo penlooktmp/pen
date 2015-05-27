@@ -31,7 +31,7 @@
 #include <ngx_http.h>
 
 
-#define HELLO_WORLD "Nginx Helo World"
+#define HELLO_WORLD "Test Nginx Web Page"
 
 static char *ngx_http_hello_world(ngx_conf_t *cf, ngx_command_t *cmd, void *conf);
 static ngx_int_t ngx_http_hello_world_handler(ngx_http_request_t *r);
@@ -41,16 +41,15 @@ static ngx_int_t ngx_http_hello_world_handler(ngx_http_request_t *r);
  *
  */
 static ngx_command_t ngx_http_hello_world_commands[] = {
-
-    { ngx_string("hello_world"), /* directive */
-      NGX_HTTP_LOC_CONF|NGX_CONF_NOARGS, /* location context and takes
-                                            no arguments*/
-      ngx_http_hello_world, /* configuration setup function */
-      0, /* No offset. Only one context is supported. */
-      0, /* No offset when storing the module configuration on struct. */
-      NULL},
-
-    ngx_null_command /* command termination */
+    { 
+        ngx_string("hello_world"),
+        NGX_HTTP_LOC_CONF | NGX_CONF_TAKE1,
+        ngx_http_hello_world, 
+        0,
+        0,
+      NULL
+    },
+    ngx_null_command
 };
 
 /* The hello world string. */
@@ -124,27 +123,12 @@ static ngx_int_t ngx_http_hello_world_handler(ngx_http_request_t *r)
 
     /* Send the body, and return the status code of the output filter chain. */
     return ngx_http_output_filter(r, &out);
-} /* ngx_http_hello_world_handler */
+}
 
-/**
- * Configuration setup function that installs the content handler.
- *
- * @param cf
- *   Module configuration structure pointer.
- * @param cmd
- *   Module directives structure pointer.
- * @param conf
- *   Module configuration structure pointer.
- * @return string
- *   Status of the configuration setup.
- */
 static char *ngx_http_hello_world(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
 {
-    ngx_http_core_loc_conf_t *clcf; /* pointer to core location configuration */
-
-    /* Install the hello world handler. */
+    ngx_http_core_loc_conf_t *clcf;
     clcf = ngx_http_conf_get_module_loc_conf(cf, ngx_http_core_module);
     clcf->handler = ngx_http_hello_world_handler;
-
     return NGX_CONF_OK;
-} /* ngx_http_hello_world */
+}
