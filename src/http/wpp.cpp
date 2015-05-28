@@ -1,24 +1,88 @@
-/*
-    Web++
-    An Open Source web server for C++
-    https://github.com/konteck/wpp
-*/
+#include <dirent.h>
+#include <netinet/in.h>
+#include <sys/stat.h>
+#include <limits.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <algorithm>
+#include <map>
+#include <vector>
+#include <fstream>
+#include <sstream>
 
-#include <iostream>
-#include <http/wpp.h>
-#include <pthread.h>
+#define SERVER_NAME "Web++"
+#define SERVER_VERSION "1.0.1"
 
-namespace http {
-    
+#define BUFSIZE 8096
+
+using namespace std;
+
+namespace WPP {
+    class Request {
+        public:
+            Request() {
+
+            }
+            std::string method;
+            std::string path;
+            std::string params;
+            map<string, string> headers;
+            map<string, string> query;
+            map<string, string> cookies;
+
+        private:
+
+    };
+
+    class Response {
+        public:
+            Response() {
+                code = 200;
+                phrase = "OK";
+                type = "text/html";
+                body << "";
+                
+                // set current date and time for "Date: " header
+                char buffer[100];
+                time_t now = time(0);
+                struct tm tstruct = *gmtime(&now);
+                strftime(buffer, sizeof(buffer), "%a, %d %b %Y %H:%M:%S %Z", &tstruct);
+                date = buffer;
+            }
+            int code;
+            string phrase;
+            string type;
+            string date;
+            stringstream body;
+        
+            void send(string str) {
+               body << str;
+            };
+            void send(const char* str) {
+               body << str;
+            };
+        private:
+    };
+
+    class Exception : public std::exception {
+        public:
+            Exception() : pMessage("") {}
+            Exception(const char* pStr) : pMessage(pStr) {}
+            const char* what() const throw () { return pMessage; }
+        private:
+            const char* pMessage;
+    //        const int pCode;
+    };
+
     map<string, string> mime;
-    std::vector<Route> ROUTES;
-    
+
     void list_dir(Request* req, Response* res) {
-        unsigned isFolder = 0x4;
+        unsigned char isFile = 0x8, isFolder = 0x4;
         struct dirent *dir;
         int status;
         struct stat st_buf;
-    
+
         // Mime
         mime["atom"] = "application/atom+xml";
         mime["hqx"] = "application/mac-binhex40";
@@ -132,17 +196,17 @@ namespace http {
         mime["flv"] = "video/x-flv";
         mime["avi"] = "video/x-msvideo";
         mime["movie"] = "video/x-sgi-movie";
-    
+
         char* actual_path;
         char* base_path = realpath(req->params.c_str(), NULL);
         string new_path = "";
         actual_path = realpath(req->params.c_str(), NULL);
-    
+
         if(req->query.find("open") != req->query.end()) {
             new_path += req->query["open"];
             strcat(actual_path, new_path.c_str());
         }
-    
+
         // prevent directory traversal
         char* effective_path = realpath(actual_path, NULL);
         if ((effective_path != NULL) && (strncmp(base_path, effective_path, strlen(base_path)) != 0)) {
@@ -152,9 +216,9 @@ namespace http {
         }
         free(effective_path);
         effective_path = NULL;
-    
+
         status = stat(actual_path, &st_buf);
-    
+
         if (status != 0)  {
             res->code = 404;
             res->phrase = "Not Found";
@@ -162,43 +226,43 @@ namespace http {
             res->send("Not found");
         } else if (S_ISREG (st_buf.st_mode)) {
             size_t ext_pos = string(actual_path).find_last_of(".");
-    
+
             map<string, string>::iterator ext = mime.find(string(actual_path).substr(ext_pos + 1));
-    
+
             if(ext != mime.end()) {
                 res->type = ext->second;
             } else {
                 res->type = "application/octet-stream";
             }
-    
+
             ifstream ifs(actual_path);
-    
+
             copy(istreambuf_iterator<char>(ifs),
                  istreambuf_iterator<char>(),
                  ostreambuf_iterator<char>(res->body));
         } else if (S_ISDIR (st_buf.st_mode)) {
             DIR* dir_d = opendir(actual_path);
-    
-            if (dir_d == NULL) throw http::Exception("Unable to open / folder");
-    
+
+            if (dir_d == NULL) throw WPP::Exception("Unable to open / folder");
+
             std::stringstream out;
             out << "<title>" << new_path << "</title>" << endl;
             out << "<table>";
-    
+
             while((dir = readdir(dir_d))) {
                 out << "<tr><td><a href=\"" << req->path << "?open=" << new_path << "/" << dir->d_name << """\">";
-    
+
                 if (dir->d_type == isFolder) {
                     out << "[" << dir->d_name << "]";
                 } else {
                     out << " " << dir->d_name << "";
                 }
-    
+
                 out << "</a></td></tr>";
             }
-    
+
             out << "</table>";
-    
+
             res->send(out.str().c_str());
         }
         
@@ -207,33 +271,61 @@ namespace http {
         }
         free(base_path);
     }
-        
+
+    struct Route {
+        string path;
+        string method;
+        void (*callback)(Request*, Response*);
+        string params;
+    };
+
+    std::vector<Route> ROUTES;
+
+    class Server {
+        public:
+            void get(string, void (*callback)(Request*, Response*));
+            void post(string, void (*callback)(Request*, Response*));
+            void all(string, void (*callback)(Request*, Response*));
+            void get(string, string);
+            void post(string, string);
+            void all(string, string);
+            bool start(int, string);
+            bool start(int);
+            bool start();
+        private:
+            void* main_loop(void*);
+            void parse_headers(char*, Request*, Response*);
+            bool match_route(Request*, Response*);
+            string trim(string);
+            void split(string, string, int, vector<string>*);
+    };
+
     void Server::split(string str, string separator, int max, vector<string>* results){
         int i = 0;
         size_t found = str.find_first_of(separator);
-    
+
         while(found != string::npos){
             if(found > 0){
                 results->push_back(str.substr(0, found));
             }
             str = str.substr(found+1);
             found = str.find_first_of(separator);
-    
+
             if(max > -1 && ++i == max) break;
         }
-    
+
         if(str.length() > 0){
             results->push_back(str);
         }
     }
-    
+
     string Server::trim(string s) {
         s.erase(s.begin(), std::find_if(s.begin(), s.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
         s.erase(std::find_if(s.rbegin(), s.rend(), std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
-    
+
         return s;
     }
-    
+
     void Server::parse_headers(char* headers, Request* req, Response* res) {
         // Parse request headers
         int i = 0;
@@ -244,39 +336,39 @@ namespace http {
                 vector<string> R;
                 string line(pch);
                 this->split(line, " ", 3, &R);
-    
+
     //            cout << R.size() << endl;
-    
+
                 if(R.size() != 3) {
     //                throw error
                 }
-    
+
                 req->method = R[0];
                 req->path = R[1];
-    
+
                 size_t pos = req->path.find('?');
                 
                 // We have GET params here
                 if(pos != string::npos)  {
                     vector<string> Q1;
                     this->split(req->path.substr(pos + 1), "&", -1, &Q1);
-    
+
                     for(vector<string>::size_type q = 0; q < Q1.size(); q++) {
                         vector<string> Q2;
                         this->split(Q1[q], "=", -1, &Q2);
-    
+
                         if(Q2.size() == 2) {
                             req->query[Q2[0]] = Q2[1];
                         }
                     }
-    
+
                     req->path = req->path.substr(0, pos);
                 }
             } else {
                 vector<string> R;
                 string line(pch);
                 this->split(line, ": ", 2, &R);
-    
+
                 if(R.size() == 2) {
                     req->headers[R[0]] = R[1];
                     
@@ -296,37 +388,37 @@ namespace http {
             }
         }
     }
-    
-    void Server::get(string path, http_callback) {
+
+    void Server::get(string path, void (*callback)(Request*, Response*)) {
         Route r = {
              path,
              "GET",
              callback
         };
-    
+
         ROUTES.push_back(r);
     }
-    
-    void Server::post(string path, http_callback) {
+
+    void Server::post(string path, void (*callback)(Request*, Response*)) {
         Route r = {
              path,
              "POST",
              callback
         };
-    
+
         ROUTES.push_back(r);
     }
-    
-    void Server::all(string path, http_callback) {
+
+    void Server::all(string path, void (*callback)(Request*, Response*)) {
         Route r = {
              path,
              "ALL",
              callback
         };
-    
+
         ROUTES.push_back(r);
     }
-    
+
     void Server::get(string path, string loc) {
         Route r = {
              path,
@@ -334,10 +426,10 @@ namespace http {
              &list_dir,
              loc
         };
-    
+
         ROUTES.push_back(r);
     }
-    
+
     void Server::post(string path, string loc) {
         Route r = {
              path,
@@ -345,10 +437,10 @@ namespace http {
              &list_dir,
              loc
         };
-    
+
         ROUTES.push_back(r);
     }
-    
+
     void Server::all(string path, string loc) {
         Route r = {
              path,
@@ -356,119 +448,116 @@ namespace http {
              &list_dir,
              loc
         };
-    
+
         ROUTES.push_back(r);
     }
-    
+
     bool Server::match_route(Request* req, Response* res) {
         for (vector<Route>::size_type i = 0; i < ROUTES.size(); i++) {
             if(ROUTES[i].path == req->path && (ROUTES[i].method == req->method || ROUTES[i].method == "ALL")) {
                 req->params = ROUTES[i].params;
-    
+
                 ROUTES[i].callback(req, res);
-    
+
                 return true;
             }
         }
-    
+
         return false;
     }
-    
+
     void* Server::main_loop(void* arg) {
         int* port = reinterpret_cast<int*>(arg);
-    
+
         int newsc;
-    
+
         int sc = socket(AF_INET, SOCK_STREAM, 0);
-    
+
         if (sc < 0) {
-            throw Exception("ERROR opening socket");
+            throw WPP::Exception("ERROR opening socket");
         }
-    
+
         struct sockaddr_in serv_addr, cli_addr;
         serv_addr.sin_family = AF_INET;
         serv_addr.sin_addr.s_addr = INADDR_ANY;
         serv_addr.sin_port = htons(*port);
-    
+
         if (::bind(sc, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) != 0) {
-            throw Exception("ERROR on binding");
+            throw WPP::Exception("ERROR on binding");
         }
-    
+
         listen(sc, 5);
-    
+
         socklen_t clilen;
         clilen = sizeof(cli_addr);
-        
-        int rc;
-        int thread_id;
-        while (true) {
-            
+
+        while(true) {
             newsc = accept(sc, (struct sockaddr *) &cli_addr, &clilen);
-    
+
             if (newsc < 0) {
-                throw Exception("ERROR on accept");
+                throw WPP::Exception("ERROR on accept");
             }
-            
-            rc = pthread_create(NULL, NULL, 
-                          this->process, (void *)this);
-            if (rc){
-                cout << "Error:unable to create thread," << rc << endl;
-                exit(-1);
+
+            // handle new connection
+            Request req;
+            Response res;
+
+            static char headers[BUFSIZE + 1];
+            long ret = read(newsc, headers, BUFSIZE);
+            if(ret > 0 && ret < BUFSIZE) {
+                headers[ret] = 0;
+            } else {
+                headers[0] = 0;
             }
+
+            this->parse_headers(headers, &req, &res);
+
+            if(!this->match_route(&req, &res)) {
+                res.code = 404;
+                res.phrase = "Not Found";
+                res.type = "text/plain";
+                res.send("Not found");
+            }
+
+            char header_buffer[BUFSIZE];
+            string body = res.body.str();
+            size_t body_len = strlen(body.c_str());
+
+            // build http response
+            sprintf(header_buffer, "HTTP/1.0 %d %s\r\n", res.code, res.phrase.c_str());
+
+            // append headers
+            sprintf(&header_buffer[strlen(header_buffer)], "Server: %s %s\r\n", SERVER_NAME, SERVER_VERSION);
+            sprintf(&header_buffer[strlen(header_buffer)], "Date: %s\r\n", res.date.c_str());
+            sprintf(&header_buffer[strlen(header_buffer)], "Content-Type: %s\r\n", res.type.c_str());
+            sprintf(&header_buffer[strlen(header_buffer)], "Content-Length: %zd\r\n", body_len);
+
+            // append extra crlf to indicate start of body
+            strcat(header_buffer, "\r\n");
+
+            ssize_t t;
+            t = write(newsc, header_buffer, strlen(header_buffer));
+            t = write(newsc, body.c_str(), body_len);
         }
     }
-    
-    void *Server::process(void *threadid) {
-        // handle new connection
-        Request req;
-        Response res;
 
-        static char headers[BUFSIZE + 1];
-        long ret = read(newsc, headers, BUFSIZE);
-        if(ret > 0 && ret < BUFSIZE) {
-            headers[ret] = 0;
-        } else {
-            headers[0] = 0;
-        }
-
-        this->parse_headers(headers, &req, &res);
-
-        if(!this->match_route(&req, &res)) {
-            res.code = 404;
-            res.phrase = "Not Found";
-            res.type = "text/plain";
-            res.send("Not found");
-        }
-
-        char header_buffer[BUFSIZE];
-        string body = res.body.str();
-        size_t body_len = strlen(body.c_str());
-
-        // build http response
-        sprintf(header_buffer, "HTTP/1.0 %d %s\r\n", res.code, res.phrase.c_str());
-
-        // append headers
-        sprintf(&header_buffer[strlen(header_buffer)], "Server: %s %s\r\n", SERVER_NAME, SERVER_VERSION);
-        sprintf(&header_buffer[strlen(header_buffer)], "Date: %s\r\n", res.date.c_str());
-        sprintf(&header_buffer[strlen(header_buffer)], "Content-Type: %s\r\n", res.type.c_str());
-        sprintf(&header_buffer[strlen(header_buffer)], "Content-Length: %zd\r\n", body_len);
-
-        // append extra crlf to indicate start of body
-        strcat(header_buffer, "\r\n");
-
-        std::cout << write(newsc, header_buffer, strlen(header_buffer));
-        std::cout << write(newsc, body.c_str(), body_len);
-    }
-    
     bool Server::start(int port, string host) {
+//         pthread_t worker;
+
+//         for(int i = 0; i < 1; ++i) {
+//              int rc = pthread_create (&worker, NULL, &mainLoop, NULL);
+//              assert (rc == 0);
+//         }
+
         this->main_loop(&port);
+
         return true;
     }
-    
+
     bool Server::start(int port) {
          return this->start(port, "0.0.0.0");
     }
-    
+
     bool Server::start() {
          return this->start(80);
     }

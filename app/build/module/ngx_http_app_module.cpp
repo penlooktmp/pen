@@ -5,6 +5,7 @@ extern "C" {
 }
 
 #include <iostream>
+#include <http/http.h>
 
 using namespace std;
 

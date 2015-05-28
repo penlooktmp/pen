@@ -1,7 +1,7 @@
 #!/bin/bash
 clear
 cd nginx
-make -j4
+make
 make install > /dev/null
 cp -rf ../config/nginx.conf /etc/nginx/nginx.conf
 cp -rf ../config/nginx /etc/init.d/nginx

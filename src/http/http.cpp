@@ -25,10 +25,11 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <http/http.h> 
+#include <http/http.h>
 
 namespace http {
     
+    /*
     void Http::get(string router, http_callback)
     {
         server.get(router, callback);
@@ -47,5 +48,5 @@ namespace http {
         } catch(Exception e) {
             cerr << "WebServer: " << e.what() << endl;
         }
-    }
+    }*/
 }

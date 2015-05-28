@@ -10,5 +10,5 @@ chmod +x configure
 	--with-http_ssl_module \
 	--with-pcre \
 	--with-ld-opt="-lstdc++" \
-	--with-cc=cc \
+	--with-cc=gcc \
 	--add-module=../module;

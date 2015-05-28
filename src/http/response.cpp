@@ -29,14 +29,16 @@
 
 namespace http {
 
-	Response &Response::setBody(string body)
+	/*
+	HttpResponse &HttpResponse::setBody(string body)
 	{
 		this->body = body;
 		return *this; 
 	}
 
-	string Response::getBody()
+	string HttpResponse::getBody()
 	{
 		return this->body;
-	}
+	}*/
+	
 }

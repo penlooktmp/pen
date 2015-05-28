@@ -29,12 +29,12 @@
 
 namespace http {
 	
-	string Request::getQuery()
+	string HttpRequest::getQuery()
 	{
 		return "Http query";
 	}
 
-	string Request::getContentType()
+	string HttpRequest::getContentType()
 	{
 		return "Content type : HTML";
 	}

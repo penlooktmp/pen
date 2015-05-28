@@ -41,7 +41,7 @@ namespace http {
         void listen(int port = 80);
     };
     
-    class Request {
+    class HttpRequest {
     private:
         string content_type;
         string charset;
@@ -50,13 +50,13 @@ namespace http {
     public:
         string getQuery();
         string getContentType();
-    }
+    };
     
-    class Response {
+    class HttpResponse {
     private:
         string body;
     public:
-        Response &setBody();
+        HttpResponse &setBody();
         string getBody();
-    }
+    };
 }

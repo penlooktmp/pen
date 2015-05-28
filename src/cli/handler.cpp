@@ -61,12 +61,12 @@ namespace cli {
 	// Run application under hot-code reload
 	void Handler::run(string mode)
 	{	
-		Http proxy;
+		/*Http proxy;
 		proxy.get("/", [](Request* req, Response* res) {
 			cout << "Hello Server";
 			cout.flush();
 		});
-		proxy.listen(80);
+		proxy.listen(80);*/
 	}
 	
 	void Handler::help(string doc)

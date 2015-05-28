@@ -50,6 +50,7 @@ esac
 
 #NGX_GCC_OPT="-O2"
 #NGX_GCC_OPT="-Os"
+#NGX_GCC_OPT="-O3"
 NGX_GCC_OPT="-O"
 
 #CFLAGS="$CFLAGS -fomit-frame-pointer"
@@ -171,7 +172,6 @@ case "$NGX_GCC_VER" in
     ;;
 esac
 
-
 # stop on warning
 CFLAGS="$CFLAGS -Werror"
 
@@ -182,5 +182,5 @@ CFLAGS="$CFLAGS -g"
 #CFLAGS="$CFLAGS -g -gstabs"
 
 if [ ".$CPP" = "." ]; then
-    CPP="$CC -E"
+    CPP="g++ -c -std=c++11 "
 fi
