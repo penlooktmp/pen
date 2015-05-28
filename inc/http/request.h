@@ -25,49 +25,20 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <http/http.h>
+#include <iostream>
+using namespace std;
 
 namespace http {
-    
-    Http::Http(HttpRequest request, HttpResponse response)
-    {
-        this->request = request;
-        this->response = response;
-    }
-    
-    HttpRequest Http::getRequest()
-    {
-        return this->request;
-    }
-    
-    HttpResponse Http::getResponse()
-    {
-        return this->response;
-    }
-    
-    void Http::process()
-    {
-        response.setBody("<html>Hello From C++</html>");
-    }
-
-    void Http::get(string router, http_callback)
-    {
-        server.get(router, callback);
-    }
-
-    void Http::post(string router, http_callback)
-    {
-        server.get(router, callback);
-    }
-    
-    void Http::listen(int port)
-    {
-        try {
-            cout << "Listening on port " << port << endl;
-            server.start(port);
-        } catch(Exception e) {
-            cerr << "WebServer: " << e.what() << endl;
-        }
-    }
-
+	class HttpRequest {
+    private:
+        string content_type;
+        string charset;
+        string query;
+        string uri;
+    public:
+        HttpRequest();
+        HttpRequest &setUri(string); 
+        string getQuery();
+        string getContentType();
+    };
 }

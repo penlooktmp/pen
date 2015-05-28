@@ -25,9 +25,20 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
  
-#include <http/http.h>
+#include <http/request.h>
 
 namespace http {
+	
+	HttpRequest::HttpRequest()
+	{
+		this->uri = "";
+	}
+	
+	HttpRequest &HttpRequest::setUri(string uri)
+	{
+		this->uri = uri;
+		return *this;
+	}
 	
 	string HttpRequest::getQuery()
 	{

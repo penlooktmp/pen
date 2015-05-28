@@ -18,7 +18,7 @@
 
 using namespace std;
 
-namespace WPP {
+namespace http {
     class Request {
         public:
             Request() {
@@ -243,7 +243,7 @@ namespace WPP {
         } else if (S_ISDIR (st_buf.st_mode)) {
             DIR* dir_d = opendir(actual_path);
 
-            if (dir_d == NULL) throw WPP::Exception("Unable to open / folder");
+            if (dir_d == NULL) throw Exception("Unable to open / folder");
 
             std::stringstream out;
             out << "<title>" << new_path << "</title>" << endl;
@@ -474,7 +474,7 @@ namespace WPP {
         int sc = socket(AF_INET, SOCK_STREAM, 0);
 
         if (sc < 0) {
-            throw WPP::Exception("ERROR opening socket");
+            throw Exception("ERROR opening socket");
         }
 
         struct sockaddr_in serv_addr, cli_addr;
@@ -483,7 +483,7 @@ namespace WPP {
         serv_addr.sin_port = htons(*port);
 
         if (::bind(sc, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) != 0) {
-            throw WPP::Exception("ERROR on binding");
+            throw Exception("ERROR on binding");
         }
 
         listen(sc, 5);
@@ -495,7 +495,7 @@ namespace WPP {
             newsc = accept(sc, (struct sockaddr *) &cli_addr, &clilen);
 
             if (newsc < 0) {
-                throw WPP::Exception("ERROR on accept");
+                throw Exception("ERROR on accept");
             }
 
             // handle new connection

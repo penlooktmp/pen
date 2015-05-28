@@ -28,6 +28,8 @@
 #include <iostream>
 #include <map>
 #include <http/wpp.h>
+#include <http/request.h>
+#include <http/response.h>
 
 using namespace std;
 
@@ -35,28 +37,20 @@ namespace http {
     class Http {
     private:
         Server server;
+        HttpRequest request;
+        HttpResponse response;
+        
     public:
+        // Self server
         void get(string, http_callback);
         void post(string, http_callback);
         void listen(int port = 80);
+        
+        // Handle from Nginx
+        Http(HttpRequest, HttpResponse);
+        HttpRequest getRequest();
+        HttpResponse getResponse();
+        void process();
     };
-    
-    class HttpRequest {
-    private:
-        string content_type;
-        string charset;
-        string query;
-        string uri;
-    public:
-        string getQuery();
-        string getContentType();
-    };
-    
-    class HttpResponse {
-    private:
-        string body;
-    public:
-        HttpResponse &setBody();
-        string getBody();
-    };
+
 }

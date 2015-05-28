@@ -25,11 +25,10 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
  
-#include <http/http.h>
+#include <http/response.h>
 
 namespace http {
 
-	/*
 	HttpResponse &HttpResponse::setBody(string body)
 	{
 		this->body = body;
@@ -39,6 +38,5 @@ namespace http {
 	string HttpResponse::getBody()
 	{
 		return this->body;
-	}*/
-	
+	}
 }

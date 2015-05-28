@@ -8,6 +8,7 @@ extern "C" {
 #include <http/http.h>
 
 using namespace std;
+using namespace http;
 
 static ngx_http_module_t ngx_http_app_module_ctx = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 
@@ -20,21 +21,18 @@ static ngx_int_t ngx_http_app_handler(ngx_http_request_t *request)
     ngx_buf_t *buffer;
     ngx_chain_t out;
 
-    /*
-    http::Request *request;
-    http::Response *response;
+    HttpRequest http_request;
+    HttpResponse http_response;
 
-    ngx_str_t uri = request->uri;
-    string query = reinterpret_cast<const char*>(uri.data);    
-    request.setUri(query);
-    */
-    
-    //app_main(*request, *response);
-    
-    string html = "<html><body>HTML Page</body></html>";
-    /*
-    NGX_FEATURE_LIBS="-lstdc++ -I../../inc "
-    */
+    ngx_str_t uri_obj = request->uri;
+    string uri = reinterpret_cast<const char*>(uri_obj.data);
+    http_request.setUri(uri);
+
+    Http http(http_request, http_response);
+    http.process();
+
+    string html = http.getResponse().getBody();
+
     /* Type casting */
     u_char* u_html = (u_char*) html.c_str();
         
