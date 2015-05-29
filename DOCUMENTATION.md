@@ -66,9 +66,26 @@ pen test benchmark
 
 ### Pen++ Controller
 
++ Include library
+```cpp
+@import (
+	iostream
+	string
+	http
+)
+```
+
++ Using namespace
+```cpp
+@namespace (
+	std
+	http
+)
+```
+
 + Controller declaration
 ```go
-@Controller app
+@controller app
 ```
 
 + Controller declaration and extend from base controller

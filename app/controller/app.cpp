@@ -1,9 +1,8 @@
+@Namespace std http
 @Controller app base
 
-@Method
 Before()
 {
-	
 }
 
 @Route /index/:uid/:password
@@ -17,4 +16,5 @@ Index(int uid, string password)
 
 After() 
 {
+	
 }
