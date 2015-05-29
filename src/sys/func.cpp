@@ -1,16 +1,39 @@
+/**
+ * Pengo Project
+ *
+ * Copyright (c) 2015 Penlook Development Team
+ *
+ * --------------------------------------------------------------------
+ *
+ * This program is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License
+ * as published by the Free Software Foundation, either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this program.
+ * If not, see <http://www.gnu.org/licenses/>.
+ *
+ * --------------------------------------------------------------------
+ *
+ * Author:
+ *     Loi Nguyen       <loint@penlook.com>
+ */
 
 #include <sys/func.h>
-#include <net/restclient.h>
-#include <sys/param.h>
-#include <unistd.h>
-
-string get_http_content(string url)
+	
+string getHttpContent(string url)
 {
 	RestClient::response response = RestClient::get(url);
 	return response.body;
 }
 
-string get_cwd()
+string getCwd()
 {
 	char *buffer = new char[MAXPATHLEN];
     getcwd(buffer,MAXPATHLEN);
@@ -23,14 +46,7 @@ string get_cwd()
     }
 }
 
-void make_app()
-{
-	string build = get_cwd() + "/build";
-	chdir(build.c_str());
-	system("./build.sh");
-}
-
-int indexof(string str_origin, string str_find)
+int indexOf(string str_origin, string str_find)
 {
 	static string::size_type loc = str_origin.find(str_find, 0);
 	if (loc != string::npos) {

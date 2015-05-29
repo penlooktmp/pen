@@ -46,16 +46,16 @@ namespace cli {
 		cout << "Test pengo application";
 	}
 	
-	// Build application
-	void Handler::build(string mode)
-	{	
-		cout << "Build application for production";
-	}
-	
 	// Debug application components
 	void Handler::debug(string mode)
 	{
 		cout << "Debug mode";
+	}
+	
+	// Build application
+	void Handler::build(string mode)
+	{	
+		makeProduction();
 	}
 	
 	// Run application under hot-code reload
@@ -65,8 +65,8 @@ namespace cli {
 		HttpResponse _response;
 		Http proxy(_request, _response);
 		proxy.get("/", [](Request* request, Response* response) {
-			make_app();
-			response->body << get_http_content("192.168.250.250:8080");
+			makeDevelopment();
+			response->body << getHttpContent("192.168.250.250:8080");
 		});
 		proxy.listen(80);
 	}

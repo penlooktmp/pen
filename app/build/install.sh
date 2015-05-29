@@ -25,4 +25,3 @@ chmod +x config.sh
 ./config.sh
 mkdir -p /var/log/nginx
 cd ..
-

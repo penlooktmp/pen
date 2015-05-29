@@ -1,15 +1,13 @@
-@include (
-	std
-	http
-)
+#include <iostream>
 
-@namespace (
-	http
-	std
-)
+using namespace http;
 
-@controller app base
+@Controller Base
+App() {
+	// Controller constructor
+}
 
+@Override
 Before()
 {
 	// Before action
@@ -24,7 +22,12 @@ Index(int uid, string password)
 	$password = password;
 }
 
-After() 
+@Override
+After()
 {
-	
+	// After action
+}
+
+~App() {
+	// Controller destructor
 }

@@ -25,7 +25,6 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-
 #include <cli/cmd.h>
 
 namespace cli 

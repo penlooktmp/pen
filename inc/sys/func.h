@@ -25,11 +25,13 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
+#include <unistd.h>
 #include <string>
 #include <iostream>
+#include <sys/param.h>
+#include <net/rest.h>
 
 using namespace std;
 
-void make_app();
-string get_http_content(string);
-int indexof(string, string);
+string getHttpContent(string);
+int indexOf(string, string);

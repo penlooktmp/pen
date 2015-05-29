@@ -30,7 +30,8 @@
 
 using namespace cli;
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) 
+{
 	Handler func;
 	Cmd pen = Cmd(argc, argv);
 	pen.add("new",   "Create new application",         (cli_callback) func.create)

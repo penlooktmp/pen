@@ -26,5 +26,6 @@
  */
 
 #include "func.h"
+#include "app.h"
 
 using namespace std;
