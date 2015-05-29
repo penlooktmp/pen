@@ -1,7 +1,7 @@
-# Pen++ Framework Design
+# Framework Design
 Author: Loi Nguyen <loint@penlook.com>  |  Date: 05/10/2015
 
-### Pen++ Cli
+### CLI
 After create a new application, you need to go into your application directory for the next manipulation.
 
 + Create new application
@@ -64,7 +64,7 @@ pen test unit
 pen test benchmark
 ```
 
-### Pen++ Controller
+### Controller
 
 + Include library
 ```
@@ -112,7 +112,7 @@ Login(userid int, password string) {
 }
 ```
 
-### Pengo Model
+### Model
 
 + Select user who has id = 3 from user table (full)
 
@@ -191,12 +191,12 @@ $message = "Hello World"
 </html>
 ```
 
-### Pengo Testing
+### Testing
 
 + Setup
 
 ```go
-func Setup() {
+Setup() {
 }
 ```
 
@@ -204,14 +204,14 @@ func Setup() {
 
 ```go
 @Test
-func Login() {
+Login() {
 }
 ```
 
 + Teardown
 
 ```go
-func Teardown() {
+Teardown() {
 }
 ```
 
@@ -255,9 +255,7 @@ char* Concat(char* str1, char* str2 ) {
 ```
 ```go
 @Router /process
-func Process() {
-	number := Concat("Hello", "World")
-	fmt.Println(number) // Output: Hello World
+Process() {
 }
 ```
 
