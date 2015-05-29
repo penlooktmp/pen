@@ -6,6 +6,9 @@ extern "C" {
 
 #include <iostream>
 #include <http/http.h>
+#include <iostream>
+#include <sstream>
+#include <string>
 
 using namespace std;
 using namespace http;
@@ -31,6 +34,8 @@ static ngx_int_t ngx_http_app_handler(ngx_http_request_t *request)
     Http http(http_request, http_response);
     http.process();
 
+    //stringstream body = http.getResponse().getBody();
+    //string html = body.str();
     string html = http.getResponse().getBody();
 
     /* Type casting */

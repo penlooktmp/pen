@@ -1,3 +1,7 @@
+
+/**
+  C++ Minimal Web Server from Web++
+*/
 #include <dirent.h>
 #include <netinet/in.h>
 #include <sys/stat.h>

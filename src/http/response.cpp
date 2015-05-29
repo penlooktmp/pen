@@ -32,7 +32,7 @@ namespace http {
 	HttpResponse &HttpResponse::setBody(string body)
 	{
 		this->body = body;
-		return *this; 
+		return *this;
 	}
 
 	string HttpResponse::getBody()

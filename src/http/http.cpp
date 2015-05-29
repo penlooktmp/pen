@@ -33,21 +33,24 @@ namespace http {
     {
         this->request = request;
         this->response = response;
+        this->response.body = "";
     }
     
     HttpRequest Http::getRequest()
     {
         return this->request;
     }
-    
+
     HttpResponse Http::getResponse()
     {
         return this->response;
     }
-    
+
     void Http::process()
     {
-        response.setBody("<html>Hello From C++</html>");
+        for (int i=0; i<=100000; i++) {
+           response.body += " ";
+        }
     }
 
     void Http::get(string router, http_callback)

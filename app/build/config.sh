@@ -1,5 +1,7 @@
 #!/bin/bash
 cd nginx
+cp -rf ../config/gcc ../nginx/auto/cc/gcc
+cp -rf ../config/make ../nginx/auto/make
 chmod +x configure
 ./configure \
 	--prefix=/etc/nginx \

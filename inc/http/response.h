@@ -25,14 +25,16 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
+#include <string>
 #include <iostream>
+#include <sstream>
+
 using namespace std;
 
 namespace http {
     class HttpResponse {
-    private:
-        string body;
     public:
+        string body;
         HttpResponse &setBody(string);
         string getBody();
     };

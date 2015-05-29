@@ -39,7 +39,7 @@ namespace http {
         Server server;
         HttpRequest request;
         HttpResponse response;
-        
+
     public:
         // Self server
         void get(string, http_callback);
