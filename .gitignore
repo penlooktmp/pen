@@ -3,3 +3,5 @@
 /cmd/obj/src/*
 
 objs
+cli
+src

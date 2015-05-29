@@ -30,4 +30,6 @@
 
 using namespace std;
 
-int indexof(string str_origin, string str_find);
+void make_app();
+string get_http_content(string);
+int indexof(string, string);

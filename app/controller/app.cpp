@@ -1,8 +1,18 @@
-@Namespace std http
-@Controller app base
+@include (
+	std
+	http
+)
+
+@namespace (
+	http
+	std
+)
+
+@controller app base
 
 Before()
 {
+	// Before action
 }
 
 @Route /index/:uid/:password

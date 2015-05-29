@@ -24,7 +24,7 @@
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
 
-PROG    = pengo
+PROG    = pen
 TEST	= ptest
 CC      = g++
 CCVER 	= c++0x
@@ -45,10 +45,10 @@ FLAGS   = $(BUILD)
 all: $(PROG)
 
 $(PROG): $(OBJECTS)
-	$(CC) $(OBJECTS) -o $(BINARY)
+	$(CC) $(OBJECTS) -o $(BINARY) -lcurl
 
 $(OBJECTD)/%.o: %.cpp
-	$(CC) -c $(FLAGS) -I$(INCLUDE) $< -o $@
+	$(CC) -c $(FLAGS) -I$(INCLUDE) $< -o $@ 
 
 $(OBJECTS): mk
 

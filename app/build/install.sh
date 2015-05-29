@@ -19,7 +19,7 @@ rm -rf /tmp/ccache-3.2.2
 
 ##### Configure for Nginx
 sudo apt-get update
-sudo apt-get install -y libpcre3 libpcre3-dev libpcre++-dev openssl libssl-dev
+sudo apt-get install -y libpcre3 libpcre3-dev libpcre++-dev openssl libssl-dev libcurl4-openssl-dev
 cd $CURRENT
 chmod +x config.sh
 ./config.sh

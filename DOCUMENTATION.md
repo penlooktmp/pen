@@ -162,7 +162,7 @@ vertex := cayley>"Vertex_AtoB"
 vertex.All()
 ```
 
-### Pengo Template
+### Template
 
 + Assign function variable to template
 
@@ -175,7 +175,7 @@ $compress = func(html string) {
 + Assign normal variable to template
 
 ```go
-$title = "Pengo Application"
+$title = "Skeleton Application"
 $message = "Hello World"
 ```
 
@@ -241,28 +241,4 @@ person.Age ?
 
 ```go
 ! person.Age ?
-```
-
-### Pengo Extensibility
-
-+ Using C function in Go controller (consolidation function)
-
-```c
-#include <stdio.h>
-char* Concat(char* str1, char* str2 ) {
-	// TODO
-}
-```
-```go
-@Router /process
-Process() {
-}
-```
-
-+ Using C++ & Golang 
-```cpp
-
-```
-```go
-
 ```

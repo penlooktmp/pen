@@ -48,8 +48,8 @@ namespace http {
 
     void Http::process()
     {
-        for (int i=0; i<=100000; i++) {
-           response.body += " ";
+        for (int i=0; i<=10; i++) {
+           response.body += "hello abc";
         }
     }
 
