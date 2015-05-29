@@ -43,13 +43,13 @@ pen build
 + Analyze application for debugging mode
 
 ```bash
-pen debug=router
+pen debug router
 ```
 ```bash
-pen debug=controller
+pen debug controller
 ```
 ```bash
-pen debug=model
+pen debug model
 ```
 
 + Unit testing
@@ -67,7 +67,7 @@ pen test benchmark
 ### Pen++ Controller
 
 + Include library
-```cpp
+```
 @import (
 	iostream
 	string
@@ -76,7 +76,7 @@ pen test benchmark
 ```
 
 + Using namespace
-```cpp
+```
 @namespace (
 	std
 	http
@@ -91,7 +91,7 @@ pen test benchmark
 + Controller declaration and extend from base controller
 
 ```go
-@Controller app base
+@controller app base
 ```
 
 + Router - Method - Action mapping
