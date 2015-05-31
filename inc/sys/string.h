@@ -1,0 +1,2 @@
+
+int indexOf(string, string);
