@@ -24,8 +24,15 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-
-#include "func.h"
-#include "app.h"
+#include <unistd.h>
+#include <string>
+#include <iostream>
+#include <sys/param.h>
+#include <net/rest.h>
 
 using namespace std;
+
+#include "unix.h"
+#include "string.h"
+#include "http.h"
+#include "app.h"
