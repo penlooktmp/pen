@@ -24,7 +24,7 @@
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
 
-PROG    = pen
+PROG    = pendev
 TEST	= ptest
 CC      = g++
 CCVER 	= c++0x
@@ -32,10 +32,10 @@ BUILD   = -std=$(CCVER) -Wall -O3
 DEBUG   = -std=$(CCVER) -pipe -g0 -fno-inline -Wall
 TESTF	= -std=$(CCVER) -g -L/opt/gtest/lib -lgtest -lgtest_main -lpthread -I/opt/gtest/include
 EXECUTE = /usr/bin/$(PROG)
-INCLUDE = ../../../inc
+INCLUDE = inc
 SOURCED = src
-OBJECTD = ../obj
-SOURCES = $(shell find $(SOURCED) ../$(SOURCED) -name *.cpp)
+OBJECTD = obj/cli
+SOURCES = $(shell find main $(SOURCED) -name *.cpp)
 TESTS   = $(shell find ./test -name *.cpp )
 OBJECTS = $(addprefix $(OBJECTD)/, $(patsubst %.cpp, %.o, $(SOURCES)))
 BINARY = $(OBJECTD)/$(SOURCED)/$(PROG)
@@ -66,7 +66,7 @@ test:
 	make OBJECTS="$(OBJECTT)" FLAGS="$(TESTF)" PROG="$(TEST)"
 	./$(TEST)
 	rm -rf ./$(TEST)
-
+		
 clean:
 	rm -rf $(OBJECTS)
 	rm -rf $(BINARY)
