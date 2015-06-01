@@ -1,4 +1,12 @@
 #!/bin/bash
+
+lf() {
+	cp $1 $1_2
+	tr -d '\r' < $1_2 > $1
+}
+
+lf ./module/config
+
 cd nginx
 
 # Update nginx
@@ -10,14 +18,9 @@ cp -rf ../config/gcc ../nginx/auto/cc/gcc
 cp -rf ../config/make ../nginx/auto/make
 
 # Remove CRLF characters
-cp configure configure2
-tr -d '\r' < configure2 > configure
-
-cp ../nginx/auto/cc/gcc ../nginx/auto/cc/gcc2
-tr -d '\r' < ../nginx/auto/cc/gcc2 > ../nginx/auto/cc/gcc
-
-cp ../nginx/auto/make ../nginx/auto/make2
-tr -d '\r' < ../nginx/auto/make2 > ../nginx/auto/make
+lf configure
+lf ../nginx/auto/cc/gcc
+lf ../nginx/auto/make
 
 # Configure nginx
 chmod +x configure

@@ -27,7 +27,7 @@
 
 #include <cli/cmd.h>
 
-namespace cli 
+namespace cli
 {
 	
 	Cmd::Cmd(int _argc, char* _argv[])
