@@ -7,3 +7,4 @@
 /cmd/app/build/development/inc/*
 /cmd/app/build/development/src/*
 /cmd/app/build/development/obj/*
+/cmd/app/build/production/nginx/*
