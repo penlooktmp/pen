@@ -44,6 +44,7 @@ void makeProduction(string app = "")
 		cwd += "/" + app;
 	}
 	changeDirectory(cwd + "/build/production");
-	//executeCommand("");
-	//cout << "\n" << getCwd() << "\n \n";
+	// executeCommand("./install.sh");
+	executeCommand("./config.sh");
+	executeCommand("./build.sh");
 }

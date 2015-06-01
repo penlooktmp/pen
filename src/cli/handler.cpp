@@ -62,14 +62,6 @@ namespace cli {
 	void Handler::run(string app)
 	{	
 		makeDevelopment(app);
-		/*
-		HttpRequest _request;
-		HttpResponse _response;
-		Http proxy(_request, _response);
-		proxy.get("/", [](Request* request, Response* response) {
-			response->body << getHttpContent("192.168.250.250:8080");
-		});
-		proxy.listen(80);*/
 	}
 	
 	void Handler::help(string doc)
