@@ -47,21 +47,21 @@ namespace cli {
 	}
 	
 	// Debug application components
-	void Handler::debug(string mode)
+	void Handler::debug(string app)
 	{
 		cout << "Debug mode";
 	}
 	
 	// Build application
-	void Handler::build(string mode)
+	void Handler::build(string app)
 	{	
-		makeProduction();
+		makeProduction(app);
 	}
 	
 	// Run application under hot-code reload
-	void Handler::run(string mode)
+	void Handler::run(string app)
 	{	
-		makeDevelopment();
+		makeDevelopment(app);
 		/*
 		HttpRequest _request;
 		HttpResponse _response;

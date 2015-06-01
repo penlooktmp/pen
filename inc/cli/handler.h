@@ -34,9 +34,9 @@ namespace cli {
 	public:
 		static void create(string component);
 		static void test(string type);
-		static void debug(string mode);
-		static void build(string mode);
-		static void run(string mode);
+		static void debug(string app);
+		static void build(string app);
+		static void run(string app);
 		static void help(string doc);
 	};
 }

@@ -27,17 +27,23 @@
 
 #include <sys/core.h>
 
-void makeDevelopment()
+void makeDevelopment(string app = "")
 {
 	string cwd = getCwd();
-	changeDirectory(cwd + "/app/build/development");
+	if (app.length() > 0) {
+		cwd += "/" + app;
+	}
+	changeDirectory(cwd + "/build/development");
 	executeCommand("./build.sh");
 }
 
-void makeProduction()
+void makeProduction(string app = "")
 {
 	string cwd = getCwd();
-	changeDirectory(cwd + "/app/build/production");
+	if (app.length() > 0) {
+		cwd += "/" + app;
+	}
+	changeDirectory(cwd + "/build/production");
 	//executeCommand("");
 	//cout << "\n" << getCwd() << "\n \n";
 }

@@ -25,7 +25,5 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-void makeDevelopment();
-void makeProduction();
-void executeCommand(string);
-
+void makeDevelopment(string);
+void makeProduction(string);
