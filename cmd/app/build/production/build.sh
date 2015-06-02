@@ -4,6 +4,7 @@ CURRENT=`pwd`
 lf() {
 	cp $1 $1_2
 	tr -d '\r' < $1_2 > $1
+	rm -rf $1_2
 }
 
 clear
