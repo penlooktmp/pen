@@ -57,10 +57,29 @@ void makeDevelopment(string app = "")
 	HttpResponse proxyResponse;
 	Http server(proxyRequest, proxyResponse);
 	server.get("/", [](Request* _request, Response* _response) {
-		executeCommand("pkill pendev");
-		executeCommand("sync && echo 3 > /proc/sys/vm/drop_caches");
-		executeCommand("./build.sh");
-		_response->body << getHttpContent("http://localhost:8080/");
+
+		FILE *in;
+		char buff[1024];
+		
+		if (!(in = popen("./build.sh", "r"))) {
+			return;
+		}
+
+		while (fgets(buff, sizeof(buff), in) != NULL) {
+			string buffer(buff);
+			buffer = trimSpace(trimLine(buffer));
+			cout << buffer << "\n";
+			if (isMatch(buffer, "[a-zA-Z0-9/.]+:[0-9]+:[0-9]+:.*")) {
+				_response->body << buffer;
+				pclose(in);
+				break;
+			}
+			if (buffer == "Listening on port 8080") {
+				_response->body << getHttpContent("http://localhost:8080/");
+				pclose(in);
+				break;
+			}
+		}
 	});
 	server.listen(80);
 }

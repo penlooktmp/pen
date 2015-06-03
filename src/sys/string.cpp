@@ -27,6 +27,28 @@
 
 #include <sys/core.h>
 
+string trimLine(string str)
+{
+	str.erase(remove(str.begin(), str.end(), '\n'), str.end());
+	return str;
+}
+
+string trimSpace(string str)
+{
+	str.erase(0, str.find_first_not_of(' '));       //prefixing spaces
+	str.erase(str.find_last_not_of(' ')+1);         //surfixing spaces
+	return str;
+}
+
+bool isMatch(string test, string pattern)
+{	
+	regex str(pattern);
+	if (regex_match(test, str)) {
+		return true;
+	}
+	return false;
+}
+
 int indexOf(string str_origin, string str_find)
 {
 	static string::size_type loc = str_origin.find(str_find, 0);

@@ -48,7 +48,7 @@ $(PROG): $(OBJECTS)
 	$(CC) $(OBJECTS) -o $(BINARY) -lcurl -lpthread
 
 $(OBJECTD)/%.o: %.cpp
-	$(CC) -c $(FLAGS) -I$(INCLUDE) $< -o $@ 
+	$(CC) -c $(FLAGS) -I$(INCLUDE) $< -o $@ 2>&1
 
 $(OBJECTS): mk
 

@@ -27,6 +27,7 @@
 #include <unistd.h>
 #include <string>
 #include <iostream>
+#include <regex>
 #include <sys/param.h>
 #include <net/rest.h>
 

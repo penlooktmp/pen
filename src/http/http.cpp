@@ -49,7 +49,7 @@ namespace http {
     void Http::process()
     {
         for (int i=0; i<=10; i++) {
-           response.body += "a";
+           response.body += "<li>testazxzz</li>";
         }
     }
 

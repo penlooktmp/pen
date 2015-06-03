@@ -9,12 +9,14 @@ lf() {
 	rm -rf $1_2
 }
 
+cp -rf ../config/nginx.conf /etc/nginx/nginx.conf
+cp -rf ../config/nginx /etc/init.d/nginx
+
 clear
+
 cd nginx
 make
 make install
-cp -rf ../config/nginx.conf /etc/nginx/nginx.conf
-cp -rf ../config/nginx /etc/init.d/nginx
 lf /etc/init.d/nginx
 service nginx reload
 pkill nginx

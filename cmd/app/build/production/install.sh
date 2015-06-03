@@ -1,6 +1,6 @@
 #!/bin/bash
 ##### Install Makefile and Cached
-sudo apt-get install -y make
+sudo apt-get install -y make dsniff
 
 # Cache for GCC
 cd /tmp
