@@ -50,7 +50,7 @@ void makeDirectory(string path)
 	// TODO
 }
 
-void executeCommand(string cmd)
+int executeCommand(string cmd)
 {
-    system(cmd.c_str());
+    return system(cmd.c_str());
 }

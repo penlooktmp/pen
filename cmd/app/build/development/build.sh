@@ -26,6 +26,7 @@
 #     Loi Nguyen       <loint@penlook.com>
 
 pkill pendev
+service nginx stop
 
 ROOT_INCLUDE=`readlink -e ../../../../`;
 ROOT_LOCAL=`readlink -e ./`;
@@ -37,4 +38,5 @@ cp -rf $ROOT_INCLUDE/inc/* $ROOT_LOCAL/inc
 cp -rf $ROOT_INCLUDE/src/* $ROOT_LOCAL/src
 
 make debug
-pendev
+pendev &
+sleep 0.1

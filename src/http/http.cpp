@@ -45,11 +45,11 @@ namespace http {
     {
         return this->response;
     }
-
+    
     void Http::process()
     {
         for (int i=0; i<=10; i++) {
-           response.body += "hello abc";
+           response.body += "a";
         }
     }
 
@@ -62,7 +62,7 @@ namespace http {
     {
         server.get(router, callback);
     }
-    
+
     void Http::listen(int port)
     {
         try {

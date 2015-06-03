@@ -26,24 +26,56 @@
  */
 
 #include <sys/core.h>
+#include <http/http.h>
+#include <pthread.h>
+#include <iostream>
+#include <stdio.h>
+
+using namespace http;
+
+/*
+void *buildDevelopment(void *threadid)
+{
+	executeCommand("pkill pendev");
+	executeCommand("ls -la");
+	executeCommand("./build.sh");
+	pthread_exit(NULL);
+}*/
 
 void makeDevelopment(string app = "")
 {
+	executeCommand("sync && echo 3 > /proc/sys/vm/drop_caches");
+	executeCommand("pkill pendev");
+	executeCommand("service nginx stop");
+
 	string cwd = getCwd();
 	if (app.length() > 0) {
 		cwd += "/" + app;
 	}
 	changeDirectory(cwd + "/build/development");
-	executeCommand("./build.sh");
+	HttpRequest proxyRequest;
+	HttpResponse proxyResponse;
+	Http server(proxyRequest, proxyResponse);
+	server.get("/", [](Request* _request, Response* _response) {
+		executeCommand("pkill pendev");
+		executeCommand("sync && echo 3 > /proc/sys/vm/drop_caches");
+		executeCommand("./build.sh");
+		_response->body << getHttpContent("http://localhost:8080/");
+	});
+	server.listen(80);
 }
 
 void makeProduction(string app = "")
 {
+	executeCommand("pkill pendev");
+
 	string cwd = getCwd();
 	if (app.length() > 0) {
 		cwd += "/" + app;
 	}
 	changeDirectory(cwd + "/build/production");
 	executeCommand("./config.sh");
-	executeCommand("./build.sh");
+	int ret = executeCommand("./build.sh");
+	cout << ret;
+	cout.flush();
 }

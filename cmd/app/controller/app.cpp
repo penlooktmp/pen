@@ -3,7 +3,8 @@
 using namespace http;
 
 @Controller Base
-App() {
+App() 
+{
 	// Controller constructor
 }
 
@@ -28,6 +29,7 @@ After()
 	// After action
 }
 
-~App() {
+~App() 
+{
 	// Controller destructor
 }

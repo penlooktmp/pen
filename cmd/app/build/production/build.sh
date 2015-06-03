@@ -1,5 +1,7 @@
 #!/bin/bash
 CURRENT=`pwd`
+pkill pen
+pkill pendev
 
 lf() {
 	cp $1 $1_2

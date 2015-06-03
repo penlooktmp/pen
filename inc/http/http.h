@@ -45,7 +45,7 @@ namespace http {
         void get(string, http_callback);
         void post(string, http_callback);
         void listen(int port = 80);
-        
+
         // Handle from Nginx
         Http(HttpRequest, HttpResponse);
         HttpRequest getRequest();
