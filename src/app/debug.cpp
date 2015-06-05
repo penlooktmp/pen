@@ -24,17 +24,47 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-#include <unistd.h>
-#include <string>
-#include <iostream>
-#include <regex>
-#include <sys/param.h>
-#include <net/rest.h>
-#include <vector>
 
-using namespace std;
+#include <app/toolbar.h>
 
-#include "unix.h"
-#include "string.h"
-#include "http.h"
-#include "app.h"
+Debug::Debug()
+{
+	
+}
+
+Debug &Debug::addBuffer(string buffer)
+{
+	buffer = trimSpace(trimLine(buffer));
+	this->bufferStack.push_back(buffer);
+	return *this;
+}
+
+string Debug::getBuffer()
+{
+	int bufferStackSize = this->bufferStack.size();
+	return (bufferStackSize == 0) ? " " : this->bufferStack[bufferStackSize - 1];
+}
+
+vector<string> Debug::getBufferStack()
+{
+	return this->bufferStack;
+}
+
+bool Debug::isError(string buffer)
+{
+	string listErrorPattern = {
+		"[a-zA-Z0-9/.]+:[0-9]+:[0-9]+:.*"
+	};
+	
+	return true;
+}
+
+bool Debug::isBreakPoint()
+{
+	return this->breakPoint;
+}
+
+string Debug::getDebugInfo()
+{
+	return "<html>Error in line 104</html>";
+}

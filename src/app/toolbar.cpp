@@ -24,17 +24,10 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-#include <unistd.h>
-#include <string>
-#include <iostream>
-#include <regex>
-#include <sys/param.h>
-#include <net/rest.h>
-#include <vector>
 
-using namespace std;
-
-#include "unix.h"
-#include "string.h"
-#include "http.h"
-#include "app.h"
+class Debugger
+{
+	public:
+		Debugger();
+		
+};	

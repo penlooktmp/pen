@@ -30,17 +30,9 @@
 #include <pthread.h>
 #include <iostream>
 #include <stdio.h>
+#include <app/toolbar.h>
 
 using namespace http;
-
-/*
-void *buildDevelopment(void *threadid)
-{
-	executeCommand("pkill pendev");
-	executeCommand("ls -la");
-	executeCommand("./build.sh");
-	pthread_exit(NULL);
-}*/
 
 void makeDevelopment(string app = "")
 {
@@ -59,21 +51,24 @@ void makeDevelopment(string app = "")
 	server.get("/", [](Request* _request, Response* _response) {
 
 		FILE *in;
-		char buff[1024];
+		Debug debug;
+		char buf[1024];
 		
 		if (!(in = popen("./build.sh", "r"))) {
 			return;
 		}
 
-		while (fgets(buff, sizeof(buff), in) != NULL) {
-			string buffer(buff);
-			buffer = trimSpace(trimLine(buffer));
+		while (fgets(buf, sizeof(buf), in) != NULL) {
+			string buffer(buf);
+			debug.addBuffer(buffer);
+			debug.addErrorPattern()
 			cout << buffer << "\n";
 			if (isMatch(buffer, "[a-zA-Z0-9/.]+:[0-9]+:[0-9]+:.*")) {
 				_response->body << buffer;
 				pclose(in);
 				break;
 			}
+			
 			if (buffer == "Listening on port 8080") {
 				_response->body << getHttpContent("http://localhost:8080/");
 				pclose(in);
