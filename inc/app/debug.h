@@ -25,20 +25,29 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
+#include <sys/core.h>
+#include <http/http.h>
+
 class Debug
 {
+	static const int CMD_BUFFER;
+
 	private:
+		string buffer;
 		vector<string> bufferStack;
 		bool breakPoint;
+		http::Response* response;
 
 	public:
 		Debug();
-		Debug &addBuffer(string);
+		Debug &addBuffer(char*);
 		string getBuffer();
+		void outputBuffer();
 		vector<string> getBufferStack();
 		string getDebugInfo();
+		string renderDebugInfo(string, int , int, string);
 		void setResponse(http::Response*);
 		void compile();
-		bool isError(string);
-		bool isBreakPoint();
+		bool isError();
+		bool isEnd();
 };

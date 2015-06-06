@@ -41,4 +41,3 @@ cp -ru $ROOT_LOCAL/Makefile $ROOT_RAM/Makefile
 cd $ROOT_RAM
 make debug
 $ROOT_RAM/pendev &
-sleep 0.1

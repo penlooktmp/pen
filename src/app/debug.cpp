@@ -25,24 +25,32 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <app/toolbar.h>
+#include <app/debug.h>
+#include <sys/core.h>
+
+const int Debug::CMD_BUFFER = 1024;
 
 Debug::Debug()
 {
 	
 }
 
-Debug &Debug::addBuffer(string buffer)
+Debug &Debug::addBuffer(char* buf)
 {
-	buffer = trimSpace(trimLine(buffer));
-	this->bufferStack.push_back(buffer);
+	string buffer(buf);
+	this->buffer = trimSpace(trimLine(buffer));
+	this->bufferStack.push_back(this->buffer);
 	return *this;
 }
 
 string Debug::getBuffer()
 {
-	int bufferStackSize = this->bufferStack.size();
-	return (bufferStackSize == 0) ? " " : this->bufferStack[bufferStackSize - 1];
+	return this->buffer;
+}
+
+void Debug::outputBuffer()
+{
+	cout << this->buffer << "\n";
 }
 
 vector<string> Debug::getBufferStack()
@@ -50,48 +58,56 @@ vector<string> Debug::getBufferStack()
 	return this->bufferStack;
 }
 
-bool Debug::isError(string buffer)
+bool Debug::isError()
 {
-	string listErrorPattern = {
-		"[a-zA-Z0-9/.]+:[0-9]+:[0-9]+:.*"
-	};
-	
-	return true;
+	if (isMatch(this->buffer, "[a-zA-Z0-9/.]+:[0-9]+:[0-9]+:.*")) {
+		this->response->body << this->getDebugInfo();
+		return true;
+	}
+	return false;
 }
 
-bool Debug::isBreakPoint()
+bool Debug::isEnd()
 {
-	return this->breakPoint;
+	if (this->buffer == "Listening on port 8080") {
+		this->response->body << getHttpContent("http://localhost:8080/");
+		return true;
+	}
+	return false;
 }
 
 string Debug::getDebugInfo()
+{	
+	vector<string> com = split(this->buffer, ':');
+	string file = com[0];
+	string err = com[3];
+	int line = stoi(com[1]);
+	int col  = stoi(com[2]);
+	return this->renderDebugInfo(file, line, col, err);
+}
+
+string Debug::renderDebugInfo(string file, int line, int col, string err)
 {
-	return "<html>Error in line 104</html>";
+	return file + " -- " + to_string(line);
+}
+
+void Debug::setResponse(http::Response* response)
+{
+	this->response = response;
 }
 
 void Debug::compile()
 {
-	FILE *in;
-	char buf[1024];
-	
-	if (!(in = popen("./build.sh", "r"))) {
-		return;
-	}
-
+	FILE *in = popen("./build.sh", "r");
+	char buf[Debug::CMD_BUFFER];
 	while (fgets(buf, sizeof(buf), in) != NULL) {
-		string buffer(buf);
-		debug.addBuffer(buffer);
-		buffer = trimSpace(trimLine(buffer));
-		cout << buffer << "\n";
-
-		if (isMatch(buffer, "[a-zA-Z0-9/.]+:[0-9]+:[0-9]+:.*")) {
-			_response->body << buffer;
+		this->addBuffer(buf);
+		this->outputBuffer();
+		if (this->isError()) {
 			pclose(in);
 			break;
 		}
-		
-		if (buffer == "Listening on port 8080") {
-			_response->body << getHttpContent("http://localhost:8080/");
+		if (this->isEnd()) {
 			pclose(in);
 			break;
 		}

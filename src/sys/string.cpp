@@ -57,3 +57,16 @@ int indexOf(string str_origin, string str_find)
 	}
 	return -1;
 }
+
+vector<string> split(string str, char delim)
+{
+    vector<string> result;
+    istringstream iss(str);
+
+    for (string token; getline(iss, token, delim); )
+    {
+        result.push_back(move(token));
+    }
+
+    return result;
+}

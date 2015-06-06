@@ -26,11 +26,7 @@
  */
 
 #include <sys/core.h>
-#include <http/http.h>
-#include <pthread.h>
-#include <iostream>
-#include <stdio.h>
-#include <app/toolbar.h>
+#include <app/debug.h>
 
 using namespace http;
 
