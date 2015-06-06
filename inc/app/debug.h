@@ -36,9 +36,9 @@ class Debug
 		Debug &addBuffer(string);
 		string getBuffer();
 		vector<string> getBufferStack();
-
 		string getDebugInfo();
-
+		void setResponse(http::Response*);
+		void compile();
 		bool isError(string);
 		bool isBreakPoint();
 };

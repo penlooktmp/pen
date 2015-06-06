@@ -31,7 +31,7 @@ CCVER 	= c++0x
 BUILD   = -std=$(CCVER) -Wall -O3 
 DEBUG   = -std=$(CCVER) -pipe -g0 -fno-inline -Wall -pthread
 TESTF	= -std=$(CCVER) -g -L/opt/gtest/lib -lgtest -lgtest_main -lpthread -I/opt/gtest/include
-EXECUTE = /usr/bin/$(PROG)
+EXECUTE = ./$(PROG)
 INCLUDE = inc
 SOURCED = src
 OBJECTD = obj/cli
@@ -57,10 +57,10 @@ mk:
 
 debug:
 	make SOURCED="$(SOURCED)$(path)" FLAGS="$(DEBUG)"
-	cp -f $(BINARY) $(EXECUTE)
+	cp -rf $(BINARY) $(EXECUTE)
 
 install:
-	cp -f $(BINARY) $(EXECUTE)
+	cp -rf $(BINARY) $(EXECUTE)
 
 test:
 	make OBJECTS="$(OBJECTT)" FLAGS="$(TESTF)" PROG="$(TEST)"

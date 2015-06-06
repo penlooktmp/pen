@@ -36,46 +36,28 @@ using namespace http;
 
 void makeDevelopment(string app = "")
 {
-	executeCommand("sync && echo 3 > /proc/sys/vm/drop_caches");
-	executeCommand("pkill pendev");
-	executeCommand("service nginx stop");
-
 	string cwd = getCwd();
 	if (app.length() > 0) {
 		cwd += "/" + app;
 	}
+	
 	changeDirectory(cwd + "/build/development");
+	
+	executeCommand("sync && echo 3 > /proc/sys/vm/drop_caches");
+	executeCommand("pkill pendev");
+	executeCommand("service nginx stop");
+	executeCommand("./prepare.sh");
+	
 	HttpRequest proxyRequest;
 	HttpResponse proxyResponse;
 	Http server(proxyRequest, proxyResponse);
+
 	server.get("/", [](Request* _request, Response* _response) {
-
-		FILE *in;
 		Debug debug;
-		char buf[1024];
-		
-		if (!(in = popen("./build.sh", "r"))) {
-			return;
-		}
-
-		while (fgets(buf, sizeof(buf), in) != NULL) {
-			string buffer(buf);
-			debug.addBuffer(buffer);
-			debug.addErrorPattern()
-			cout << buffer << "\n";
-			if (isMatch(buffer, "[a-zA-Z0-9/.]+:[0-9]+:[0-9]+:.*")) {
-				_response->body << buffer;
-				pclose(in);
-				break;
-			}
-			
-			if (buffer == "Listening on port 8080") {
-				_response->body << getHttpContent("http://localhost:8080/");
-				pclose(in);
-				break;
-			}
-		}
+		debug.setResponse(_response);
+		debug.compile();
 	});
+
 	server.listen(80);
 }
 

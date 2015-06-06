@@ -27,10 +27,9 @@
 
 #include <sys/core.h>
 
-class Debugger
+class Debug
 {
 	private:
 	public:
-		Debugger()
-		
+		Debug();
 };

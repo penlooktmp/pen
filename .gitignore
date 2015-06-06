@@ -4,8 +4,6 @@
 
 /obj/cli/*
 /obj/src/*
-/cmd/app/build/development/inc/*
-/cmd/app/build/development/src/*
 /cmd/app/build/development/obj/*
+/cmd/app/build/development/tmp
 /cmd/app/build/production/nginx/*
-/cmd/app/build/production/module/config_2

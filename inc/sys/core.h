@@ -31,6 +31,7 @@
 #include <sys/param.h>
 #include <net/rest.h>
 #include <vector>
+#include <initializer_list>
 
 using namespace std;
 

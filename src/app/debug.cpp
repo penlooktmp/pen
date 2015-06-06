@@ -68,3 +68,32 @@ string Debug::getDebugInfo()
 {
 	return "<html>Error in line 104</html>";
 }
+
+void Debug::compile()
+{
+	FILE *in;
+	char buf[1024];
+	
+	if (!(in = popen("./build.sh", "r"))) {
+		return;
+	}
+
+	while (fgets(buf, sizeof(buf), in) != NULL) {
+		string buffer(buf);
+		debug.addBuffer(buffer);
+		buffer = trimSpace(trimLine(buffer));
+		cout << buffer << "\n";
+
+		if (isMatch(buffer, "[a-zA-Z0-9/.]+:[0-9]+:[0-9]+:.*")) {
+			_response->body << buffer;
+			pclose(in);
+			break;
+		}
+		
+		if (buffer == "Listening on port 8080") {
+			_response->body << getHttpContent("http://localhost:8080/");
+			pclose(in);
+			break;
+		}
+	}
+}

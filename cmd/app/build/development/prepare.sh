@@ -25,20 +25,18 @@
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
 
-pkill pendev
-service nginx stop
-
 ROOT_INCLUDE=`readlink -e ../../../../`
 ROOT_LOCAL=`readlink -e ./`
 ROOT_RAM=$ROOT_LOCAL/tmp
 
-# Update changed files to ram disk
-cp -ru $ROOT_INCLUDE/inc/* $ROOT_RAM/inc
-cp -ru $ROOT_INCLUDE/src/* $ROOT_RAM/src
-cp -ru $ROOT_LOCAL/main/* $ROOT_RAM/main
-cp -ru $ROOT_LOCAL/Makefile $ROOT_RAM/Makefile
+# Mount source code to ram disk
 
-cd $ROOT_RAM
-make debug
-$ROOT_RAM/pendev &
-sleep 0.1
+[ -d $ROOT_RAM ] && umount -v $ROOT_RAM > /dev/null
+/sbin/mke2fs -q -m 0 /dev/ram0
+/bin/mount /dev/ram0 $ROOT_RAM
+/bin/chown root:root $ROOT_RAM
+/bin/chmod 0750 $ROOT_RAM
+
+mkdir -p $ROOT_RAM/inc
+mkdir -p $ROOT_RAM/src
+mkdir -p $ROOT_RAM/main
