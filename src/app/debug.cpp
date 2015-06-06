@@ -91,9 +91,16 @@ string Debug::renderDebugInfo(string file, int line, int col, string err)
 	return file + " -- " + to_string(line);
 }
 
-void Debug::setResponse(http::Response* response)
+Debug &Debug::setResponse(http::Response* response)
 {
 	this->response = response;
+	return *this;
+}
+
+Debug &Debug::setView(string view)
+{
+	this->view = view;
+	return *this;
 }
 
 void Debug::compile()

@@ -40,4 +40,3 @@ using namespace std;
 #include "unix.h"
 #include "string.h"
 #include "http.h"
-#include "app.h"

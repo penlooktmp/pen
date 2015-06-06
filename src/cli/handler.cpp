@@ -27,13 +27,14 @@
 
 #include <sys/core.h>
 #include <cli/handler.h>
-#include <http/http.h>
+#include <app/debug.h>
 
 using namespace std;
 using namespace http;
 
 namespace cli {
-
+	
+	// Application structure generator
 	void Handler::create(string name)
 	{
 		//Creator creator = Creator(name);
@@ -55,18 +56,50 @@ namespace cli {
 	// Build application
 	void Handler::build(string app)
 	{	
-		makeProduction(app);
+		executeCommand("pkill pendev");
+		string cwd = getCwd();
+		if (app.length() > 0) {
+			cwd += "/" + app;
+		}
+		changeDirectory(cwd + "/build/production");
+		executeCommand("./config.sh");
+		int ret = executeCommand("./build.sh");
+		cout << ret;
+		cout.flush();
 	}
 	
 	// Run application under hot-code reload
 	void Handler::run(string app)
 	{	
-		makeDevelopment(app);
+		string cwd = getCwd();
+		
+		if (app.length() > 0) {
+			cwd += "/" + app;
+		}
+		
+		changeDirectory(cwd + "/build/development");		
+		executeCommand("sync && echo 3 > /proc/sys/vm/drop_caches");
+		executeCommand("pkill pendev");
+		executeCommand("service nginx stop");
+		executeCommand("./prepare.sh");
+		
+		HttpRequest proxyRequest;
+		HttpResponse proxyResponse;
+		Http server(proxyRequest, proxyResponse);
+		
+		server.get("/", [](Request* _request, Response* _response) {
+			Debug debug;
+			debug.setResponse(_response)
+				 .setView("view")
+				 .compile();
+		});
+		server.listen(80);
 	}
 	
+	// Cli documentation
 	void Handler::help(string doc)
 	{
 		cout << "Pengo help !";
 	}
- 
+
 }

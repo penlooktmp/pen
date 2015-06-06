@@ -25,21 +25,20 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include "cli/handler.h"
-#include "cli/cmd.h"
+#include <cli/handler.h>
 
 using namespace cli;
 
 int main(int argc, char* argv[]) 
 {
-	Handler func;
 	Cmd pen = Cmd(argc, argv);
-	pen.add("new",   "Create new application",         (cli_callback) func.create)
-	   .add("run",   "Run app under hot-code reload",  (cli_callback) func.run)
-	   .add("build", "Build app for production mode",  (cli_callback) func.build)
-	   .add("debug", "Debug application components",   (cli_callback) func.debug)
-	   .add("test",  "Run unit or benchmark testing",  (cli_callback) func.test)
-	   .add("help",  "Pengo show help for options",    (cli_callback) func.help)
+	Handler func;
+	pen.addOption("new",   "Create new application",         (cli_callback) func.create)
+	   .addOption("run",   "Run app under hot-code reload",  (cli_callback) func.run)
+	   .addOption("build", "Build app for production mode",  (cli_callback) func.build)
+	   .addOption("debug", "Debug application components",   (cli_callback) func.debug)
+	   .addOption("test",  "Run unit or benchmark testing",  (cli_callback) func.test)
+	   .addOption("help",  "Pengo show help for options",    (cli_callback) func.help)
 	   .run();
 	return 0;
 }

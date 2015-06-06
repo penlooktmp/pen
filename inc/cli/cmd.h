@@ -39,12 +39,15 @@ namespace cli {
     class Cmd {
     private:
         map<string, Option> options;
+        string view;
         int argc;
         char **argv;
 
     public:
-        Cmd(int argc, char* argv[]);
-        Cmd &add(string name, string desc, cli_callback func);
+        Cmd(int, char* argv[]);
+        Cmd &addOption(string, string, cli_callback);
+        Cmd &setView(string);
+        string getView();
         void run();
         void runOption(string name, string param);
     };

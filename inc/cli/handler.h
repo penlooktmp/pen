@@ -25,18 +25,18 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <iostream>
-
+#include <cli/cmd.h>
+	
 using namespace std;
 
 namespace cli {
 	class Handler {
-	public:
-		static void create(string component);
-		static void test(string type);
-		static void debug(string app);
-		static void build(string app);
-		static void run(string app);
-		static void help(string doc);
+		public:
+			static void create(string);
+			static void test(string);
+			static void debug(string);
+			static void build(string);
+			static void run(string);
+			static void help(string);
 	};
 }

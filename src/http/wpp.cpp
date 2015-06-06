@@ -2,86 +2,15 @@
 /**
   C++ Minimal Web Server from Web++
 */
-#include <dirent.h>
-#include <netinet/in.h>
-#include <sys/stat.h>
-#include <limits.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <algorithm>
-#include <map>
-#include <vector>
-#include <fstream>
-#include <sstream>
-#include <iostream>
 
-#define SERVER_NAME "Web++"
-#define SERVER_VERSION "1.0.1"
-
-#define BUFSIZE 8096
-
-using namespace std;
+#include <http/wpp.h>
 
 namespace http {
-    class Request {
-        public:
-            Request() {
-
-            }
-            std::string method;
-            std::string path;
-            std::string params;
-            map<string, string> headers;
-            map<string, string> query;
-            map<string, string> cookies;
-
-        private:
-
-    };
-
-    class Response {
-        public:
-            Response() {
-                code = 200;
-                phrase = "OK";
-                type = "text/html";
-                body << "";
-                
-                // set current date and time for "Date: " header
-                char buffer[100];
-                time_t now = time(0);
-                struct tm tstruct = *gmtime(&now);
-                strftime(buffer, sizeof(buffer), "%a, %d %b %Y %H:%M:%S %Z", &tstruct);
-                date = buffer;
-            }
-            int code;
-            string phrase;
-            string type;
-            string date;
-            stringstream body;
-        
-            void send(string str) {
-               body << str;
-            };
-            void send(const char* str) {
-               body << str;
-            };
-        private:
-    };
-
-    class Exception : public std::exception {
-        public:
-            Exception() : pMessage("") {}
-            Exception(const char* pStr) : pMessage(pStr) {}
-            const char* what() const throw () { return pMessage; }
-        private:
-            const char* pMessage;
-    //        const int pCode;
-    };
-
+    
     map<string, string> mime;
-
+    void list_dir(Request* req, Response* res);
+    std::vector<Route> ROUTES;
+    
     void list_dir(Request* req, Response* res) {
         unsigned isFolder = 0x4;
         struct dirent *dir;
@@ -277,34 +206,6 @@ namespace http {
         free(base_path);
     }
 
-    struct Route {
-        string path;
-        string method;
-        void (*callback)(Request*, Response*);
-        string params;
-    };
-
-    std::vector<Route> ROUTES;
-
-    class Server {
-        public:
-            void get(string, void (*callback)(Request*, Response*));
-            void post(string, void (*callback)(Request*, Response*));
-            void all(string, void (*callback)(Request*, Response*));
-            void get(string, string);
-            void post(string, string);
-            void all(string, string);
-            bool start(int, string);
-            bool start(int);
-            bool start();
-        private:
-            void* main_loop(void*);
-            void parse_headers(char*, Request*, Response*);
-            bool match_route(Request*, Response*);
-            string trim(string);
-            void split(string, string, int, vector<string>*);
-    };
-
     void Server::split(string str, string separator, int max, vector<string>* results){
         int i = 0;
         size_t found = str.find_first_of(separator);
@@ -394,7 +295,7 @@ namespace http {
         }
     }
 
-    void Server::get(string path, void (*callback)(Request*, Response*)) {
+    void Server::get(string path, http_callback callback) {
         Route r = {
              path,
              "GET",
@@ -404,7 +305,7 @@ namespace http {
         ROUTES.push_back(r);
     }
 
-    void Server::post(string path, void (*callback)(Request*, Response*)) {
+    void Server::post(string path, http_callback callback) {
         Route r = {
              path,
              "POST",
@@ -414,7 +315,7 @@ namespace http {
         ROUTES.push_back(r);
     }
 
-    void Server::all(string path, void (*callback)(Request*, Response*)) {
+    void Server::all(string path, http_callback callback) {
         Route r = {
              path,
              "ALL",
@@ -539,8 +440,8 @@ namespace http {
 
             // append extra crlf to indicate start of body
             strcat(header_buffer, "\r\n");
-            std::cout << write(newsc, header_buffer, strlen(header_buffer));
-            std::cout << write(newsc, body.c_str(), body_len);
+            write(newsc, header_buffer, strlen(header_buffer));
+            write(newsc, body.c_str(), body_len);
         }
     }
 

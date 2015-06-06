@@ -26,6 +26,7 @@
  */
 
 #include <cli/cmd.h>
+#include <sys/core.h>
 
 namespace cli
 {
@@ -36,7 +37,7 @@ namespace cli
 		argv = _argv;
 	}
 	
-	Cmd &Cmd::add(string name, string desc, cli_callback func)
+	Cmd &Cmd::addOption(string name, string desc, cli_callback func)
 	{
 		Option option;
 		option.setName(name)

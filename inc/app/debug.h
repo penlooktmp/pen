@@ -34,6 +34,7 @@ class Debug
 
 	private:
 		string buffer;
+		string view;
 		vector<string> bufferStack;
 		bool breakPoint;
 		http::Response* response;
@@ -44,9 +45,12 @@ class Debug
 		string getBuffer();
 		void outputBuffer();
 		vector<string> getBufferStack();
+		
+		Debug &setResponse(http::Response*);
+		Debug &setView(string);
+		
 		string getDebugInfo();
 		string renderDebugInfo(string, int , int, string);
-		void setResponse(http::Response*);
 		void compile();
 		bool isError();
 		bool isEnd();

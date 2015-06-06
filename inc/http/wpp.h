@@ -13,18 +13,20 @@
 #include <unistd.h>
 #include <algorithm>
 #include <map>
+#include <functional>
 #include <vector>
 #include <fstream>
 #include <sstream>
 
 #define SERVER_NAME "Pengo"
 #define SERVER_VERSION "1.0.1"
-#define http_callback void (*callback)(Request*, Response*)
+#define http_callback function<void(Request*, Response*)>
 #define BUFSIZE 8096
 
 using namespace std;
 
 namespace http {
+    
     class Request {
         public:
             std::string method;
@@ -74,20 +76,18 @@ namespace http {
             const char* pMessage;
     };
 
-    void list_dir(Request* req, Response* res);
-
     struct Route {
         string path;
         string method;
-        http_callback;
+        http_callback callback;
         string params;
     };
 
     class Server {
         public:
-            void get(string,  http_callback);
-            void post(string, http_callback);
-            void all(string,  http_callback);
+            void get(string,  http_callback callback);
+            void post(string, http_callback callback);
+            void all(string,  http_callback callback);
             void get(string,  string);
             void post(string, string);
             void all(string,  string);

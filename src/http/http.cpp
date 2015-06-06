@@ -49,16 +49,16 @@ namespace http {
     void Http::process()
     {
         for (int i=0; i<=10; i++) {
-           response.body += "<li>AVC</li>";
+           response.body += "<li>NTL.....</li>";
         }
     }
 
-    void Http::get(string router, http_callback)
+    void Http::get(string router, http_callback callback)
     {
         server.get(router, callback);
     }
 
-    void Http::post(string router, http_callback)
+    void Http::post(string router, http_callback callback)
     {
         server.get(router, callback);
     }
