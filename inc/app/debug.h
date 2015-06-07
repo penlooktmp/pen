@@ -27,6 +27,7 @@
 
 #include <sys/core.h>
 #include <http/http.h>
+#include <view/template.h>
 
 class Debug
 {
@@ -34,7 +35,7 @@ class Debug
 
 	private:
 		string buffer;
-		string view;
+		string viewPath;
 		vector<string> bufferStack;
 		bool breakPoint;
 		http::Response* response;
@@ -47,7 +48,7 @@ class Debug
 		vector<string> getBufferStack();
 		
 		Debug &setResponse(http::Response*);
-		Debug &setView(string);
+		Debug &setViewPath(string);
 		
 		string getDebugInfo();
 		string renderDebugInfo(string, int , int, string);

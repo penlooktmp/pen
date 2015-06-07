@@ -25,21 +25,40 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <unistd.h>
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <cstdio>
-#include <map>
-#include <pthread.h>
-#include <regex>
-#include <sys/param.h>
-#include <net/rest.h>
-#include <vector>
-#include <initializer_list>
+#include <view/template.h>
 
-using namespace std;
+Template &Template::setPath(string path)
+{
+	this->path = path;
+	return *this;
+}
 
-#include "unix.h"
-#include "string.h"
-#include "http.h"
+Template &Template::setView(string view)
+{
+	this->view = view;
+	return *this;
+}
+
+Template &Template::setData(map<string, string> data)
+{
+	this->data = data;
+	return *this;
+}
+
+string Template::render()
+{
+	string voltPath = this->path + "/" + this->view + ".html";
+	string line, content;
+	ifstream voltFile(voltPath);
+	
+	if (voltFile.is_open())
+	{
+		while (getline (voltFile, line) )
+		{
+			content += line;
+		}
+		voltFile.close();
+	} else content = "Unable to open file";
+
+	return content;
+}

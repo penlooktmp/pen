@@ -88,7 +88,15 @@ string Debug::getDebugInfo()
 
 string Debug::renderDebugInfo(string file, int line, int col, string err)
 {
-	return file + " -- " + to_string(line);
+	map<string, string> data;
+	Template view;
+
+	data["title"] = "12345";
+	
+	return  view.setPath(this->viewPath)
+				.setView("debug/error")
+				.setData(data)
+				.render();
 }
 
 Debug &Debug::setResponse(http::Response* response)
@@ -97,9 +105,9 @@ Debug &Debug::setResponse(http::Response* response)
 	return *this;
 }
 
-Debug &Debug::setView(string view)
+Debug &Debug::setViewPath(string viewPath)
 {
-	this->view = view;
+	this->viewPath = viewPath;
 	return *this;
 }
 

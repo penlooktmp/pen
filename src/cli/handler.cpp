@@ -87,12 +87,13 @@ namespace cli {
 		HttpResponse proxyResponse;
 		Http server(proxyRequest, proxyResponse);
 		
-		server.get("/", [](Request* _request, Response* _response) {
+		server.get("/", [&cwd](Request* _request, Response* _response) {
 			Debug debug;
 			debug.setResponse(_response)
-				 .setView("view")
+				 .setViewPath(cwd + "/view")
 				 .compile();
 		});
+
 		server.listen(80);
 	}
 	

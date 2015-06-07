@@ -4,5 +4,14 @@
 	</head>
 	<body>
 		{{ message }}
+		<ul>
+			{% for item in list %}
+			<li>{{ item.name | trans }}</li>
+			{% endfor %}
+			
+			{% if a==2 and b==4 %}
+				
+			{% endif %}
+		</ul>
 	</body>
 </html>

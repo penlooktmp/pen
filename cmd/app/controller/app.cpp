@@ -3,7 +3,7 @@
 using namespace http;
 
 @Controller Base
-App() 
+App()
 {
 	// Controller constructor
 }
@@ -16,9 +16,14 @@ Before()
 
 @Route /index/:uid/:password
 @Method GET POST
+@Type JSON
 Index(int uid, string password)
 {
-	$title = "Index Page";
+	if abbb {
+		$abc = 1;
+	}
+
+	$tmp= "Index Page";
 	$id = uid;
 	$password = password;
 }
