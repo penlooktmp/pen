@@ -16,7 +16,7 @@ Before()
 
 @Route /index/:uid/:password
 @Method GET POST
-@Type JSON
+@Type HTML
 Index(int uid, string password)
 {
 	

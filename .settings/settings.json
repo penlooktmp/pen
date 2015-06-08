@@ -1,7 +1,7 @@
 // Place your settings in this file to overwrite default and user settings.
 {
 	"editor.fontFamily": "",
-	"editor.fontSize": 19,
+	"editor.fontSize": 18,
 	"editor.lineHeight": 34,
 	"editor.tabSize": 4,
 	"editor.formatOnType": true
