@@ -25,8 +25,12 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-bool isMatch(string, string);
-string trimLine(string);
-string trimSpace(string);
-int indexOf(string, string);
-vector<string> split(string, char);
+#include <http/util.h>
+
+namespace http {
+	string getContent(string url)
+	{
+		RestClient::response response = RestClient::get(url);
+		return response.body;
+	}
+}

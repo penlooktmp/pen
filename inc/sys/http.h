@@ -1,1 +1,0 @@
-string getHttpContent(string);

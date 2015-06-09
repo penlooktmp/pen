@@ -34,22 +34,30 @@ class Template:
 	def __init__ (self):
 		self.templateFilePath = ""
 		self.templateCPP = """
-			// AUTO GENERATED
-			#include <iostream>
-			#include <string>
-			using namespace std;
-			namespace View {
-				void {{ fileName }}(map<string, string> data)
-				{
-					{{ htmlContent }}
-				}
-			}
+// AUTO GENERATED
+#include <iostream>
+#include <map>
+#include <string>
+#include <typeinfo>
+using namespace std;
+namespace View {
+
+template <typename T>
+string output(T variable) {
+	if (typeid(variable).name() == "PKc") {
+		return variable;
+	} else return "Unknown type";
+}
+
+void {{ fileName }}(map<string, string> data) {
+{{ htmlContent }}
+}}
 		"""
-		
+
 	def setTemplate(self, filePath):
-		self.templateFilePath = filePath 
+		self.templateFilePath = filePath
 		return self
-		
+
 	def renderString(self, template, data):
 		content = ''
 		start = 0
@@ -57,7 +65,7 @@ class Template:
 		for match in re.finditer(r"\{\{[a-zA-Z0-9_\s]+\}\}", template):
 			end = match.start()
 			if start < end:
-				content += template[start:end];
+				content += template[start:end]
 			start = end + 1
 			var_block = template[match.start():match.end()]
 			var = re.split("\s+", var_block)[1]
@@ -66,22 +74,31 @@ class Template:
 			start = match.end()
 		content += template[start:]
 		return content
+
+	def renderVolt(self, template):
+		return template
 	
 	def compileTemplate(self, template):
-		self.renderString(template)
-		content = ''
+		template = self.renderVolt(template)
 		lines = re.split("\n", template)
+		content = 'cout <<'
 		for line in lines:
-			line = line.replace('\n', '')
-			content += 'cout << "' + line + '";' + "\n"
+			line = line.strip()
+			content += '"' + line + '\\n"\n\r<<'
+		content += '"";'
 		return content
 
 	def render(self, template):
 		return self.renderString(self.templateCPP, {
 			'fileName' : 'index_html',
 			'htmlContent' : self.compileTemplate(template)
-		})
-	
+		}) + """\
+int main() {
+	map<string, string> data;
+	View::index_html(data);
+	return 0;
+}"""
+
 	def compile(self):
 		cpp = open(self.templateFilePath + ".cpp", 'w')
 		html = ''

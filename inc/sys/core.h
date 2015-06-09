@@ -34,7 +34,6 @@
 #include <pthread.h>
 #include <regex>
 #include <sys/param.h>
-#include <net/rest.h>
 #include <vector>
 #include <initializer_list>
 
@@ -42,4 +41,4 @@ using namespace std;
 
 #include "unix.h"
 #include "string.h"
-#include "http.h"
+

@@ -26,9 +26,8 @@
  */
 
 #include <sys/core.h>
+#include <http/rest.h>
 
-string getHttpContent(string url)
-{
-	RestClient::response response = RestClient::get(url);
-	return response.body;
+namespace http {
+	string getContent(string);
 }

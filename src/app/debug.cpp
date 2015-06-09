@@ -25,8 +25,9 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <app/debug.h>
 #include <sys/core.h>
+#include <app/debug.h>
+#include <http/util.h>
 
 const int Debug::CMD_BUFFER = 1024;
 
@@ -70,7 +71,7 @@ bool Debug::isError()
 bool Debug::isEnd()
 {
 	if (this->buffer == "Listening on port 8080") {
-		this->response->body << getHttpContent("http://localhost:8080/");
+		this->response->body << http::getContent("http://localhost:8080/");
 		return true;
 	}
 	return false;
