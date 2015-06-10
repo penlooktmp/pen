@@ -1,5 +1,5 @@
 python template.py
 cd template
-g++ index.cpp
+g++ -I../../inc index.cpp
 ./a.out
 echo -e "\n"

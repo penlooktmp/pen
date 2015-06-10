@@ -109,7 +109,7 @@ int main() {
 			
 view = Template()
 view.setTemplate("template/index")
-view.compile();
+view.compile()
 
 
 		
