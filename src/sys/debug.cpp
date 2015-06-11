@@ -26,7 +26,7 @@
  */
 
 #include <sys/core.h>
-#include <app/debug.h>
+#include <sys/debug.h>
 #include <http/util.h>
 
 const int Debug::CMD_BUFFER = 1024;

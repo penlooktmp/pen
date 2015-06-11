@@ -26,6 +26,7 @@
  */
 
 #include <http/http.h>
+#include <app/controller.h>
 
 namespace http {
     
@@ -45,12 +46,11 @@ namespace http {
     {
         return this->response;
     }
-    
+
     void Http::process()
     {
-        for (int i=0; i<=10; i++) {
-           response.body += "<li>ABCD</li>";
-        }
+        // Change context from web server to application
+        app_main(this->getRequest(), this->getResponse());
     }
 
     void Http::get(string router, http_callback callback)

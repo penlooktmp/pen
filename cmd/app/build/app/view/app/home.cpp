@@ -1,19 +1,16 @@
 // AUTO GENERATED
 #include <sys/core.h>
 namespace View {
-void index_html(map<string, string> data) {
+void app_home(map<string, string> data) {
 cout <<"<html>\n"
 	 <<"<title>{{ title }}</title>\n"
 	 <<"<head>\n"
 	 <<"</head>\n"
 	 <<"<body>\n"
-	 <<"{{ message }}\n"
+	 <<"<h2>{{ username }}</h2>\n"
+	 <<"<h3>{{ password }}</h3>\n"
+	 <<"<img src="{{ image }}" width="400px" />\n"
 	 <<"</body>\n"
 	 <<"</html>\n"
 	 <<"";
 }}
-int main() {
-	map<string, string> data;
-	View::index_html(data);
-	return 0;
-}

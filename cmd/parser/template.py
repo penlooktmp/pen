@@ -27,35 +27,28 @@
 
 # Template parser
 
-import  re
+import re      # Regular expression
+import os      # Operating system
 
 class Template:
 	
 	def __init__ (self):
 		self.templateFilePath = ""
-		self.templateCPP = """
-// AUTO GENERATED
-#include <iostream>
-#include <map>
-#include <string>
-#include <typeinfo>
-using namespace std;
+		self.templateCPP = """// AUTO GENERATED
+#include <sys/core.h>
 namespace View {
-
-template <typename T>
-string output(T variable) {
-	if (typeid(variable).name() == "PKc") {
-		return variable;
-	} else return "Unknown type";
-}
-
 void {{ fileName }}(map<string, string> data) {
 {{ htmlContent }}
 }}
-		"""
+"""
+		self.templateMain = ""
 
-	def setTemplate(self, filePath):
-		self.templateFilePath = filePath
+	def setInput(self, inputViewFolder):
+		self.Input = inputViewFolder
+		return self
+	
+	def setOutput(self, outputViewFolder):
+		self.Output = outputViewFolder
 		return self
 
 	def renderString(self, template, data):
@@ -84,32 +77,58 @@ void {{ fileName }}(map<string, string> data) {
 		content = 'cout <<'
 		for line in lines:
 			line = line.strip()
-			content += '"' + line + '\\n"\n\r<<'
+			content += '"' + line + '\\n"\n\t <<'
 		content += '"";'
 		return content
 
-	def render(self, template):
+	def render(self, template, relativePath):
+		fileName = relativePath.replace("/", "_").split('.')[0]
 		return self.renderString(self.templateCPP, {
-			'fileName' : 'index_html',
+			'fileName' : fileName,
 			'htmlContent' : self.compileTemplate(template)
-		}) + """\
-int main() {
-	map<string, string> data;
-	View::index_html(data);
-	return 0;
-}"""
+		}) + self.templateMain
+
+	def compileFile(self, target, destination):
+		destinationAbsolutePath = self.Output + destination
+		if not os.path.exists(os.path.dirname(destinationAbsolutePath)):
+			os.makedirs(os.path.dirname(destinationAbsolutePath))
+		cpp = open(destinationAbsolutePath, 'w')
+		html = ''
+		with open(target, "r") as lines:
+			for line in lines:
+				html += line
+		cpp.write(self.render(html, destination))
+
+	def scanDirectory(self, root, directory):
+		listFiles = os.listdir(root)
+		for item in listFiles:
+			filePath = root + "/" + item
+			if os.path.isfile(filePath):
+				item = item.split('.')[0] + ".cpp"
+				self.compileFile(filePath, directory + item)
+			else:
+				directory += item + "/"
+				self.scanDirectory(filePath, directory)
+				newDirectory = ""
+				arrDirectory = directory.split('/')
+				for index in range(0, len(arrDirectory) - 2):
+					newDirectory += arrDirectory[index] + "/"
+				directory = newDirectory
 
 	def compile(self):
-		cpp = open(self.templateFilePath + ".cpp", 'w')
-		html = ''
-		with open(self.templateFilePath + ".html", "r") as lines:
-			for line in lines:
-				html += line;
-		cpp.write(self.render(html))
-			
+		self.Output += "/"
+		self.scanDirectory(self.Input, "")
+		#for (dirpath, dirnames, filenames) in os.walk(self.Input):
+		#	print dirnames
+			#for item in filenames:
+			#	print dirpath + "/" + item
+		#for item in self.Input
+		
+
 view = Template()
-view.setTemplate("template/index")
-view.compile()
+view.setInput("../app/view") \
+	.setOutput("../app/build/app/view") \
+	.compile()
 
 
 		

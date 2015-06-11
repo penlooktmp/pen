@@ -68,19 +68,14 @@ pen test benchmark
 
 + Include library
 ```
-@import (
-	iostream
-	string
-	http
-)
+#include <iostream>
+#include <string>
 ```
 
 + Using namespace
 ```
-@namespace (
-	std
-	http
-)
+using namespace std;
+using namespace http;
 ```
 
 + Controller declaration

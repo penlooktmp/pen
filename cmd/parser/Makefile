@@ -24,7 +24,7 @@
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
 
-PROG    = pen
+PROG    = view
 TEST	= ptest
 CC      = g++
 CCVER 	= c++0x
@@ -32,20 +32,20 @@ BUILD   = -std=$(CCVER) -Wall -O3
 DEBUG   = -std=$(CCVER) -pipe -g0 -fno-inline -Wall -pthread
 TESTF	= -std=$(CCVER) -g -L/opt/gtest/lib -lgtest -lgtest_main -lpthread -I/opt/gtest/include
 EXECUTE = /usr/bin/$(PROG)
-INCLUDE = ../../../inc
+INCLUDE = ../../inc
 SOURCED = src
-OBJECTD = ../obj
-SOURCES = $(shell find ./ ../../../$(SOURCED) -name *.cpp)
+OBJECTD = obj
+SOURCES = $(shell find template -name *.cpp)
 TESTS   = $(shell find ./test -name *.cpp )
 OBJECTS = $(addprefix $(OBJECTD)/, $(patsubst %.cpp, %.o, $(SOURCES)))
 BINARY = $(OBJECTD)/$(SOURCED)/$(PROG)
 OBJECTT = $(TESTS:.cpp=.o)
 FLAGS   = $(BUILD)
 
-all: $(PROG)
+all: $(OBJECTS)
 
-$(PROG): $(OBJECTS)
-	$(CC) $(OBJECTS) -o $(BINARY) -lcurl -lpthread
+#$(PROG): $(OBJECTS)
+#	$(CC) $(OBJECTS) -o $(BINARY) -lcurl -lpthread
 
 $(OBJECTD)/%.o: %.cpp
 	$(CC) -c $(FLAGS) -I$(INCLUDE) $< -o $@
@@ -55,9 +55,8 @@ $(OBJECTS): mk
 mk:
 	for file in $(OBJECTS) ; do if [ ! -e $$file ]; then mkdir -p $$file && rm -rf $$file; fi done
 
-debug:
+template:
 	make SOURCED="$(SOURCED)$(path)" FLAGS="$(DEBUG)"
-	cp -f $(BINARY) $(EXECUTE)
 
 install:
 	cp -f $(BINARY) $(EXECUTE)
@@ -74,4 +73,4 @@ clean:
 remove:
 	rm -rf $(EXECUTE)
 
-.PHONY: all clean debug
+.PHONY: all clean template

@@ -1,10 +1,11 @@
-# pengo [![GoDoc](https://img.shields.io/badge/doc-reference-blue.svg)](DOCUMENTATION.md) [![Build Status](https://travis-ci.org/penlook/pengo.svg)](https://travis-ci.org/penlook/pengo) [![Coverage Status](https://coveralls.io/repos/penlook/pengo/badge.svg?branch=master)](https://coveralls.io/r/penlook/pengo?branch=master)
+# pen [![GoDoc](https://img.shields.io/badge/doc-reference-blue.svg)](DOCUMENTATION.md) [![Build Status](https://travis-ci.org/penlook/pengo.svg)](https://travis-ci.org/penlook/pengo) [![Coverage Status](https://coveralls.io/repos/penlook/pengo/badge.svg?branch=master)](https://coveralls.io/r/penlook/pengo?branch=master)
 
-
-### Pen++ syntax
-- You can use Go mixed with Pen++ syntax to create web application faster, more meaningful
-- Eliminating the complexity of the Go syntax and deep integrated with framework
-- All of your code will be compiled into Go as you wrote it.
+### Installation
+```bash
+./configure
+make
+make install
+```
 
 ###Roadmap
 
@@ -18,7 +19,6 @@
 - Multiple languages (implementing)
 - Documentation (not started)
 - Flow Tracking (testing)
-- Extend framework by using C (implementing)
 - Annotation Parser (not started)
 - Rest API (not started)
 
@@ -48,8 +48,3 @@ This is open source project for community development under GNU Affero General P
 Authors
 	- Loi Nguyen <loint@penlook.com>
 	- and contributors
-
-
-
-
-

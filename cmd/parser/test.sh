@@ -1,5 +1,3 @@
 python template.py
-cd template
-g++ -I../../inc index.cpp
-./a.out
+make template
 echo -e "\n"

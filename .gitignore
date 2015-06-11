@@ -7,3 +7,11 @@
 /cmd/app/build/development/obj/*
 /cmd/app/build/development/tmp
 /cmd/app/build/production/nginx/*
+/aclocal.m4
+/compile
+/config.h.in
+/configure
+/install-sh
+/Makefile.in
+/missing
+.settings
