@@ -26,8 +26,8 @@
  */
 
 #include <sys/core.h>
+#include <sys/debug.h>
 #include <cli/handler.h>
-#include <app/debug.h>
 
 using namespace std;
 using namespace http;

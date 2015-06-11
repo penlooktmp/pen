@@ -1,8 +1,5 @@
 ngx_addon_name=ngx_http_app_module
 HTTP_MODULES="$HTTP_MODULES ngx_http_app_module"
 CFLAGS="$CFLAGS"
-CORE_LINK="$CORE_LINK -lcurl"
-src_dir="../../../../../src"
-src=`find $src_dir name *.cpp`
+CORE_LINK="$CORE_LINK -lcurl -lpen"
 NGX_ADDON_SRCS="$NGX_ADDON_SRCS $src $ngx_addon_dir/ngx_http_app_module.cpp"
-CORE_INCS="$CORE_INCS ../../../../../inc"

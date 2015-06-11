@@ -24,28 +24,28 @@
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
 
-PROG    = pen
-TEST	= ptest
+LIB     = pen
 CC      = g++
 CCVER 	= c++0x
-BUILD   = -std=$(CCVER) -Wall -O3
-DEBUG   = -std=$(CCVER) -pipe -g0 -fno-inline -Wall -pthread
+BUILD   = -std=$(CCVER) -Wall -O3 -fPIC
+DEBUG   = -std=$(CCVER) -pipe -g0 -fno-inline -Wall -pthread -fPIC
 TESTF	= -std=$(CCVER) -g -L/opt/gtest/lib -lgtest -lgtest_main -lpthread -I/opt/gtest/include
-EXECUTE = /usr/bin/$(PROG)
-INCLUDE = /usr/lib/$(PROG)
-SOURCED = cmd
+EXECUTE = /usr/bin/$(LIB)
+LIBSYS  = /usr/lib
+INCLUDE = inc
+SOURCED = src
 OBJECTD = obj
 SOURCES = $(shell find $(SOURCED) -name *.cpp)
 TESTS   = $(shell find ./test -name *.cpp )
 OBJECTS = $(addprefix $(OBJECTD)/, $(patsubst %.cpp, %.o, $(SOURCES)))
-BINARY = $(OBJECTD)/$(SOURCED)/$(PROG)
+BINARY = $(OBJECTD)/$(SOURCED)/$(LIB)
 OBJECTT = $(TESTS:.cpp=.o)
 FLAGS   = $(BUILD)
 
-all: $(PROG)
+all: $(LIB)
 
-$(PROG): $(OBJECTS)
-	$(CC) $(OBJECTS) -o $(BINARY) -lcurl -lpthread -lpen
+$(LIB): $(OBJECTS)
+	$(CC) $(OBJECTS) -fPIC -shared -o lib$(LIB).so -lcurl -lpthread
 
 $(OBJECTD)/%.o: %.cpp
 	$(CC) -c $(FLAGS) -I$(INCLUDE) $< -o $@
@@ -57,16 +57,19 @@ mk:
 
 debug:
 	make SOURCED="$(SOURCED)$(path)" FLAGS="$(DEBUG)"
-	cp -f $(BINARY) $(EXECUTE)
+	mkdir -p $(LIBSYS)/$(LIB)
+	cp -rf $(INCLUDE)/* $(LIBSYS)/$(LIB)
+	mv -f lib$(LIB).so $(LIBSYS)/
+	ldconfig
 
 install:
 	cp -f $(BINARY) $(EXECUTE)
 
 test:
-	make OBJECTS="$(OBJECTT)" FLAGS="$(TESTF)" PROG="$(TEST)"
+	make OBJECTS="$(OBJECTT)" FLAGS="$(TESTF)" LIB="$(TEST)"
 	./$(TEST)
 	rm -rf ./$(TEST)
-		
+
 clean:
 	rm -rf $(OBJECTS)
 	rm -rf $(BINARY)

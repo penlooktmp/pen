@@ -25,33 +25,11 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <iostream>
-#include <map>
-#include <http/wpp.h>
-#include <http/request.h>
-#include <http/response.h>
-#include <http/router.h>
+#include <http/http.h>
 
-using namespace std;
+using namespace http;
 
-namespace http {
-    class Http {
-    private:
-        Server server;
-        HttpRequest request;
-        HttpResponse response;
-
-    public:
-        // Self server
-        void get(string, http_callback);
-        void post(string, http_callback);
-        void listen(int port = 80);
-
-        // Handle from Nginx
-        Http(HttpRequest, HttpResponse);
-        HttpRequest getRequest();
-        HttpResponse getResponse();
-        void process();
-    };
-
+namespace app {
+	class View {
+	}
 }

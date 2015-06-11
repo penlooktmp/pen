@@ -2,7 +2,6 @@
 
 ### Installation
 ```bash
-./configure
 make
 make install
 ```

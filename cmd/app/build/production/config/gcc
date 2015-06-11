@@ -182,6 +182,6 @@ CFLAGS="$CFLAGS -g"
 #CFLAGS="$CFLAGS -g -gstabs"
 
 if [ ".$CPP" = "." ]; then
-    I="-I src/core -I src/event -I src/event/modules -I src/os/unix -I ../../../../../inc -I objs -I src/http -I src/http/modules"
+    I="-I src/core -I src/event -I src/event/modules -I src/os/unix -I /usr/lib/pen -I objs -I src/http -I src/http/modules"
     CPP="g++ -c -std=c++11 $I"
 fi

@@ -27,49 +27,17 @@
 
 #include <http/http.h>
 
-namespace http {
-    
-    Http::Http(HttpRequest request, HttpResponse response)
-    {
-        this->request = request;
-        this->response = response;
-        this->response.body = "";
-    }
-    
-    HttpRequest Http::getRequest()
-    {
-        return this->request;
-    }
+using namespace http;
 
-    HttpResponse Http::getResponse()
-    {
-        return this->response;
-    }
-
-    void Http::process()
-    {
-        // Change context from web server to application
-        //app_main(this->getRequest(), this->getResponse());
-    }
-
-    void Http::get(string router, http_callback callback)
-    {
-        server.get(router, callback);
-    }
-
-    void Http::post(string router, http_callback callback)
-    {
-        server.get(router, callback);
-    }
-
-    void Http::listen(int port)
-    {
-        try {
-            cout << "Listening on port " << port << endl;
-            server.start(port);
-        } catch(Exception e) {
-            cerr << "WebServer: " << e.what() << endl;
-        }
-    }
-
+namespace app {
+	class App {
+		private:
+			HttpRequest request;
+			HttpResponse response;
+		public:
+			void setRequest(HttpRequest);
+			HttpRequest getRequest();
+			void setResponse(HttpResponse);
+			HttpResponse getResponse();
+	};
 }

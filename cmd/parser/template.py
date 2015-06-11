@@ -123,7 +123,6 @@ void {{ fileName }}(map<string, string> data) {
 			#for item in filenames:
 			#	print dirpath + "/" + item
 		#for item in self.Input
-		
 
 view = Template()
 view.setInput("../app/view") \
