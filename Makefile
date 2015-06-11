@@ -36,7 +36,7 @@ INCLUDE = inc
 SOURCED = src
 OBJECTD = obj
 SOURCES = $(shell find $(SOURCED) -name *.cpp)
-TESTS   = $(shell find ./test -name *.cpp )
+TESTS   = $(shell find ./test -name *.cpp)
 OBJECTS = $(addprefix $(OBJECTD)/, $(patsubst %.cpp, %.o, $(SOURCES)))
 BINARY = $(OBJECTD)/$(SOURCED)/$(LIB)
 OBJECTT = $(TESTS:.cpp=.o)
@@ -63,7 +63,9 @@ debug:
 	ldconfig
 
 install:
-	cp -f $(BINARY) $(EXECUTE)
+	cp -rf $(INCLUDE)/* $(LIBSYS)/$(LIB)
+	mv -f lib$(LIB).so $(LIBSYS)/
+	ldconfig
 
 test:
 	make OBJECTS="$(OBJECTT)" FLAGS="$(TESTF)" LIB="$(TEST)"
