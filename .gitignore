@@ -1,6 +1,7 @@
-cmd/obj/*
-obj/*
-
+obj
+build
+dist
+pen.egg-info
 /cmd/app/build/development/obj/*
 /cmd/app/build/development/tmp
 /cmd/app/build/production/nginx/*

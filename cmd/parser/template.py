@@ -120,8 +120,8 @@ void {{ fileName }}(map<string, string> data) {
 		self.scanDirectory(self.Input, "")
 
 view = Template()
-view.setInput("../app/view") \
-	.setOutput("../app/build/app/view") \
+view.setInput("../../app/view") \
+	.setOutput("../../app/build/app/view") \
 	.compile()
 
 
