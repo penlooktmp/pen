@@ -4,6 +4,8 @@
 
 - Install library and tools (pen command)
 ```bash
+git clone https://github.com/penlook/pen.git
+cd pen
 make && make install
 ```
 - Create new project (not implemented)
