@@ -22,22 +22,19 @@ pen build app
 ```bash
 pen test
 ```
-pen
-####
-
 
 ###Roadmap
 
-- MVC Architecture (testing)
-- Template engine (testing)
-- Hot-code reload (implementing)
-- Improve performance (implementing)
-- Command line for development (implementing)
-- Model engine (designing)
-- Unit - Integration test structure (implementing)
-- Multiple languages (implementing)
+- MVC Architecture (in progress)
+- Template engine (in progress)
+- Hot-code reload (in progress)
+- Improve performance (in progress)
+- Command line for development (in progress)
+- Model engine (not started)
+- Unit - Integration test structure (not started)
+- Multiple languages (not started)
 - Documentation (not started)
-- Flow Tracking (testing)
+- Flow Tracking (not started)
 - Annotation Parser (not started)
 - Rest API (not started)
 
@@ -49,7 +46,7 @@ pen
 - MongoDB    -   Document   - ODM  (not started)
 - CouchDB    -   Document          (not started)
 - Memcache   -   Key-value         (not started)
-- Redis      -   Key-value         (implemeting)
+- Redis      -   Key-value         (not started)
 - Cayley     -   Graph             (not started)
 
 ###Contributors
