@@ -28,7 +28,7 @@
 #include <http/http.h>
 
 namespace http {
-    
+
     Http::Http(HttpRequest request, HttpResponse response)
     {
         this->request = request;
@@ -36,9 +36,21 @@ namespace http {
         this->response.body = "";
     }
     
+    Http Http::setRequest(HttpRequest request)
+    {
+        this->request = request;
+        return *this;
+    }
+    
     HttpRequest Http::getRequest()
     {
         return this->request;
+    }
+
+    Http Http::setResponse(HttpResponse response)
+    {
+        this->response = response;
+        return *this;
     }
 
     HttpResponse Http::getResponse()
@@ -46,11 +58,14 @@ namespace http {
         return this->response;
     }
 
-    void Http::process()
+    Http Http::serveRequest()
     {
         // Change context from web server to application
         //app_main(this->getRequest(), this->getResponse());
-        this->response.body += "Pen Application";
+        //this->response->body += "Pen Application";
+        
+        this->response.body += "<html>Serve request</html>";
+        return *this;
     }
 
     void Http::get(string router, http_callback callback)

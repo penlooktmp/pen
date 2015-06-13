@@ -26,8 +26,3 @@
  */
 
 #include <app/app.h>
-
-namespace app {
-	
-	
-}

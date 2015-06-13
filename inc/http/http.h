@@ -49,9 +49,11 @@ namespace http {
 
         // Handle from Nginx
         Http(HttpRequest, HttpResponse);
+        Http setRequest(HttpRequest);
         HttpRequest getRequest();
+        Http setResponse(HttpResponse);
         HttpResponse getResponse();
-        void process();
+        Http serveRequest();
     };
 
 }

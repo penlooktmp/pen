@@ -25,29 +25,24 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <iostream>
-#include <app/app.h>
+#include <http/http.h>
 
-using namespace std;
 using namespace http;
 
-// Mockup Nginx server
+// Mockup Nginx server for development mode
 int main()
 {
 	HttpRequest proxyRequest;
 	HttpResponse proxyResponse;
-	Http server(proxyRequest, proxyResponse);
-	server.get("/", [](Request* _request, Response* _response) {
-		cout << "New request";
-		cout.flush();
+	Http http(proxyRequest, proxyResponse);
+	http.get("/", [](Request* _request, Response* _response) 
+	{
 		HttpRequest request;
 		HttpResponse response;
 		Http http(request, response);
-		http.process();
-		cout << http.getResponse().getBody();
-		cout.flush();
-		_response->body << http.getResponse().getBody();
+		_response->body << http.serveRequest().getResponse().getBody();
 	});
-	server.listen(8080);
+
+	http.listen(8080);
 	return 0;
 }
