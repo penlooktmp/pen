@@ -9,4 +9,4 @@ before_install:
   - export CXX="g++-5" CC="gcc-5"
   - chmod +x ./configure
 script:
-  - make && make install
+  - make && sudo make install

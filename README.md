@@ -6,7 +6,7 @@
 ```bash
 git clone https://github.com/penlook/pen.git
 cd pen
-make && make install
+make && sudo make install
 ```
 - Create new project (not implemented)
 ```bash
