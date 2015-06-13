@@ -3,8 +3,11 @@
 
 namespace app
 {
-	void start(App app)
+	void start(App* app)
 	{
-		//app.out << "PEN APPLICATION";
+		cout << "START";
+		app->out += "Start pen application";
+		cout << "DONE";
+		cout.flush();
 	}
 }

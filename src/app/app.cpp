@@ -31,7 +31,7 @@ namespace app {
 
 	App::App()
 	{
-		// TODO
+		this->out = "";
 	}
 	
 	App App::setHttpRequest(HttpRequest request)
@@ -91,11 +91,11 @@ namespace app {
 	
 	string App::getOutput()
 	{
-		return "<html>OUTPUT from Application";
+		return this->out;
 	}
 
 	App::~App()
 	{
-		//delete out;
+		// TODO
 	}
 }

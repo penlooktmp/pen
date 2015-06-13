@@ -44,10 +44,10 @@ namespace app {
 			Controller controller;
 			View view;
 			
-			string out;
-
 		public:
-		 	App();
+			string out;
+		 	
+			App();
 			~App();
 
 			// Http Request
@@ -75,5 +75,5 @@ namespace app {
 			
 			string getOutput();
 	};
-	void start(App);
+	void start(App*);
 }

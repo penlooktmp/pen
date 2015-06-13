@@ -52,7 +52,7 @@ namespace http {
         HttpResponse getResponse();
 
         // HTTP Processor Injection
-        Http serveRequest(function<void(App)>);
+        Http serveRequest(function<void(App*)>);
     };
 
 }

@@ -33,6 +33,4 @@ import os
 #$ pen test benchmark
 class Test(argparse.Action):
 	def __call__(self, parser, args, values, option_string = None):
-		if len(values) == 1 :
-			com = values[1]
-			print "Test ", com
+		os.system('ab -kc 1000 -n 100000  http://localhost:8080/')

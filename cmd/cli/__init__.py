@@ -61,7 +61,7 @@ class Cli:
 			metavar = "app_component", help = "application component", type = str, action = Debug)
 
 		parser_test = subcommand.add_parser('test',  help = 'Run unit - integration test')
-		parser_test.add_argument('app_component', choices = ["unit", "benchmark"], default = "unit", metavar = "app_component", help = "Application component", type = str, action = Test)
+		parser_test.add_argument('app_component', choices = ["unit", "benchmark"], nargs = "*", default = "unit", metavar = "app_component", help = "Application component", type = str, action = Test)
 		
 		self.args = self.parser.parse_args()
 

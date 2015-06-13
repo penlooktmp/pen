@@ -32,9 +32,7 @@ static ngx_int_t ngx_http_app_handler(ngx_http_request_t *request)
     http_request.setUri(uri);
 
     Http http(http_request, http_response);
-    http.process();
-
-    string html = http.getResponse().getBody();
+    string html = http.serveRequest(app::start).getResponse().getBody();
 
     /* Type casting */
     u_char* u_html = (u_char*) html.c_str();

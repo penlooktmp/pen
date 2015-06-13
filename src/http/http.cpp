@@ -58,13 +58,17 @@ namespace http {
         return this->response;
     }
 
-    Http Http::serveRequest(function<void(App)> app_callback)
+    Http Http::serveRequest(function<void(App*)> app_callback)
     {
         App app;
         app.setHttpRequest(this->getRequest())
            .setHttpResponse(this->getResponse());
-        app_callback(app);
-        this->getResponse().setBody(app.getOutput());
+        app_callback(&app);
+        cout << "GET OUTPUT";
+        cout << app.getOutput();
+        cout << "DONE";
+        cout.flush();
+        this->response.body = app.getOutput();
         return *this;
     }
 
