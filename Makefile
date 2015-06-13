@@ -75,8 +75,9 @@ test:
 	rm -rf ./$(TEST)
 
 clean:
-	rm -rf $(OBJECTS)
-	rm -rf $(BINARY)
+	rm -rf $(OBJECTD)
+	rm -rf $(LIBSYS)/$(LIB)
+	rm -rf $(LIBSYS)/lib$(LIB).so
 
 remove:
 	rm -rf $(EXECUTE)

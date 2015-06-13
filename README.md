@@ -1,10 +1,30 @@
 # pen [![GoDoc](https://img.shields.io/badge/doc-reference-blue.svg)](DOCUMENTATION.md) [![Build Status](https://travis-ci.org/penlook/pengo.svg)](https://travis-ci.org/penlook/pengo) [![Coverage Status](https://coveralls.io/repos/penlook/pengo/badge.svg?branch=master)](https://coveralls.io/r/penlook/pengo?branch=master)
 
-### Installation
+### Instruction
+
+- Install library and tools (pen command)
 ```bash
-make
-make install
+make && make install
 ```
+- Create new project (not implemented)
+```bash
+pen new app
+```
+- Run project under development mode
+```bash
+pen run app
+```
+- Build project as Nginx module
+```bash
+pen build app
+```
+- Test benchmark
+```bash
+pen test
+```
+pen
+####
+
 
 ###Roadmap
 
