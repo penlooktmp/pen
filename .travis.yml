@@ -8,3 +8,5 @@ before_install:
   - sudo apt-get install -qq g++-5
   - export CXX="g++-5" CC="gcc-5"
   - chmod +x ./configure
+script:
+  - make && make install

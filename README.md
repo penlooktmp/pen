@@ -1,4 +1,4 @@
-# pen [![Build Status](https://travis-ci.org/penlook/pen.svg)](https://travis-ci.org/penlook/pen)
+# pen framework [![Build Status](https://travis-ci.org/penlook/pen.svg)](https://travis-ci.org/penlook/pen)
 
 ### Instruction
 
@@ -10,19 +10,19 @@ make && make install
 ```
 - Create new project (not implemented)
 ```bash
-pen new app
+$ pen new app
 ```
 - Run project under development mode
 ```bash
-pen run app
+$ pen run app
 ```
 - Build project as Nginx module
 ```bash
-pen build app
+$ pen build app
 ```
 - Test benchmark
 ```bash
-pen test
+$ pen test
 ```
 
 ###Roadmap
