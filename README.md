@@ -1,4 +1,4 @@
-# pen [![GoDoc](https://img.shields.io/badge/doc-reference-blue.svg)](DOCUMENTATION.md) [![Build Status](https://travis-ci.org/penlook/pengo.svg)](https://travis-ci.org/penlook/pengo) [![Coverage Status](https://coveralls.io/repos/penlook/pengo/badge.svg?branch=master)](https://coveralls.io/r/penlook/pengo?branch=master)
+# pen [![Build Status](https://travis-ci.org/penlook/pen.svg)](https://travis-ci.org/penlook/pen)
 
 ### Instruction
 
