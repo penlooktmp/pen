@@ -25,16 +25,4 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <iostream>
-#include <string>
-
-using namespace std;
-
-namespace http {
-	class HttpRouter {
-		private:
-			string router;
-		public:
-			string getRouter();
-	};
-}
+#include <app/model.h>

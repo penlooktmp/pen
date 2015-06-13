@@ -25,4 +25,7 @@
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
 
-print 'test parser'
+class test:
+	def __init__(self):
+		pass
+

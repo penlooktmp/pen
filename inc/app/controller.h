@@ -25,15 +25,7 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <http/http.h>
-
-using namespace http;
-
 namespace app {
 	class Controller {
-		private:
-			HttpRouter router;
-		public:
-			void getApplication();
-	}
+	};
 }

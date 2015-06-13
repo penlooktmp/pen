@@ -7,3 +7,8 @@ pen.egg-info
 /cmd/app/build/production/nginx/*
 .settings
 cmd/cli/*.pyc
+cmd/parser/*.pyc
+app/build/app/view
+app/build/app/controller
+app/build/app/model
+app/build/app/test

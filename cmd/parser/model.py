@@ -25,4 +25,6 @@
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
 
-print 'entity parser'
+class model:
+	def __init__(self):
+		pass

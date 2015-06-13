@@ -58,13 +58,13 @@ namespace http {
         return this->response;
     }
 
-    Http Http::serveRequest()
+    Http Http::serveRequest(function<void(App)> app_callback)
     {
-        // Change context from web server to application
-        //app_main(this->getRequest(), this->getResponse());
-        //this->response->body += "Pen Application";
-        
-        this->response.body += "<html>Serve request</html>";
+        App app;
+        app.setHttpRequest(this->getRequest())
+           .setHttpResponse(this->getResponse());
+        app_callback(app);
+        this->getResponse().setBody(app.getOutput());
         return *this;
     }
 

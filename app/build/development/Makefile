@@ -33,9 +33,9 @@ DEBUG   = -std=$(CCVER) -pipe -g0 -fno-inline -Wall -pthread
 TESTF	= -std=$(CCVER) -g -L/opt/gtest/lib -lgtest -lgtest_main -lpthread -I/opt/gtest/include
 EXECUTE = ./$(PROG)
 INCLUDE = /usr/lib/pen
-SOURCED = src
-OBJECTD = obj
-SOURCES = $(shell find main -name *.cpp)
+SOURCED = app
+OBJECTD = obj/app
+SOURCES = $(shell find main ../$(SOURCED) -name *.cpp)
 TESTS   = $(shell find ./test -name *.cpp)
 OBJECTS = $(addprefix $(OBJECTD)/, $(patsubst %.cpp, %.o, $(SOURCES)))
 BINARY = $(OBJECTD)/$(PROG)
@@ -56,7 +56,7 @@ mk:
 	for file in $(OBJECTS) ; do if [ ! -e $$file ]; then mkdir -p $$file && rm -rf $$file; fi done
 
 debug:
-	make SOURCED="$(SOURCED)$(path)" FLAGS="$(DEBUG)"
+	make FLAGS="$(DEBUG)"
 	cp -rf $(BINARY) $(EXECUTE)
 
 install:

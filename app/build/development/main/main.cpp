@@ -40,9 +40,9 @@ int main()
 		HttpRequest request;
 		HttpResponse response;
 		Http http(request, response);
-		_response->body << http.serveRequest().getResponse().getBody();
+		// Inject application into framework for processing
+		_response->body << http.serveRequest(app::start).getResponse().getBody();
 	});
-
 	http.listen(8080);
 	return 0;
 }

@@ -25,7 +25,4 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-namespace app {
-	class Model {
-	};
-}
+#include <app/view.h>

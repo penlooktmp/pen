@@ -25,14 +25,11 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <iostream>
-#include <map>
 #include <http/wpp.h>
-#include <http/request.h>
-#include <http/response.h>
-#include <http/router.h>
+#include <app/app.h>
 
 using namespace std;
+using namespace app;
 
 namespace http {
     class Http {
@@ -53,7 +50,9 @@ namespace http {
         HttpRequest getRequest();
         Http setResponse(HttpResponse);
         HttpResponse getResponse();
-        Http serveRequest();
+
+        // HTTP Processor Injection
+        Http serveRequest(function<void(App)>);
     };
 
 }

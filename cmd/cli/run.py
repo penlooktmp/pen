@@ -29,27 +29,46 @@ import argparse
 from os import *
 import SimpleHTTPServer
 import SocketServer
+import parser
 
 #$ pen run
 #$ pen run app
 class Run(argparse.Action):
-	def __call__(self, parser, args, values, option_string = None):
-		cwd = getcwd();
-		
-		if len(values) > 0 :
-			cwd += "/" + values
-		
-		chdir(cwd + '/build/development')
+	
+	def prepare(self):
+		self.cwd += '/build/development'
+		chdir(self.cwd)
+		# Clean up system
 		system("sync && echo 3 > /proc/sys/vm/drop_caches")
-		system("pkill pendev")
-		system("service nginx stop")
-		system("./prepare.sh")
+		system("pkill pendev && service nginx stop")
 
-		PORT = 8000
-		Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
-		httpd = SocketServer.TCPServer(("", PORT), Handler)
-		print "serving at port", PORT
-		httpd.serve_forever()
+	def parse(self):
+		print 'View compiling ...'
+		view = parser.View()
+		view.setInput(self.root + "/view") \
+			.setOutput(self.root + "/build/app/view") \
+			.compile()
+		print 'View compiled !'
+
+	def build(self):
+		system("./build.sh")
+
+	def __call__(self, parser, args, values, option_string = None):
+		self.root = getcwd();
+		if len(values) > 0 :
+			self.root += "/" + values
+		chdir(self.root)
+		self.cwd = self.root
+
+		self.prepare()
+		self.parse()
+		self.build()
+
+		#PORT = 8000
+		#Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
+		#httpd = SocketServer.TCPServer(("", PORT), Handler)
+		#print "serving at port", PORT
+		#httpd.serve_forever()
 
 		#HttpRequest proxyRequest;
 		#HttpResponse proxyResponse;

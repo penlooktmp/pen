@@ -30,17 +30,17 @@
 import re      # Regular expression
 import os      # Operating system
 
-class Template:
+class View:
 	
 	def __init__ (self):
 		self.templateFilePath = ""
 		self.templateCPP = """// AUTO GENERATED
 #include <sys/core.h>
+namespace app {
 namespace View {
 void {{ fileName }}(map<string, string> data) {
 {{ htmlContent }}
-}}
-"""
+}\n}\n}"""
 		self.templateMain = ""
 
 	def setInput(self, inputViewFolder):
@@ -66,6 +66,7 @@ void {{ fileName }}(map<string, string> data) {
 				content += data[var]
 			start = match.end()
 		content += template[start:]
+		content = content.replace('"', '\"')
 		return content
 
 	def renderVolt(self, template):
@@ -77,6 +78,7 @@ void {{ fileName }}(map<string, string> data) {
 		content = 'cout <<'
 		for line in lines:
 			line = line.strip()
+			line = line.replace('"', '\\"')
 			content += '"' + line + '\\n"\n\t <<'
 		content += '"";'
 		return content
@@ -118,11 +120,5 @@ void {{ fileName }}(map<string, string> data) {
 	def compile(self):
 		self.Output += "/"
 		self.scanDirectory(self.Input, "")
-
-view = Template()
-view.setInput("../../app/view") \
-	.setOutput("../../app/build/app/view") \
-	.compile()
-
 
 		

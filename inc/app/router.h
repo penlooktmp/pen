@@ -26,6 +26,10 @@
  */
 
 namespace app {
-	class Model {
+	class Router {
+		private:
+			string router;
+		public:
+			string getRouter();
 	};
 }

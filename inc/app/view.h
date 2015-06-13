@@ -25,11 +25,7 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <http/http.h>
-
-using namespace http;
-
 namespace app {
 	class View {
-	}
+	};
 }

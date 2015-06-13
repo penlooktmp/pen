@@ -24,8 +24,14 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-
-#include <http/http.h>
+#include <http/request.h>
+#include <http/response.h>
+#include <app/router.h>
+#include <app/controller.h>
+#include <app/model.h>
+#include <app/view.h>
+#include <iostream>
+#include <string>
 
 using namespace http;
 
@@ -34,10 +40,40 @@ namespace app {
 		private:
 			HttpRequest request;
 			HttpResponse response;
+			Router router;
+			Controller controller;
+			View view;
+			
+			string out;
+
 		public:
-			void setRequest(HttpRequest);
-			HttpRequest getRequest();
-			void setResponse(HttpResponse);
-			HttpResponse getResponse();
+		 	App();
+			~App();
+
+			// Http Request
+			App setHttpRequest(HttpRequest);
+			HttpRequest getHttpRequest();
+
+			App setHttpResponse(HttpResponse);
+			HttpResponse getHttpResponse();
+
+			// Router
+			App setRouter(Router);
+			Router getRouter();
+
+			// Controller
+			App setController(Controller);
+			Controller getController();
+
+			// Model
+			App setModel(Model);
+			Model getModel();
+			
+			// View
+			App setView(View);
+			View getView();
+			
+			string getOutput();
 	};
+	void start(App);
 }

@@ -25,4 +25,6 @@
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
 
-print 'controller parser'
+class controller:
+	def __init__(self):
+		pass

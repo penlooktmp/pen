@@ -1,7 +1,10 @@
 // AUTO GENERATED
-#include <http/http.h>
+#include <app/app.h>
 
-void app_main(HttpRequest request, HttpResponse response)
+namespace app
 {
-	response.body << "PENGO APPLICATION";
+	void start(App app)
+	{
+		//app.out << "PEN APPLICATION";
+	}
 }

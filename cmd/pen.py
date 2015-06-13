@@ -25,10 +25,15 @@
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
 
-from cli import *
+import sys, os
+
+sys.path.append("./cli")
+sys.path.append("./parser")
+
+import cli
 
 def main():
-	pen = Cli()
+	pen = cli.Cli()
 	pen.parse()
 	
 if __name__ == '__main__':
