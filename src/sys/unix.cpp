@@ -30,8 +30,9 @@
 string getCwd()
 {
 	char *buffer = new char[MAXPATHLEN];
-    getcwd(buffer,MAXPATHLEN);
-    if(buffer != NULL){
+    char* res = getcwd(buffer,MAXPATHLEN);
+    delete res;
+    if (buffer != NULL) {
         string ret(buffer);
         delete[] buffer;
         return ret;
@@ -42,7 +43,9 @@ string getCwd()
 
 void changeDirectory(string path)
 {
-	chdir(path.c_str());
+	int res = chdir(path.c_str());
+    // Prevent g++ warning
+    cout << res;
 }
 
 void makeDirectory(string path)

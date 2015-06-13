@@ -440,8 +440,8 @@ namespace http {
 
             // append extra crlf to indicate start of body
             strcat(header_buffer, "\r\n");
-            write(newsc, header_buffer, strlen(header_buffer));
-            write(newsc, body.c_str(), body_len);
+            std::cout << write(newsc, header_buffer, strlen(header_buffer));
+            std::cout << write(newsc, body.c_str(), body_len);
         }
     }
 

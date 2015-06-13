@@ -27,8 +27,8 @@
 LIB     = pen
 CC      = g++
 CCVER 	= c++0x
-BUILD   = -std=$(CCVER) -Wall -O3 -fPIC
-DEBUG   = -std=$(CCVER) -pipe -g0 -fno-inline -Wall -pthread -fPIC
+BUILD   = -std=$(CCVER) -O3 -fPIC
+DEBUG   = -std=$(CCVER) -pipe -g0 -fno-inline -Wall -fPIC
 TESTF	= -std=$(CCVER) -g -L/opt/gtest/lib -lgtest -lgtest_main -lpthread -I/opt/gtest/include
 EXECUTE = /usr/bin/$(LIB)
 LIBSYS  = /usr/lib
@@ -63,9 +63,11 @@ debug:
 	ldconfig
 
 install:
-	cp -rf $(INCLUDE)/* $(LIBSYS)/$(LIB)
+	mkdir -p $(LIBSYS)/$(LIB)
+	cp -ru $(INCLUDE)/* $(LIBSYS)/$(LIB)
 	mv -f lib$(LIB).so $(LIBSYS)/
 	ldconfig
+	$(shell python ./setup.py install > /dev/null)
 
 test:
 	make OBJECTS="$(OBJECTT)" FLAGS="$(TESTF)" LIB="$(TEST)"

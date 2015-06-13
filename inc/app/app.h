@@ -31,6 +31,7 @@
 #include <app/model.h>
 #include <app/view.h>
 #include <iostream>
+#include <sstream>
 #include <string>
 
 using namespace http;
@@ -43,7 +44,7 @@ namespace app {
 			Router router;
 			Controller controller;
 			View view;
-			
+
 		public:
 			string out;
 		 	

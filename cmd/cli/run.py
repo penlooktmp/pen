@@ -25,8 +25,9 @@
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
 
-import argparse
+import sys
 from os import *
+import argparse
 import SimpleHTTPServer
 import SocketServer
 import parser
