@@ -25,11 +25,13 @@
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
 
-from cli import *
+import argparse
+import os
 
-def main():
-	pen = Cli()
-	pen.parse()
-	
-if __name__ == '__main__':
-	main()
+#$ pen debug router
+#$ pen debug controller
+#$ pen debug model
+#$ pen debug view
+class Debug(argparse.Action):
+	def __call__(self, parser, args, values, option_string = None):
+		print 'Debug', values

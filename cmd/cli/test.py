@@ -25,11 +25,14 @@
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
 
-from cli import *
+import argparse
+import os
 
-def main():
-	pen = Cli()
-	pen.parse()
-	
-if __name__ == '__main__':
-	main()
+#$ pen test
+#$ pen test unit
+#$ pen test benchmark
+class Test(argparse.Action):
+	def __call__(self, parser, args, values, option_string = None):
+		if len(values) == 1 :
+			com = values[1]
+			print "Test ", com

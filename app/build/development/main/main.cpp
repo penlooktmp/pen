@@ -38,14 +38,15 @@ int main()
 	HttpResponse proxyResponse;
 	Http server(proxyRequest, proxyResponse);
 	server.get("/", [](Request* _request, Response* _response) {
+		cout << "New request";
+		cout.flush();
 		HttpRequest request;
 		HttpResponse response;
-		App app(request, response);
-		
 		Http http(request, response);
-		App app(http);
-		http.process(app);
-		_response->body << app.getResponse().getBody();
+		http.process();
+		cout << http.getResponse().getBody();
+		cout.flush();
+		_response->body << http.getResponse().getBody();
 	});
 	server.listen(8080);
 	return 0;

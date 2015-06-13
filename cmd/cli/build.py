@@ -25,11 +25,17 @@
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
 
-from cli import *
+import argparse
+import os
 
-def main():
-	pen = Cli()
-	pen.parse()
-	
-if __name__ == '__main__':
-	main()
+#$ pen build
+#$ pen build app
+class Build(argparse.Action):
+	def __call__(self, parser, args, values, option_string = None):
+		os.system("pkill pendev")
+		cwd = os.getcwd()
+		if  len(values) > 0:
+			cwd += "/" + values
+		os.chdir(cwd + '/build/production')
+		os.system('./config.sh')
+		os.system('./build.sh')

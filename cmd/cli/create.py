@@ -25,11 +25,34 @@
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
 
-from cli import *
+import argparse
+import os
 
-def main():
-	pen = Cli()
-	pen.parse()
-	
-if __name__ == '__main__':
-	main()
+#$ pen create app
+#$ pen create controller:index
+#$ pen create database-entity
+#$ pen create view/template
+class Create(argparse.Action):
+
+	def createApplication():
+		print 'Create pen application'
+
+	def createAction():
+		print 'Create pen controller'
+
+	def createEntity():
+		print 'Create pen entity'
+
+	def createTemplate():
+		print 'Create pen view'
+
+	def __call__(self, parser, args, values, option_string = None):
+		print 'Create', values
+		#if len(values) == 2 :
+			#com = values[1]
+			#print "Create new", com
+			# TODO
+			# Component creation
+		#else :
+		#	os.system('pen -h')
+

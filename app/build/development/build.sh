@@ -28,16 +28,20 @@
 pkill pendev
 service nginx stop
 
-ROOT_INCLUDE=`readlink -e ../../../../`
-ROOT_LOCAL=`readlink -e ./`
-ROOT_RAM=$ROOT_LOCAL/tmp
+#ROOT_INCLUDE=`readlink -e ../../../../`
+#ROOT_LOCAL=`readlink -e ./`
+#ROOT_RAM=$ROOT_LOCAL/tmp
 
 # Update changed files to ram disk
-cp -ru $ROOT_INCLUDE/inc/* $ROOT_RAM/inc
-cp -ru $ROOT_INCLUDE/src/* $ROOT_RAM/src
-cp -ru $ROOT_LOCAL/main/* $ROOT_RAM/main
-cp -ru $ROOT_LOCAL/Makefile $ROOT_RAM/Makefile
+#cp -ru $ROOT_INCLUDE/inc/* $ROOT_RAM/inc
+#cp -ru $ROOT_INCLUDE/src/* $ROOT_RAM/src
+#cp -ru $ROOT_LOCAL/main/* $ROOT_RAM/main
+#cp -ru $ROOT_LOCAL/Makefile $ROOT_RAM/Makefile
 
-cd $ROOT_RAM
+#cd $ROOT_RAM
+CURRENT=`pwd`
+cd ../../../
 make debug
-$ROOT_RAM/pendev &
+cd $CURRENT
+make debug
+./pendev &

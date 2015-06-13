@@ -25,11 +25,7 @@
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
 
-from cli import *
-
-def main():
-	pen = Cli()
-	pen.parse()
-	
-if __name__ == '__main__':
-	main()
+#$ pen help
+class help(argparse.Action):
+	def __call__(self, parser, args, values, option_string = None):
+		pass

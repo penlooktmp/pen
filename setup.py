@@ -37,6 +37,7 @@ setup(
 	license='GNU Affero General Public',
 	scripts=['cmd/pen.py'],
 	packages=find_packages(),
+	#install_requires=['json'],
 	entry_points = {
 		'console_scripts': ['pen=cmd.pen:main'],
 	},

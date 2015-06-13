@@ -25,18 +25,18 @@
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
 
-ROOT_INCLUDE=`readlink -e ../../../../`
-ROOT_LOCAL=`readlink -e ./`
-ROOT_RAM=$ROOT_LOCAL/tmp
+#ROOT_INCLUDE=`readlink -e ../../../../`
+#ROOT_LOCAL=`readlink -e ./`
+#ROOT_RAM=$ROOT_LOCAL/tmp
 
 # Mount source code to ram disk
 
-[ -d $ROOT_RAM ] && umount -v $ROOT_RAM > /dev/null
-/sbin/mke2fs -q -m 0 /dev/ram0
-/bin/mount /dev/ram0 $ROOT_RAM
-/bin/chown root:root $ROOT_RAM
-/bin/chmod 0750 $ROOT_RAM
+#[ -d $ROOT_RAM ] && umount -v $ROOT_RAM > /dev/null
+#/sbin/mke2fs -q -m 0 /dev/ram0
+#/bin/mount /dev/ram0 $ROOT_RAM
+#/bin/chown root:root $ROOT_RAM
+#/bin/chmod 0750 $ROOT_RAM
 
-mkdir -p $ROOT_RAM/inc
-mkdir -p $ROOT_RAM/src
-mkdir -p $ROOT_RAM/main
+#mkdir -p $ROOT_RAM/inc
+#mkdir -p $ROOT_RAM/src
+#mkdir -p $ROOT_RAM/main

@@ -50,6 +50,7 @@ namespace http {
     {
         // Change context from web server to application
         //app_main(this->getRequest(), this->getResponse());
+        this->response.body += "Pen Application";
     }
 
     void Http::get(string router, http_callback callback)

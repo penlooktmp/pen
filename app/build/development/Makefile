@@ -32,13 +32,13 @@ BUILD   = -std=$(CCVER) -Wall -O3
 DEBUG   = -std=$(CCVER) -pipe -g0 -fno-inline -Wall -pthread
 TESTF	= -std=$(CCVER) -g -L/opt/gtest/lib -lgtest -lgtest_main -lpthread -I/opt/gtest/include
 EXECUTE = ./$(PROG)
-INCLUDE = inc
+INCLUDE = /usr/lib/pen
 SOURCED = src
-OBJECTD = obj/cli
+OBJECTD = obj
 SOURCES = $(shell find main -name *.cpp)
 TESTS   = $(shell find ./test -name *.cpp)
 OBJECTS = $(addprefix $(OBJECTD)/, $(patsubst %.cpp, %.o, $(SOURCES)))
-BINARY = $(OBJECTD)/$(SOURCED)/$(PROG)
+BINARY = $(OBJECTD)/$(PROG)
 OBJECTT = $(TESTS:.cpp=.o)
 FLAGS   = $(BUILD)
 

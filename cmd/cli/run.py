@@ -25,11 +25,39 @@
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
 
-from cli import *
+import argparse
+from os import *
+import SimpleHTTPServer
+import SocketServer
 
-def main():
-	pen = Cli()
-	pen.parse()
-	
-if __name__ == '__main__':
-	main()
+#$ pen run
+#$ pen run app
+class Run(argparse.Action):
+	def __call__(self, parser, args, values, option_string = None):
+		cwd = getcwd();
+		
+		if len(values) > 0 :
+			cwd += "/" + values
+		
+		chdir(cwd + '/build/development')
+		system("sync && echo 3 > /proc/sys/vm/drop_caches")
+		system("pkill pendev")
+		system("service nginx stop")
+		system("./prepare.sh")
+
+		PORT = 8000
+		Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
+		httpd = SocketServer.TCPServer(("", PORT), Handler)
+		print "serving at port", PORT
+		httpd.serve_forever()
+
+		#HttpRequest proxyRequest;
+		#HttpResponse proxyResponse;
+		#Http server(proxyRequest, proxyResponse);
+		
+		#server.get("/", [&cwd](Request* _request, Response* _response) {
+		#	Debug debug;
+		#	debug.setResponse(_response)
+		#		 .setViewPath(cwd + "/view")
+		#		 .compile();
+		#});

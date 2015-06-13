@@ -1,0 +1,3 @@
+[submodule "app/build/production/nginx"]
+	path = app/build/production/nginx
+	url = https://github.com/nginx/nginx.git

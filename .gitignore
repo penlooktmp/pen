@@ -6,3 +6,4 @@ pen.egg-info
 /cmd/app/build/development/tmp
 /cmd/app/build/production/nginx/*
 .settings
+cmd/cli/*.pyc
