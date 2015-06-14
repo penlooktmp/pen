@@ -24,6 +24,19 @@ $ pen build app
 ```bash
 $ pen test
 ```
+###Benchmark
+
+```
+Server Software:        nginx/1.9.1
+Server Hostname:        localhost
+Server Port:            8080
+*Concurrency Level:      500
+*Time taken for tests:   1.048 seconds
+*Complete requests:      10000
+Failed requests:        0
+Requests per second:    9543.04 [#/sec] (mean)
+*Time per request:       0.105 [ms] (mean, across all concurrent requests)
+```
 
 ###Roadmap
 
