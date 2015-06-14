@@ -43,6 +43,6 @@ int main()
 		// Inject application into framework for processing
 		_response->body << string(http.serveRequest(app::start).getResponse().getBody());
 	});
-	http.listen(8080);
+	http.listen(80);
 	return 0;
 }
