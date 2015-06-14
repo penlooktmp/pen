@@ -25,9 +25,8 @@ $ pen build app
 $ pen test
 ```
 ###Benchmark
-- Pen is faster than 8~10 times to compare with fastest PHP Framework (Phalcon)
+- Pen is faster than 8~10 times to compare with [fastest PHP Framework (Phalcon)](http://systemsarchitect.net/performance-benchmark-of-popular-php-frameworks/#content)
 - CPU : 2 | RAM : 4GB | $ ab -c 100 -n 100000  http://localhost/
-
 ```
 Server Software:        nginx/1.9.1
 Server Hostname:        localhost
