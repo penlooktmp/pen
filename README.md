@@ -46,6 +46,15 @@ $ pen build app
 ```bash
 $ pen test
 ```
+###Development
+- pen-cli
+```bash
+python cmd/pen.py -h
+```
+- pen-framework
+```bash
+$ pen run app
+```
 
 ###Roadmap
 
