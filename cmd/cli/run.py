@@ -43,7 +43,7 @@ class Run(argparse.Action):
 		system("sync && echo 3 > /proc/sys/vm/drop_caches")
 		system("pkill pendev && service nginx stop")
 
-	def parse(self):
+	def compileView(self):
 		print 'Template - Starting complie ...'
 		view = View()
 		view.setInput(self.root + "/view") \
@@ -51,6 +51,18 @@ class Run(argparse.Action):
 			.setMode(View.DEVELOPMENT) \
 			.compile()
 		print 'Template - Done.'
+
+	def compileController(self):
+		print 'Controller - Starting complie ...'
+		controller = Controller()
+		controller.setInput(self.root + "/controller") \
+				  .setOutput(self.root + "/build/app/controller") \
+				  .compile()
+		print 'Controller - Done.'
+
+	def parse(self):
+		self.compileView()
+		self.compileController()
 
 	def build(self):
 		system("./build.sh")

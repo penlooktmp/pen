@@ -2,7 +2,7 @@
 
 using namespace http;
 
-@Controller Base
+@Controller
 App()
 {
 	// Controller constructor

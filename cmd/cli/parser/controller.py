@@ -25,6 +25,24 @@
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
 
-class controller:
+# Controller parser
+
+import os
+import sys
+
+class Controller:
+
 	def __init__(self):
 		pass
+
+	def setInput(self, targetDir):
+		self.Input = targetDir
+		return self
+	
+	def setOutput(self, destDir):
+		self.Output = destDir
+		return self
+	
+	def compile(self):
+		controllers = listdir(self.Input)
+		print controllers
