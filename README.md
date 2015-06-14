@@ -49,7 +49,7 @@ $ pen test
 ###Development
 - pen-cli
 ```bash
-python cmd/pen.py -h
+$ python cmd/pen.py -h
 ```
 - pen-framework
 ```bash

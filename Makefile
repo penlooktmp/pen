@@ -35,7 +35,7 @@ LIBSYS  = /usr/lib
 INCLUDE = inc
 SOURCED = src
 OBJECTD = obj
-SOURCES = $(shell find $(SOURCED) -name *.cpp)
+SOURCES = $(shell find $(SOURCED)/cpp -name *.cpp)
 TESTS   = $(shell find ./test -name *.cpp)
 OBJECTS = $(addprefix $(OBJECTD)/, $(patsubst %.cpp, %.o, $(SOURCES)))
 BINARY = $(OBJECTD)/$(SOURCED)/$(LIB)
@@ -45,7 +45,7 @@ FLAGS   = $(BUILD)
 all: $(LIB)
 
 $(LIB): $(OBJECTS)
-	$(CC) $(OBJECTS) -fPIC -shared -o lib$(LIB).so -lcurl -lpthread
+	$(CC) $(OBJECTS) -fPIC -shared -o bin/lib$(LIB).so -lcurl -lpthread
 
 $(OBJECTD)/%.o: %.cpp
 	$(CC) -c $(FLAGS) -I$(INCLUDE) $< -o $@
@@ -53,19 +53,20 @@ $(OBJECTD)/%.o: %.cpp
 $(OBJECTS): mk
 
 mk:
+	mkdir -p bin
 	for file in $(OBJECTS) ; do if [ ! -e $$file ]; then mkdir -p $$file && rm -rf $$file; fi done
 
 debug:
 	make SOURCED="$(SOURCED)$(path)" FLAGS="$(DEBUG)"
 	mkdir -p $(LIBSYS)/$(LIB)
 	cp -rf $(INCLUDE)/* $(LIBSYS)/$(LIB)
-	cp -f lib$(LIB).so $(LIBSYS)/
+	cp -f bin/lib$(LIB).so $(LIBSYS)/
 	ldconfig
 
 install:
 	mkdir -p $(LIBSYS)/$(LIB)
 	cp -ru $(INCLUDE)/* $(LIBSYS)/$(LIB)
-	cp -f lib$(LIB).so $(LIBSYS)/
+	cp -f bin/lib$(LIB).so $(LIBSYS)/
 	ldconfig
 	$(shell python ./setup.py install > /dev/null)
 
