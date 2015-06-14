@@ -33,4 +33,5 @@ import os
 #$ pen test benchmark
 class Test(argparse.Action):
 	def __call__(self, parser, args, values, option_string = None):
-		os.system('ab -c 100 -n 100000  http://localhost:8080/')
+		os.system("sync && echo 3 > /proc/sys/vm/drop_caches")
+		os.system('ab -c 100 -n 10000  http://localhost/')

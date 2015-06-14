@@ -25,17 +25,19 @@ $ pen build app
 $ pen test
 ```
 ###Benchmark
-
+Pen 's faster than 10 times to compare with the fastest PHP Framework (Phalcon)
+CPU : 2 | RAM : 4GB | $ ab -c 100 -n 100000  http://localhost/
 ```
 Server Software:        nginx/1.9.1
 Server Hostname:        localhost
-Server Port:            8080
-*Concurrency Level:      500
-*Time taken for tests:   1.048 seconds
-*Complete requests:      10000
+Server Port:            80
+Concurrency Level:      100
+Time taken for tests:   11.361 seconds
+Complete requests:      100000
 Failed requests:        0
-Requests per second:    9543.04 [#/sec] (mean)
-*Time per request:       0.105 [ms] (mean, across all concurrent requests)
+Requests per second:    8801.97 [#/sec] (mean)
+Time per request:       11.361 [ms] (mean)
+Time per request:       0.114 [ms] (mean, across all concurrent requests)
 ```
 
 ###Roadmap

@@ -31,9 +31,15 @@ static ngx_int_t ngx_http_app_handler(ngx_http_request_t *request)
     string uri = reinterpret_cast<const char*>(uri_obj.data);
     http_request.setUri(uri);
 
+    // Test
+    /*
+    string str = "Hello world";
+    char* html = (char*) str.c_str();
+    int html_length = str.length();
+    */
+
     Http http(http_request, http_response);
     HttpResponse response = http.serveRequest(app::start).getResponse();
-
     char* html = response.getBody();
     int html_length = response.getBodyLength();
 

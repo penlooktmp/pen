@@ -9,8 +9,8 @@ lf() {
 	rm -rf $1_2
 }
 
-cp -rf ../config/nginx.conf /etc/nginx/nginx.conf
-cp -rf ../config/nginx /etc/init.d/nginx
+cp -rf config/nginx.conf /etc/nginx/nginx.conf
+cp -rf config/nginx /etc/init.d/nginx
 
 clear
 
