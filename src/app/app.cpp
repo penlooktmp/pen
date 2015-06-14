@@ -29,11 +29,9 @@
 
 namespace app {
 
-	stringstream App::out;
-	
 	App::App()
 	{
-		App::out.str("");
+		this->out = "";
 	}
 
 	App App::setHttpRequest(HttpRequest request)
@@ -93,6 +91,6 @@ namespace app {
 
 	App::~App()
 	{
-		// TODO
+		//delete out;
 	}
 }

@@ -34,8 +34,11 @@ using namespace std;
 namespace http {
     class HttpResponse {
     public:
-        string body;
-        HttpResponse &setBody(string);
-        string getBody();
+        char* body;
+        int body_length;
+        HttpResponse &setBody(char*);
+        char* getBody();
+        HttpResponse &setBodyLength(int);
+        int getBodyLength();
     };
 }

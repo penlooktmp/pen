@@ -31,7 +31,6 @@
 #include <app/controller.h>
 #include <app/model.h>
 #include <app/view.h>
-#include <sstream>
 
 using namespace http;
 
@@ -46,7 +45,8 @@ namespace app {
 			View view;
 
 		public:
-			static std::stringstream out;
+			string out;
+
 			App();
 			~App();
 

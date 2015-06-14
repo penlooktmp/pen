@@ -32,14 +32,17 @@ static ngx_int_t ngx_http_app_handler(ngx_http_request_t *request)
     http_request.setUri(uri);
 
     Http http(http_request, http_response);
-    string html = http.serveRequest(app::start).getResponse().getBody();
+    HttpResponse response = http.serveRequest(app::start).getResponse();
+
+    char* html = response.getBody();
+    int html_length = response.getBodyLength();
 
     /* Type casting */
-    u_char* u_html = (u_char*) html.c_str();
-        
+    u_char* u_html = (u_char*) html;
+
     /* Set the Content-Type header. */
-    request->headers_out.content_type.len  = html.length();
-    request->headers_out.content_type.data = u_html;
+    request->headers_out.content_type.len  = sizeof("text/html") - 1;
+    request->headers_out.content_type.data = (u_char *) "text/html";
 
     /* Allocate a new buffer for sending out the reply. */
     buffer = (ngx_buf_t*) ngx_pcalloc(request->pool, sizeof(ngx_buf_t));
@@ -49,14 +52,14 @@ static ngx_int_t ngx_http_app_handler(ngx_http_request_t *request)
     out.next = NULL; /* just one buffer */
 
     buffer->pos = u_html; /* first position in memory of the data */
-    buffer->last = u_html + html.length(); /* last position in memory of the data */
+    buffer->last = u_html + html_length; /* last position in memory of the data */
     buffer->memory = 1; /* content is in read-only memory */
     buffer->last_buf = 1; /* there will be no more buffers in the request */
 
     /* Sending the headers for the reply. */
     request->headers_out.status = NGX_HTTP_OK; /* 200 status code */
     /* Get the content length of the body. */
-    request->headers_out.content_length_n = html.length();
+    request->headers_out.content_length_n = html_length;
     ngx_http_send_header(request);
 
     /* Send the body, and return the status code of the output filter chain. */

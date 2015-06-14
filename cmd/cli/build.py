@@ -47,7 +47,7 @@ class Build(argparse.Action):
 		view = View()
 		view.setInput(self.root + "/view") \
 			.setOutput(self.root + "/build/app/view") \
-			.setMode(View.MODE_PRODUCTION) \
+			.setMode(View.PRODUCTION) \
 			.compile()
 		print 'Template - Done.'
 

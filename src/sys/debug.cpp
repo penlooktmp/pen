@@ -31,6 +31,7 @@
 
 const int Debug::CMD_BUFFER = 1024;
 
+/*
 Debug::Debug()
 {
 	
@@ -129,3 +130,4 @@ void Debug::compile()
 		}
 	}
 }
+*/

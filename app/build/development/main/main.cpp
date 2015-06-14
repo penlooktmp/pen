@@ -41,7 +41,7 @@ int main()
 		HttpResponse response;
 		Http http(request, response);
 		// Inject application into framework for processing
-		_response->body << http.serveRequest(app::start).getResponse().getBody();
+		_response->body << string(http.serveRequest(app::start).getResponse().getBody());
 	});
 	http.listen(8080);
 	return 0;

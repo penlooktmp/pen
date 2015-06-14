@@ -33,7 +33,6 @@ namespace http {
     {
         this->request = request;
         this->response = response;
-        this->response.body = "";
     }
 
     Http Http::setRequest(HttpRequest request)
@@ -64,7 +63,14 @@ namespace http {
         app.setHttpRequest(this->getRequest())
            .setHttpResponse(this->getResponse());
         app_callback(&app);
-        this->response.body = App::out.str();
+        // TODO
+        // Improve performance
+        app.out += " ";
+        int len = app.out.length();
+        this->response.body = new char[len];
+        this->response.body_length = len;
+        strncpy(this->response.body, app.out.c_str(), len - 1);
+        this->response.body[len - 1] = '\0';
         return *this;
     }
 

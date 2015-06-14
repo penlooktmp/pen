@@ -32,8 +32,8 @@ import os      # Operating system
 
 class View:
 
-	MODE_PRODUCTION  = 0
-	MODE_DEVELOPMENT = 1
+	PRODUCTION  = 0
+	DEVELOPMENT = 1
 	
 	def __init__ (self):
 		self.templateFilePath = ""
@@ -53,7 +53,7 @@ void {{ fileName }}(App* app, map<string, string> data) {
 }\n}\n}"""
 		self.templateMain = ""
 		self.listFileName = []
-		self.listFolderPath = ['../']
+		self.listFolderPath = ['../', './']
 
 	def setInput(self, inputViewFolder):
 		self.Input = inputViewFolder
@@ -64,7 +64,7 @@ void {{ fileName }}(App* app, map<string, string> data) {
 		return self
 
 	def setMode(self, mode):
-		self.Mode = mode
+		self.mode = mode
 		return self
 
 	def renderString(self, template, data):
@@ -91,12 +91,19 @@ void {{ fileName }}(App* app, map<string, string> data) {
 	def compileTemplate(self, template):
 		template = self.renderVolt(template)
 		lines = re.split("\n", template)
-		content = 'app->out <<""\n<<'
+		if self.mode == self.DEVELOPMENT:
+			content = ''
+		else:
+			content = 'app->out+="'
 		for line in lines:
 			line = line.strip()
 			line = line.replace('"', '\\"')
-			content += '"' + line + '\\n"\n<<'
-		content += '"";'
+			if self.mode == self.DEVELOPMENT:
+				content += 'app->out+="' + line + '\\n";\n'
+			else:
+				content += line
+		if self.mode == self.PRODUCTION:
+			content += '";'
 		return content
 
 	def render(self, template, relativePath):

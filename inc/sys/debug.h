@@ -27,7 +27,6 @@
 
 #include <sys/core.h>
 #include <http/http.h>
-#include <view/template.h>
 
 class Debug
 {

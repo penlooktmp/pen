@@ -33,4 +33,4 @@ import os
 #$ pen test benchmark
 class Test(argparse.Action):
 	def __call__(self, parser, args, values, option_string = None):
-		os.system('ab -kc 1000 -n 100000  http://localhost:8080/')
+		os.system('ab -c 100 -n 100000  http://localhost:8080/')

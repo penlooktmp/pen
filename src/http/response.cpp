@@ -29,14 +29,25 @@
 
 namespace http {
 
-	HttpResponse &HttpResponse::setBody(string body)
+	HttpResponse &HttpResponse::setBody(char* body)
 	{
 		this->body = body;
 		return *this;
 	}
 
-	string HttpResponse::getBody()
+	char* HttpResponse::getBody()
 	{
-		return this->body;
+		return body;
+	}
+
+	HttpResponse &HttpResponse::setBodyLength(int length)
+	{
+		this->body_length = length;
+		return *this;
+	}
+	
+	int HttpResponse::getBodyLength()
+	{
+		return body_length;
 	}
 }

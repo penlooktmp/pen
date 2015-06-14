@@ -48,7 +48,7 @@ class Run(argparse.Action):
 		view = View()
 		view.setInput(self.root + "/view") \
 			.setOutput(self.root + "/build/app/view") \
-			.setMode(View.MODE_DEVELOPMENT) \
+			.setMode(View.DEVELOPMENT) \
 			.compile()
 		print 'Template - Done.'
 
