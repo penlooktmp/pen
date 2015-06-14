@@ -1,5 +1,27 @@
 # pen framework [![Build Status](https://travis-ci.org/penlook/pen.svg)](https://travis-ci.org/penlook/pen)
 
+###Feature
+- MVC Web framework is written in C++
+- Performance orientation (everything is compiled)
+- High traffic with low resources (integrated with Nginx)
+- Support Pen Syntax besides C++ for rapid development
+
+###Benchmark
+- Pen is faster than 8~10 times to compare with [fastest PHP Framework (Phalcon)](http://systemsarchitect.net/performance-benchmark-of-popular-php-frameworks/#content)
+- CPU : 2 | RAM : 4GB | $ ab -c 100 -n 100000  http://localhost/
+```
+Server Software:        nginx/1.9.1
+Server Hostname:        localhost
+Server Port:            80
+Concurrency Level:      100
+Time taken for tests:   11.361 seconds
+Complete requests:      100000
+Failed requests:        0
+Requests per second:    8801.97 [#/sec] (mean)
+Time per request:       11.361 [ms] (mean)
+Time per request:       0.114 [ms] (mean, across all concurrent requests)
+```
+
 ### Instruction
 
 - Install library and tools (pen command)
@@ -23,21 +45,6 @@ $ pen build app
 - Test benchmark
 ```bash
 $ pen test
-```
-###Benchmark
-- Pen is faster than 8~10 times to compare with [fastest PHP Framework (Phalcon)](http://systemsarchitect.net/performance-benchmark-of-popular-php-frameworks/#content)
-- CPU : 2 | RAM : 4GB | $ ab -c 100 -n 100000  http://localhost/
-```
-Server Software:        nginx/1.9.1
-Server Hostname:        localhost
-Server Port:            80
-Concurrency Level:      100
-Time taken for tests:   11.361 seconds
-Complete requests:      100000
-Failed requests:        0
-Requests per second:    8801.97 [#/sec] (mean)
-Time per request:       11.361 [ms] (mean)
-Time per request:       0.114 [ms] (mean, across all concurrent requests)
 ```
 
 ###Roadmap
