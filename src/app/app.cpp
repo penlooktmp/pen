@@ -29,11 +29,13 @@
 
 namespace app {
 
+	stringstream App::out;
+	
 	App::App()
 	{
-		this->out = "";
+		App::out.str("");
 	}
-	
+
 	App App::setHttpRequest(HttpRequest request)
 	{
 		this->request = request;
@@ -87,11 +89,6 @@ namespace app {
 	View App::getView()
 	{
 		return this->view;
-	}
-	
-	string App::getOutput()
-	{
-		return this->out;
 	}
 
 	App::~App()

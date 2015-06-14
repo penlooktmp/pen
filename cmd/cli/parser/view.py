@@ -31,17 +31,29 @@ import re      # Regular expression
 import os      # Operating system
 
 class View:
+
+	MODE_PRODUCTION  = 0
+	MODE_DEVELOPMENT = 1
 	
 	def __init__ (self):
 		self.templateFilePath = ""
-		self.templateCPP = """// AUTO GENERATED
+		self.templateH = """// AUTO GENERATED
 #include <sys/core.h>
+#include <app/app.h>
 namespace app {
-namespace View {
-void {{ fileName }}(map<string, string> data) {
+namespace Template {
+{{ headerContent }}
+}\n}"""
+		self.templateCPP = """// AUTO GENERATED
+#include "view.h"
+namespace app {
+namespace Template {
+void {{ fileName }}(App* app, map<string, string> data) {
 {{ htmlContent }}
 }\n}\n}"""
 		self.templateMain = ""
+		self.listFileName = []
+		self.listFolderPath = ['../']
 
 	def setInput(self, inputViewFolder):
 		self.Input = inputViewFolder
@@ -49,6 +61,10 @@ void {{ fileName }}(map<string, string> data) {
 	
 	def setOutput(self, outputViewFolder):
 		self.Output = outputViewFolder
+		return self
+
+	def setMode(self, mode):
+		self.Mode = mode
 		return self
 
 	def renderString(self, template, data):
@@ -75,16 +91,17 @@ void {{ fileName }}(map<string, string> data) {
 	def compileTemplate(self, template):
 		template = self.renderVolt(template)
 		lines = re.split("\n", template)
-		content = 'cout <<'
+		content = 'app->out <<""\n<<'
 		for line in lines:
 			line = line.strip()
 			line = line.replace('"', '\\"')
-			content += '"' + line + '\\n"\n\t <<'
+			content += '"' + line + '\\n"\n<<'
 		content += '"";'
 		return content
 
 	def render(self, template, relativePath):
 		fileName = relativePath.replace("/", "_").split('.')[0]
+		self.listFileName.append(fileName)
 		return self.renderString(self.templateCPP, {
 			'fileName' : fileName,
 			'htmlContent' : self.compileTemplate(template)
@@ -100,6 +117,21 @@ void {{ fileName }}(map<string, string> data) {
 			for line in lines:
 				html += line
 		cpp.write(self.render(html, destination))
+		cpp.close()
+		
+	def compileHeader(self):
+		headerContent = ''
+		for fileName in self.listFileName:
+			headerContent += 'void ' + fileName + '(App*, map<string, string>);\n'
+		headerContent = headerContent[:-1]
+		viewH = self.renderString(self.templateH, {
+			'headerContent' : headerContent,
+		})
+		for folderPath in self.listFolderPath:
+			headerPath = self.Output + folderPath + 'view.h'
+			header = open(headerPath, 'w')
+			header.write(viewH)
+			header.close()
 
 	def scanDirectory(self, root, directory):
 		listFiles = os.listdir(root)
@@ -110,6 +142,7 @@ void {{ fileName }}(map<string, string> data) {
 				self.compileFile(filePath, directory + item)
 			else:
 				directory += item + "/"
+				self.listFolderPath.append(directory)
 				self.scanDirectory(filePath, directory)
 				newDirectory = ""
 				arrDirectory = directory.split('/')
@@ -120,5 +153,6 @@ void {{ fileName }}(map<string, string> data) {
 	def compile(self):
 		self.Output += "/"
 		self.scanDirectory(self.Input, "")
+		self.compileHeader()
 
 		

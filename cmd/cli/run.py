@@ -30,7 +30,7 @@ from os import *
 import argparse
 import SimpleHTTPServer
 import SocketServer
-import parser
+from parser import *
 
 #$ pen run
 #$ pen run app
@@ -44,12 +44,13 @@ class Run(argparse.Action):
 		system("pkill pendev && service nginx stop")
 
 	def parse(self):
-		print 'View compiling ...'
-		view = parser.View()
+		print 'Template - Starting complie ...'
+		view = View()
 		view.setInput(self.root + "/view") \
 			.setOutput(self.root + "/build/app/view") \
+			.setMode(View.MODE_DEVELOPMENT) \
 			.compile()
-		print 'View compiled !'
+		print 'Template - Done.'
 
 	def build(self):
 		system("./build.sh")

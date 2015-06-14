@@ -35,13 +35,13 @@ namespace http {
         this->response = response;
         this->response.body = "";
     }
-    
+
     Http Http::setRequest(HttpRequest request)
     {
         this->request = request;
         return *this;
     }
-    
+
     HttpRequest Http::getRequest()
     {
         return this->request;
@@ -64,11 +64,7 @@ namespace http {
         app.setHttpRequest(this->getRequest())
            .setHttpResponse(this->getResponse());
         app_callback(&app);
-        cout << "GET OUTPUT";
-        cout << app.getOutput();
-        cout << "DONE";
-        cout.flush();
-        this->response.body = app.getOutput();
+        this->response.body = App::out.str();
         return *this;
     }
 

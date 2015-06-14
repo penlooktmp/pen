@@ -1,13 +1,12 @@
 // AUTO GENERATED
-#include <app/app.h>
+#include "view.h"
 
 namespace app
 {
 	void start(App* app)
 	{
-		cout << "START";
-		app->out += "Start pen application";
-		cout << "DONE";
-		cout.flush();
+		map<string, string> data;
+		data["title"] = "Hello World";
+		Template::layout(app, data);
 	}
 }

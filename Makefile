@@ -59,13 +59,13 @@ debug:
 	make SOURCED="$(SOURCED)$(path)" FLAGS="$(DEBUG)"
 	mkdir -p $(LIBSYS)/$(LIB)
 	cp -rf $(INCLUDE)/* $(LIBSYS)/$(LIB)
-	mv -f lib$(LIB).so $(LIBSYS)/
+	cp -f lib$(LIB).so $(LIBSYS)/
 	ldconfig
 
 install:
 	mkdir -p $(LIBSYS)/$(LIB)
 	cp -ru $(INCLUDE)/* $(LIBSYS)/$(LIB)
-	mv -f lib$(LIB).so $(LIBSYS)/
+	cp -f lib$(LIB).so $(LIBSYS)/
 	ldconfig
 	$(shell python ./setup.py install > /dev/null)
 

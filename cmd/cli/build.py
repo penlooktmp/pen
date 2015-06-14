@@ -26,16 +26,45 @@
 #     Loi Nguyen       <loint@penlook.com>
 
 import argparse
-import os
+import sys
+from os import *
+from parser import *
 
 #$ pen build
 #$ pen build app
 class Build(argparse.Action):
+	
+	def prepare(self):
+		system("pkill pendev")
+		self.cwd += '/build/production'
+		chdir(self.cwd)
+		# Clean up system
+		system("sync && echo 3 > /proc/sys/vm/drop_caches")
+		system("pkill pendev && service nginx stop")
+
+	def parse(self):
+		print 'Template - Starting complie ...'
+		view = View()
+		view.setInput(self.root + "/view") \
+			.setOutput(self.root + "/build/app/view") \
+			.setMode(View.MODE_PRODUCTION) \
+			.compile()
+		print 'Template - Done.'
+
+	def config(self):
+		system('./config.sh')
+
+	def build(self):
+		system('./build.sh')
+
 	def __call__(self, parser, args, values, option_string = None):
-		os.system("pkill pendev")
-		cwd = os.getcwd()
-		if  len(values) > 0:
-			cwd += "/" + values
-		os.chdir(cwd + '/build/production')
-		os.system('./config.sh')
-		os.system('./build.sh')
+		self.root = getcwd();
+		if len(values) > 0 :
+			self.root += "/" + values
+		chdir(self.root)
+		self.cwd = self.root
+
+		self.prepare()
+		self.parse()
+		self.config()
+		self.build()

@@ -24,19 +24,19 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
+
 #include <http/request.h>
 #include <http/response.h>
 #include <app/router.h>
 #include <app/controller.h>
 #include <app/model.h>
 #include <app/view.h>
-#include <iostream>
 #include <sstream>
-#include <string>
 
 using namespace http;
 
 namespace app {
+
 	class App {
 		private:
 			HttpRequest request;
@@ -46,8 +46,7 @@ namespace app {
 			View view;
 
 		public:
-			string out;
-		 	
+			static std::stringstream out;
 			App();
 			~App();
 
@@ -69,12 +68,11 @@ namespace app {
 			// Model
 			App setModel(Model);
 			Model getModel();
-			
+
 			// View
 			App setView(View);
 			View getView();
-			
-			string getOutput();
 	};
+
 	void start(App*);
 }
