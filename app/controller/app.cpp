@@ -2,33 +2,32 @@
 
 using namespace http;
 
-@Controller
-App()
-{
-	// Controller constructor
-}
+class appController {
 
-@Override
-Before()
-{
-	// Before action
-}
+	public int a;
+	public int b;
 
-@Route /index/:uid/:password
-@Method GET POST
-@Type JSON
-Index(int uid, string password)
-{
+	private Before()
+	{
+		// Before action
+	}
 	
-}
-
-@Override
-After()
-{
-	// After action
-}
-
-~App() 
-{
-	// Controller destructor
-}
+	@Route /index/:uid/:password
+	@Method GET POST
+	@Type JSON
+	public Index(int uid, string password)
+	{
+		
+	}
+	
+	@Override
+	After()
+	{
+		// After action
+	}
+	
+	~App()
+	{
+		// Controller destructor
+	}
+};

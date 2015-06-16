@@ -1,0 +1,2 @@
+export PATH=$PATH:/usr/local/src/go/bin
+export GOPATH=/home/pengo/pkg

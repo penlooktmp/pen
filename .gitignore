@@ -1,5 +1,6 @@
 obj
 bin
+pkg
 build
 dist
 pen.egg-info
