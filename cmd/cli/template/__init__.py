@@ -25,6 +25,6 @@
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
 
-from nginx import *
+from nginx_config import *
+from template_builder import *
 from app_structure import *
-from template import *

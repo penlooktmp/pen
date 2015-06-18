@@ -27,7 +27,7 @@
 
 import argparse
 import template
-import os
+import os, string
 
 #$ pen create app
 #$ pen create controller:index
@@ -36,7 +36,10 @@ import os
 class Create(argparse.Action):
 
 	def createApplication(self):
-		print self.name
+		text = string.replace(template. app_structure, " ","")
+		text = text.replace("\n", "")
+		text = text.replace("\t", "")
+		tb = template.TemplateBuilder(text, self.name)
 
 	def createAction(self):
 		print 'Create pen controller'

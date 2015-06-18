@@ -25,11 +25,50 @@
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
 
-app_structure = [
-	'build'
-	'controller',
-	'library',
-	'model',
-	'service',
-	''
+app_structure = """
+[
+	build
+	[
+		app
+		[
+			config { nginx.conf },
+			controller { .keep },
+			model { .keep },
+			service { .keep }
+		]
+		development
+		[
+			
+		] { Makefile, build.sh }
+		production
+		[
+			config { gcc, make, nginx }
+			module { config, ngx_http_app_module.cpp }
+			{ build.sh, config.sh }
+		]
+	]
 ]
+[
+	controller { index.cpp }
+]
+[
+	library
+	[
+		inc { .keep },
+		src { .keep }
+	]
+]
+[
+	model { .keep }
+]
+[
+	service { .keep }
+]
+[
+	view
+	[
+		index { index.html }
+	]
+	{ layout.html }
+]
+"""

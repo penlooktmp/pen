@@ -2,8 +2,15 @@
 # Open source template builder
 # https://github.com/ismaproco/pytemplate
 
-import os,sys,string
-from path_tree import PathTree
+import os, sys, string
+
+class PathTree:
+    identifier = 0
+    level = 0
+    name = ""
+    creation_type = ""
+    path = ""
+    father = None
 
 #Main class to build the template
 class TemplateBuilder:
@@ -143,9 +150,9 @@ class TemplateBuilder:
             if f.creation_type == "folder":
                 #custom destionation specified?
                 if destination == "": # no
-                    final_path = os.path.dirname(os.path.abspath(__file__)) +"\\"+ f.path
+                    final_path = os.path.dirname(os.path.abspath(__file__)) +"/"+ f.path
                 else: # yes
-                    final_path = destination +"\\"+ f.path
+                    final_path = destination +"/"+ f.path
 
                 #path exists?
                 if not os.path.exists(final_path) : os.makedirs(final_path)
@@ -153,9 +160,9 @@ class TemplateBuilder:
             #is a file?
             if f.creation_type == "file":
                 if destination == "": # no
-                    open(f.path,"w+")
+                    open(f.path, "w+")
                 else:
-                    open(destination+"\\"+f.path,"w+")
+                    open(destination + "/" + f.path,"w+")
 
     """ Return a string of the templating object """
     def __str__(self):
@@ -196,5 +203,5 @@ class TemplateBuilder:
     def build_path(self,path):
         s_path = ""
         for i in path:
-            s_path += i + "\\"
+            s_path += i + "/"
         return s_path
