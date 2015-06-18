@@ -25,29 +25,6 @@
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
 
-import argparse
-import template
-import os
-
-#$ pen create app
-#$ pen create controller:index
-#$ pen create database-entity
-#$ pen create view/template
-class Create(argparse.Action):
-
-	def createApplication(self):
-		print self.name
-
-	def createAction(self):
-		print 'Create pen controller'
-
-	def createEntity(self):
-		print 'Create pen entity'
-
-	def createTemplate(self):
-		print 'Create pen view'
-
-	def __call__(self, parser, args, values, option_string = None):
-		self.name = values
-		self.createApplication()
-
+from nginx import *
+from app_structure import *
+from template import *
