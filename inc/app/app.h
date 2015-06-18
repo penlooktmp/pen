@@ -72,6 +72,8 @@ namespace app {
 			// View
 			App setView(View);
 			View getView();
+
+			App handle(string, function<void(HttpRequest, HttpResponse)> callback);
 	};
 
 	void start(App*);

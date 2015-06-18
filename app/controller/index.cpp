@@ -2,32 +2,27 @@
 
 using namespace http;
 
-class appController {
+@Router /index
+@Method GET
+@Type HTML
+class IndexController : Controller
+{
 
-	public int a;
-	public int b;
-
-	private Before()
+	protected Before()
 	{
-		// Before action
+		User $user;
 	}
-	
+
 	@Route /index/:uid/:password
 	@Method GET POST
 	@Type JSON
 	public Index(int uid, string password)
 	{
-		
+		int a = 1;
 	}
-	
-	@Override
-	After()
+
+	protected After()
 	{
 		// After action
-	}
-	
-	~App()
-	{
-		// Controller destructor
 	}
 };

@@ -39,34 +39,34 @@ namespace app {
 		this->request = request;
 		return *this;
 	}
-	
+
 	HttpRequest App::getHttpRequest()
 	{
 		return this->request;
 	}
-	
+
 	App App::setHttpResponse(HttpResponse response)
 	{
 		this->response = response;
 		return *this;
 	}
-	
+
 	HttpResponse App::getHttpResponse()
 	{
 		return this->response;
 	}
-	
+
 	App App::setRouter(Router router)
 	{
 		this->router = router;
 		return *this;
 	}
-	
+
 	Router App::getRouter()
 	{
 		return this->router;
 	}
-	
+
 	App App::setController(Controller controller)
 	{
 		this->controller = controller;
