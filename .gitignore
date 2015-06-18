@@ -8,8 +8,11 @@ pen.egg-info
 /cmd/app/build/development/tmp
 /cmd/app/build/production/nginx/*
 .settings
+cmd/*.pyc
 cmd/cli/*.pyc
 cmd/cli/parser/*.pyc
+cmd/cli/content/*.pyc
+cmd/cli/template/*.pyc
 app/build/app/view
 app/build/app/controller
 app/build/app/model
