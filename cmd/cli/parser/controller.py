@@ -33,7 +33,9 @@ import sys
 class Controller:
 
 	def __init__(self):
-		pass
+		self.annotationStack = []
+		self.currentController = ""
+		self.currentAction = ""
 
 	def setInput(self, targetDir):
 		self.Input = targetDir
@@ -44,6 +46,7 @@ class Controller:
 		return self
 	
 	def compileLine(self):
+		if isAnnotation(self.line)
 		self.headerContent += self.line + "\n"
 
 	def compileFile(self, filePath):
@@ -58,7 +61,7 @@ class Controller:
 
 		# Compile file
 		with open(targetPath, "r") as lines:
-			for line in lines:
+			for line in lines :
 				line = line.strip()
 				if len(line) > 0 :
 					self.line = line
@@ -67,7 +70,7 @@ class Controller:
 		# Prepare to write
 		header = open(destHeaderPath, 'w')
 		cpp = open(destCppPath, 'w')
-		
+
 		# Write content to file
 		header.write(self.headerContent)
 		header.close()

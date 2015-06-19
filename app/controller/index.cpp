@@ -7,12 +7,11 @@ using namespace http;
 @Type HTML
 class IndexController : Controller
 {
-
 	protected Before()
 	{
 		User $user;
 	}
-
+	
 	@Route /index/:uid/:password
 	@Method GET POST
 	@Type JSON
