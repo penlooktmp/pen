@@ -61,7 +61,7 @@ class Run(argparse.Action):
 		print 'Controller - Done.'
 
 	def parse(self):
-		self.compileView()
+		#self.compileView()
 		self.compileController()
 
 	def build(self):
@@ -76,7 +76,7 @@ class Run(argparse.Action):
 
 		self.prepare()
 		self.parse()
-		self.build()
+		#self.build()
 
 		#PORT = 8000
 		#Handler = SimpleHTTPServer.SimpleHTTPRequestHandler

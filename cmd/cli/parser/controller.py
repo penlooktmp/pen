@@ -43,6 +43,37 @@ class Controller:
 		self.Output = destDir
 		return self
 	
+	def compileLine(self):
+		self.headerContent += self.line + "\n"
+
+	def compileFile(self, filePath):
+		fileName = filePath.split(".")[0]
+		self.controllerName = fileName.split("/")[-1]
+		targetPath = self.Input + "/" + fileName + ".cpp"
+		destHeaderPath = self.Output + "/" + fileName + ".h"
+		destCppPath = self.Output + "/" + fileName + ".cpp"
+		
+		self.headerContent = ''
+		self.cppContent = '#include "'+ self.controllerName + '.h"\n'
+
+		# Compile file
+		with open(targetPath, "r") as lines:
+			for line in lines:
+				line = line.strip()
+				if len(line) > 0 :
+					self.line = line
+					self.compileLine()
+
+		# Prepare to write
+		header = open(destHeaderPath, 'w')
+		cpp = open(destCppPath, 'w')
+		
+		# Write content to file
+		header.write(self.headerContent)
+		header.close()
+		cpp.write(self.cppContent)
+		cpp.close()
+		
 	def compile(self):
-		controllers = listdir(self.Input)
-		print controllers
+		controllers = os.listdir(self.Input)
+		self.compileFile(controllers[0])

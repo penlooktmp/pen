@@ -30,7 +30,7 @@ git clone https://github.com/penlook/pen.git
 cd pen
 make && sudo make install
 ```
-- Create new project (not implemented)
+- Create new project
 ```bash
 $ pen new app
 ```
