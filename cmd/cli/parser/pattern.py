@@ -30,25 +30,68 @@ import os
 
 class Pattern:
 
-	ANNOTATION  = '\\@[A-Z]{1}[a-zA-Z0-9]+[\\s]+[\\w\\/\\:\"\\s]+'
-	CLASS       = '^class[\s]+[a-zA-Z]+'
-	PROPERTY    = '^[a-z\s]+[a-zA-Z]+(\;|([a-zA-Z0-9\s=&]+\;))'
-	METHOD      = '^[a-z\s]+[a-zA-Z]+\(|([\a-zA-Z0-9\*\&\s,=]+)\)\;'
-	TEMPLATE    = '[a-zA-Z0-9_\&]+[\s]+\$[a-zA-Z0-9]+(\;|([a-zA-Z0-9\s=&]+\;))'
-	
-	def __init__(self, line):
-		self.line = line
+	ANNOTATION   		= '\\@[A-Z]{1}[a-zA-Z0-9]+[\\s]+[\\w\\/\\:\"\\s]+'
+	CLASS        		= '^class[\s]+[a-zA-Z]+'
+	PROPERTY     		= '^[a-z\s]+[a-zA-Z]+(\;|([a-zA-Z0-9\s=&]+\;))'
+	METHOD       		= '^[a-z\s]+[a-zA-Z]+\(|([\a-zA-Z0-9\*\&\s,=]+)\)\;'
+	TEMPLATE_VAR 		= '[a-zA-Z0-9_\&]+[\s]+\$[a-zA-Z0-9]+(\;|([a-zA-Z0-9\s=&]+\;))'
+	COMMENT      		= '^\/\/.+'
+	PUBLIC	 	 		= '^public.+'
+	PRIVATE		 		= '^private.+'
+	PROTECTED			= '^protected.+'
+	END_WITH_BRACKET 	= '.+\{'
+
+	def __init__(self):
+		self.match = False
+		self.context = None
+
+	def setContext(self, context):
+		self.context = context
+
 	def isMatch(self, pattern):
-		pass
+		if self.context is None:
+			print 'Context can not be none'
+			exit()
+		self.match = re.match(pattern, self.context.line)
+		if self.match is not None:
+			return True
+		return False
+
+	def isHeader(self):
+		if self.context.line.startswith("#include"):
+			return True
+		if self.context.line.startswith("using"):
+			return True
+		if self.context.line.startswith("template"):
+			return True
+		return False
+
+	def isComment(self):
+		return self.isMatch(self.COMMENT)
+
 	def isAnnotation(self):
-		pass
+		return self.isMatch(self.ANNOTATION)
+
 	def isClass(self):
-		pass
+		return self.isMatch(self.CLASS)
+
 	def isProperty(self):
-		pass
+		return self.isMatch(self.PROPERTY)
+
 	def isMethod(self):
-		pass
+		return self.isMatch(self.METHOD)
+
 	def isTemplateVariable(self):
-		pass
-	def isModel(self):
-		pass
+		return self.isMatch(self.TEMPLATE_VAR)
+
+	def isProtected(self):
+		return self.isMatch(self.PROTECTED)
+
+	def isPrivate(self):
+		return self.isMatch(self.PRIVATE)
+
+	def isPublic(self):
+		return self.isMatch(self.PUBLIC)
+	
+	def isEndWithBracket(self):
+		return self.isMatch(self.END_WITH_BRACKET)
