@@ -31,6 +31,7 @@ import argparse
 import SimpleHTTPServer
 import SocketServer
 from parser import *
+import template
 
 #$ pen run
 #$ pen run app
@@ -57,6 +58,8 @@ class Run(argparse.Action):
 		controller = Controller()
 		controller.setInput(self.root + "/controller") \
 				  .setOutput(self.root + "/build/app/controller") \
+				  .setConfig(self.root + "/build/app/config") \
+				  .setTemplate(template) \
 				  .compile()
 		print 'Controller - Done.'
 

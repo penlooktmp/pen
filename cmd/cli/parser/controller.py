@@ -34,6 +34,9 @@ from pattern import *
 class Controller:
 
 	def __init__(self):
+		self.annotationInfo = {}
+
+	def initHeaderParser(self):
 		self.annotationStack = []
 		self.lineStack = []
 		self.currentClass = None
@@ -44,21 +47,35 @@ class Controller:
 		self.stackProtected = []
 		self.stackNonAccessModifier = []
 		self.methodBlockContent = {}
-
+		
 	def setInput(self, targetDir):
 		self.Input = targetDir
 		return self
-	
+
 	def setOutput(self, destDir):
 		self.Output = destDir
 		return self
+
+	def setTemplate(self, templateContext):
+		self.Template = templateContext
+		return self
 	
-	def parseFile(self, targetPath):
+	def setConfig(self, configDir):
+		self.Config = configDir
+		return self
+
+	def parseSourceFile(self, sourcePath):
+		pass
+
+	def parseHeaderFile(self, headerPath):
+		self.initHeaderParser()
+		annotationStorage = {}
+		self.annotationStack = []
 		# Pattern recognition
 		pattern = Pattern()
 		pattern.setContext(self)
 		# Compile file
-		with open(targetPath, "r") as lines :
+		with open(headerPath, "r") as lines :
 			for line in lines:
 				line = line.strip()
 				if len(line) > 0:
@@ -68,33 +85,39 @@ class Controller:
 						continue
 					if pattern.isHeader():
 						self.headerContent += line + "\n"
-						print "IGNORE :", line
 						continue
 					if pattern.isAnnotation():
-						# self.headerContent += line + "\n"
-						print "ANNOTATION : ", line
+						self.annotationStack.append(line)
 						continue
 					if pattern.isMethod():
 						method_without_am = line
 						am = False
 						if pattern.isPublic():
 							method_without_am = line.split('public')[1]
-							self.stackPublic.append(property_without_am)
+							self.stackPublic.append(method_without_am)
 							am = True
-							print "METHOD PUBLIC :", method_without_am
 						if pattern.isPrivate():
 							method_without_am = line.split('private')[1]
 							self.stackPrivate.append(property_without_am)
 							am = True
-							print "METHOD PRIVATE :", method_without_am
 						if pattern.isProtected():
 							method_without_am = line.split('protected')[1]
 							self.stackProtected.append(method_without_am)
 							am = True
-							print "METHOD PROTECTED :", method_without_am
 						if am is False:
 							self.stackNonAccessModifier.append(method_without_am)
-						currentMethod = method_without_am
+						if len(self.annotationStack) > 0:
+							indexL = method_without_am.index('(');
+							indexR = indexL
+							while indexR > 0:
+								if method_without_am[indexR] == ' ':
+									break
+								indexR = indexR - 1
+							currentMethod = method_without_am[indexR : indexL]
+							self.annotationInfo[self.currentClass]['Method'].append(
+								{'Name': currentMethod, '@': self.annotationStack }
+							)
+						self.annotationStack = []
 						continue
 					if pattern.isProperty():
 						am = False
@@ -102,42 +125,59 @@ class Controller:
 							am = True
 							property_without_am = line.split('public')[1]
 							self.stackPublic.append(property_without_am)
-							print "PROPERTY PUBLIC :", property_without_am
 						if pattern.isPrivate():
 							am = True
 							property_without_am = line.split('private')[1]
 							self.stackPrivate.append(property_without_am)
-							print "PROPERTY PRIVATE :", property_without_am
 						if pattern.isProtected():
 							am = True
 							property_without_am = line.split('protected')[1]
 							self.stackProtected.append(property_without_am)
-							print "PROPERTY PROTECTED :", property_without_am
 						if am is False:
 							self.stackNonAccessModifier.append(property_without_am)
 						continue
-					if pattern.isTemplateVariable():
-						# self.headerContent += line + "\n"
-						print "TEMPLATE :", line
-						continue
 					if pattern.isClass():
+						class_without_bracket = line
 						if pattern.isEndWithBracket():
-							line2_without_bracket = line.split('{')[0]
-							print "CLASS WITHOUT BRACKET :", line2_without_bracket
-							self.headerContent += line2_without_bracket + "\n"
-						print "CLASS :", line
+							class_without_bracket = line.split('{')[0]
+						className = class_without_bracket.split(' ')[1]
+						self.currentClass = className
+						self.annotationInfo[self.currentClass] = {'@': self.annotationStack, 'Method': []}
+						self.annotationStack = []
 						continue
+		if self.currentClass is None:
+			print 'Controller class does not exist !'
+			print headerPath
+			exit()
+
+	def generateHeader(self):
+		self.headerContent += 'class ' + self.currentClass + "\n{\n"
+		self.headerContent += '\tpublic:\n'
+		for publicItem in self.stackPublic:
+			self.headerContent += '\t\t' + publicItem.strip() + '\n'
+		self.headerContent += '\tprivate:\n'
+		for privateItem in self.stackPrivate:
+			self.headerContent += '\t\t' + privateItem.strip() + '\n'
+		self.headerContent += '\tprotected:\n'
+		for protectedItem in self.stackProtected:
+			self.headerContent += '\t\t' + protectedItem.strip() + '\n'
+		for protectedItem in self.stackNonAccessModifier:
+			self.headerContent += '\t' + protectedItem.strip() + '\n'
+		self.headerContent += '};'
 
 	def compileFile(self, filePath):
 		fileName = filePath.split(".")[0]
 		self.controllerName = fileName.split("/")[-1]
-		targetPath = self.Input + "/" + fileName + ".cpp"
+		headerPath = self.Input + "/" + fileName + ".h"
+		cppPath	   = self.Input + "/" + fileName + ".cpp"
 		destHeaderPath = self.Output + "/" + fileName + ".h"
 		destCppPath = self.Output + "/" + fileName + ".cpp"
 
 		self.headerContent = ''
 		self.cppContent = '#include "'+ self.controllerName + '.h"\n'
-		self.parseFile(targetPath)
+		self.parseHeaderFile(headerPath)
+		self.generateHeader()
+		#self.parseSourceFile(cppPath)
 
 		# Prepare to write
 		header = open(destHeaderPath, 'w')
@@ -148,7 +188,23 @@ class Controller:
 		header.close()
 		cpp.write(self.cppContent)
 		cpp.close()
-		
+
+	def generateNginxConfig(self):
+		location = ""
+		for classItem in self.annotationInfo:
+			print classItem["Method"]
+		configContent = """
+		location =~ /test {
+		}
+		"""
+		configContent = self.Template.nginx_config.replace('{{ app }}', configContent)
+		nginx = open(self.Config + '/app.conf', 'w')
+		nginx.write(configContent)
+
 	def compile(self):
 		controllers = os.listdir(self.Input)
-		self.compileFile(controllers[0])
+		for controller in controllers:
+			# Controller must have header file
+			if controller.endswith('.h'):
+				self.compileFile(controller)
+		self.generateNginxConfig()

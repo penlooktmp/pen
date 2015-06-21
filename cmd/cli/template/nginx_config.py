@@ -24,3 +24,10 @@
 #
 # Authors:
 #     Loi Nguyen       <loint@penlook.com>
+nginx_config = """
+server {
+	listen 80;
+	server_name localhost;
+	{{ app }}
+}
+"""

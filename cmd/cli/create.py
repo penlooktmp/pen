@@ -36,7 +36,7 @@ import os, string
 class Create(argparse.Action):
 
 	def createApplication(self):
-		text = string.replace(template. app_structure, " ","")
+		text = string.replace(template.app_structure, " ","")
 		text = text.replace("\n", "")
 		text = text.replace("\t", "")
 		tb = template.TemplateBuilder(text, self.name)
