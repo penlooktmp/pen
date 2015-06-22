@@ -29,15 +29,21 @@
 
 import os
 import sys
+import pprint
 from pattern import *
 
 class Controller:
 
 	def __init__(self):
 		self.annotationInfo = {}
+		self.defaultAnnotation = {
+			'@Route': None,
+			'@Method': '*',
+			'@Type': 'HTML'
+		}
 
 	def initHeaderParser(self):
-		self.annotationStack = []
+		self.annotationStack = {}
 		self.lineStack = []
 		self.currentClass = None
 		self.currentMethod = None
@@ -47,7 +53,7 @@ class Controller:
 		self.stackProtected = []
 		self.stackNonAccessModifier = []
 		self.methodBlockContent = {}
-		
+
 	def setInput(self, targetDir):
 		self.Input = targetDir
 		return self
@@ -59,7 +65,7 @@ class Controller:
 	def setTemplate(self, templateContext):
 		self.Template = templateContext
 		return self
-	
+
 	def setConfig(self, configDir):
 		self.Config = configDir
 		return self
@@ -70,7 +76,7 @@ class Controller:
 	def parseHeaderFile(self, headerPath):
 		self.initHeaderParser()
 		annotationStorage = {}
-		self.annotationStack = []
+		self.annotationStack = {}
 		# Pattern recognition
 		pattern = Pattern()
 		pattern.setContext(self)
@@ -87,7 +93,10 @@ class Controller:
 						self.headerContent += line + "\n"
 						continue
 					if pattern.isAnnotation():
-						self.annotationStack.append(line)
+						annotationArr = line.split(' ')
+						annotationName = annotationArr[0]
+						annotationValue = ' '.join(annotationArr[1:])
+						self.annotationStack[annotationName] = annotationValue
 						continue
 					if pattern.isMethod():
 						method_without_am = line
@@ -117,7 +126,7 @@ class Controller:
 							self.annotationInfo[self.currentClass]['Method'].append(
 								{'Name': currentMethod, '@': self.annotationStack }
 							)
-						self.annotationStack = []
+						self.annotationStack = {}
 						continue
 					if pattern.isProperty():
 						am = False
@@ -143,7 +152,7 @@ class Controller:
 						className = class_without_bracket.split(' ')[1]
 						self.currentClass = className
 						self.annotationInfo[self.currentClass] = {'@': self.annotationStack, 'Method': []}
-						self.annotationStack = []
+						self.annotationStack = {}
 						continue
 		if self.currentClass is None:
 			print 'Controller class does not exist !'
@@ -189,12 +198,31 @@ class Controller:
 		cpp.write(self.cppContent)
 		cpp.close()
 
+	def mergeAnnotation(self):
+		annotationList = []
+		for className in self.annotationInfo:
+			classAnnotation = self.annotationInfo[className]['@']
+			for methodInfo in self.annotationInfo[className]['Method']:
+				# Override class annotation
+				for defaultAnnotation in classAnnotation:
+					if defaultAnnotation not in methodInfo['@']:
+						methodInfo['@'][defaultAnnotation] = classAnnotation[defaultAnnotation]
+				# If really missing annotation, then using default annotation
+				for defaultAnnotation in self.defaultAnnotation:
+					if defaultAnnotation not in methodInfo['@']:
+						methodInfo['@'][defaultAnnotation] = self.defaultAnnotation[defaultAnnotation]
+
+				methodInfo['@']['@Controller'] = className
+				methodInfo['@']['@Action'] = methodInfo['Name']
+				annotationList.append(methodInfo['@'])
+		return annotationList
+
 	def generateNginxConfig(self):
+		annotationList = self.mergeAnnotation()
+		pprint.pprint(annotationList)
 		location = ""
-		for classItem in self.annotationInfo:
-			print classItem["Method"]
 		configContent = """
-		location =~ /test {
+		location /test {
 		}
 		"""
 		configContent = self.Template.nginx_config.replace('{{ app }}', configContent)

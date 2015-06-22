@@ -1,20 +1,20 @@
 #include <iostream>
-using namespace http;
+using namespace http
 
-@Router /index
+@Route /home
 @Method GET
 @Type HTML
 class Home : Controller
 {
-	public static User a;
-	private App app;
-	protected static int name;
+	public static User a
+	private App app
+	protected static int name
 
 	@Route /app/home
 	@Method GET POST
 	@Type JSON
-	public App(int uid, string password);
-	
+	public App(int uid, string password)
+
 	@Route /home/index
-	public Index();
-};
+	public Index()
+}

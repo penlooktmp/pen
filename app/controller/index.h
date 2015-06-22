@@ -28,7 +28,7 @@
 #include <iostream>
 using namespace http;
 
-@Router /index
+@Route /index
 @Method GET
 @Type HTML
 class Index : Controller
@@ -38,10 +38,9 @@ class Index : Controller
 	protected static int name;
 
 	@Route /login/:uid/:password
-	@Method GET POST
 	@Type JSON
 	public Login(int uid, string password);
-	
+
 	@Route /app/about
 	public About();
 };
