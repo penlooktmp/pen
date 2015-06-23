@@ -30,6 +30,6 @@ from cli import *
 def main():
 	pen = Cli()
 	pen.parse()
-	
+
 if __name__ == '__main__':
 	main()

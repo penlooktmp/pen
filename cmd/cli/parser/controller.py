@@ -161,13 +161,16 @@ class Controller:
 
 	def generateHeader(self):
 		self.headerContent += 'class ' + self.currentClass + "\n{\n"
-		self.headerContent += '\tpublic:\n'
+		if len(self.stackPublic) > 0:
+			self.headerContent += '\tpublic:\n'
 		for publicItem in self.stackPublic:
 			self.headerContent += '\t\t' + publicItem.strip() + '\n'
-		self.headerContent += '\tprivate:\n'
+		if len(self.stackPrivate) > 0:
+			self.headerContent += '\tprivate:\n'
 		for privateItem in self.stackPrivate:
 			self.headerContent += '\t\t' + privateItem.strip() + '\n'
-		self.headerContent += '\tprotected:\n'
+		if len(self.stackProtected) > 0:
+			self.headerContent += '\tprotected:\n'
 		for protectedItem in self.stackProtected:
 			self.headerContent += '\t\t' + protectedItem.strip() + '\n'
 		for protectedItem in self.stackNonAccessModifier:
