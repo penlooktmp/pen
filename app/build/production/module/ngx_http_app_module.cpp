@@ -32,16 +32,16 @@ static ngx_int_t ngx_http_app_handler(ngx_http_request_t *request)
     http_request.setUri(uri);
 
     // Test
-    /*
+
     string str = "Hello world";
     char* html = (char*) str.c_str();
     int html_length = str.length();
-    */
 
+    /*
     Http http(http_request, http_response);
     HttpResponse response = http.serveRequest(app::start).getResponse();
     char* html = response.getBody();
-    int html_length = response.getBodyLength();
+    int html_length = response.getBodyLength();*/
 
     /* Type casting */
     u_char* u_html = (u_char*) html;
@@ -77,15 +77,22 @@ static char *ngx_http_app(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
     ngx_http_core_loc_conf_t* clcf;
     clcf = (ngx_http_core_loc_conf_t*) ngx_http_conf_get_module_loc_conf(cf, ngx_http_core_module);
     clcf->handler = ngx_http_app_handler;
+
+    ngx_str_t *args;
+    args = cf->args->elts;
+    for (int i=0; i < cf->args->nelts; i++) {
+        cout << &args[i] << "\n";
+    }
+
     return NGX_CONF_OK;
 }
 
 static ngx_command_t ngx_http_app_commands[] = {
     {
         ngx_string("app"),
-        NGX_HTTP_LOC_CONF | NGX_CONF_TAKE1,
+        NGX_HTTP_LOC_CONF|NGX_HTTP_LIF_CONF|NGX_CONF_ANY,
         ngx_http_app,
-        0,
+        NGX_HTTP_LOC_CONF_OFFSET,
         0,
         NULL
     },
