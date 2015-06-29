@@ -27,19 +27,21 @@
 
 #include <limits.h>
 #include <gtest/gtest.h>
-#include <app/app.h>
+#include <http/http.h>
 
-using namespace app;
+using namespace http;
 
-class AppTest : public ::testing::Test
+class HttpTest : public ::testing::Test
 {
 	protected:
 		virtual void SetUp() {}
 		virtual void TearDown() {}
 };
 
-TEST_F(AppTest, twoValues)
+TEST_F(HttpTest, Constructor)
 {
-    App app;
+	HttpRequest request;
+	HttpResponse response;
+    Http http(request, response);
     EXPECT_EQ("Hello", "Hello");
 }

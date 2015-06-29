@@ -27,19 +27,15 @@
 
 #include <limits.h>
 #include <gtest/gtest.h>
-#include <app/app.h>
 
-using namespace app;
-
-class AppTest : public ::testing::Test
+class StringTest : public ::testing::Test
 {
 	protected:
 		virtual void SetUp() {}
 		virtual void TearDown() {}
 };
 
-TEST_F(AppTest, twoValues)
+TEST_F(StringTest, Constructor)
 {
-    App app;
     EXPECT_EQ("Hello", "Hello");
 }
