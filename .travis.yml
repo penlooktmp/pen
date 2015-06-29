@@ -6,6 +6,9 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq libyajl-dev libxml2-dev libxqilla-dev libpcre3 libpcre3-dev libpcre++-dev openssl libssl-dev libcurl4-openssl-dev
   - sudo apt-get install -qq g++-5
+  - sudo rm -rf /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc
+  - sudo rm -rf /usr/bin/g++ && sudo ln -s /usr/bin/g++-5 /usr/bin/g++
+  - g++ -v
   - export CXX="g++-5" CC="gcc-5"
   - (cd travis; sudo chmod +x ./gtest.sh; ./gtest.sh)
   - (cd travis; sudo chmod +x ./nginx.sh; ./nginx.sh)
