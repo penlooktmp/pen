@@ -39,8 +39,8 @@ sudo cp -a include/gtest/ $GTEST/include
 sudo cp -a lib/.libs/* $GTEST/lib
 sudo cp -a lib/libgtest.la $GTEST/lib
 sudo cp -a lib/libgtest_main.la $GTEST/lib
-sudo cp $GTEST/lib/libgtest.so.* /usr/lib/
-sudo cp $GTEST/lib/libgtest_main.so.* /usr/lib/
+sudo ln -s $GTEST/lib/libgtest.so.0 /usr/lib/libgtest.so.0
+sudo ln -s $GTEST/lib/libgtest_main.so.0 /usr/lib/libgtest_main.so.0
 ldconfig
 cd /tmp
 rm -rf gtest-1.7.*

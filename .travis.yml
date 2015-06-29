@@ -14,4 +14,5 @@ before_install:
   - (cd travis; sudo chmod +x ./nginx.sh; ./nginx.sh)
 script:
   - make && sudo make install
+  - pen -h
   - make test
