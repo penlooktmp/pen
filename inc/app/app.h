@@ -82,6 +82,7 @@ namespace app {
 
 			// Processor
 			App handle(string, function<void(HttpRequest, HttpResponse)> callback);
+			App push(char*);
 	};
 
 	void prepare(Model*);

@@ -110,6 +110,11 @@ namespace app {
 	{
 		return this->command;
 	}
+	
+	App App::push(char* html)
+	{
+		return *this;
+	}
 
 	App::~App()
 	{

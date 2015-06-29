@@ -31,12 +31,16 @@ cd /tmp
 wget https://googletest.googlecode.com/files/gtest-1.7.0.zip
 unzip gtest-1.7.0.zip
 cd gtest-1.7.0
-sudo mkdir /opt/gtest /opt/gtest/include /opt/gtest/lib
-./configure --prefix=/opt/gtest
+GTEST=/usr/lib/gtest
+sudo mkdir $GTEST $GTEST/include $GTEST/lib
+./configure --prefix=$GTEST
 make
-sudo cp -a include/gtest/ /opt/gtest/include
-sudo cp -a lib/.libs/* /opt/gtest/lib
-rm /opt/gtest/lib/libgtest.la
-rm /opt/gtest/lib/libgtest_main.la
-sudo cp -a lib/libgtest.la /opt/gtest/lib
-sudo cp -a lib/libgtest_main.la /opt/gtest/lib
+sudo cp -a include/gtest/ $GTEST/include
+sudo cp -a lib/.libs/* $GTEST/lib
+sudo cp -a lib/libgtest.la $GTEST/lib
+sudo cp -a lib/libgtest_main.la $GTEST/lib
+sudo cp $GTEST/lib/libgtest.so.* /usr/lib/
+sudo cp $GTEST/lib/libgtest_main.so.* /usr/lib/
+ldconfig
+cd /tmp
+rm -rf gtest-1.7.*

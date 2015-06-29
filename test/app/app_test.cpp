@@ -25,19 +25,19 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <unistd.h>
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <cstdio>
-#include <map>
-#include <pthread.h>
-#include <regex>
-#include <sys/param.h>
-#include <vector>
-#include <initializer_list>
+#include <limits.h>
+#include <gtest/gtest.h>
+#include <app/app.h>
 
-using namespace std;
+class AppTest : public ::testing::Test
+{
+	protected:
+		virtual void SetUp() {}
+		virtual void TearDown() {}
+};
 
-#include "unix.h"
-#include "string.h"
+TEST_F(AppTest, twoValues)
+{
+    app::App app;
+    EXPECT_EQ("Hello", "Hello");
+}

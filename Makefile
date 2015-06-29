@@ -25,34 +25,35 @@
 #     Loi Nguyen       <loint@penlook.com>
 
 LIB     = pen
+TEST	= pentest
 CC      = g++
-CCVER 	= c++0x
+CCVER 	= c++11
 BUILD   = -std=$(CCVER) -O3 -fPIC
 DEBUG   = -std=$(CCVER) -pipe -g0 -fno-inline -Wall -fPIC
-TESTF	= -std=$(CCVER) -g -L/opt/gtest/lib -lgtest -lgtest_main -lpthread -I/opt/gtest/include
 EXECUTE = /usr/bin/$(LIB)
 LIBSYS  = /usr/lib
+TESTF	= -std=$(CCVER) -g -pthread -L/usr/lib/gtest/lib -I/usr/lib/gtest/include -I/usr/lib/pen
 INCLUDE = inc
 SOURCED = src
+TESTD   = pkg/test
 OBJECTD = pkg/obj
 SOURCES = $(shell find $(SOURCED) -name *.cpp)
 TESTS   = $(shell find ./test -name *.cpp)
 OBJECTS = $(addprefix $(OBJECTD)/, $(patsubst %.cpp, %.o, $(SOURCES)))
 BINARY = $(OBJECTD)/$(SOURCED)/$(LIB)
-OBJECTT = $(TESTS:.cpp=.o)
+OBJECTT = $(addprefix $(TESTD)/, $(patsubst %.cpp, %.o, $(TESTS)))
 FLAGS   = $(BUILD)
 
 all: $(LIB)
-
 $(LIB): $(OBJECTS)
 	$(CC) $(OBJECTS) -fPIC -shared -o bin/lib$(LIB).so -lcurl -lpthread
 
 $(OBJECTD)/%.o: %.cpp
 	$(CC) -c $(FLAGS) -I$(INCLUDE) $< -o $@
 
-$(OBJECTS): mk
+$(OBJECTS): objectmk
 
-mk:
+objectmk:
 	mkdir -p bin
 	for file in $(OBJECTS) ; do if [ ! -e $$file ]; then mkdir -p $$file && rm -rf $$file; fi done
 
@@ -70,10 +71,18 @@ install:
 	ldconfig
 	$(shell python ./setup.py install > /dev/null)
 
-test:
-	make OBJECTS="$(OBJECTT)" FLAGS="$(TESTF)" LIB="$(TEST)"
-	./$(TEST)
-	rm -rf ./$(TEST)
+$(OBJECTT): testmk
+testmk:
+	mkdir -p bin
+	for file in $(OBJECTT) ; do if [ ! -e $$file ]; then mkdir -p $$file && rm -rf $$file; fi done
+
+$(TESTD)/%.o: %.cpp
+	$(CC) -c $(TESTF) -I$(INCLUDE) $< -o $@
+
+test: $(TEST)
+$(TEST): $(OBJECTT)
+	$(CC) $(TESTF) $(OBJECTT) -o bin/$(TEST) -lpen -lpthread -lgtest -lgtest_main
+	./bin/$(TEST)
 
 clean:
 	rm -rf $(OBJECTD)
@@ -83,4 +92,4 @@ clean:
 remove:
 	rm -rf $(EXECUTE)
 
-.PHONY: all clean debug
+.PHONY: all clean debug test

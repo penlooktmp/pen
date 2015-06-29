@@ -25,6 +25,7 @@
  */
 #pragma once
 
+#include <cstddef>
 #include <typeindex>
 #include <type_traits>
 #include <stdexcept>
@@ -161,22 +162,22 @@ inline void swap(any<space,aligment>& lhr,any<space,aligment>& rhs) {
     rhs = std::move(t);
 }
 
-template<typename Type,size_t space,size_t aligment>
-inline Type any_cast(any<space,aligment>& operand) {
-    return operand.cast<Type>( );
+template<typename Type, size_t space, size_t aligment>
+inline Type any_cast(any<space, aligment>& operand) {
+    return operand.cast<Type>();
 }
 
-template<typename Type,size_t space,size_t aligment>
-inline Type any_cast(const any<space,aligment>& operand) {
-    return operand.cast<Type>( );
+template<typename Type, size_t space, size_t aligment>
+inline Type any_cast(const any<space, aligment>& operand) {
+    return operand.cast<Type>();
 }
 
-template<typename Type,size_t space,size_t aligment>
-inline Type* any_cast(any<space,aligment>* operand) {
-    return operand->cast_ptr<Type>( );
+template<typename Type, size_t space, size_t aligment>
+inline Type* any_cast(any<space, aligment>* operand) {
+    return operand->cast_ptr<Type>();
 }
 
-template<typename Type,size_t space,size_t aligment>
-inline const Type* any_cast(const any<space,aligment>* operand) {
+template<typename Type, size_t space, size_t aligment>
+inline const Type* any_cast(const any<space, aligment>* operand) {
     return operand->cast_ptr<Type>();
 }
