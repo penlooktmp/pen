@@ -19,3 +19,4 @@
 /app/build/app/model
 /app/build/app/test
 /app/build/development/obj/*
+/app/build/production/nginx
