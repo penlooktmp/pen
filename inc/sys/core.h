@@ -41,4 +41,5 @@ using namespace std;
 
 #include "unix.h"
 #include "string.h"
+#include "type.h"
 

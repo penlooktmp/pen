@@ -31,6 +31,7 @@
 #include <app/controller.h>
 #include <app/model.h>
 #include <app/view.h>
+#include <functional>
 
 using namespace http;
 
@@ -43,6 +44,8 @@ namespace app {
 			Router router;
 			Controller controller;
 			View view;
+			Model model;
+			string command;
 
 		public:
 			string out;
@@ -73,8 +76,14 @@ namespace app {
 			App setView(View);
 			View getView();
 
+			// Command
+			App setCommand(string);
+			string getCommand();
+
+			// Processor
 			App handle(string, function<void(HttpRequest, HttpResponse)> callback);
 	};
 
-	void start(App*);
+	void prepare(Model*);
+	void handler(App*);
 }

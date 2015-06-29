@@ -29,9 +29,7 @@ namespace app {
 
 	class Controller {
 		private:
-			Http http;
-			Router router;
-			View view;
+		
 		protected:
 			
 		public:

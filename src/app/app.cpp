@@ -88,6 +88,28 @@ namespace app {
 	{
 		return this->view;
 	}
+	
+	App App::setModel(Model model)
+	{
+		this->model = model;
+		return *this;
+	}
+	
+	Model App::getModel()
+	{
+		return this->model;
+	}
+
+	App App::setCommand(string command)
+	{
+		this->command = command;
+		return *this;
+	}
+
+	string App::getCommand()
+	{
+		return this->command;
+	}
 
 	App::~App()
 	{

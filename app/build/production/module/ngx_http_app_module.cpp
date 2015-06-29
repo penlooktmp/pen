@@ -9,11 +9,43 @@ extern "C" {
 #include <iostream>
 #include <sstream>
 #include <string>
+#include "app.h"
 
 using namespace std;
 using namespace http;
 
-static ngx_http_module_t ngx_http_app_module_ctx = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+static Model model;
+
+typedef struct {
+    ngx_str_t name;
+} ngx_http_app_loc_conf_t;
+
+// Create app location configuration
+static void *
+ngx_http_app_create_loc_conf(ngx_conf_t *cf)
+{
+    ngx_http_app_loc_conf_t *conf;
+    conf = (ngx_http_app_loc_conf_t*) ngx_pcalloc(cf->pool, sizeof(ngx_http_app_loc_conf_t));
+    if (conf == NULL) {
+        return NULL;
+    }
+    return conf;
+}
+
+// Module context register
+static ngx_http_module_t ngx_http_app_module_ctx = {
+    NULL,                          /* preconfiguration */
+    NULL,                          /* postconfiguration */
+
+    NULL,                          /* create main configuration */
+    NULL,                          /* init main configuration */
+
+    NULL,                          /* create server configuration */
+    NULL,                          /* merge server configuration */
+
+    ngx_http_app_create_loc_conf,  /* create location configuration */
+    NULL
+};
 
 /*
 Nginx Http Request
@@ -21,27 +53,18 @@ https://github.com/nginx/nginx/blob/master/src/http/ngx_http_request.h#L359
 */
 static ngx_int_t ngx_http_app_handler(ngx_http_request_t *request)
 {
-    ngx_buf_t *buffer;
-    ngx_chain_t out;
-
-    HttpRequest http_request;
-    HttpResponse http_response;
-
-    ngx_str_t uri_obj = request->uri;
-    string uri = reinterpret_cast<const char*>(uri_obj.data);
-    http_request.setUri(uri);
-
-    // Test
-
+    /*
     string str = "Hello world";
     char* html = (char*) str.c_str();
     int html_length = str.length();
-
-    /*
-    Http http(http_request, http_response);
-    HttpResponse response = http.serveRequest(app::start).getResponse();
+    */
+    HttpResponse response = app_bridge(request, model);
     char* html = response.getBody();
-    int html_length = response.getBodyLength();*/
+    cout << html << "\n\n";
+    int html_length = response.getBodyLength();
+
+    ngx_buf_t *buffer;
+    ngx_chain_t out;
 
     /* Type casting */
     u_char* u_html = (u_char*) html;
@@ -72,17 +95,20 @@ static ngx_int_t ngx_http_app_handler(ngx_http_request_t *request)
     return ngx_http_output_filter(request, &out);
 }
 
+
 static char *ngx_http_app(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
 {
     ngx_http_core_loc_conf_t* clcf;
     clcf = (ngx_http_core_loc_conf_t*) ngx_http_conf_get_module_loc_conf(cf, ngx_http_core_module);
     clcf->handler = ngx_http_app_handler;
-
-    ngx_str_t *args;
-    args = cf->args->elts;
+    
+    cout << "LOCATION :";
+    ngx_str_t* args;
+    args = (ngx_str_t*) cf->args->elts;
     for (int i=0; i < cf->args->nelts; i++) {
-        cout << &args[i] << "\n";
+        cout << args[i].data << "\n";
     }
+    cout << "\n\n";
 
     return NGX_CONF_OK;
 }
@@ -113,3 +139,5 @@ ngx_module_t ngx_http_app_module = {
     NULL,
     NGX_MODULE_V1_PADDING
 };
+
+

@@ -37,6 +37,8 @@ namespace http {
         Server server;
         HttpRequest request;
         HttpResponse response;
+        Model model;
+        string command;
 
     public:
         // Self server
@@ -44,15 +46,21 @@ namespace http {
         void post(string, http_callback);
         void listen(int port = 80);
 
-        // Handle from Nginx
         Http(HttpRequest, HttpResponse);
+        Http setApp(App);
+        App getApp();
         Http setRequest(HttpRequest);
         HttpRequest getRequest();
         Http setResponse(HttpResponse);
         HttpResponse getResponse();
+        Http setModel(Model);
+        Model getModel();
 
         // HTTP Processor Injection
         Http serveRequest(function<void(App*)>);
+
+        Http setCommand(string);
+        string getCommand();
     };
 
 }

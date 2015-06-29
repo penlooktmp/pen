@@ -56,12 +56,25 @@ namespace http {
     {
         return this->response;
     }
+    
+    Http Http::setModel(Model model)
+    {
+        this->model = model;
+        return *this;
+    }
+    
+    Model Http::getModel()
+    {
+        return this->model;
+    }
 
     Http Http::serveRequest(function<void(App*)> app_callback)
     {
         App app;
         app.setHttpRequest(this->getRequest())
-           .setHttpResponse(this->getResponse());
+           .setHttpResponse(this->getResponse())
+           .setModel(this->getModel())
+           .setCommand(this->command);
         app_callback(&app);
         // TODO
         // Improve performance
@@ -72,6 +85,17 @@ namespace http {
         strncpy(this->response.body, app.out.c_str(), len - 1);
         this->response.body[len - 1] = '\0';
         return *this;
+    }
+
+    Http Http::setCommand(string command)
+    {
+        this->command = command;
+        return *this;
+    }
+
+    string Http::getCommand()
+    {
+        return this->command;
     }
 
     void Http::get(string router, http_callback callback)
