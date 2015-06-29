@@ -7,6 +7,7 @@ before_install:
   - sudo apt-get install -qq libyajl-dev libxml2-dev libxqilla-dev libpcre3 libpcre3-dev libpcre++-dev openssl libssl-dev libcurl4-openssl-dev
   - sudo apt-get install -qq g++-5
   - export CXX="g++-5" CC="gcc-5"
+  - (cd travis; sudo ./gtest.sh)
 script:
   - make && sudo make install
-  - pen -h
+  - make test
