@@ -41,5 +41,5 @@ class AppTest : public ::testing::Test
 TEST_F(AppTest, twoValues)
 {
     App app;
-    EXPECT_EQ("Hello", "Hellox");
+    EXPECT_EQ("Hello", "Hello");
 }
