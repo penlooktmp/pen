@@ -22,13 +22,17 @@ Time per request:       11.361 [ms] (mean)
 Time per request:       0.114 [ms] (mean, across all concurrent requests)
 ```
 
-### Instruction
-
+### Instruction for developers
+- Google C++ Testing Framework
+```bash
+./tmp/gtest.sh
+```
 - Install library and tools (pen command)
 ```bash
 git clone https://github.com/penlook/pen.git
 cd pen
 make && sudo make install
+make test
 ```
 - Create new project
 ```bash

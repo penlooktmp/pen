@@ -10,8 +10,8 @@ before_install:
   - sudo rm -rf /usr/bin/g++ && sudo ln -s /usr/bin/g++-5 /usr/bin/g++
   - g++ -v
   - export CXX="g++-5" CC="gcc-5"
-  - (cd travis; sudo chmod +x ./gtest.sh; ./gtest.sh)
-  - (cd travis; sudo chmod +x ./nginx.sh; ./nginx.sh)
+  - (cd tmp; sudo chmod +x ./gtest.sh; ./gtest.sh)
+  - (cd tmp; sudo chmod +x ./nginx.sh; ./nginx.sh)
 script:
   - make && sudo make install
   - pen -h

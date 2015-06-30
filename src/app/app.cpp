@@ -88,7 +88,7 @@ namespace app {
 	{
 		return this->view;
 	}
-	
+
 	App App::setModel(Model model)
 	{
 		this->model = model;
