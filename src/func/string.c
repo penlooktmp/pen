@@ -25,21 +25,30 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <limits.h>
-#include <gtest/gtest.h>
-#include <app/app.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-using namespace app;
-
-class AppTest : public ::testing::Test
+// Lenght of pointer array
+int len(char* target[])
 {
-	protected:
-		virtual void SetUp() {}
-		virtual void TearDown() {}
-};
+	register int count = 0;
+	while (*target++) {++count;}
+	return count;
+}
 
-TEST_F(AppTest, push)
+// Split string to one dimession array
+char** split(char* target, char* delimiter)
 {
-    App app;
-    EXPECT_EQ("Hello", "Hello");
+	int max = 100;
+	char** data = (char**) calloc(max, sizeof(char*));
+	data[0] = "abc";
+	data[1] = "abd";
+	data[2] = "abf";
+	return data;
+}
+
+void echo()
+{
+	printf("Hello %s", "World");
 }

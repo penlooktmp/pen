@@ -26,30 +26,39 @@
 
 LIB     = pen
 TEST	= pentest
-CC      = g++
-CCVER 	= c++11
-BUILD   = -std=$(CCVER) -O3 -fPIC
-DEBUG   = -std=$(CCVER) -pipe -g0 -fno-inline -Wall -fPIC
+GCC     = gcc
+G++		= g++
+GCCVER  = c11 
+G++VER 	= c++11
+FGCC    = -std=$(GCCVER)  -O3 -fPIC
+FG++    = -std=$(G++VER) -O3 -fPIC
+DEBUG   = -std=$(G++VER) -pipe -g0 -fno-inline -Wall -fPIC
 EXECUTE = /usr/bin/$(LIB)
 LIBSYS  = /usr/lib
-TESTF	= -std=$(CCVER) -g -pthread -L/usr/lib/gtest/lib -I/usr/lib/gtest/include -I/usr/lib/pen
+TESTF	= -std=$(G++VER) -g -pthread -L/usr/lib/gtest/lib -I/usr/lib/gtest/include -I/usr/lib/pen
 INCLUDE = inc
 SOURCED = src
 TESTD   = pkg/test
 OBJECTD = pkg/obj
-SOURCES = $(shell find $(SOURCED) -name *.cpp)
-TESTS   = $(shell find ./test -name *.cpp)
-OBJECTS = $(addprefix $(OBJECTD)/, $(patsubst %.cpp, %.o, $(SOURCES)))
-BINARY = $(OBJECTD)/$(SOURCED)/$(LIB)
+SOURCES = $(shell find src -name *.c*)
+TESTS   = $(shell find test -name *.cpp)
+SOURCE  = $(patsubst %.cpp, %.o, $(SOURCES))
+SOURCE  := $(patsubst %.c, %.o, $(SOURCE))
+OBJECTS = $(addprefix $(OBJECTD)/, $(SOURCE))
+BINARY  = $(OBJECTD)/$(SOURCED)/$(LIB)
 OBJECTT = $(addprefix $(TESTD)/, $(patsubst %.cpp, %.o, $(TESTS)))
-FLAGS   = $(BUILD)
+G++FLAG = $(FG++)
+GCCFLAG = $(FGCC)
 
 all: $(LIB)
 $(LIB): $(OBJECTS)
-	$(CC) $(OBJECTS) -fPIC -shared -o bin/lib$(LIB).so -lcurl -lpthread
+	$(G++) $(OBJECTS) -fPIC -shared -o bin/lib$(LIB).so -lcurl -lpthread
 
 $(OBJECTD)/%.o: %.cpp
-	$(CC) -c $(FLAGS) -I$(INCLUDE) $< -o $@
+	$(G++) -c $(G++FLAG) -I$(INCLUDE) $< -o $@
+
+$(OBJECTD)/%.o: %.c
+	$(GCC) -c $(GCCFLAG) -I$(INCLUDE) $< -o $@
 
 $(OBJECTS): objectmk
 
@@ -58,9 +67,8 @@ objectmk:
 	for file in $(OBJECTS) ; do if [ ! -e $$file ]; then mkdir -p $$file && rm -rf $$file; fi done
 
 debug:
-	make SOURCED="$(SOURCED)$(path)" FLAGS="$(DEBUG)"
 	mkdir -p $(LIBSYS)/$(LIB)
-	cp -rf $(INCLUDE)/* $(LIBSYS)/$(LIB)
+	cp -ru $(INCLUDE)/* $(LIBSYS)/$(LIB)
 	cp -f bin/lib$(LIB).so $(LIBSYS)/
 	ldconfig
 
@@ -77,11 +85,11 @@ testmk:
 	for file in $(OBJECTT) ; do if [ ! -e $$file ]; then mkdir -p $$file && rm -rf $$file; fi done
 
 $(TESTD)/%.o: %.cpp
-	$(CC) -c $(TESTF) -I$(INCLUDE) $< -o $@
+	$(G++) -c $(TESTF) -I$(INCLUDE) $< -o $@
 
 test: $(TEST)
 $(TEST): $(OBJECTT)
-	$(CC) $(TESTF) $(OBJECTT) -o bin/$(TEST) -lpen -lpthread -lgtest -lgtest_main
+	$(G++) $(TESTF) $(OBJECTT) -o bin/$(TEST) -lpen -lpthread -lgtest -lgtest_main
 	./bin/$(TEST)
 
 clean:

@@ -24,22 +24,17 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-#include <limits.h>
-#include <gtest/gtest.h>
-#include <app/app.h>
+int    len(char** target);
+char **split(char* target, char* delimiter);
+char  *join(char* target[], char* delimiter);
+int    indexOf(char* target, char* subtarget);
+char  *trim(char* target);
+void  echo();
 
-using namespace app;
-
-class AppTest : public ::testing::Test
-{
-	protected:
-		virtual void SetUp() {}
-		virtual void TearDown() {}
-};
-
-TEST_F(AppTest, push)
-{
-    App app;
-    EXPECT_EQ("Hello", "Hello");
+#ifdef __cplusplus
 }
+#endif

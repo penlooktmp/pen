@@ -24,6 +24,8 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
+#ifndef HTTP_H
+#define HTTP_H
 
 #include <http/wpp.h>
 #include <app/app.h>
@@ -62,5 +64,6 @@ namespace http {
         Http setCommand(string);
         string getCommand();
     };
-
 }
+
+#endif

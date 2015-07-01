@@ -3,6 +3,8 @@
     An Open Source web server for C++
     https://github.com/konteck/wpp
 */
+#ifndef WPP_H
+#define WPP_H
 
 #include <dirent.h>
 #include <netinet/in.h>
@@ -104,3 +106,5 @@ namespace http {
             void split(string, string, int, vector<string>*);
     };
 }
+
+#endif

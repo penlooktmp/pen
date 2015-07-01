@@ -22,7 +22,7 @@ Time per request:       11.361 [ms] (mean)
 Time per request:       0.114 [ms] (mean, across all concurrent requests)
 ```
 
-### Instruction for developers
+### Installation
 - Google C++ Testing Framework
 ```bash
 ./tmp/gtest.sh
@@ -34,6 +34,8 @@ cd pen
 make && sudo make install
 make test
 ```
+
+### Instruction
 - Create new project
 ```bash
 $ pen new app
@@ -49,15 +51,6 @@ $ pen build app
 - Test benchmark
 ```bash
 $ pen test
-```
-###Development
-- pen-cli
-```bash
-$ python cmd/pen.py -h
-```
-- pen-framework
-```bash
-$ pen run app
 ```
 
 ###Roadmap

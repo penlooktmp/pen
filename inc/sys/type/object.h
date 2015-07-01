@@ -24,22 +24,3 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-
-#include <limits.h>
-#include <gtest/gtest.h>
-#include <app/app.h>
-
-using namespace app;
-
-class AppTest : public ::testing::Test
-{
-	protected:
-		virtual void SetUp() {}
-		virtual void TearDown() {}
-};
-
-TEST_F(AppTest, push)
-{
-    App app;
-    EXPECT_EQ("Hello", "Hello");
-}

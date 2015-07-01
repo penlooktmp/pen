@@ -24,6 +24,8 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
+#ifndef CORE_H
+#define CORE_H
 
 #include <unistd.h>
 #include <string>
@@ -41,3 +43,5 @@ using namespace std;
 
 #include "unix.h"
 #include "string.h"
+
+#endif

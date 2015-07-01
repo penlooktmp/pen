@@ -32,7 +32,6 @@ namespace app
 	{
 		User user;
 		user.setName("loint");
-
 		map<string, any> data;
 		data["title"] = "Hello world";
 		data["number"] = 12345;

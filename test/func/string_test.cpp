@@ -27,19 +27,20 @@
 
 #include <limits.h>
 #include <gtest/gtest.h>
-#include <app/app.h>
+#include <func/string.h>
 
-using namespace app;
-
-class AppTest : public ::testing::Test
+class StringTest : public ::testing::Test
 {
 	protected:
 		virtual void SetUp() {}
 		virtual void TearDown() {}
 };
 
-TEST_F(AppTest, push)
+TEST_F(StringTest, string)
 {
-    App app;
-    EXPECT_EQ("Hello", "Hello");
+	char name[] = "Nguyen Trung Loi";
+	char delim[] =  " ";
+	char** data = split(name, delim);
+	std::cout << "[          ] random seed = " << len(data) << std::endl;
+    //EXPECT_EQ("Nguyen", len);
 }

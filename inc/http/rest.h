@@ -5,8 +5,8 @@
  * @version
  * @date 2010-10-11
  */
-#ifndef INCLUDE_RESTCLIENT_H_
-#define INCLUDE_RESTCLIENT_H_
+#ifndef REST_H
+#define REST_H
 
 #include <curl/curl.h>
 #include <string>
@@ -14,13 +14,13 @@
 #include <cstdlib>
 #include <algorithm>
 
-#ifndef INCLUDE_META_H_
-#define INCLUDE_META_H_
+#ifndef META_H
+#define META_H
 
 // version string
 #define VERSION "0.2.0"
 
-#endif  // INCLUDE_META_H_
+#endif
 
 namespace http {
     
@@ -93,6 +93,6 @@ namespace http {
         }
     
     };
-    
-    #endif  // INCLUDE_RESTCLIENT_H_
 }
+
+#endif

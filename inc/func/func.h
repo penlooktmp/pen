@@ -25,21 +25,10 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <limits.h>
-#include <gtest/gtest.h>
-#include <app/app.h>
+#ifndef FUNC_H
+#define FUNC_H
 
-using namespace app;
+#include "string.h"
+#include "convert.h"
 
-class AppTest : public ::testing::Test
-{
-	protected:
-		virtual void SetUp() {}
-		virtual void TearDown() {}
-};
-
-TEST_F(AppTest, push)
-{
-    App app;
-    EXPECT_EQ("Hello", "Hello");
-}
+#endif

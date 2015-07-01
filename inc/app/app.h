@@ -24,6 +24,8 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
+#ifndef APP_H
+#define APP_H
 
 #include <http/request.h>
 #include <http/response.h>
@@ -88,3 +90,5 @@ namespace app {
 	void prepare(Model*);
 	void handler(App*);
 }
+
+#endif
