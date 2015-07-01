@@ -1,7 +1,7 @@
 # pen framework [![Build Status](https://travis-ci.org/penlook/pen.svg)](https://travis-ci.org/penlook/pen)
 
 ###Features
-- MVC Web framework is written in C++
+- MVC Web framework is written in C/C++
 - Performance orientation (everything is compiled)
 - High traffic with low resources (integrated with Nginx)
 - Support Pen Syntax besides C++ for rapid development

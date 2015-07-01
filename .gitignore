@@ -13,9 +13,5 @@
 /cmd/cli/parser/*.pyc
 /cmd/cli/content/*.pyc
 /cmd/cli/template/*.pyc
-/app/build/app/view
-/app/build/app/controller
-/app/build/app/model
-/app/build/app/test
 /app/build/development/obj/*
 /app/build/production/nginx
