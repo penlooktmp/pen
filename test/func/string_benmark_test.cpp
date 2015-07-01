@@ -31,46 +31,19 @@
 using namespace std;
 using namespace app;
 
-class StringTest : public Test {};
+class StringBenmarkTest : public Test {};
 
-TEST_F(StringTest, count)
+TEST_F(StringBenmarkTest, count)
 {
-	// Constant string
-	char const* data1[] = {
-		"abc", "abd", "abf", "xyz", "123", "3456", '\0'
-	};
-	EXPECT_EQ(6, count((char**) data1));
-	
-	// Dynamic string
-	int NUM = 135;
+	int NUM = 10000;
 	char** data2 = (char**) calloc(NUM + 1, sizeof(char*));
 	for (int i=0; i<NUM; i++) {
 		data2[i] = (char*) "test";
 	}
 	data2[NUM] = '\0';
-	EXPECT_EQ(NUM, count(data2));
-}
-
-TEST_F(StringTest, trim)
-{
-	char name1[] = "     Hello, this is string    ";
-	char* result = trim(name1); 
-	EXPECT_EQ("Hello, this is string", string(result));
-
-	char name2[] = "     Hello, this is string";
-	char* result2 = trim(name2);
-	EXPECT_EQ("Hello, this is string", string(result2));
-
-	char name3[] = "Hello, this is string    ";
-	char* result3 = trim(name3);
-	EXPECT_EQ("Hello, this is string", string(result3));
-}
-
-TEST_F(StringTest, join)
-{
-	char const* data1[] = {
-		"abc", "abd", "abf", "xyz", "123", "3456", '\0'
-	};
-	char* result1 = join((char**) data1, (char*) "-");
-	EXPECT_EQ("abc-abd-abf-xyz-123-3456", string(result1));
+	int times = 0;
+	for (int i=0; i<10000; i++) {
+		times += count(data2);
+	}
+	EXPECT_EQ(NUM*10000, times);
 }

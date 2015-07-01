@@ -70,6 +70,7 @@ char *join(char *target[], char *delimiter)
 	wlen = strlen(target[num]);
 	memcpy(tmp + len, target[num], wlen);
 	len += wlen;
+	len += 1;
 	// Saving memory
 	char *result = calloc(len, sizeof(char));
 	memcpy(result, tmp, len);
