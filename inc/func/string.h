@@ -28,7 +28,7 @@
 extern "C" {
 #endif
 
-int    count(char** target);
+int    count(char **target);
 char **split(char* target, char* delimiter);
 char  *join(char* target[], char* delimiter);
 int    indexOf(char* target, char* subtarget);

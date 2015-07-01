@@ -30,7 +30,7 @@
 #include <string.h>
 
 // Lenght of pointer array
-int count(char* target[])
+int count(char **target)
 {
 	register int count = 0;
 	while (*target++) ++count;
@@ -46,6 +46,12 @@ char **split(char* target, char* delimiter)
 	data[1] = "abd";
 	data[2] = "abf";
 	return data;
+}
+
+// Join string with delimiter
+char *join(char* target[], char*delimiter)
+{
+	
 }
 
 // Trim all space left and right

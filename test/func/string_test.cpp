@@ -24,6 +24,7 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
+
 #include <iostream>
 #include <app/test.h>
 #include <func/string.h>
@@ -35,18 +36,35 @@ class StringTest : public Test {
 	public:
 };
 
-TEST_F(StringTest, string)
+TEST_F(StringTest, count)
 {
-	char name[] = "Nguyen Trung Loi";
-	char delim[] =  " ";
-	char** data = split(name, delim);
-	//std::cout << "[          ] LENGTH = " << cout(data) << std::endl;
-    EXPECT_EQ(3, count(data));
+	// Constant string
+	char const* data1[] = {
+		"abc", "abd", "abf", "xyz", "123", "3456", '\0'
+	};
+	EXPECT_EQ(6, count((char**) data1));
+	
+	// Dynamic string
+	int NUM = 135;
+	char** data2 = (char**) calloc(NUM + 1, sizeof(char*));
+	for (int i=0; i<NUM; i++) {
+		data2[i] = (char*) "test";
+	}
+	data2[NUM] = '\0';
+	EXPECT_EQ(NUM, count(data2));
 }
 
 TEST_F(StringTest, trim)
 {
-	char name[] = "     Hello, this is string    ";
-	char* result = trim(name);
+	char name1[] = "     Hello, this is string    ";
+	char* result = trim(name1);
 	EXPECT_EQ("Hello, this is string", string(result));
+	
+	char name2[] = "     Hello, this is string";
+	char* result2 = trim(name2);
+	EXPECT_EQ("Hello, this is string", string(result2));
+	
+	char name3[] = "Hello, this is string    ";
+	char* result3 = trim(name3);
+	EXPECT_EQ("Hello, this is string", string(result3));
 }
