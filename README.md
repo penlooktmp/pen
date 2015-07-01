@@ -35,12 +35,18 @@ make && sudo make install
 make test
 ```
 
+### Development
+Test Driven Development (recommendation)
+```bash
+make && make debug && make test
+```
+
 ### Instruction
 - Create new project
 ```bash
 $ pen new app
 ```
-- Run project under development mode
+- Run project under hot-code reload
 ```bash
 $ pen run app
 ```
