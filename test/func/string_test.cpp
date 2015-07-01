@@ -32,9 +32,7 @@
 using namespace std;
 using namespace app;
 
-class StringTest : public Test {
-	public:
-};
+class StringTest : public Test {};
 
 TEST_F(StringTest, count)
 {
@@ -57,14 +55,23 @@ TEST_F(StringTest, count)
 TEST_F(StringTest, trim)
 {
 	char name1[] = "     Hello, this is string    ";
-	char* result = trim(name1);
+	char* result = trim(name1); 
 	EXPECT_EQ("Hello, this is string", string(result));
-	
+
 	char name2[] = "     Hello, this is string";
 	char* result2 = trim(name2);
 	EXPECT_EQ("Hello, this is string", string(result2));
-	
+
 	char name3[] = "Hello, this is string    ";
 	char* result3 = trim(name3);
 	EXPECT_EQ("Hello, this is string", string(result3));
+}
+
+TEST_F(StringTest, join)
+{
+	char const* data1[] = {
+		"abc", "abd", "abf", "xyz", "123", "3456", '\0'
+	};
+	char* result1 = join((char**) data1, (char*) "-");
+	EXPECT_EQ("abc-abd-abf-xyz-123-3456", string(result1));
 }

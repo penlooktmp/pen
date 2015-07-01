@@ -29,6 +29,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MAX_SIZE 1000000
+
 // Lenght of pointer array
 int count(char **target)
 {
@@ -49,9 +51,31 @@ char **split(char* target, char* delimiter)
 }
 
 // Join string with delimiter
-char *join(char* target[], char*delimiter)
+char *join(char *target[], char *delimiter)
 {
-	
+	int num = count(target) - 1;
+	int len = 0, wlen = 0;
+	char *tmp = calloc(MAX_SIZE, sizeof(char));
+	for (int i=0; i<num; i++) {
+		// Copy memory segment
+		wlen = strlen(target[i]);
+		memcpy(tmp + len, target[i], wlen);
+		len += wlen;
+		// Copy memory segment
+		wlen = strlen(delimiter);
+		memcpy(tmp + len, delimiter, wlen);
+		len += wlen;
+	}
+	// Copy memory segment
+	wlen = strlen(target[num]);
+	memcpy(tmp + len, target[num], wlen);
+	len += wlen;
+	// Saving memory
+	char *result = calloc(len, sizeof(char));
+	memcpy(result, tmp, len);
+	// Deallocate memory
+	free(tmp);
+	return result;
 }
 
 // Trim all space left and right

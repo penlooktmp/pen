@@ -24,19 +24,3 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-int    count(char **target);
-char **replace(char *target, char* search, char* replace);
-//char **substr(char *target, int from, int to);
-char **substr(char *target, int from);
-char **split(char* target, char* delimiter);
-char  *join(char* target[], char* delimiter);
-int    indexOf(char* target, char* subtarget);
-char  *trim(char* target);
-
-#ifdef __cplusplus
-}
-#endif
