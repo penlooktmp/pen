@@ -39,14 +39,46 @@ int count(char **target)
 	return count;
 }
 
+// Find and replace
+char  *replace(const char *target, const char* find, const char* replace_with)
+{
+	char *result;
+	int i, count = 0;
+	int newlen = strlen(find);
+	int oldlen = strlen(replace_with);
+
+	for (i = 0; target[i] != '\0'; i++)
+	{
+		if (strstr(&target[i], find) == &target[i]) 
+		{
+			count++;
+			i += oldlen - 1;
+		}
+	}
+	result = (char*) malloc(i + count * (newlen - oldlen));
+	if (result == NULL) {
+		exit(EXIT_FAILURE);
+	}
+	i = 0;
+	while (*target)
+	{
+		if (strstr(target, find) == target)
+		{
+			strcpy(&result[i], replace_with);
+			i += newlen;
+			target += oldlen;
+		} else result[i++] = *target++;
+	}
+	result[i] = '\0';
+	return result;
+}
+
 // Split string to one dimession array
 char **split(char* target, char* delimiter)
 {
 	int max = 100;
 	char** data = (char**) calloc(max, sizeof(char*));
-	data[0] = "abc";
-	data[1] = "abd";
-	data[2] = "abf";
+	
 	return data;
 }
 

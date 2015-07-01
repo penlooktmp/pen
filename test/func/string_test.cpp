@@ -51,6 +51,16 @@ TEST_F(StringTest, count)
 	EXPECT_EQ(NUM, count(data2));
 }
 
+TEST_F(StringTest, replace)
+{
+	char name[] = "xyz abc xyz 123 xyz !@# xyz";
+	char *result1 = replace(name, "xyz", "456");
+	EXPECT_EQ("456 abc 456 123 456 !@# 456", string(result1));
+	// WRONG
+	//char *result2 = replace(result1, "!", "0123");
+	//EXPECT_EQ("abc 456 123 0123@#", string(result2));
+}
+
 TEST_F(StringTest, trim)
 {
 	char name1[] = "     Hello, this is string    ";
