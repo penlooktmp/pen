@@ -30,15 +30,15 @@
 #include <string.h>
 
 // Lenght of pointer array
-int len(char* target[])
+int count(char* target[])
 {
 	register int count = 0;
-	while (*target++) {++count;}
+	while (*target++) ++count;
 	return count;
 }
 
 // Split string to one dimession array
-char** split(char* target, char* delimiter)
+char **split(char* target, char* delimiter)
 {
 	int max = 100;
 	char** data = (char**) calloc(max, sizeof(char*));
@@ -48,7 +48,16 @@ char** split(char* target, char* delimiter)
 	return data;
 }
 
-void echo()
+// Trim all space left and right
+char *trim(char *target)
 {
-	printf("Hello %s", "World");
+	int len, left, right;
+	left = 0;
+	right = strlen(target) - 1;
+	while (target[left] == ' ') left++;
+	while (target[right] == ' ') right--;
+	len = right - left + 1;
+	char *result = calloc(len, sizeof(char));
+	memcpy(result, &target[left], len);
+	return result;
 }

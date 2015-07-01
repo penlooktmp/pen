@@ -28,12 +28,11 @@
 extern "C" {
 #endif
 
-int    len(char** target);
+int    count(char** target);
 char **split(char* target, char* delimiter);
 char  *join(char* target[], char* delimiter);
 int    indexOf(char* target, char* subtarget);
 char  *trim(char* target);
-void  echo();
 
 #ifdef __cplusplus
 }

@@ -24,29 +24,19 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-#include <iostream>
-#include <app/test.h>
-#include <func/string.h>
 
-using namespace std;
-using namespace app;
+#ifndef TEST_H
+#define TEST_H
 
-class StringTest : public Test {
-	public:
-};
+#include <limits.h>
+#include <gtest/gtest.h>
 
-TEST_F(StringTest, string)
-{
-	char name[] = "Nguyen Trung Loi";
-	char delim[] =  " ";
-	char** data = split(name, delim);
-	//std::cout << "[          ] LENGTH = " << cout(data) << std::endl;
-    EXPECT_EQ(3, count(data));
+namespace app {
+	class Test : public ::testing::Test
+	{
+		protected:
+			virtual void SetUp() {}
+			virtual void TearDown() {}
+	};
 }
-
-TEST_F(StringTest, trim)
-{
-	char name[] = "     Hello, this is string    ";
-	char* result = trim(name);
-	EXPECT_EQ("Hello, this is string", string(result));
-}
+#endif
