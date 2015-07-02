@@ -26,6 +26,7 @@
  */
 
 #include <http/http.h>
+#include <app/app.h>
 
 namespace http {
 
@@ -74,7 +75,7 @@ namespace http {
         app.setHttpRequest(this->getRequest())
            .setHttpResponse(this->getResponse())
            .setModel(this->getModel())
-           .setCommand(this->command);
+           .setController(App::getControllerByCommand(this->getCommand()));
         app_callback(&app);
         // TODO
         // Improve performance

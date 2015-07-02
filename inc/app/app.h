@@ -24,8 +24,8 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-#ifndef APP_H
-#define APP_H
+#ifndef APP_APP_H
+#define APP_APP_H
 
 #include <http/request.h>
 #include <http/response.h>
@@ -45,9 +45,9 @@ namespace app {
 			HttpResponse response;
 			Router router;
 			Controller controller;
+			Action action;
 			View view;
 			Model model;
-			string command;
 
 		public:
 			string out;
@@ -69,6 +69,8 @@ namespace app {
 			// Controller
 			App setController(Controller);
 			Controller getController();
+
+			static Controller getControllerByCommand(string);
 
 			// Model
 			App setModel(Model);

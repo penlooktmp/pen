@@ -11,8 +11,6 @@ using namespace http;
 
 HttpResponse app_bridge(ngx_http_request_t* request, Model model)
 {
-    cout << "New Request" << "\n";
-
     HttpRequest http_request;
     HttpResponse http_response;
 

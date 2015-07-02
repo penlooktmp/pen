@@ -78,6 +78,8 @@ namespace app {
 		return this->controller;
 	}
 
+	Controller App::getControllerByCommand(string);
+
 	App App::setView(View view)
 	{
 		this->view = view;
