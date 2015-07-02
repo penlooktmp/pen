@@ -27,7 +27,7 @@
 PROG    = pendev
 TEST	= ptest
 CC      = g++
-CCVER 	= c++0x
+CCVER 	= c++11
 BUILD   = -std=$(CCVER) -Wall -O3 
 DEBUG   = -std=$(CCVER) -pipe -g0 -fno-inline -Wall -pthread
 TESTF	= -std=$(CCVER) -g -L/opt/gtest/lib -lgtest -lgtest_main -lpthread -I/opt/gtest/include

@@ -1,27 +1,11 @@
-/**
- * Author: Tiemo Jung
- * contact: tiemo dot jung at mni dot fh-giessen dot de
- * licencse: zlib Licencse
- * Copyright (c) 2013 Tiemo Jung
+/*
+ * (C) Copyright Christopher Diggins 2005-2011
+ * (C) Copyright Pablo Aguilar 2005
+ * (C) Copyright Kevlin Henney 2001
  *
- * This software is provided 'as-is', without any express or implied
- * warranty. In no event will the authors be held liable for any damages
- * arising from the use of this software.
- *
- * Permission is granted to anyone to use this software for any purpose,
- * including commercial applications, and to alter it and redistribute it
- * freely, subject to the following restrictions:
- *
- *  1. The origin of this software must not be misrepresented; you must not
- *  claim that you wrote the original software. If you use this software
- *  in a product, an acknowledgment in the product documentation would be
- *  appreciated but is not required.
- *
- *  2. Altered source versions must be plainly marked as such, and must not be
- *  misrepresented as being the original software.
- *
- *  3. This notice may not be removed or altered from any source
- *  distribution.
+ * Distributed under the Boost Software License, Version 1.0. (See
+ * accompanying file LICENSE_1_0.txt or copy at
+ * http://www.boost.org/LICENSE_1_0.txt
  */
 
 #ifndef TYPE_ANY_H
@@ -29,161 +13,207 @@
 
 #pragma once
 
-#include <cstddef>
-#include <typeindex>
-#include <type_traits>
 #include <stdexcept>
 
-#define space sizeof(int)
-#define aligment std::alignment_of<std::max_align_t>::value
-
-class any {
-    enum class handler_mode {
-        destruct,
-        copy,
-        move,
-        get_type,
+namespace anyimpl
+{
+    struct bad_any_cast 
+    {
     };
 
-    typedef typename std::aligned_storage<space, aligment>::type storage_type;
-    typedef const std::type_info* (*handler_type)(void*,void*,handler_mode);
+    struct empty_any 
+    {
+    };
 
-    storage_type            _store;
-    handler_type            _handler;
+    struct base_any_policy 
+    {
+        virtual void static_delete(void** x) = 0;
+        virtual void copy_from_value(void const* src, void** dest) = 0;
+        virtual void clone(void* const* src, void** dest) = 0;
+        virtual void move(void* const* src, void** dest) = 0;
+        virtual void* get_value(void** src) = 0;
+        virtual size_t get_size() = 0;
+    };
 
-    template<typename Type>
-    static const std::type_info* type_handler(void* src,void* dst,handler_mode mode) {
-        auto src_typed = reinterpret_cast<Type*>( src );
-        auto dst_typed = reinterpret_cast<Type*>( dst );
-        switch ( mode ) {
-        case handler_mode::destruct:
-            dst_typed->~Type();
-            break;
-        case handler_mode::copy:
-            new (dst) Type(( *src_typed ));
-            break;
-        case handler_mode::move:
-            new (dst) Type(std::move(( *src_typed )));
-            break;
-        case handler_mode::get_type:
-            break;
-        }
-        return &typeid(Type);
-    }
+    template<typename T>
+    struct typed_base_any_policy : base_any_policy
+    {
+        virtual size_t get_size() { return sizeof(T); } 
+    };
 
-    void destruct() {
-        if ( !empty() ) {
-            _handler(&_store, &_store, handler_mode::destruct);
-            _handler = nullptr;
-        }
-    }
+    template<typename T>
+    struct small_any_policy : typed_base_any_policy<T>
+    {
+        virtual void static_delete(void** x) { }
+        virtual void copy_from_value(void const* src, void** dest)
+            { new(dest) T(*reinterpret_cast<T const*>(src)); }
+        virtual void clone(void* const* src, void** dest) { *dest = *src; }
+        virtual void move(void* const* src, void** dest) { *dest = *src; }
+        virtual void* get_value(void** src) { return reinterpret_cast<void*>(src); }
+    };
 
-    template<typename Type>
-    bool is_matching_type() const {
-        return ( _handler != nullptr ) && ( *_handler(nullptr,nullptr,handler_mode::get_type) == typeid(Type) );
-    }
+    template<typename T>
+    struct big_any_policy : typed_base_any_policy<T>
+    {
+        virtual void static_delete(void** x) { if (*x) 
+            delete(*reinterpret_cast<T**>(x)); *x = NULL; }
+        virtual void copy_from_value(void const* src, void** dest) { 
+           *dest = new T(*reinterpret_cast<T const*>(src)); }
+        virtual void clone(void* const* src, void** dest) { 
+           *dest = new T(**reinterpret_cast<T* const*>(src)); }
+        virtual void move(void* const* src, void** dest) { 
+          (*reinterpret_cast<T**>(dest))->~T(); 
+          **reinterpret_cast<T**>(dest) = **reinterpret_cast<T* const*>(src); }
+        virtual void* get_value(void** src) { return *src; }
+    };
 
-    template<typename Type>
-    void assign(Type v_) {
-        typedef typename std::aligned_storage<sizeof(Type),std::alignment_of<Type>::value>::type target_store_type;
-        static_assert(sizeof(target_store_type) <= sizeof(storage_type),"inplace space is too smal to hold Type");
-        destruct();
-        _handler = &type_handler<Type>;
-        type_handler<Type>( &v_, &_store, handler_mode::move );
-    }
+    template<typename T>
+    struct choose_policy 
+    {
+        typedef big_any_policy<T> type;
+    };
+
+    template<typename T> 
+    struct choose_policy<T*> 
+    { 
+        typedef small_any_policy<T*> type; 
+    };
+    
+    struct any;
+
+    /// Choosing the policy for an any type is illegal, but should never happen.
+    /// This is designed to throw a compiler error.
+    template<>
+    struct choose_policy<any>
+    {
+        typedef void type;
+    };
+
+    /// Specializations for small types.
+    #define SMALL_POLICY(TYPE) template<> struct choose_policy<TYPE> { typedef small_any_policy<TYPE> type; };
+
+    SMALL_POLICY(signed char);
+    SMALL_POLICY(unsigned char);
+    SMALL_POLICY(signed short);
+    SMALL_POLICY(unsigned short);
+    SMALL_POLICY(signed int);
+    SMALL_POLICY(unsigned int);
+    SMALL_POLICY(signed long);
+    SMALL_POLICY(unsigned long);
+    SMALL_POLICY(float);
+    SMALL_POLICY(bool);
+
+    #undef SMALL_POLICY
+
+    /// This function will return a different policy for each type. 
+    template<typename T>
+    base_any_policy* get_policy()
+    {
+        static typename choose_policy<T>::type policy;
+        return &policy;
+    };
+}
+
+struct any
+{
+private:
+    // fields
+    anyimpl::base_any_policy* policy;
+    void* object;
+
 public:
-    any() : _handler(nullptr) {}
-    template<typename Type>
-    any(Type v_) : _handler(nullptr) {
-        assign(std::forward<Type>(v_));
-    }
-    any(const any& o_) : _handler(nullptr) {
-        *this = o_;
-    }
-    any(any&& o_) : _handler(nullptr) {
-        *this = std::move(o_);
+    /// Initializing constructor.
+    template <typename T>
+    any(const T& x) 
+        : policy(anyimpl::get_policy<anyimpl::empty_any>()), object(NULL) 
+    {
+        assign(x);
+    }       
+
+    /// Empty constructor. 
+    any() 
+        : policy(anyimpl::get_policy<anyimpl::empty_any>()), object(NULL) 
+    { }
+
+    /// Special initializing constructor for string literals. 
+    any(const char* x) 
+        : policy(anyimpl::get_policy<anyimpl::empty_any>()), object(NULL) 
+    { 
+        assign(x);
     }
 
-    bool empty() const { return _handler == nullptr; }
-    const std::type_info& type() const {
-        if ( _handler ) {
-            return *_handler(nullptr,nullptr,handler_mode::get_type);
-        } 
-        return typeid(void);
+    /// Copy constructor. 
+    any(const any& x) 
+        : policy(anyimpl::get_policy<anyimpl::empty_any>()), object(NULL)         
+    {            
+        assign(x);
     }
 
-    template<typename Type>
-    any& operator=(Type v_) {
-        assign(std::forward<Type>(v_));
-        return *this;
-    }
-    any& operator=(const any& o_) {
-        destruct();
-        _handler    = o_._handler;
-        if ( _handler ) {
-            _handler(&const_cast<any&>(o_)._store,&_store,handler_mode::copy);
-        }
-        return *this;
+    /// Destructor. 
+    ~any() {
+        policy->static_delete(&object);
     }
 
-    any& operator=(any&& o_) {
-        destruct();
-        _handler    = o_._handler;
-        if ( _handler ) {
-            _handler(&o_._store,&_store,handler_mode::move);
-        }
+    /// Assignment function from another any. 
+    any& assign(const any& x) {
+        reset();
+        policy = x.policy;
+        policy->clone(&x.object, &object);
         return *this;
     }
 
-    template<typename Type>
-    Type cast() const {
-        if ( is_matching_type<Type>() ) {
-            return *reinterpret_cast<const Type*>(&_store);
-        }
-        throw std::bad_cast("any::cast(): unable to cast type");
+    /// Assignment function. 
+    template <typename T>
+    any& assign(const T& x) {
+        reset();
+        policy = anyimpl::get_policy<T>();
+        policy->copy_from_value(&x, &object);
+        return *this;
     }
 
-    template<typename Type>
-    const Type* cast_ptr() const {
-        if ( is_matching_type<Type>() ) {
-            return reinterpret_cast<const Type*>(&_store);
-        }
-        return nullptr;
+    /// Assignment operator.
+    template<typename T>
+    any& operator=(const T& x) {
+        return assign(x);
     }
 
-    template<typename Type>
-    Type* cast_ptr() {
-        if ( is_matching_type<Type>() ) {
-            return reinterpret_cast<Type*>(&_store);
-        }
-        return nullptr;
+    /// Assignment operator, specialed for literal strings. 
+    /// They have types like const char [6] which don't work as expected. 
+    any& operator=(const char* x) {
+        return assign(x);
+    }
+
+    /// Utility functions
+    any& swap(any& x) {
+        std::swap(policy, x.policy);
+        std::swap(object, x.object);
+        return *this;
+    }
+
+    /// Cast operator. You can only cast to the original type.
+    template<typename T>
+    T& cast() {
+        if (policy != anyimpl::get_policy<T>()) 
+            throw anyimpl::bad_any_cast();
+        T* r = reinterpret_cast<T*>(policy->get_value(&object)); 
+        return *r;
+    }
+
+    /// Returns true if the any contains no value. 
+    bool empty() const {
+        return policy == anyimpl::get_policy<anyimpl::empty_any>();
+    }
+
+    /// Frees any allocated memory, and sets the value to NULL.
+    void reset() {
+        policy->static_delete(&object);
+        policy = anyimpl::get_policy<anyimpl::empty_any>();
+    }
+
+    /// Returns true if the two types are the same. 
+    bool compatible(const any& x) const {
+        return policy == x.policy;
     }
 };
-
-inline void swap(any& lhr,any& rhs) {
-    auto t = std::move(lhr);
-    lhr = std::move(rhs);
-    rhs = std::move(t);
-}
-
-template<typename Type>
-inline Type any_cast(any& operand) {
-    return operand.cast<Type>();
-}
-
-template<typename Type>
-inline Type any_cast(const any& operand) {
-    return operand.cast<Type>();
-}
-
-template<typename Type>
-inline Type* any_cast(any* operand) {
-    return operand->cast_ptr<Type>();
-}
-
-template<typename Type>
-inline const Type* any_cast(const any* operand) {
-    return operand->cast_ptr<Type>();
-}
 
 #endif
