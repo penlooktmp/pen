@@ -61,6 +61,8 @@ void {{ fileName }}(App* app, map<string, string> data) {
 	
 	def setOutput(self, outputViewFolder):
 		self.Output = outputViewFolder
+		if not os.path.isdir(self.Output):
+			os.makedirs(self.Output)
 		return self
 
 	def setMode(self, mode):

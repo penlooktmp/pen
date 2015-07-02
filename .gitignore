@@ -4,9 +4,9 @@
 /build
 /dist
 /pen.egg-info
-/cmd/app/build/development/obj/*
-/cmd/app/build/development/tmp
-/cmd/app/build/production/nginx/*
+/app/build/development/obj/*
+/app/build/development/tmp
+/app/build/production/nginx/*
 .settings
 /cmd/*.pyc
 /cmd/cli/*.pyc

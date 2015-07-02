@@ -64,7 +64,7 @@ class Run(argparse.Action):
 		print 'Controller - Done.'
 
 	def parse(self):
-		#self.compileView()
+		self.compileView()
 		self.compileController()
 
 	def build(self):

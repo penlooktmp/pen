@@ -60,6 +60,8 @@ class Controller:
 
 	def setOutput(self, destDir):
 		self.Output = destDir
+		if not os.path.isdir(self.Output):
+			os.makedirs(self.Output)
 		return self
 
 	def setTemplate(self, templateContext):

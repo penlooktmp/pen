@@ -24,3 +24,9 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
+
+class Object
+{
+	protected:
+		virtual char* toString();
+};
