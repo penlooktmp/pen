@@ -25,51 +25,36 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
+#include <app/test.h>
 #include <app/controller.h>
 
-namespace app {
-	
-	Action &Action::setName(string name)
-	{
-		this->name = name;
-		return *this;
-	}
-	
-	string Action::getName()
-	{
-		return this->name;
-	}
-	
-	Action &Action::setData(map<string, string> data)
-	{
-		this->data = data;
-		return *this;
-	}
-	
-	map<string, string> Action::getData()
-	{
-		return this->data;
-	}
+using namespace std;
+using namespace app;
 
-	Controller &Controller::setName(string name)
-	{
-		this->name = name;
-		return *this;
-	}
-	
-	string Controller::getName()
-	{
-		return this->name;
-	}
-	
-	Controller &Controller::setAction(Action action)
-	{
-		this->action = action;
-		return *this;
-	}
-	
-	Action Controller::getAction()
-	{
-		return this->action;
-	}
+class ControllerTest : public Test {};
+
+TEST_F(ControllerTest, Action)
+{
+	Action action;
+	map<string, string> data;
+	data["title"] = "abc"; 
+	action.setName("Index")
+		  .setData(data);
+	EXPECT_EQ("Index", action.getName());
+	EXPECT_EQ("abc", action.getData()["title"]);
+}
+
+TEST_F(ControllerTest, Controller)
+{
+	Action action;
+	map<string, string> data;
+	data["title"] = "abc";
+	action.setName("Home")
+		  .setData(data);
+
+	Controller controller;
+	controller.setName("Index")
+			  .setAction(action);
+	EXPECT_EQ("Index", controller.getName());
+	EXPECT_EQ("Home", controller.getAction().getName());
 }

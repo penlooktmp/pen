@@ -25,14 +25,38 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
+#ifndef APP_CONTROLLER_H
+#define APP_CONTROLLER_H
+
+#include <map>
+#include <iostream>
+
+using namespace std;
+
 namespace app {
+	
+	class Action {
+		private:
+			string name;
+			map<string, string> data;
+		public:
+			Action &setName(string);
+			string getName();
+			Action &setData(map<string, string> data);
+			map<string, string> getData();
+	};
 
 	class Controller {
 		private:
-		
-		protected:
-			
+			string name;
+			Action action;
 		public:
+			Controller &setName(string);
+			string getName();
+			Controller &setAction(Action);
+			Action getAction();
 	};
 
 }
+
+#endif

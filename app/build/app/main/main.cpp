@@ -10,10 +10,8 @@ namespace app
 
 	void handler(App* app)
 	{
-		map<string, any> data;
-		data["title"] = "Hello world";
-		data["number"] = 12345;
-		//data["user"] = user;
+		Action action = app->getController()->getAction();
+		action->getData();
 		Template::layout(app, data);
 	}
 }
