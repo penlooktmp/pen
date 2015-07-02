@@ -40,6 +40,7 @@ class View:
 		self.templateFilePath = ""
 		self.templateH = """// AUTO GENERATED
 #include <sys/core.h>
+#include <sys/type.h>
 #include <app/app.h>
 namespace app {
 namespace Template {
@@ -49,12 +50,12 @@ namespace Template {
 #include "view.h"
 namespace app {
 namespace Template {
-void {{ fileName }}(App* app, map<string, string> data) {
+void {{ fileName }}(App* app, map<string, any> data) {
 {{ htmlContent }}
 }\n}\n}"""
 		self.templateMain = ""
 		self.listFileName = []
-		self.listFolderPath = ['../', './']
+		self.listFolderPath = ['../main/', './']
 
 	def setInput(self, inputViewFolder):
 		self.Input = inputViewFolder
@@ -132,7 +133,7 @@ void {{ fileName }}(App* app, map<string, string> data) {
 	def compileHeader(self):
 		headerContent = ''
 		for fileName in self.listFileName:
-			headerContent += 'void ' + fileName + '(App*, map<string, string>);\n'
+			headerContent += 'void ' + fileName + '(App*, map<string, any>);\n'
 		headerContent = headerContent[:-1]
 		viewH = self.renderString(self.templateH, {
 			'headerContent' : headerContent,
@@ -164,5 +165,3 @@ void {{ fileName }}(App* app, map<string, string> data) {
 		self.Output += "/"
 		self.scanDirectory(self.Input, "")
 		self.compileHeader()
-
-		

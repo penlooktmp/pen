@@ -25,8 +25,13 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
+#ifndef TYPE_OBJECT_H
+#define TYPE_OBJECT_H
+
 class Object
 {
 	protected:
 		virtual char* toString();
 };
+
+#endif

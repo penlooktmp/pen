@@ -34,7 +34,7 @@ TESTF	= -std=$(CCVER) -g -L/opt/gtest/lib -lgtest -lgtest_main -lpthread -I/opt/
 EXECUTE = ./$(PROG)
 INCLUDE = /usr/lib/pen
 SOURCED = app
-OBJECTD = obj/app
+OBJECTD = obj/dev
 SOURCES = $(shell find main ../$(SOURCED) -name *.cpp)
 TESTS   = $(shell find ./test -name *.cpp)
 OBJECTS = $(addprefix $(OBJECTD)/, $(patsubst %.cpp, %.o, $(SOURCES)))

@@ -227,7 +227,7 @@ class Controller:
 				for defaultAnnotation in self.defaultAnnotation:
 					if defaultAnnotation not in methodInfo['@']:
 						methodInfo['@'][defaultAnnotation] = self.defaultAnnotation[defaultAnnotation]
-
+				# Add controller - action
 				methodInfo['@']['@Controller'] = className
 				methodInfo['@']['@Action'] = methodInfo['Name']
 				annotationList.append(methodInfo['@'])

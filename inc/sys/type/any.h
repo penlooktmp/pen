@@ -23,6 +23,10 @@
  *  3. This notice may not be removed or altered from any source
  *  distribution.
  */
+
+#ifndef TYPE_ANY_H
+#define TYPE_ANY_H
+
 #pragma once
 
 #include <cstddef>
@@ -30,8 +34,9 @@
 #include <type_traits>
 #include <stdexcept>
 
-template<size_t space = sizeof(int)
-        ,size_t aligment = std::alignment_of<std::max_align_t>::value>
+#define space sizeof(int)
+#define aligment std::alignment_of<std::max_align_t>::value
+
 class any {
     enum class handler_mode {
         destruct,
@@ -40,7 +45,7 @@ class any {
         get_type,
     };
 
-    typedef typename std::aligned_storage<space,aligment>::type storage_type;
+    typedef typename std::aligned_storage<space, aligment>::type storage_type;
     typedef const std::type_info* (*handler_type)(void*,void*,handler_mode);
 
     storage_type            _store;
@@ -155,29 +160,30 @@ public:
     }
 };
 
-template<size_t space,size_t aligment>
-inline void swap(any<space,aligment>& lhr,any<space,aligment>& rhs) {
+inline void swap(any& lhr,any& rhs) {
     auto t = std::move(lhr);
     lhr = std::move(rhs);
     rhs = std::move(t);
 }
 
-template<typename Type, size_t space, size_t aligment>
-inline Type any_cast(any<space, aligment>& operand) {
+template<typename Type>
+inline Type any_cast(any& operand) {
     return operand.cast<Type>();
 }
 
-template<typename Type, size_t space, size_t aligment>
-inline Type any_cast(const any<space, aligment>& operand) {
+template<typename Type>
+inline Type any_cast(const any& operand) {
     return operand.cast<Type>();
 }
 
-template<typename Type, size_t space, size_t aligment>
-inline Type* any_cast(any<space, aligment>* operand) {
+template<typename Type>
+inline Type* any_cast(any* operand) {
     return operand->cast_ptr<Type>();
 }
 
-template<typename Type, size_t space, size_t aligment>
-inline const Type* any_cast(const any<space, aligment>* operand) {
+template<typename Type>
+inline const Type* any_cast(const any* operand) {
     return operand->cast_ptr<Type>();
 }
+
+#endif
