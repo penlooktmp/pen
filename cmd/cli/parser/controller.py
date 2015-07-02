@@ -47,6 +47,7 @@ class Controller:
 		self.lineStack = []
 		self.currentClass = None
 		self.currentMethod = None
+		self.isAction = False
 
 		self.stackPublic = []
 		self.stackPrivate = []
@@ -92,30 +93,40 @@ class Controller:
 					if pattern.isComment():
 						continue
 					if pattern.isHeader():
-						self.headerContent += line + "\n"
+						self.headerContent += self.line + "\n"
 						continue
 					if pattern.isAnnotation():
-						annotationArr = line.split(' ')
-						annotationName = annotationArr[0]
+						annotationArr = self.line.split(' ')
+						annotationName = annotationArr[0].strip()
 						annotationValue = ' '.join(annotationArr[1:])
+						if annotationName == '@Route':
+							self.isAction = True
 						self.annotationStack[annotationName] = annotationValue
 						continue
 					if pattern.isMethod():
-						method_without_am = line
+						# Default
+						method_without_am = self.line
+						action_type = ''
 						am = False
+						if self.isAction:
+							 action_type = "void "
 						if pattern.isPublic():
-							method_without_am = line.split('public')[1]
+							method_without_am = self.line.split('public')[1]
+							method_without_am = action_type + method_without_am
 							self.stackPublic.append(method_without_am)
 							am = True
 						if pattern.isPrivate():
-							method_without_am = line.split('private')[1]
-							self.stackPrivate.append(property_without_am)
+							method_without_am = self.line.split('private')[1]
+							method_without_am = action_type + method_without_am
+							self.stackPrivate.append(method_without_am)
 							am = True
 						if pattern.isProtected():
-							method_without_am = line.split('protected')[1]
+							method_without_am = self.line.split('protected')[1]
+							method_without_am = action_type + method_without_am
 							self.stackProtected.append(method_without_am)
 							am = True
 						if am is False:
+							method_without_am = action_type + method_without_am
 							self.stackNonAccessModifier.append(method_without_am)
 						if len(self.annotationStack) > 0:
 							indexL = method_without_am.index('(');
@@ -134,23 +145,23 @@ class Controller:
 						am = False
 						if pattern.isPublic():
 							am = True
-							property_without_am = line.split('public')[1]
+							property_without_am = self.line.split('public')[1]
 							self.stackPublic.append(property_without_am)
 						if pattern.isPrivate():
 							am = True
-							property_without_am = line.split('private')[1]
+							property_without_am = self.line.split('private')[1]
 							self.stackPrivate.append(property_without_am)
 						if pattern.isProtected():
 							am = True
-							property_without_am = line.split('protected')[1]
+							property_without_am = self.line.split('protected')[1]
 							self.stackProtected.append(property_without_am)
 						if am is False:
 							self.stackNonAccessModifier.append(property_without_am)
 						continue
 					if pattern.isClass():
-						class_without_bracket = line
+						class_without_bracket = self.line
 						if pattern.isEndWithBracket():
-							class_without_bracket = line.split('{')[0]
+							class_without_bracket = self.line.split('{')[0]
 						className = class_without_bracket.split(' ')[1]
 						self.currentClass = className
 						self.annotationInfo[self.currentClass] = {'@': self.annotationStack, 'Method': []}
@@ -166,17 +177,17 @@ class Controller:
 		if len(self.stackPublic) > 0:
 			self.headerContent += '\tpublic:\n'
 		for publicItem in self.stackPublic:
-			self.headerContent += '\t\t' + publicItem.strip() + '\n'
+			self.headerContent += '\t\t' + publicItem.strip() + ';\n'
 		if len(self.stackPrivate) > 0:
 			self.headerContent += '\tprivate:\n'
 		for privateItem in self.stackPrivate:
-			self.headerContent += '\t\t' + privateItem.strip() + '\n'
+			self.headerContent += '\t\t' + privateItem.strip() + ';\n'
 		if len(self.stackProtected) > 0:
 			self.headerContent += '\tprotected:\n'
 		for protectedItem in self.stackProtected:
-			self.headerContent += '\t\t' + protectedItem.strip() + '\n'
+			self.headerContent += '\t\t' + protectedItem.strip() + ';\n'
 		for protectedItem in self.stackNonAccessModifier:
-			self.headerContent += '\t' + protectedItem.strip() + '\n'
+			self.headerContent += '\t' + protectedItem.strip() + ';\n'
 		self.headerContent += '};'
 
 	def compileFile(self, filePath):

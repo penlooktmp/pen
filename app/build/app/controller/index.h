@@ -1,13 +1,9 @@
 #include <iostream>
+#include <http/http.h>
 using namespace http;
 class Index
 {
 	public:
-		static User a;
-		Login(int uid, string password);
-		About();
-	private:
-		App app;
-	protected:
-		static int name;
+		void  Login(int uid, string password);
+		void  About();
 };

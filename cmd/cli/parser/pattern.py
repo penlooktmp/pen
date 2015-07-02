@@ -61,6 +61,7 @@ class Pattern:
 		if self.context.line.startswith("#include"):
 			return True
 		if self.context.line.startswith("using"):
+			self.context.line += ";"
 			return True
 		if self.context.line.startswith("template"):
 			return True

@@ -11,6 +11,7 @@
 /cmd/*.pyc
 /cmd/cli/*.pyc
 /cmd/cli/parser/*.pyc
+/cmd/cli/parser/jinja2/*.pyc
 /cmd/cli/content/*.pyc
 /cmd/cli/template/*.pyc
 /app/build/development/obj/*

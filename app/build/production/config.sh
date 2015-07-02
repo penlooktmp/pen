@@ -8,11 +8,14 @@ lf() {
 
 lf ./module/config
 
-cd nginx
+NGINX=nginx
+if [ ! -d "$NGINX" ]; then
+	wget https://github.com/nginx/nginx-releases/archive/master.zip
+	unzip master.zip
+	mv nginx-releases-master $NGINX
+fi
 
-# Update nginx
-git checkout .
-git checkout master
+cd $NGINX
 
 # Override configuration
 cp -rf ../config/gcc ../nginx/auto/cc/gcc

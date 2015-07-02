@@ -29,7 +29,7 @@
 
 import re      # Regular expression
 import os      # Operating system
-import jinja2
+from jinja2 import *
 
 class View:
 

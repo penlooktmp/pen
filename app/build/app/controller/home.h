@@ -1,8 +1,9 @@
 #include <iostream>
-using namespace http
+#include <http/http.h>
+using namespace http;
 class Home
 {
 	public:
-		App(int uid, string password)
-		Index()
+		void  App(int uid, string password);
+		void  Index();
 };

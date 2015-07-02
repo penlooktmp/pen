@@ -79,7 +79,7 @@ class Run(argparse.Action):
 
 		self.prepare()
 		self.parse()
-		#self.build()
+		self.build()
 
 		#PORT = 8000
 		#Handler = SimpleHTTPServer.SimpleHTTPRequestHandler

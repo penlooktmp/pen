@@ -26,22 +26,24 @@
  */
 
 #include <iostream>
-using namespace http;
+#include <http/http.h>
+
+using namespace http
 
 @Route /index
 @Method GET
 @Type HTML
 class Index : Controller
 {
-	public static User a;
-	private App app;
-	protected static int name;
+	public static User a
+	private App app
+	protected static int name
 
 	@Route /login/:uid/:password
 	@Type JSON
-	public Login(int uid, string password);
+	public Login(int uid, string password)
 
 	@Route /app/about
-	public About();
+	public About()
 };
 
