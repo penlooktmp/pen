@@ -37,7 +37,12 @@ setup(
 	license='GNU Affero General Public',
 	scripts=['cmd/pen.py'],
 	packages=find_packages(),
-	#install_requires=['json'],
+	install_requires=['MarkupSafe'],
+    extras_require={
+		'i18n': [
+			'Babel>=0.8'
+		]
+	},
 	entry_points = {
 		'console_scripts': ['pen=cmd.pen:main'],
 	},

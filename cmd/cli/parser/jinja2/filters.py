@@ -14,11 +14,11 @@ import math
 from random import choice
 from operator import itemgetter
 from itertools import groupby
-from jinja2.utils import Markup, escape, pformat, urlize, soft_unicode, \
+from utils import Markup, escape, pformat, urlize, soft_unicode, \
      unicode_urlencode
-from jinja2.runtime import Undefined
-from jinja2.exceptions import FilterArgumentError
-from jinja2._compat import imap, string_types, text_type, iteritems
+from runtime import Undefined
+from exceptions import FilterArgumentError
+from _compat import imap, string_types, text_type, iteritems
 
 
 _word_re = re.compile(r'\w+(?u)')

@@ -14,9 +14,9 @@
 """
 import types
 import operator
-from jinja2.environment import Environment
-from jinja2.exceptions import SecurityError
-from jinja2._compat import string_types, PY2
+from environment import Environment
+from exceptions import SecurityError
+from _compat import string_types, PY2
 
 
 #: maximum number of items a range may produce

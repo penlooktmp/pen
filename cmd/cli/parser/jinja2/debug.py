@@ -13,9 +13,9 @@
 import sys
 import traceback
 from types import TracebackType, CodeType
-from jinja2.utils import missing, internal_code
-from jinja2.exceptions import TemplateSyntaxError
-from jinja2._compat import iteritems, reraise, PY2
+from utils import missing, internal_code
+from exceptions import TemplateSyntaxError
+from _compat import iteritems, reraise, PY2
 
 # on pypy we can take advantage of transparent proxies
 try:
