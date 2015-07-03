@@ -11,7 +11,8 @@ namespace app
 	void handler(App* app)
 	{
 		Action action = app->getController()->getAction();
-		action->getData();
+		//action->getData();
+		map<string, string> data;
 		Template::layout(app, data);
 	}
 }

@@ -70,7 +70,7 @@ namespace app {
 			App setController(Controller);
 			Controller getController();
 
-			static Controller getControllerByCommand(string);
+			static Controller getControllerByCommand(char*);
 
 			// Model
 			App setModel(Model);
@@ -79,10 +79,6 @@ namespace app {
 			// View
 			App setView(View);
 			View getView();
-
-			// Command
-			App setCommand(string);
-			string getCommand();
 
 			// Processor
 			App handle(string, function<void(HttpRequest, HttpResponse)> callback);

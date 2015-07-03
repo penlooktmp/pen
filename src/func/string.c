@@ -73,13 +73,52 @@ char  *replace(const char *target, const char* find, const char* replace_with)
 	return result;
 }
 
-// Split string to one dimession array
-char **split(char* target, char* delimiter)
+// Split string to one dimession array by delimiter
+char **split(char* target, const char *delim_)
 {
-	int max = 100;
-	char** data = (char**) calloc(max, sizeof(char*));
-	
-	return data;
+	char* delim = (char*) delim_;
+	int len_target = strlen(target);
+	int len_delim = strlen(delim);
+	int len_item = 0;
+	char *segment = calloc(len_delim, sizeof(char));
+	char **data = malloc(MAX_SIZE * sizeof(char*));
+	register int i=0, count = 0, from = 0, to = -1;
+	// Compare delimiter per target segment
+	while (i + len_delim < len_target) {
+		memcpy(segment, &target[i], len_delim);
+		// Found delimiter
+		if (strcmp(segment, delim) == 0) {
+			// Skip delimiter
+			i += len_delim;
+			// Not empty element
+			if (to - from > 0) {
+				len_item = to - from + 1;
+				char* item = calloc(len_item, sizeof(char));
+				memcpy(item, &target[from], len_item);
+				// Append element to result
+				data[count++] = item;
+				from = i;
+				to = i;
+			}
+		} else to++;
+		i++;
+	}
+	if (len_target - from > 0) {
+		len_item = len_target - from + 1;
+		char* item = calloc(len_item, sizeof(char));
+		memcpy(item, &target[from], len_item);
+		// Append element to result
+		data[count++] = item;
+	}
+	data[count] = '\0';
+	// Saving memory
+	char **result = malloc(count * sizeof(char*));
+	for (int i=0; i<=count; i++)
+		result[i] = data[i];
+	// Deallocate memory
+	free(segment);
+	free(data);
+	return result;
 }
 
 // Join string with delimiter

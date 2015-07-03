@@ -26,6 +26,7 @@
  */
 
 #include <app/app.h>
+#include <func/string.h>
 
 namespace app {
 
@@ -78,7 +79,11 @@ namespace app {
 		return this->controller;
 	}
 
-	Controller App::getControllerByCommand(string);
+	Controller App::getControllerByCommand(char* command)
+	{
+		Controller controller;
+		return controller;
+	}
 
 	App App::setView(View view)
 	{
@@ -102,17 +107,6 @@ namespace app {
 		return this->model;
 	}
 
-	App App::setCommand(string command)
-	{
-		this->command = command;
-		return *this;
-	}
-
-	string App::getCommand()
-	{
-		return this->command;
-	}
-	
 	App App::push(char* html)
 	{
 		return *this;

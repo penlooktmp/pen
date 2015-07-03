@@ -28,11 +28,11 @@
 extern "C" {
 #endif
 
-int    count(char **target);
+int    count(char**);
 char  *replace(const char *target, const char* find, const char* replace_with);
-char **substr(char *target, int from, int to);
-char **split(char* target, char* delimiter);
-char  *join(char* target[], char* delimiter);
+char **substr(char*target, int from, int to);
+char **split(char* target, const char *delim);
+char  *join(char* target[], char const *delim);
 int    index_of(char* target, char* subtarget);
 char  *trim(char* target);
 

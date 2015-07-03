@@ -56,7 +56,7 @@ TEST_F(StringTest, replace)
 	char name[] = "xyz abc xyz 123 xyz !@# xyz";
 	char *result1 = replace(name, "xyz", "456");
 	EXPECT_EQ("456 abc 456 123 456 !@# 456", string(result1));
-	// WRONG
+	// TODO
 	//char *result2 = replace(result1, "!", "0123");
 	//EXPECT_EQ("abc 456 123 0123@#", string(result2));
 }
@@ -74,6 +74,28 @@ TEST_F(StringTest, trim)
 	char name3[] = "Hello, this is string    ";
 	char* result3 = trim(name3);
 	EXPECT_EQ("Hello, this is string", string(result3));
+}
+
+TEST_F(StringTest, split)
+{
+	char const* data = "abc1|-0932|-xyz3|-#@!4";
+	char** result = split((char*) data, "|-");
+	char const* expect[] = { "abc1", "0932", "xyz3", "#@!4", '\0'};
+	int len_expect = count((char**) expect);
+	EXPECT_EQ(4, count(result));
+	for (int i=0; i<len_expect; i++) {
+		EXPECT_EQ(string(expect[i]), string(result[i]));
+	}
+	// TODO
+	/*
+	char const* data2 = "--abc1 |34--5| 123x--";
+	char** result2 = split((char*) data2, "--");
+	char const* expect2[] = { "abc1 |34", "5| 123x", '\0'};
+	int len_expect2 = count((char**) expect2);
+	EXPECT_EQ(2, count(result2));
+	for (int i=0; i<len_expect2; i++) {
+		EXPECT_EQ(string(expect2[i]), string(result2[i]));
+	}*/
 }
 
 TEST_F(StringTest, join)

@@ -38,10 +38,13 @@ namespace app {
 	class Action {
 		private:
 			string name;
+			map<string, string> args;
 			map<string, string> data;
 		public:
 			Action &setName(string);
 			string getName();
+			Action &setArgument(map<string, string> args);
+			map<string, string> getArgument();
 			Action &setData(map<string, string> data);
 			map<string, string> getData();
 	};

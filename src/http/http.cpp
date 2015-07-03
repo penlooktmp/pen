@@ -88,13 +88,13 @@ namespace http {
         return *this;
     }
 
-    Http Http::setCommand(string command)
+    Http Http::setCommand(char* command)
     {
         this->command = command;
         return *this;
     }
 
-    string Http::getCommand()
+    char* Http::getCommand()
     {
         return this->command;
     }

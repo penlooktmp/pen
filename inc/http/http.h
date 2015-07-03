@@ -24,6 +24,7 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
+
 #ifndef HTTP_H
 #define HTTP_H
 
@@ -40,7 +41,7 @@ namespace http {
         HttpRequest request;
         HttpResponse response;
         Model model;
-        string command;
+        char* command;
 
     public:
         // Self server
@@ -58,11 +59,11 @@ namespace http {
         Http setModel(Model);
         Model getModel();
 
-        // HTTP Processor Injection
+        // HTTP Processor
         Http serveRequest(function<void(App*)>);
 
-        Http setCommand(string);
-        string getCommand();
+        Http setCommand(char*);
+        char* getCommand();
     };
 }
 

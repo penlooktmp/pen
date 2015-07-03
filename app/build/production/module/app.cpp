@@ -17,7 +17,7 @@ HttpResponse app_bridge(ngx_http_request_t* request, Model model)
     ngx_str_t uri_obj = request->uri;
     string uri = reinterpret_cast<const char*>(uri_obj.data);
     http_request.setUri(uri);
-    string command = "Index Home int id string password";
+    char command[] = "Index Home int id string password";
 
     Http http(http_request, http_response);
     return http.setCommand(command)
