@@ -42,7 +42,7 @@ TEST_F(TypeTest, type_char)
 	char *a_char_pointer = (char*) "Hello world";
 	string type_char_pointer = typeof(a_char_pointer);
 	EXPECT_EQ("char*", type_char_pointer);
-	
+
 	char *a_char_pointer_pointer_raw[] = { (char*) "abc", (char*) "abd", (char*) "abf" };
 	char **a_char_pointer_pointer = (char**) a_char_pointer_pointer_raw;
 	string type_char_pointer_pointer = typeof(a_char_pointer_pointer);
@@ -72,4 +72,3 @@ TEST_F(TypeTest, type_int)
 	string type_int_pointer = typeof(a_int_pointer);
 	EXPECT_EQ("int*", type_int_pointer);
 }
-

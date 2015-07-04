@@ -25,27 +25,12 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef FUNC_H
-#define FUNC_H
+#ifndef FUNC_FUNC_H
+#define FUNC_FUNC_H
 
-#include "string.h"
-#include "convert.h"
-
-#include <iostream>
-using namespace std;
-
-// Length of array
-int len(string *);
-int len(char **);
-int len(short **);
-int len(int **);
-int len(int long**);
-int len(double **);
-int len(float **);
-
-string *slice(string *target, string flag);
-char *slice(char *target, string flag);
-int *slice(int *target, string flag);
-float *slice(float *target, string flag);
+int char_pointer_count(char *target);
+int char_pointer_pointer_count(char **target);
+int int_pointer_count(int *target);
+int long_pointer_count(long *target);
 
 #endif

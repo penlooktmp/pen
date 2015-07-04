@@ -81,7 +81,7 @@ namespace app {
 
 	Controller App::getControllerByCommand(char* command)
 	{
-		char** com = split(command, " ");
+		//char** com = split(command, " ");
 		Controller controller;
 		
 		return controller;

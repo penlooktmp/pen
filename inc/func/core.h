@@ -25,3 +25,30 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
+#ifndef FUNC_CORE_H
+#define FUNC_CORE_H
+
+// C Interface
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include "func.h"
+#include "string.h"
+#include "number.h"
+
+#ifdef __cplusplus
+}
+#endif
+
+#include <iostream>
+using namespace std;
+
+template <typename T> const int len(T&);
+template <> const int len(char *&t);
+template <> const int len(const char *&t);
+template <> const int len(char **&t);
+template <> const int len(int *&t);
+template <> const int len(const int *&t);
+
+#endif

@@ -28,22 +28,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <func/func.h>
 
 #define MAX_SIZE 1000000
 
-// Lenght of pointer array
-int count(char **target)
-{
-	register int count = 0;
-	while (*target++) ++count;
-	return count;
-}
-
 // Find and replace
-char  *replace(const char *target, const char* find, const char* replace_with)
+char  *str_replace(const char *target, const char* find, const char* replace_with)
 {
 	char *result;
-	int i, count = 0;
+	register int i, count = 0;
 	int newlen = strlen(find);
 	int oldlen = strlen(replace_with);
 
@@ -74,7 +67,7 @@ char  *replace(const char *target, const char* find, const char* replace_with)
 }
 
 // Split string to one dimession array by delimiter
-char **split(char* target, const char *delim_)
+char **str_split(char* target, const char *delim_)
 {
 	char* delim = (char*) delim_;
 	int len_target = strlen(target);
@@ -82,7 +75,7 @@ char **split(char* target, const char *delim_)
 	int len_item = 0;
 	char *segment = calloc(len_delim, sizeof(char));
 	char **data = malloc(MAX_SIZE * sizeof(char*));
-	register int i=0, count = 0, from = 0, to = -1;
+	register int i = 0, count = 0, from = 0, to = -1;
 	// Compare delimiter per target segment
 	while (i + len_delim < len_target) {
 		memcpy(segment, &target[i], len_delim);
@@ -121,16 +114,16 @@ char **split(char* target, const char *delim_)
 	return result;
 }
 
-char **slice(char *target[], const char *flag)
+char **str_slice(char *target[], const char *flag)
 {
 	
 }
 
 // Join string with delimiter
-char *join(char *target[], const char *delim_)
+char *str_join(char *target[], const char *delim_)
 {
 	char *delim = (char*) delim_;
-	int num = count(target) - 1;
+	int num = char_pointer_pointer_count(target) - 1;
 	int len = 0, wlen = 0;
 	char *tmp = calloc(MAX_SIZE, sizeof(char));
 	for (int i=0; i<num; i++) {
@@ -157,7 +150,7 @@ char *join(char *target[], const char *delim_)
 }
 
 // Trim all space left and right
-char *trim(char *target)
+char *str_trim(char *target)
 {
 	int len, left, right;
 	left = 0;

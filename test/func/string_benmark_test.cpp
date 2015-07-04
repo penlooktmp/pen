@@ -26,7 +26,7 @@
  */
 
 #include <app/test.h>
-#include <func/string.h>
+#include <func/core.h>
 
 using namespace std;
 using namespace app;
@@ -43,7 +43,7 @@ TEST_F(StringBenmarkTest, count)
 	data2[NUM] = '\0';
 	int times = 0;
 	for (int i=0; i<10000; i++) {
-		times += count(data2);
+		times += len(data2);
 	}
 	EXPECT_EQ(NUM*10000, times);
 }

@@ -29,6 +29,8 @@
 #define SYS_TYPE_TYPEOF_H
 
 #include <iostream>
+#include <sys/type/any.h>
+
 using namespace std;
 
 template <typename T> const string typeof(T&) { return "unknown"; }

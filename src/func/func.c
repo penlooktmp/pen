@@ -25,16 +25,15 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef FUNC_STRING_H
-#define FUNC_STRING_H
+#include <stdio.h>
+#include <stdlib.h>
 
-char  *str_replace(const char *target, const char *find, const char *replace_with);
-char **str_substr(char *target, int from, int to);
-char **str_split(char *target, const char *delim);
-char **str_slice(char **target, const char *flag);
-char  *str_join(char **target, char const *delim);
-int    str_index(char *target, char *subtarget);
-char  *str_trim(char *target);
-int   *str_match(char **target, char *regex);
+#define pointer_count(type);\
+	register type *pointer;\
+	for (pointer = target; *pointer; ++pointer);\
+	return pointer - target;
 
-#endif
+int char_pointer_count(char *target) { pointer_count(char); }
+int char_pointer_pointer_count(char **target) { pointer_count(char*); }
+int int_pointer_count(int *target) { pointer_count(int); }
+int long_pointer_count(long *target) { pointer_count(long); }

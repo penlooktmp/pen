@@ -26,7 +26,7 @@
  */
 
 #include <app/test.h>
-#include <func/string.h>
+#include <func/core.h>
 
 using namespace std;
 using namespace app;
@@ -36,10 +36,17 @@ class StringTest : public Test {};
 TEST_F(StringTest, count)
 {
 	// Constant string
-	char const* data1[] = {
-		"abc", "abd", "abf", "xyz", "123", "3456", '\0'
+	char *data_raw[] = {
+		(char*) "abc",
+		(char*) "abd",
+		(char*) "abf",
+		(char*) "xyz",
+		(char*) "123",
+		(char*) "3456",
+		'\0'
 	};
-	EXPECT_EQ(6, count((char**) data1));
+	char **data1 = (char**) data_raw;
+	EXPECT_EQ(6, len(data1));
 	// Dynamic string
 	int NUM = 135;
 	char** data2 = (char**) calloc(NUM + 1, sizeof(char*));
@@ -47,14 +54,14 @@ TEST_F(StringTest, count)
 		data2[i] = (char*) "test";
 	}
 	data2[NUM] = '\0';
-	EXPECT_EQ(NUM, count(data2));
+	EXPECT_EQ(NUM, len(data2));
 	free(data2);
 }
 
 TEST_F(StringTest, replace)
 {
 	char name[] = "xyz abc xyz 123 xyz !@# xyz";
-	char *result1 = replace(name, "xyz", "456");
+	char *result1 = str_replace(name, "xyz", "456");
 	EXPECT_EQ("456 abc 456 123 456 !@# 456", string(result1));
 	free(result1);
 
@@ -66,17 +73,17 @@ TEST_F(StringTest, replace)
 TEST_F(StringTest, trim)
 {
 	char name1[] = "     Hello, this is string    ";
-	char* result1 = trim(name1); 
+	char* result1 = str_trim(name1); 
 	EXPECT_EQ("Hello, this is string", string(result1));
 	free(result1);
 
 	char name2[] = "     Hello, this is string";
-	char* result2 = trim(name2);
+	char* result2 = str_trim(name2);
 	EXPECT_EQ("Hello, this is string", string(result2));
 	free(result2);
 
 	char name3[] = "Hello, this is string    ";
-	char* result3 = trim(name3);
+	char* result3 = str_trim(name3);
 	EXPECT_EQ("Hello, this is string", string(result3));
 	free(result3);
 }
@@ -84,13 +91,21 @@ TEST_F(StringTest, trim)
 TEST_F(StringTest, split)
 {
 	char const* data = "abc1|-0932|-xyz3|-#@!4";
-	char** result = split((char*) data, "|-");
-	char const* expect[] = { "abc1", "0932", "xyz3", "#@!4", '\0'};
-	int len_expect = count((char**) expect);
-	EXPECT_EQ(4, count(result));
+	char **result = str_split((char*) data, "|-");
+	char *expect_raw[] = {
+		(char*) "abc1",
+		(char*) "0932",
+		(char*) "xyz3",
+		(char*) "#@!4",
+		'\0'
+	};
+	char **expect = (char**) expect_raw;
+	int len_expect = len(expect);
+	EXPECT_EQ(4, len(result));
 	for (int i=0; i<len_expect; i++) {
 		EXPECT_EQ(string(expect[i]), string(result[i]));
 	}
+
 	// TODO
 	/*
 	char const* data2 = "--abc1 |34--5| 123x--";
@@ -107,10 +122,17 @@ TEST_F(StringTest, slice)
 {
 	// [:]
 	char const* data1 = "abc1|-0932|-xyz3|-#@!4";
-	char** result = split((char*) data1, "|-");
-	char const* expect[] = { "abc1", "0932", "xyz3", "#@!4", '\0'};
-	int len_expect = count((char**) expect);
-	EXPECT_EQ(4, count(result));
+	char** result = str_split((char*) data1, "|-");
+	char *expect_raw[] = {
+		(char*) "abc1",
+		(char*) "0932",
+		(char*) "xyz3",
+		(char*) "#@!4",
+		'\0'
+	};
+	char **expect = (char**) expect_raw;
+	int len_expect = len(expect);
+	EXPECT_EQ(4, len(result));
 	for (int i=0; i<len_expect; i++) {
 		EXPECT_EQ(string(expect[i]), string(result[i]));
 	}
@@ -121,6 +143,6 @@ TEST_F(StringTest, join)
 	char const* data[] = {
 		"abc", "abd", "abf", "xyz", "123", "3456", '\0'
 	};
-	char* result = join((char**) data, "-");
+	char* result = str_join((char**) data, "-");
 	EXPECT_EQ("abc-abd-abf-xyz-123-3456", string(result));
 }

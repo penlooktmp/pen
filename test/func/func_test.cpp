@@ -26,13 +26,35 @@
  */
 
 #include <app/test.h>
+#include <func/core.h>
 
 using namespace std;
 using namespace app;
 
-class HttpTest : public Test {};
+class FuncTest : public Test {};
 
-TEST_F(HttpTest, sample)
+TEST_F(FuncTest, len)
 {
-	EXPECT_EQ("test", "test");
+	// Length of char pointer
+	char *char_pointer = (char*) "Hello world";
+	int lenght_char_pointer = len(char_pointer);
+	EXPECT_EQ(11, lenght_char_pointer);
+	
+	// Length of char pointer array
+	const char *char_pointer_array_raw[] = { "abc", "abd", "abf", "abe", "mnl", '\0' };
+	char **char_pointer_pointer = (char**) char_pointer_array_raw;
+	int lenght_char_pointer_pointer = len(char_pointer_pointer);
+	EXPECT_EQ(5, lenght_char_pointer_pointer);
+	
+	// Length of number
+	// TODO
+	// int number_int = 123456789;
+	// int length_number_int = len(number_int);
+	// EXPECT_EQ(9, length_number_int);
+
+	// Length of int pointer array
+	int int_pointer[] = { 1, 2, 3, 4, 5, '\0' };
+	int *int_pointer_pointer = (int*) int_pointer;
+	int length_int_pointer_pointer = len(int_pointer_pointer);
+	EXPECT_EQ(5, length_int_pointer_pointer);
 }
