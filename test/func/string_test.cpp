@@ -40,7 +40,6 @@ TEST_F(StringTest, count)
 		"abc", "abd", "abf", "xyz", "123", "3456", '\0'
 	};
 	EXPECT_EQ(6, count((char**) data1));
-	
 	// Dynamic string
 	int NUM = 135;
 	char** data2 = (char**) calloc(NUM + 1, sizeof(char*));
@@ -49,6 +48,7 @@ TEST_F(StringTest, count)
 	}
 	data2[NUM] = '\0';
 	EXPECT_EQ(NUM, count(data2));
+	free(data2);
 }
 
 TEST_F(StringTest, replace)
@@ -56,6 +56,8 @@ TEST_F(StringTest, replace)
 	char name[] = "xyz abc xyz 123 xyz !@# xyz";
 	char *result1 = replace(name, "xyz", "456");
 	EXPECT_EQ("456 abc 456 123 456 !@# 456", string(result1));
+	free(result1);
+
 	// TODO
 	//char *result2 = replace(result1, "!", "0123");
 	//EXPECT_EQ("abc 456 123 0123@#", string(result2));
@@ -64,16 +66,19 @@ TEST_F(StringTest, replace)
 TEST_F(StringTest, trim)
 {
 	char name1[] = "     Hello, this is string    ";
-	char* result = trim(name1); 
-	EXPECT_EQ("Hello, this is string", string(result));
+	char* result1 = trim(name1); 
+	EXPECT_EQ("Hello, this is string", string(result1));
+	free(result1);
 
 	char name2[] = "     Hello, this is string";
 	char* result2 = trim(name2);
 	EXPECT_EQ("Hello, this is string", string(result2));
+	free(result2);
 
 	char name3[] = "Hello, this is string    ";
 	char* result3 = trim(name3);
 	EXPECT_EQ("Hello, this is string", string(result3));
+	free(result3);
 }
 
 TEST_F(StringTest, split)
@@ -98,11 +103,24 @@ TEST_F(StringTest, split)
 	}*/
 }
 
+TEST_F(StringTest, slice)
+{
+	// [:]
+	char const* data1 = "abc1|-0932|-xyz3|-#@!4";
+	char** result = split((char*) data1, "|-");
+	char const* expect[] = { "abc1", "0932", "xyz3", "#@!4", '\0'};
+	int len_expect = count((char**) expect);
+	EXPECT_EQ(4, count(result));
+	for (int i=0; i<len_expect; i++) {
+		EXPECT_EQ(string(expect[i]), string(result[i]));
+	}
+}
+
 TEST_F(StringTest, join)
 {
-	char const* data1[] = {
+	char const* data[] = {
 		"abc", "abd", "abf", "xyz", "123", "3456", '\0'
 	};
-	char* result1 = join((char**) data1, (char*) "-");
-	EXPECT_EQ("abc-abd-abf-xyz-123-3456", string(result1));
+	char* result = join((char**) data, "-");
+	EXPECT_EQ("abc-abd-abf-xyz-123-3456", string(result));
 }

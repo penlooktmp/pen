@@ -31,4 +31,21 @@
 #include "string.h"
 #include "convert.h"
 
+#include <iostream>
+using namespace std;
+
+// Length of array
+int len(string *);
+int len(char **);
+int len(short **);
+int len(int **);
+int len(int long**);
+int len(double **);
+int len(float **);
+
+string *slice(string *target, string flag);
+char *slice(char *target, string flag);
+int *slice(int *target, string flag);
+float *slice(float *target, string flag);
+
 #endif

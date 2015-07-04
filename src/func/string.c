@@ -121,9 +121,15 @@ char **split(char* target, const char *delim_)
 	return result;
 }
 
-// Join string with delimiter
-char *join(char *target[], char *delimiter)
+char **slice(char *target[], const char *flag)
 {
+	
+}
+
+// Join string with delimiter
+char *join(char *target[], const char *delim_)
+{
+	char *delim = (char*) delim_;
 	int num = count(target) - 1;
 	int len = 0, wlen = 0;
 	char *tmp = calloc(MAX_SIZE, sizeof(char));
@@ -133,8 +139,8 @@ char *join(char *target[], char *delimiter)
 		memcpy(tmp + len, target[i], wlen);
 		len += wlen;
 		// Copy memory segment
-		wlen = strlen(delimiter);
-		memcpy(tmp + len, delimiter, wlen);
+		wlen = strlen(delim);
+		memcpy(tmp + len, delim, wlen);
 		len += wlen;
 	}
 	// Copy memory segment
