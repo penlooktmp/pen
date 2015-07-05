@@ -25,10 +25,11 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <iostream>
-using namespace std;
+#ifndef FUNC_GEN_H
+#define FUNC_GEN_H
 
-string getCwd();
-void changeDirectory(string);
-void makeDirectory(string);
-int executeCommand(string);
+#include <func/gen/type.h>
+#include <func/gen/len.h>
+#include <func/gen/seg.h>
+
+#endif

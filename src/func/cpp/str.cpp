@@ -25,10 +25,36 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <iostream>
-using namespace std;
+#ifdef __cplusplus
+extern "C" {
+#endif
+#include <func/gen/str.h>
+#ifdef __cplusplus
+}
+#endif
 
-string getCwd();
-void changeDirectory(string);
-void makeDirectory(string);
-int executeCommand(string);
+#define P_STR(TYPE); \
+int str(TYPE *t)\
+{\
+	return string_pointer_##TYPE(t);\
+}
+
+#define P_C_STR(TYPE); \
+int str(const TYPE *t)\
+{\
+	return string_pointer_constant_##TYPE(t);\
+}
+
+#define NUM_STR(TYPE); \
+int str(TYPE t)\
+{\
+	return string_number_##TYPE(t);\
+}
+
+P_STR(char);
+P_C_STR(char);
+NUM_STR(short);
+NUM_STR(int);
+NUM_STR(long);
+NUM_STR(double);
+NUM_STR(float);

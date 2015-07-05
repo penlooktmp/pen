@@ -11,8 +11,6 @@
 #ifndef TYPE_ANY_H
 #define TYPE_ANY_H
 
-#pragma once
-
 #include <stdexcept>
 
 namespace anyimpl

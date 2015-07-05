@@ -25,10 +25,30 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <iostream>
-using namespace std;
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <func/gen/len.h>
 
-string getCwd();
-void changeDirectory(string);
-void makeDirectory(string);
-int executeCommand(string);
+char *string_pointer_char(char *target)
+{
+	return target;
+}
+
+char *string_pointer_constant_char(const char *target)
+{
+	return (char*) target;
+}
+
+//int len_num = length_number_##TYPE(target);
+#define NUM_STR(TYPE); \
+char* string_number_##TYPE(TYPE target) {\
+	char *string = calloc(10, sizeof(char));\
+	return string;\
+}
+
+NUM_STR(short);
+NUM_STR(int);
+NUM_STR(long);
+NUM_STR(double);
+NUM_STR(float);

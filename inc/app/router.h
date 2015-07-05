@@ -25,6 +25,9 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
+#include <iostream>
+using namespace std;
+
 namespace app {
 	class Router {
 		private:

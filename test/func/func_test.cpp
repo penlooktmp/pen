@@ -58,6 +58,31 @@ TEST_F(FuncTest, len)
 	EXPECT_EQ(5, length_int_pointer_pointer);
 }
 
+TEST_F(FuncTest, str)
+{
+	// Char pointer
+	char const *sample = "Hello world";
+	char *char_pointer0 = str((char*) sample);
+	EXPECT_EQ("Hello world", string(char_pointer0));
+
+	// Const char pointer
+	char *char_pointer1 = str("Hello world");
+	EXPECT_EQ("Hello world", string(char_pointer1));
+	
+	// Short
+	/*char *char_pointer2= str(123);
+	EXPECT_EQ("123", string(char_pointer2));
+
+	// Float
+	char *char_pointer3 = str(123.0345);
+	EXPECT_EQ("123.0345", string(char_pointer3));
+
+	// Long
+	char *char_pointer4 = str(123456789012345);
+	EXPECT_EQ("123456789012345", string(char_pointer4));
+	*/
+}
+
 TEST_F(FuncTest, sub)
 {
 	// Length of char pointer

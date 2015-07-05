@@ -28,15 +28,34 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#include <func/func.h>
+#include <func/gen/len.h>
 #ifdef __cplusplus
 }
 #endif
 
-#define P_LEN(TYPE);   int len(TYPE *t) { return lenght_pointer_##TYPE(t); }
-#define P_C_LEN(TYPE); int len(const TYPE *t) { return lenght_pointer_constant_##TYPE(t); }
-#define P_P_LEN(TYPE); int len(TYPE **t) { return lenght_pointer_pointer_##TYPE(t); }
-#define NUM_LEN(TYPE); int len(TYPE t) {  return lenght_number_##TYPE(t); }
+#define P_LEN(TYPE);\
+int len(TYPE *t)\
+{\
+	return lenght_pointer_##TYPE(t);\
+}
+
+#define P_C_LEN(TYPE); \
+int len(const TYPE *t)\
+{\
+	return lenght_pointer_constant_##TYPE(t);\
+}
+
+#define P_P_LEN(TYPE); \
+int len(TYPE **t)\
+{\
+	return lenght_pointer_pointer_##TYPE(t);\
+}
+
+#define NUM_LEN(TYPE); \
+int len(TYPE t) \
+{\
+	return lenght_number_##TYPE(t);\
+}
 
 P_LEN(char);
 P_C_LEN(char);

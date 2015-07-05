@@ -25,7 +25,29 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef DEBUG_H
-#define DEBUG_H
+#ifndef FUNC_GEN_STR_H
+#define FUNC_GEN_STR_H
+
+#define P_STR_H(TYPE); \
+		int string_pointer_##TYPE(TYPE *target);
+#define P_C_STR_H(TYPE); \
+		int string_pointer_constant_##TYPE(const TYPE *target);
+#define NUM_STR_H(TYPE); \
+		int string_number_##TYPE(TYPE target);
+
+// string_pointer_char
+P_STR_H(char);
+// string_pointer_constant_char
+P_C_STR_H(char);
+// string_number_short
+NUM_STR_H(short);
+// string_number_int
+NUM_STR_H(int);
+// string_number_long
+NUM_STR_H(long);
+// string_number_double
+NUM_STR_H(double);
+// string_number_float
+NUM_STR_H(float);
 
 #endif

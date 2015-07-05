@@ -30,7 +30,7 @@ GCC     = gcc
 G++		= g++
 GCCVER  = c11 
 G++VER 	= c++11
-FGCC    = -std=$(GCCVER)  -O3 -fPIC
+FGCC    = -std=$(GCCVER) -O3 -fPIC
 FG++    = -std=$(G++VER) -O3 -fPIC
 DEBUG   = -std=$(G++VER) -pipe -g0 -fno-inline -Wall -fPIC
 EXECUTE = /usr/bin/$(LIB)
@@ -40,25 +40,31 @@ INCLUDE = inc
 SOURCED = src
 TESTD   = pkg/test
 OBJECTD = pkg/obj
+HEADERS = $(shell find inc -name *.h)
 SOURCES = $(shell find src -name *.c*)
 TESTS   = $(shell find test -name *.cpp)
 SOURCE  = $(patsubst %.cpp, %.o, $(SOURCES))
 SOURCE  := $(patsubst %.c, %.o, $(SOURCE))
-OBJECTS = $(addprefix $(OBJECTD)/, $(SOURCE))
+HEADER  = $(patsubst %.h, %.h.gch, $(HEADERS))
+OBJECTS = $(addprefix $(OBJECTD), $(SOURCE))
+OHEADER = $(addprefix $(OHEADERD), $(HEADER))
 BINARY  = $(OBJECTD)/$(SOURCED)/$(LIB)
 OBJECTT = $(addprefix $(TESTD)/, $(patsubst %.cpp, %.o, $(TESTS)))
 G++FLAG = $(FG++)
 GCCFLAG = $(FGCC)
 
 all: $(LIB)
-$(LIB): $(OBJECTS)
+$(LIB): $(OHEADER) $(OBJECTS)
 	$(G++) $(OBJECTS) -fPIC -shared -o bin/lib$(LIB).so -lcurl -lpthread
 
-$(OBJECTD)/%.o: %.cpp
+$(OBJECTD)%.o: %.cpp
 	$(G++) -c $(G++FLAG) -I$(INCLUDE) $< -o $@
 
-$(OBJECTD)/%.o: %.c
+$(OBJECTD)%.o: %.c
 	$(GCC) -c $(GCCFLAG) -I$(INCLUDE) $< -o $@
+
+$(OHEADERD)%.h.gch: %.h
+	$(G++) -c $(G++FLAG) -I$(INCLUDE) -I/usr/lib/gtest/include $< -o $@
 
 $(OBJECTS): objectmk
 
@@ -69,12 +75,14 @@ objectmk:
 debug:
 	mkdir -p $(LIBSYS)/$(LIB)
 	cp -ru $(INCLUDE)/* $(LIBSYS)/$(LIB)
+	rm -rf $(shell find $(LIBSYS)/$(LIB) -name *.h)
 	cp -f bin/lib$(LIB).so $(LIBSYS)/
 	ldconfig
 
 install:
 	mkdir -p $(LIBSYS)/$(LIB)
 	cp -ru $(INCLUDE)/* $(LIBSYS)/$(LIB)
+	rm -rf $(shell find $(LIBSYS)/$(LIB) -name *.h)
 	cp -f bin/lib$(LIB).so $(LIBSYS)/
 	ldconfig
 	$(shell python ./setup.py install > /dev/null)
@@ -94,6 +102,7 @@ $(TEST): $(OBJECTT)
 
 clean:
 	rm -rf $(OBJECTD)
+	rm -rf $(shell find inc -name *.h.gch)
 	rm -rf $(LIBSYS)/$(LIB)
 	rm -rf $(LIBSYS)/lib$(LIB).so
 

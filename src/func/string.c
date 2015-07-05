@@ -28,7 +28,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <func/func.h>
+#include <func/gen.h>
 
 #define MAX_SIZE 1000000
 

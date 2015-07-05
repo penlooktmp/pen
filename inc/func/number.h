@@ -28,15 +28,4 @@
 #ifndef FUNC_NUMBER_H
 #define FUNC_NUMBER_H
 
-// C Interface
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-int    int_arr_count(int *target);
-
-#ifdef __cplusplus
-}
-#endif
-
 #endif

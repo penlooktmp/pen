@@ -25,10 +25,8 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <iostream>
-using namespace std;
-
-string getCwd();
-void changeDirectory(string);
-void makeDirectory(string);
-int executeCommand(string);
+#define TYPE_SHORT short
+#define TYPE_INT int
+#define TYPE_LONG long
+#define TYPE_DOUBLE double
+#define TYPE_FLOAT float

@@ -33,7 +33,7 @@
 extern "C" {
 #endif
 
-#include "func.h"
+#include "gen.h"
 #include "string.h"
 #include "number.h"
 
@@ -44,9 +44,9 @@ extern "C" {
 #include <iostream>
 using namespace std;
 
-// GENERIC FUNCTION
-
+// GERNERIC FUNCTION TEMPLATE
 #define LEN(TYPE); int len(TYPE t);
+#define STR(TYPE); char *str(TYPE t);
 #define SEG(TYPE); TYPE seg(TYPE t, int from, int to);
 #define SEG_CONST(TYPE); TYPE seg(const TYPE t, int from, int to);
 
@@ -74,9 +74,27 @@ LEN(float);
 LEN(const float);
 LEN(float*);
 
+// STR (String - char pointer )
+// str(target)
+// Convert char pointer and number to string (char pointer)
+STR(string);
+STR(string*);
+STR(char*);
+STR(const char*);
+STR(short);
+STR(const short);
+STR(int);
+STR(const int);
+STR(long);
+STR(const long);
+STR(double);
+STR(const double);
+STR(float);
+STR(const float);
+
 // SEG (Segment)
-// seg(target, from, to)
-// Use to retrive segment of string or array
+// seg(target, left, right)
+// Use to retrive segment of string or array from left to right
 SEG(char*);
 SEG_CONST(char*);
 SEG(char**);

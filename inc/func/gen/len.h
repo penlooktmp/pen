@@ -25,10 +25,44 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <iostream>
-using namespace std;
+#ifndef FUNC_GEN_LEN_H
+#define FUNC_GEN_LEN_H
 
-string getCwd();
-void changeDirectory(string);
-void makeDirectory(string);
-int executeCommand(string);
+#define P_LEN_H(TYPE); \
+		int lenght_pointer_##TYPE(TYPE *target);
+#define P_C_LEN_H(TYPE); \
+		int lenght_pointer_constant_##TYPE(const TYPE *target);
+#define P_P_LEN_H(TYPE); \
+		int lenght_pointer_pointer_##TYPE(TYPE **target);
+#define NUM_LEN_H(TYPE); \
+		int lenght_number_##TYPE(TYPE target);
+
+// lenght_pointer_char
+P_LEN_H(char);
+// lenght_pointer_constant_char
+P_C_LEN_H(char);
+// lenght_pointer_pointer_char
+P_P_LEN_H(char);
+// lenght_number_short
+NUM_LEN_H(short);
+// lenght_pointer_short
+P_LEN_H(short);
+// lenght_number_int
+NUM_LEN_H(int);
+// lenght_pointer_int
+P_LEN_H(int);
+// length_number_long
+NUM_LEN_H(long);
+// length_pointer_long
+P_LEN_H(long);
+// length_number_double
+NUM_LEN_H(double);
+// length_pointer_double
+P_LEN_H(double);
+// length_number_float
+NUM_LEN_H(float);
+// length_pointer_float
+P_LEN_H(float);
+
+#endif
+

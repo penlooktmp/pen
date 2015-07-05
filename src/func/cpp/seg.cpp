@@ -28,23 +28,25 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#include <func/func.h>
+#include <func/gen/seg.h>
 #ifdef __cplusplus
 }
 #endif
 
 #define P_SEG(TYPE); \
-		TYPE *seg(TYPE* t, int from, int to) {\
-			return segment_pointer_##TYPE(t, from, to);\
-		}
+TYPE *seg(TYPE* t, int from, int to) {\
+	return segment_pointer_##TYPE(t, from, to);\
+}
+
 #define P_C_SEG(TYPE); \
-		TYPE *seg(const TYPE* t, int from, int to) {\
-			return segment_pointer_constant_##TYPE(t, from, to);\
-		}
+TYPE *seg(const TYPE* t, int from, int to) {\
+	return segment_pointer_constant_##TYPE(t, from, to);\
+}
+
 #define P_P_SEG(TYPE); \
-		TYPE **seg(TYPE** t, int from, int to) {\
-			return segment_pointer_pointer_##TYPE(t, from, to);\
-		}
+TYPE **seg(TYPE** t, int from, int to) {\
+	return segment_pointer_pointer_##TYPE(t, from, to);\
+}
 
 P_SEG(char);
 P_C_SEG(char);

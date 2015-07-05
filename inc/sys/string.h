@@ -25,6 +25,11 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
 bool isMatch(string, string);
 string trimLine(string);
 string trimSpace(string);
