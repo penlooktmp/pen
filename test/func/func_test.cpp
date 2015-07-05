@@ -47,10 +47,9 @@ TEST_F(FuncTest, len)
 	EXPECT_EQ(5, lenght_char_pointer_pointer);
 	
 	// Length of number
-	// TODO
-	// int number_int = 123456789;
-	// int length_number_int = len(number_int);
-	// EXPECT_EQ(9, length_number_int);
+	int number_int = 123456789;
+	int length_number_int = len(number_int);
+	EXPECT_EQ(9, length_number_int);
 
 	// Length of int pointer array
 	int int_pointer[] = { 1, 2, 3, 4, 5, '\0' };

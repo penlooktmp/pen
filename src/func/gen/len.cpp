@@ -41,9 +41,21 @@ extern "C" {
 		int len(TYPE** t) { \
 			return len_pointer_pointer_##TYPE(t); \
 		}
+#define NUM_LEN(TYPE); \
+		int len(TYPE t) { \
+			return len_number_##TYPE(t); \
+		}
 
 P_LEN(char);
 P_P_LEN(char);
+NUM_LEN(short);
+P_LEN(short);
+NUM_LEN(int);
 P_LEN(int);
+NUM_LEN(long);
+P_LEN(long);
+NUM_LEN(double);
 P_LEN(double);
+NUM_LEN(float);
+P_LEN(float);
 

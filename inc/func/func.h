@@ -32,6 +32,8 @@
 		int len_pointer_##TYPE(TYPE*target);
 #define P_P_LEN_H(TYPE); \
 		int len_pointer_pointer_##TYPE(TYPE**target);
+#define NUM_LEN_H(TYPE); \
+		int len_number_##TYPE(TYPE target);
 #define P_SUB_H(TYPE); \
 		TYPE *sub_pointer_##TYPE(TYPE *target, int from, int to);
 #define P_P_SUB_H(TYPE); \
@@ -40,10 +42,16 @@
 // len_pointer_char
 P_LEN_H(char);
 P_P_LEN_H(char);
+NUM_LEN_H(short);
 P_LEN_H(short);
+NUM_LEN_H(int);
 P_LEN_H(int);
+NUM_LEN_H(long);
 P_LEN_H(long);
+NUM_LEN_H(double);
 P_LEN_H(double);
+NUM_LEN_H(float);
+P_LEN_H(float);
 
 // sub_pointer_char
 P_SUB_H(char);

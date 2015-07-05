@@ -53,6 +53,8 @@ using namespace std;
 LEN(char*);
 LEN(const char*);
 LEN(char**);
+LEN(string);
+LEN(int);
 LEN(int*);
 LEN(const int*);
 
