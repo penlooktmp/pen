@@ -28,7 +28,7 @@ LIB     = pen
 TEST	= pentest
 GCC     = gcc
 G++		= g++
-GCCVER  = c11 
+GCCVER  = c11  
 G++VER 	= c++11
 FGCC    = -std=$(GCCVER) -O3 -fPIC
 FG++    = -std=$(G++VER) -O3 -fPIC
@@ -61,7 +61,7 @@ $(OBJECTD)%.o: %.cpp
 	$(G++) -c $(G++FLAG) -I$(INCLUDE) $< -o $@
 
 $(OBJECTD)%.o: %.c
-	$(GCC) -c $(GCCFLAG) -I$(INCLUDE) $< -o $@
+	$(GCC) -c $(GCCFLAG) -I$(INCLUDE) $< -o $@ -Wno-implicit-function-declaration
 
 $(OHEADERD)%.h.gch: %.h
 	$(G++) -c $(G++FLAG) -I$(INCLUDE) -I/usr/lib/gtest/include $< -o $@
