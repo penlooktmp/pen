@@ -61,8 +61,12 @@ TEST_F(FuncTest, len)
 TEST_F(FuncTest, sub)
 {
 	// Length of char pointer
-	//const char *char_const_pointer = "Hello world";
-	//char *char_pointer = (char*) char_const_pointer;
-	//char *sub_char_pointer = sub(char_pointer, 5, 9);
-	//EXPECT_EQ("world", string(sub_char_pointer));
+	const char *char_const_pointer = "Hello world";
+	char *char_pointer = (char*) char_const_pointer;
+	char *seg_char_pointer1 = seg(char_pointer, 6, 10);
+	EXPECT_EQ("world", string(seg_char_pointer1));
+	
+	// Length of char pointer
+	char *seg_char_pointer2 = seg("Hello world", 6, 10);
+	EXPECT_EQ("world", string(seg_char_pointer2));
 }

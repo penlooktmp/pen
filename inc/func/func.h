@@ -29,18 +29,24 @@
 #define FUNC_FUNC_H
 
 #define P_LEN_H(TYPE); \
-		int len_pointer_##TYPE(TYPE*target);
+		int lenght_pointer_##TYPE(TYPE *target);
+#define P_C_LEN_H(TYPE); \
+		int lenght_pointer_constant_##TYPE(const TYPE *target);
 #define P_P_LEN_H(TYPE); \
-		int len_pointer_pointer_##TYPE(TYPE**target);
+		int lenght_pointer_pointer_##TYPE(TYPE **target);
 #define NUM_LEN_H(TYPE); \
-		int len_number_##TYPE(TYPE target);
-#define P_SUB_H(TYPE); \
-		TYPE *sub_pointer_##TYPE(TYPE *target, int from, int to);
-#define P_P_SUB_H(TYPE); \
-		TYPE **sub_pointer_pointer_##TYPE(TYPE **target, int from, int to);
+		int lenght_number_##TYPE(TYPE target);
+
+#define P_SEG_H(TYPE); \
+		TYPE *segment_pointer_##TYPE(TYPE *target, int from, int to);
+#define P_C_SEG_H(TYPE); \
+		TYPE *segment_pointer_constant_##TYPE(const TYPE *target, int from, int to);
+#define P_P_SEG_H(TYPE); \
+		TYPE **segment_pointer_pointer_##TYPE(TYPE **target, int from, int to);
 
 // len_pointer_char
 P_LEN_H(char);
+P_C_LEN_H(char);
 P_P_LEN_H(char);
 NUM_LEN_H(short);
 P_LEN_H(short);
@@ -54,11 +60,12 @@ NUM_LEN_H(float);
 P_LEN_H(float);
 
 // sub_pointer_char
-P_SUB_H(char);
-P_P_SUB_H(char);
-P_SUB_H(short);
-P_SUB_H(int);
-P_SUB_H(long);
-P_SUB_H(double);
+P_SEG_H(char);
+P_C_SEG_H(char);
+P_P_SEG_H(char);
+P_SEG_H(short);
+P_SEG_H(int);
+P_SEG_H(long);
+P_SEG_H(double);
 
 #endif

@@ -114,16 +114,10 @@ char **str_split(char* target, const char *delim_)
 	return result;
 }
 
-char **str_slice(char *target[], const char *flag)
-{
-	
-}
-
 // Join string with delimiter
-char *str_join(char *target[], const char *delim_)
+char *str_join(char *target[], const char *delim)
 {
-	char *delim = (char*) delim_;
-	int num = len_pointer_pointer_char(target) - 1;
+	int num = lenght_pointer_pointer_char(target) - 1;
 	int len = 0, wlen = 0;
 	char *tmp = calloc(MAX_SIZE, sizeof(char));
 	for (int i=0; i<num; i++) {

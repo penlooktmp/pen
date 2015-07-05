@@ -25,24 +25,37 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-#include <func/func.h>
-#ifdef __cplusplus
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define P_SEG(TYPE); \
+TYPE *segment_pointer_##TYPE(TYPE *target, int from, int to) {\
+	int len = to - from + 1;\
+	TYPE *pointer = calloc(len, sizeof(TYPE));\
+	memcpy(pointer, &target[from], len);\
+	return pointer;\
 }
-#endif
 
-#define P_SUB(TYPE); \
-		TYPE *sub(TYPE* t, int from, int to) {\
-			return sub_pointer_##TYPE(t, from, to);\
-		}
-#define P_P_SUB(TYPE); \
-		TYPE **sub(TYPE** t, int from, int to) {\
-			return sub_pointer_pointer_##TYPE(t, from, to);\
-		}
+#define P_C_SEG(TYPE); \
+TYPE *segment_pointer_constant_##TYPE(const TYPE *target, int from, int to) {\
+	int len = to - from + 1;\
+	TYPE *pointer = calloc(len, sizeof(TYPE));\
+	memcpy(pointer, &target[from], len);\
+	return pointer;\
+}
 
-P_SUB(char);
-P_P_SUB(char);
-P_SUB(int);
-P_SUB(double);
+#define P_P_SEG(TYPE); \
+TYPE **segment_pointer_pointer_##TYPE(TYPE **target, int from, int to) {\
+	int len = to - from + 1;\
+	TYPE **pointer = calloc(len, sizeof(TYPE*));\
+	memcpy(pointer, &target[from], len);\
+	return pointer;\
+}
+
+P_SEG(char);
+P_C_SEG(char);
+P_P_SEG(char);
+P_SEG(int);
+P_SEG(long);
+P_SEG(double);

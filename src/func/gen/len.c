@@ -29,53 +29,49 @@
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
-#include <func/func.h>
 
+// Length of pointer
 #define P_LEN(TYPE); \
-		int len_pointer_##TYPE(TYPE *target) {\
-			register TYPE*pointer;\
-			for (pointer = target; *pointer; ++pointer);\
-			return pointer - target;\
-		}
+int lenght_pointer_##TYPE(TYPE *target) {\
+	register TYPE*pointer;\
+	for (pointer = target; *pointer; ++pointer);\
+	return pointer - target;\
+}
 
+// Length of constant pointer
+#define P_C_LEN(TYPE); \
+int lenght_pointer_constant_##TYPE(const TYPE *target_const) {\
+	TYPE* target = (TYPE*) target_const;\
+	register TYPE*pointer;\
+	for (pointer = target; *pointer; ++pointer);\
+	return pointer - target;\
+}
+
+// Lenght of pointer pointer
 #define P_P_LEN(TYPE); \
-		int len_pointer_pointer_##TYPE(TYPE **target) {\
-			register TYPE**pointer;\
-			for (pointer = target; *pointer; ++pointer);\
-			return pointer - target;\
-		}
+int lenght_pointer_pointer_##TYPE(TYPE **target) {\
+	register TYPE**pointer;\
+	for (pointer = target; *pointer; ++pointer);\
+	return pointer - target;\
+}
 
+// Length of number
 #define PO10_LIMIT (INT_MAX/10)
 #define NUM_LEN(TYPE); \
-		int len_number_##TYPE(TYPE target) {\
-			register short len = 1;\
-			register TYPE po10 = 10;\
-			if (target < 0) target = -target;\
-			while (target >= po10) {\
-				len++;\
-				if (po10 > PO10_LIMIT) break;\
-				po10*=10;\
-			}\
-			return len;\
-		}
-
-#define P_SUB(TYPE); \
-		TYPE *sub_pointer_##TYPE(TYPE *target, int from, int to) {\
-			int len = to - from + 1;\
-			TYPE *pointer = calloc(len, sizeof(TYPE));\
-			memcpy(pointer, &target[from], len);\
-			return pointer;\
-		}
-
-#define P_P_SUB(TYPE); \
-		TYPE **sub_pointer_pointer_##TYPE(TYPE **target, int from, int to) {\
-			int len = to - from + 1;\
-			TYPE **pointer = calloc(len, sizeof(TYPE*));\
-			memcpy(pointer, &target[from], len);\
-			return pointer;\
-		}
+int lenght_number_##TYPE(TYPE target) {\
+	register short len = 1;\
+	register TYPE po10 = 10;\
+	if (target < 0) target = -target;\
+	while (target >= po10) {\
+		len++;\
+		if (po10 > PO10_LIMIT) break;\
+		po10*=10;\
+	}\
+	return len;\
+}
 
 P_LEN(char);
+P_C_LEN(char);
 P_P_LEN(char);
 NUM_LEN(short);
 P_LEN(short);
@@ -87,9 +83,3 @@ NUM_LEN(double);
 P_LEN(double);
 NUM_LEN(float);
 P_LEN(float);
-
-P_SUB(char);
-P_P_SUB(char);
-P_SUB(int);
-P_SUB(long);
-P_SUB(double);

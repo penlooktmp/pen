@@ -25,62 +25,30 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef FUNC_CORE_H
-#define FUNC_CORE_H
-
-// C Interface
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include "func.h"
-#include "string.h"
-#include "number.h"
-
+#include <func/func.h>
 #ifdef __cplusplus
 }
 #endif
 
-#include <iostream>
-using namespace std;
+#define P_LEN(TYPE);   int len(TYPE *t) { return lenght_pointer_##TYPE(t); }
+#define P_C_LEN(TYPE); int len(const TYPE *t) { return lenght_pointer_constant_##TYPE(t); }
+#define P_P_LEN(TYPE); int len(TYPE **t) { return lenght_pointer_pointer_##TYPE(t); }
+#define NUM_LEN(TYPE); int len(TYPE t) {  return lenght_number_##TYPE(t); }
 
-// GENERIC FUNCTION
+P_LEN(char);
+P_C_LEN(char);
+P_P_LEN(char);
+NUM_LEN(short);
+P_LEN(short);
+NUM_LEN(int);
+P_LEN(int);
+NUM_LEN(long);
+P_LEN(long);
+NUM_LEN(double);
+P_LEN(double);
+NUM_LEN(float);
+P_LEN(float);
 
-#define LEN(TYPE); int len(TYPE t);
-#define SEG(TYPE); TYPE seg(TYPE t, int from, int to);
-#define SEG_CONST(TYPE); TYPE seg(const TYPE t, int from, int to);
-
-// len(pointer)
-LEN(char*);
-LEN(const char*);
-LEN(char**);
-
-LEN(short);
-LEN(const short);
-LEN(short*);
-
-LEN(int);
-LEN(const int);
-LEN(int*);
-
-LEN(long);
-LEN(const long);
-LEN(long*);
-
-LEN(double);
-LEN(const double);
-LEN(double*);
-
-LEN(float);
-LEN(const float);
-LEN(float*);
-
-
-// sub(pointer, from, to)
-SEG(char*);
-SEG_CONST(char*);
-SEG(char**);
-SEG(int*);
-SEG(const int*);
-
-#endif
