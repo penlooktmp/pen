@@ -24,3 +24,42 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
+
+#ifndef FUNC_GEN_JOIN_H
+#define FUNC_GEN_JOIN_H
+
+#define P_JOIN_H(TYPE); \
+		char *join_pointer_##TYPE(TYPE *target);
+#define P_JOIN_DELIM_H(TYPE); \
+		char *join_delim_pointer_##TYPE(TYPE *target, const char *delim);
+#define P_P_JOIN_H(TYPE); \
+		char *join_pointer_pointer_##TYPE(TYPE **target);
+#define P_P_JOIN_DELIM_H(TYPE); \
+		char *join_delim_pointer_pointer_##TYPE(TYPE **target, const char *delim);
+
+// join_pointer_char
+P_P_JOIN_H(char);
+// join_delim_pointer_char
+P_P_JOIN_DELIM_H(char);
+// join_pointer_short
+P_JOIN_H(short);
+// join_delim_pointer_short
+P_JOIN_DELIM_H(short);
+// join_pointer_int
+P_JOIN_H(int);
+// join_delim_pointer_int
+P_JOIN_DELIM_H(int);
+// join_pointer_long
+P_JOIN_H(long);
+// join_delim_pointer_long
+P_JOIN_DELIM_H(long);
+// join_pointer_double
+P_JOIN_H(double);
+// join_delim_pointer_double
+P_JOIN_DELIM_H(double);
+// join_pointer_float
+P_JOIN_H(float);
+// join_delim_pointer_float
+P_JOIN_DELIM_H(float);
+
+#endif

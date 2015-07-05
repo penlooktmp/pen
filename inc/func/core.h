@@ -49,6 +49,8 @@ using namespace std;
 #define STR(TYPE); char *str(TYPE t);
 #define SEG(TYPE); TYPE seg(TYPE t, int from, int to);
 #define SEG_CONST(TYPE); TYPE seg(const TYPE t, int from, int to);
+#define JOIN(TYPE); char *join(TYPE t);
+#define JOIN_DELIM(TYPE); char *join(TYPE t, const char *delim);
 
 // LEN (Length)
 // len(target)
@@ -105,5 +107,22 @@ SEG(int*);
 SEG(long*);
 SEG(double*);
 SEG(float*);
+
+// JOIN (Join)
+// join(target_array)
+// join(target_array, delimiter)
+// Use to join item in array with delimiter or not
+JOIN(char**);
+JOIN_DELIM(char**);
+JOIN(short*);
+JOIN_DELIM(short*);
+JOIN(int*);
+JOIN_DELIM(int*);
+JOIN(long*);
+JOIN_DELIM(long*);
+JOIN(double*);
+JOIN_DELIM(double*);
+JOIN(float*);
+JOIN_DELIM(float*);
 
 #endif

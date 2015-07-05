@@ -25,13 +25,47 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef FUNC_GEN_H
-#define FUNC_GEN_H
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-#include <func/gen/len.h>
-#include <func/gen/seg.h>
-#include <func/gen/str.h>
-#include <func/gen/join.h>
+// Join
+#define P_JOIN(TYPE); \
+char *join_pointer_##TYPE(TYPE *target) {\
+	char *result = calloc(10, sizeof(char));\
+	return result;\
+}
 
+// Join with delimiter
+#define P_JOIN_DELIM(TYPE); \
+char *join_delim_pointer_##TYPE(TYPE *target, const char *delim) {\
+	char *result = calloc(10, sizeof(char));\
+	return result;\
+}
 
-#endif
+// Join
+#define P_P_JOIN(TYPE); \
+char *join_pointer_pointer_##TYPE(TYPE **target) {\
+	char *result = calloc(10, sizeof(char));\
+	return result;\
+}
+
+// Join with delimiter
+#define P_P_JOIN_DELIM(TYPE); \
+char *join_delim_pointer_pointer_##TYPE(TYPE **target) {\
+	char *result = calloc(10, sizeof(char));\
+	return result;\
+}
+
+P_P_JOIN(char);
+P_P_JOIN_DELIM(char);
+P_JOIN(short);
+P_JOIN_DELIM(short);
+P_JOIN(int);
+P_JOIN_DELIM(int);
+P_JOIN(long);
+P_JOIN_DELIM(long);
+P_JOIN(double);
+P_JOIN_DELIM(double);
+P_JOIN(float);
+P_JOIN_DELIM(float);

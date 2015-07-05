@@ -25,8 +25,47 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#define TYPE_SHORT short
-#define TYPE_INT int
-#define TYPE_LONG long
-#define TYPE_DOUBLE double
-#define TYPE_FLOAT float
+#ifdef __cplusplus
+extern "C" {
+#endif
+#include <func/gen/join.h>
+#ifdef __cplusplus
+}
+#endif
+
+#define P_JOIN(TYPE);\
+char *join(TYPE *t)\
+{\
+	return join_pointer_##TYPE(t);\
+}
+
+#define P_JOIN_DELIM(TYPE);\
+char *join(TYPE *t, const char *delim)\
+{\
+	return join_delim_pointer_##TYPE(t, delim);\
+}
+
+#define P_P_JOIN(TYPE); \
+char *join(TYPE **t)\
+{\
+	return join_pointer_pointer_##TYPE(t);\
+}
+
+#define P_P_JOIN_DELIM(TYPE); \
+char *join(TYPE **t, const char *delim)\
+{\
+	return join_delim_pointer_pointer_##TYPE(t, delim);\
+}
+
+P_P_JOIN(char);
+P_P_JOIN_DELIM(char);
+P_JOIN(short);
+P_JOIN_DELIM(short);
+P_JOIN(int);
+P_JOIN_DELIM(int);
+P_JOIN(long);
+P_JOIN_DELIM(long);
+P_JOIN(double);
+P_JOIN_DELIM(double);
+P_JOIN(float);
+P_JOIN_DELIM(float);
