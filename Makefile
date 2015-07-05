@@ -39,8 +39,8 @@ TESTF	= -std=$(G++VER) -g -pthread -L/usr/lib/gtest/lib -I/usr/lib/gtest/include
 INCLUDE = inc
 SOURCED = src
 TESTD   = pkg/test
-OBJECTD = pkg/obj
-HEADERS = $(shell find inc -name *.h)
+OBJECTD = pkg/obj/
+HEADERS = $(shell find /usr/lib/pen -name *.h)
 SOURCES = $(shell find src -name *.c*)
 TESTS   = $(shell find test -name *.cpp)
 SOURCE  = $(patsubst %.cpp, %.o, $(SOURCES))
@@ -54,7 +54,7 @@ G++FLAG = $(FG++)
 GCCFLAG = $(FGCC)
 
 all: $(LIB)
-$(LIB): $(OHEADER) $(OBJECTS)
+$(LIB): $(OBJECTS)
 	$(G++) $(OBJECTS) -fPIC -shared -o bin/lib$(LIB).so -lcurl -lpthread
 
 $(OBJECTD)%.o: %.cpp
@@ -80,9 +80,10 @@ debug:
 	ldconfig
 
 install:
-	mkdir -p $(LIBSYS)/$(LIB)
-	cp -ru $(INCLUDE)/* $(LIBSYS)/$(LIB)
-	rm -rf $(shell find $(LIBSYS)/$(LIB) -name *.h)
+	mkdir -p /usr/lib/pen
+	cp -ru $(INCLUDE)/* /usr/lib/pen
+	$(MAKE) $(OHEADER)
+	rm -rf $(shell find /usr/lib/pen -name *.h)
 	cp -f bin/lib$(LIB).so $(LIBSYS)/
 	ldconfig
 	$(shell python ./setup.py install > /dev/null)
@@ -102,7 +103,6 @@ $(TEST): $(OBJECTT)
 
 clean:
 	rm -rf $(OBJECTD)
-	rm -rf $(shell find inc -name *.h.gch)
 	rm -rf $(LIBSYS)/$(LIB)
 	rm -rf $(LIBSYS)/lib$(LIB).so
 
