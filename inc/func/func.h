@@ -28,9 +28,29 @@
 #ifndef FUNC_FUNC_H
 #define FUNC_FUNC_H
 
-int char_pointer_count(char *target);
-int char_pointer_pointer_count(char **target);
-int int_pointer_count(int *target);
-int long_pointer_count(long *target);
+#define P_LEN_H(TYPE); \
+		int len_pointer_##TYPE(TYPE*target);
+#define P_P_LEN_H(TYPE); \
+		int len_pointer_pointer_##TYPE(TYPE**target);
+#define P_SUB_H(TYPE); \
+		TYPE *sub_pointer_##TYPE(TYPE *target, int from, int to);
+#define P_P_SUB_H(TYPE); \
+		TYPE **sub_pointer_pointer_##TYPE(TYPE **target, int from, int to);
+
+// len_pointer_char
+P_LEN_H(char);
+P_P_LEN_H(char);
+P_LEN_H(short);
+P_LEN_H(int);
+P_LEN_H(long);
+P_LEN_H(double);
+
+// sub_pointer_char
+P_SUB_H(char);
+P_P_SUB_H(char);
+P_SUB_H(short);
+P_SUB_H(int);
+P_SUB_H(long);
+P_SUB_H(double);
 
 #endif

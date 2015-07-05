@@ -27,13 +27,47 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <func/func.h>
 
-#define pointer_count(type);\
-	register type *pointer;\
-	for (pointer = target; *pointer; ++pointer);\
-	return pointer - target;
+#define P_LEN(TYPE); \
+		int len_pointer_##TYPE(TYPE *target) {\
+			register TYPE*pointer;\
+			for (pointer = target; *pointer; ++pointer);\
+			return pointer - target;\
+		}
 
-int char_pointer_count(char *target) { pointer_count(char); }
-int char_pointer_pointer_count(char **target) { pointer_count(char*); }
-int int_pointer_count(int *target) { pointer_count(int); }
-int long_pointer_count(long *target) { pointer_count(long); }
+#define P_P_LEN(TYPE); \
+		int len_pointer_pointer_##TYPE(TYPE **target) {\
+			register TYPE**pointer;\
+			for (pointer = target; *pointer; ++pointer);\
+			return pointer - target;\
+		}
+
+#define P_SUB(TYPE); \
+		TYPE *sub_pointer_##TYPE(TYPE *target, int from, int to) {\
+			int len = to - from + 1;\
+			TYPE *pointer = calloc(len, sizeof(TYPE));\
+			memcpy(pointer, &target[from], len);\
+			return pointer;\
+		}
+
+#define P_P_SUB(TYPE); \
+		TYPE **sub_pointer_pointer_##TYPE(TYPE **target, int from, int to) {\
+			int len = to - from + 1;\
+			TYPE **pointer = calloc(len, sizeof(TYPE*));\
+			memcpy(pointer, &target[from], len);\
+			return pointer;\
+		}
+
+P_LEN(char);
+P_P_LEN(char);
+P_LEN(int);
+P_LEN(long);
+P_LEN(double);
+
+P_SUB(char);
+P_P_SUB(char);
+P_SUB(int);
+P_SUB(long);
+P_SUB(double);

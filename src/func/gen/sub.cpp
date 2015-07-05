@@ -25,6 +25,24 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <stdio.h>
-#include <stdlib.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
+#include <func/func.h>
+#ifdef __cplusplus
+}
+#endif
 
+#define P_SUB(TYPE); \
+		TYPE *sub(TYPE* t, int from, int to) {\
+			return sub_pointer_##TYPE(t, from, to);\
+		}
+#define P_P_SUB(TYPE); \
+		TYPE **sub(TYPE** t, int from, int to) {\
+			return sub_pointer_pointer_##TYPE(t, from, to);\
+		}
+
+P_SUB(char);
+P_P_SUB(char);
+P_SUB(int);
+P_SUB(double);

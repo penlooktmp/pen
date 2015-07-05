@@ -123,7 +123,7 @@ char **str_slice(char *target[], const char *flag)
 char *str_join(char *target[], const char *delim_)
 {
 	char *delim = (char*) delim_;
-	int num = char_pointer_pointer_count(target) - 1;
+	int num = len_pointer_pointer_char(target) - 1;
 	int len = 0, wlen = 0;
 	char *tmp = calloc(MAX_SIZE, sizeof(char));
 	for (int i=0; i<num; i++) {

@@ -44,11 +44,23 @@ extern "C" {
 #include <iostream>
 using namespace std;
 
-template <typename T> const int len(T&);
-template <> const int len(char *&t);
-template <> const int len(const char *&t);
-template <> const int len(char **&t);
-template <> const int len(int *&t);
-template <> const int len(const int *&t);
+// GENERIC FUNCTION
+
+#define LEN(TYPE); int len(TYPE t);
+#define SUB(TYPE); TYPE sub(TYPE t, int from, int to);
+
+// len(pointer)
+LEN(char*);
+LEN(const char*);
+LEN(char**);
+LEN(int*);
+LEN(const int*);
+
+// sub(pointer, from, to)
+SUB(char*);
+SUB(const char*);
+SUB(char**);
+SUB(int*);
+SUB(const int*);
 
 #endif

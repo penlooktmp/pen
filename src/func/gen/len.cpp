@@ -25,40 +25,25 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <func/core.h>
-
-template <typename T>
-const int len(T& t)
-{ 
-	return t->toString(); 
+#ifdef __cplusplus
+extern "C" {
+#endif
+#include <func/func.h>
+#ifdef __cplusplus
 }
+#endif
 
-template <>
-const int len(char *&t) 
-{ 
-	return char_pointer_count(t); 
-}
+#define P_LEN(TYPE); \
+		int len(TYPE* t) { \
+			return len_pointer_##TYPE(t); \
+		}
+#define P_P_LEN(TYPE); \
+		int len(TYPE** t) { \
+			return len_pointer_pointer_##TYPE(t); \
+		}
 
-template <>
-const int len(const char *&t)
-{
-	return char_pointer_count((char*) t); 
-}
+P_LEN(char);
+P_P_LEN(char);
+P_LEN(int);
+P_LEN(double);
 
-template <>
-const int len(char **&t)
-{
-	return char_pointer_pointer_count(t);
-}
-
-template <>
-const int len(int *&t) 
-{
-	return int_pointer_count(t);
-}
-
-template <>
-const int len(const int *&t) 
-{
-	return int_pointer_count((int*) t);
-}
