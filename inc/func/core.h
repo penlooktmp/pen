@@ -50,37 +50,42 @@ using namespace std;
 #define SEG(TYPE); TYPE seg(TYPE t, int from, int to);
 #define SEG_CONST(TYPE); TYPE seg(const TYPE t, int from, int to);
 
-// len(pointer)
+// LEN (Length)
+// len(target)
+// Use to retrive length of string or pointer
+LEN(string);
+LEN(string*);
 LEN(char*);
 LEN(const char*);
 LEN(char**);
-
 LEN(short);
 LEN(const short);
 LEN(short*);
-
 LEN(int);
 LEN(const int);
 LEN(int*);
-
 LEN(long);
 LEN(const long);
 LEN(long*);
-
 LEN(double);
 LEN(const double);
 LEN(double*);
-
 LEN(float);
 LEN(const float);
 LEN(float*);
 
-
-// sub(pointer, from, to)
+// SEG (Segment)
+// seg(target, from, to)
+// Use to retrive segment of string or array
 SEG(char*);
 SEG_CONST(char*);
 SEG(char**);
+// SEG(int);
+// SEG_CONST(int);
+SEG(short*);
 SEG(int*);
-SEG(const int*);
+SEG(long*);
+SEG(double*);
+SEG(float*);
 
 #endif
