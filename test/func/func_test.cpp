@@ -95,3 +95,19 @@ TEST_F(FuncTest, sub)
 	char *seg_char_pointer2 = seg("Hello world", 6, 10);
 	EXPECT_EQ("world", string(seg_char_pointer2));
 }
+
+TEST_F(FuncTest, join)
+{
+	// Length of char pointer
+	char const*char_const_pointer_join[] = {
+		"<html>", "<body>", "</body>", "</html>", '\0'
+	};
+	char *html_join = join((char**) char_const_pointer_join);
+	EXPECT_EQ("<html><body></body></html>", string(html_join));
+	
+	char const*char_const_pointer_join_delim[] = {
+		"<html>", "<body>", "</body>", "</html>", '\0'
+	};
+	char *html_delim = join((char**) char_const_pointer_join_delim, " ");
+	EXPECT_EQ("<html> <body> </body> </html>", string(html_delim));
+}

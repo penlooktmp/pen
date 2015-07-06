@@ -25,18 +25,7 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef FUNC_STRLIB_H_
-#define FUNC_STRLIB_H_
-
-#include <func/gen/len.h>
-
-char  *str_replace(const char *target, const char *find, const char *replace_with);
-char **str_substr(char *target, int from, int to);
-char **str_split(char *target, const char *delim);
-char **str_slice(char **target, const char *flag);
-char  *str_join(char **target, char const *delim);
-int    str_index(char *target, char *subtarget);
-char  *str_trim(char *target);
-int   *str_match(char **target, char *regex);
+#ifndef FUNC_NUMLIB_H_
+#define FUNC_NUMLIB_H_
 
 #endif

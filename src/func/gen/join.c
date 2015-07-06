@@ -28,6 +28,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <func/gen/len.h>
+
+#define MAX_SIZE 1000000
 
 // Join
 #define P_JOIN(TYPE); \
@@ -57,8 +60,46 @@ char *join_delim_pointer_pointer_##TYPE(TYPE **target) {\
 	return result;\
 }
 
-P_P_JOIN(char);
-P_P_JOIN_DELIM(char);
+char *join_pointer_pointer_char(char **target)
+{
+	register char **pointer;
+	register int total_length = 0, item_length = 0;
+	char *result_tmp = calloc(MAX_SIZE, sizeof(char));
+	for (pointer = target; *pointer; ++pointer) {
+		item_length = lenght_pointer_char(*pointer);
+		memcpy(result_tmp + total_length, *pointer, item_length);
+		total_length += item_length;
+	}
+	// Deallocate memory
+	char *result = calloc(total_length, sizeof(char));
+	memcpy(result, result_tmp, total_length);
+	// Saving memory
+	free(result_tmp);
+	return result;
+}
+
+char *join_delim_pointer_pointer_char(char **target, const char *delim)
+{
+	register char **pointer;
+	register int total_length = 0, item_length = 0;
+	int delim_length = lenght_pointer_constant_char(delim);
+	char *result_tmp = calloc(MAX_SIZE, sizeof(char));
+	for (pointer = target; *pointer; ++pointer) {
+		item_length = lenght_pointer_char(*pointer);
+		memcpy(result_tmp + total_length, *pointer, item_length);
+		total_length += item_length;
+		memcpy(result_tmp + total_length, delim, delim_length);
+		total_length += delim_length;
+	}
+	// Deallocate memory
+	char *result = calloc(total_length, sizeof(char));
+	// Copy and remove remainder delimiter
+	memcpy(result, result_tmp, total_length - delim_length);
+	// Saving memory
+	free(result_tmp);
+	return result;
+}
+
 P_JOIN(short);
 P_JOIN_DELIM(short);
 P_JOIN(int);
