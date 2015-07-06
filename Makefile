@@ -81,7 +81,6 @@ debug:
 install:
 	mkdir -p /usr/lib/pen
 	cp -ru $(INCLUDE)/* /usr/lib/pen
-	$(MAKE) $(OHEADER)
 	cp -f bin/lib$(LIB).so $(LIBSYS)/
 	ldconfig
 	$(shell python ./setup.py install > /dev/null)
