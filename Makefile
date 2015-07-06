@@ -75,7 +75,6 @@ objectmk:
 debug:
 	mkdir -p $(LIBSYS)/$(LIB)
 	cp -ru $(INCLUDE)/* $(LIBSYS)/$(LIB)
-	rm -rf $(shell find $(LIBSYS)/$(LIB) -name *.h)
 	cp -f bin/lib$(LIB).so $(LIBSYS)/
 	ldconfig
 
@@ -83,7 +82,6 @@ install:
 	mkdir -p /usr/lib/pen
 	cp -ru $(INCLUDE)/* /usr/lib/pen
 	$(MAKE) $(OHEADER)
-	rm -rf $(shell find /usr/lib/pen -name *.h)
 	cp -f bin/lib$(LIB).so $(LIBSYS)/
 	ldconfig
 	$(shell python ./setup.py install > /dev/null)

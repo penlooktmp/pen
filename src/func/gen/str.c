@@ -28,7 +28,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "func/gen/len.h"
+#include <func/gen/len.h>
 
 char *string_pointer_char(char *target)
 {
