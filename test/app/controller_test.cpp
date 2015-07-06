@@ -47,15 +47,13 @@ TEST_F(ControllerTest, Action)
 
 TEST_F(ControllerTest, Controller)
 {
-	Action *action = new Action;
 	map<const char*, char*> data;
 	data["title"] = (char*) "abc";
-	action->setName((char*) "Home")
-		  ->setData(data);
-
 	Controller *controller = new Controller;
 	controller->setName((char*) "Index")
-			  ->setAction(action);
+			  ->getAction()->setName((char*) "Home")
+			  			   ->setData(data);
+			  
 	EXPECT_EQ("Index", controller->getName());
 	EXPECT_EQ("Home", controller->getAction()->getName());
 	delete controller;

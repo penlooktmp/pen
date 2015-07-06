@@ -51,11 +51,11 @@ namespace app {
 		return this->data;
 	}
 	
-	Action::~Action()
+	Controller::Controller()
 	{
-		// Nothing to delete
+		this->action = new Action;
 	}
-
+	
 	Controller *Controller::setName(char *name)
 	{
 		this->name = name;

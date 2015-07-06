@@ -51,7 +51,6 @@ namespace app {
 			action_arg getArgument();
 			Action *setData(action_data data);
 			action_data getData();
-			~Action();
 	};
 
 	class Controller {
@@ -59,11 +58,13 @@ namespace app {
 			char *name;
 			Action *action;
 		public:
+			Controller();
+			~Controller();
 			Controller *setName(char*);
 			char *getName();
 			Controller *setAction(Action*);
 			Action *getAction();
-			~Controller();
+			
 	};
 }
 
