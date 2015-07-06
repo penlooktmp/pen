@@ -34,20 +34,24 @@
 using std::map;
 using std::function;
 
+#define action_arg map<char*, char*>
+#define action_data map<const char*, char*>
+
 namespace app {
 	
 	class Action {
 		private:
 			char *name;
-			map<char*, char*> *args;
-			map<char*, char*> *data;
+			action_arg args;
+			action_data data;
 		public:
 			Action *setName(char*);
 			char *getName();
-			Action *setArgument(map<char*, char*> args);
-			map<char*, char*> *getArgument();
-			Action *setData(map<char*, char*> *data);
-			map<char*, char*> *getData();
+			Action *setArgument(action_arg args);
+			action_arg getArgument();
+			Action *setData(action_data data);
+			action_data getData();
+			~Action();
 	};
 
 	class Controller {
@@ -59,6 +63,7 @@ namespace app {
 			char *getName();
 			Controller *setAction(Action*);
 			Action *getAction();
+			~Controller();
 	};
 }
 

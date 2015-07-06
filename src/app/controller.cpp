@@ -40,15 +40,20 @@ namespace app {
 		return this->name;
 	}
 	
-	Action *Action::setData(map<char*, char*> *data)
+	Action *Action::setData(action_data data)
 	{
 		this->data = data;
 		return this;
 	}
 	
-	map<char*, char*> *Action::getData()
+	action_data Action::getData()
 	{
 		return this->data;
+	}
+	
+	Action::~Action()
+	{
+		// Nothing to delete
 	}
 
 	Controller *Controller::setName(char *name)
@@ -71,5 +76,10 @@ namespace app {
 	Action *Controller::getAction()
 	{
 		return this->action;
+	}
+
+	Controller::~Controller()
+	{
+		delete action;
 	}
 }

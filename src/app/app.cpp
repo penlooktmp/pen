@@ -120,6 +120,12 @@ namespace app {
 
 	App::~App()
 	{
-		//delete out;
+		delete request;
+		delete response;
+		delete router;
+		delete controller;
+		delete action;
+		delete view;
+		delete model;
 	}
 }
