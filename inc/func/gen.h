@@ -32,5 +32,6 @@
 #include <func/gen/seg.h>
 #include <func/gen/str.h>
 #include <func/gen/join.h>
+#include <func/gen/sort.h>
 
 #endif

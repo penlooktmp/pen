@@ -25,6 +25,9 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
+#ifndef APP_ROUTER_H_
+#define APP_ROUTER_H_
+
 namespace app {
 	class Router {
 		private:
@@ -33,3 +36,5 @@ namespace app {
 			char* getRouter();
 	};
 }
+
+#endif

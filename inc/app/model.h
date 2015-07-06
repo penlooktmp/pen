@@ -25,7 +25,12 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
+#ifndef APP_MODEL_H_
+#define APP_MODEL_H_
+
 namespace app {
 	class Model {
 	};
 }
+
+#endif

@@ -11,8 +11,8 @@ namespace app
 	void handler(App* app)
 	{
 		Action action = app->getController()->getAction();
-		//action->getData();
-		map<string, string> data;
+		map<char*, char*> data;
+		data[(char*) "title"] = (char*) "abc";
 		Template::layout(app, data);
 	}
 }

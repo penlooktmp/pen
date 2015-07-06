@@ -25,8 +25,8 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef APP_APP_H
-#define APP_APP_H
+#ifndef APP_APP_H_
+#define APP_APP_H_
 
 #include <http/request.h>
 #include <http/response.h>

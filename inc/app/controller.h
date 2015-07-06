@@ -25,8 +25,8 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef APP_CONTROLLER_H
-#define APP_CONTROLLER_H
+#ifndef APP_CONTROLLER_H_
+#define APP_CONTROLLER_H_
 
 #include <map>
 #include <functional>

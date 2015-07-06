@@ -25,8 +25,8 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef TEST_H
-#define TEST_H
+#ifndef APP_TEST_H_
+#define APP_TEST_H_
 
 #include <limits.h>
 #include <gtest/gtest.h>
@@ -39,4 +39,5 @@ namespace app {
 			virtual void TearDown() {}
 	};
 }
+
 #endif

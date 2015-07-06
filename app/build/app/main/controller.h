@@ -5,6 +5,6 @@
 namespace app {
 	Controller getController(string name)
 	{
-		map<string, function<>()> controller;
+		
 	}
 }

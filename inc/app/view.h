@@ -25,7 +25,12 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
+#ifndef APP_VIEW_H_
+#define APP_VIEW_H_
+
 namespace app {
 	class View {
 	};
 }
+
+#endif

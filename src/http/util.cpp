@@ -28,9 +28,9 @@
 #include <http/util.h>
 
 namespace http {
-	string getContent(string url)
+	char* getContent(char* url)
 	{
 		RestClient::response response = RestClient::get(url);
-		return response.body;
+		return (char*) response.body.c_str();
 	}
 }

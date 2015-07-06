@@ -33,7 +33,7 @@ using namespace app;
 
 class StringTest : public Test {};
 
-TEST_F(StringTest, count)
+TEST_F(StringTest, len)
 {
 	// Constant string
 	char *data_raw[] = {

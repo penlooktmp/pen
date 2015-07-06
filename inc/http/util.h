@@ -25,7 +25,6 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <sys/core.h>
 #include <http/rest.h>
 
 namespace http {

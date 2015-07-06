@@ -25,6 +25,7 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
+/*
 #include <sys/core.h>
 #include <http/http.h>
 
@@ -55,3 +56,4 @@ class Debug
 		bool isError();
 		bool isEnd();
 };
+*/
