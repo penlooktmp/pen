@@ -33,24 +33,24 @@ class Debug
 	static const int CMD_BUFFER;
 
 	private:
-		string buffer;
-		string viewPath;
-		vector<string> bufferStack;
+		char* buffer;
+		char* viewPath;
+		vector<char*> bufferStack;
 		bool breakPoint;
 		http::Response* response;
 
 	public:
 		Debug();
 		Debug &addBuffer(char*);
-		string getBuffer();
+		char* getBuffer();
 		void outputBuffer();
-		vector<string> getBufferStack();
+		vector<char*> getBufferStack();
 		
 		Debug &setResponse(http::Response*);
-		Debug &setViewPath(string);
+		Debug &setViewPath(char*);
 		
-		string getDebugInfo();
-		string renderDebugInfo(string, int , int, string);
+		char* getDebugInfo();
+		char* renderDebugInfo(char*, int , int, char*);
 		void compile();
 		bool isError();
 		bool isEnd();

@@ -29,13 +29,13 @@
 #define FUNC_GEN_JOIN_H_
 
 #define P_JOIN_H(TYPE); \
-		extern char *join_pointer_##TYPE(TYPE *target);
+		char *join_pointer_##TYPE(TYPE *target);
 #define P_JOIN_DELIM_H(TYPE); \
-		extern char *join_delim_pointer_##TYPE(TYPE *target, const char *delim);
+		char *join_delim_pointer_##TYPE(TYPE *target, const char *delim);
 #define P_P_JOIN_H(TYPE); \
-		extern char *join_pointer_pointer_##TYPE(TYPE **target);
+		char *join_pointer_pointer_##TYPE(TYPE **target);
 #define P_P_JOIN_DELIM_H(TYPE); \
-		extern char *join_delim_pointer_pointer_##TYPE(TYPE **target, const char *delim);
+		char *join_delim_pointer_pointer_##TYPE(TYPE **target, const char *delim);
 
 // join_pointer_char
 P_P_JOIN_H(char);

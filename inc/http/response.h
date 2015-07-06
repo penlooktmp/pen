@@ -25,12 +25,6 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <string>
-#include <iostream>
-#include <sstream>
-
-using namespace std;
-
 namespace http {
     class HttpResponse {
     public:

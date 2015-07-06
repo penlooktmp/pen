@@ -25,35 +25,4 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <sys/core.h>
-
-string getCwd()
-{
-	char *buffer = new char[MAXPATHLEN];
-    char* res = getcwd(buffer,MAXPATHLEN);
-    delete res;
-    if (buffer != NULL) {
-        string ret(buffer);
-        delete[] buffer;
-        return ret;
-    } else {
-        return string();
-    }
-}
-
-void changeDirectory(string path)
-{
-	int res = chdir(path.c_str());
-    // Prevent g++ warning
-    cout << res;
-}
-
-void makeDirectory(string path)
-{
-	// TODO
-}
-
-int executeCommand(string cmd)
-{
-    return system(cmd.c_str());
-}
+// TODO

@@ -29,33 +29,34 @@
 #define APP_CONTROLLER_H
 
 #include <map>
-#include <iostream>
+#include <functional>
 
-using namespace std;
+using std::map;
+using std::function;
 
 namespace app {
 	
 	class Action {
 		private:
-			string name;
-			map<string, string> args;
-			map<string, string> data;
+			char* name;
+			map<char*, char*> args;
+			map<char*, char*> data;
 		public:
-			Action &setName(string);
-			string getName();
-			Action &setArgument(map<string, string> args);
-			map<string, string> getArgument();
-			Action &setData(map<string, string> data);
-			map<string, string> getData();
+			Action &setName(char*);
+			char* getName();
+			Action &setArgument(map<char*, char*> args);
+			map<char*, char*> getArgument();
+			Action &setData(map<char*, char*> data);
+			map<char*, char*> getData();
 	};
 
 	class Controller {
 		private:
-			string name;
+			char* name;
 			Action action;
 		public:
-			Controller &setName(string);
-			string getName();
+			Controller &setName(char*);
+			char* getName();
 			Controller &setAction(Action);
 			Action getAction();
 	};

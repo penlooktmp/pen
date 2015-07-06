@@ -79,12 +79,14 @@ namespace http {
         app_callback(&app);
         // TODO
         // Improve performance
+        /*
         app.out += " ";
         int len = app.out.length();
         this->response.body = new char[len];
         this->response.body_length = len;
         strncpy(this->response.body, app.out.c_str(), len - 1);
         this->response.body[len - 1] = '\0';
+        */
         return *this;
     }
 
@@ -99,12 +101,12 @@ namespace http {
         return this->command;
     }
 
-    void Http::get(string router, http_callback callback)
+    void Http::get(char* router, http_callback callback)
     {
         server.get(router, callback);
     }
 
-    void Http::post(string router, http_callback callback)
+    void Http::post(char* router, http_callback callback)
     {
         server.get(router, callback);
     }

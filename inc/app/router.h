@@ -25,14 +25,11 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <iostream>
-using namespace std;
-
 namespace app {
 	class Router {
 		private:
-			string router;
+			char* router;
 		public:
-			string getRouter();
+			char* getRouter();
 	};
 }

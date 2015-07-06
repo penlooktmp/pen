@@ -25,20 +25,17 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <iostream>
-using namespace std;
-
 namespace http {
 	class HttpRequest {
     private:
-        string content_type;
-        string charset;
-        string query;
-        string uri;
+        char* content_type;
+        char* charset;
+        char* query;
+        char* uri;
     public:
         HttpRequest();
-        HttpRequest &setUri(string); 
-        string getQuery();
-        string getContentType();
+        HttpRequest &setUri(char*); 
+        char* getQuery();
+        char* getContentType();
     };
 }

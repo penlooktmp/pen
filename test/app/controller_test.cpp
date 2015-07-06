@@ -36,24 +36,24 @@ class ControllerTest : public Test {};
 TEST_F(ControllerTest, Action)
 {
 	Action action;
-	map<string, string> data;
-	data["title"] = "abc"; 
-	action.setName("Index")
+	map<char*, char*> data;
+	data[(char*) "title"] = (char*) "abc"; 
+	action.setName((char*) "Index")
 		  .setData(data);
 	EXPECT_EQ("Index", action.getName());
-	EXPECT_EQ("abc", action.getData()["title"]);
+	EXPECT_EQ("abc", action.getData()[(char*)"title"]);
 }
 
 TEST_F(ControllerTest, Controller)
 {
 	Action action;
-	map<string, string> data;
-	data["title"] = "abc";
-	action.setName("Home")
+	map<char*, char*> data;
+	data[(char*) "title"] = (char*) "abc";
+	action.setName((char*) "Home")
 		  .setData(data);
 
 	Controller controller;
-	controller.setName("Index")
+	controller.setName((char*) "Index")
 			  .setAction(action);
 	EXPECT_EQ("Index", controller.getName());
 	EXPECT_EQ("Home", controller.getAction().getName());

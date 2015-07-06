@@ -31,7 +31,6 @@
 #include <http/wpp.h>
 #include <app/app.h>
 
-using namespace std;
 using namespace app;
 
 namespace http {
@@ -45,8 +44,8 @@ namespace http {
 
     public:
         // Self server
-        void get(string, http_callback);
-        void post(string, http_callback);
+        void get(char*, http_callback);
+        void post(char*, http_callback);
         void listen(int port = 80);
 
         Http(HttpRequest, HttpResponse);

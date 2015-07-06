@@ -25,10 +25,7 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <iostream>
-using namespace std;
-
-string getCwd();
-void changeDirectory(string);
-void makeDirectory(string);
-int executeCommand(string);
+char* getCwd();
+void changeDirectory(char*);
+void makeDirectory(char*);
+int executeCommand(char*);

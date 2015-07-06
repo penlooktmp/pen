@@ -31,23 +31,22 @@ namespace http {
 	
 	HttpRequest::HttpRequest()
 	{
-		this->uri = "";
 	}
 	
-	HttpRequest &HttpRequest::setUri(string uri)
+	HttpRequest &HttpRequest::setUri(char* uri)
 	{
 		this->uri = uri;
 		return *this;
 	}
 	
-	string HttpRequest::getQuery()
+	char* HttpRequest::getQuery()
 	{
-		return "Http query";
+		return (char*) "Http query";
 	}
 
-	string HttpRequest::getContentType()
+	char* HttpRequest::getContentType()
 	{
-		return "Content type : HTML";
+		return (char*) "Content type : HTML";
 	}
 	
 }

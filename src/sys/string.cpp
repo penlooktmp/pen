@@ -25,22 +25,23 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
+/*
 #include <sys/core.h>
 
-string trimLine(string str)
+char* trimLine(char* str)
 {
 	str.erase(remove(str.begin(), str.end(), '\n'), str.end());
 	return str;
 }
 
-string trimSpace(string str)
+char* trimSpace(char* str)
 {
 	str.erase(0, str.find_first_not_of(' '));       //prefixing spaces
 	str.erase(str.find_last_not_of(' ')+1);         //surfixing spaces
 	return str;
 }
 
-bool isMatch(string test, string pattern)
+bool isMatch(char* test, char* pattern)
 {	
 	regex str(pattern);
 	if (regex_match(test, str)) {
@@ -67,6 +68,6 @@ vector<string> split(string str, char delim)
     {
         result.push_back(move(token));
     }
-
     return result;
 }
+*/

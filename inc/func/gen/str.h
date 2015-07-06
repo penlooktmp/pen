@@ -31,11 +31,11 @@
 #include "len.h"
 
 #define P_STR_H(TYPE); \
-		extern int string_pointer_##TYPE(TYPE *target);
+		int string_pointer_##TYPE(TYPE *target);
 #define P_C_STR_H(TYPE); \
-		extern int string_pointer_constant_##TYPE(const TYPE *target);
+		int string_pointer_constant_##TYPE(const TYPE *target);
 #define NUM_STR_H(TYPE); \
-		extern int string_number_##TYPE(TYPE target);
+		int string_number_##TYPE(TYPE target);
 
 // string_pointer_char
 P_STR_H(char);

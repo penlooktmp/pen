@@ -29,5 +29,5 @@
 #include <http/rest.h>
 
 namespace http {
-	string getContent(string);
+	char* getContent(const char*);
 }

@@ -28,8 +28,6 @@
 #define CORE_H
 
 #include <unistd.h>
-#include <string>
-#include <iostream>
 #include <fstream>
 #include <cstdio>
 #include <map>

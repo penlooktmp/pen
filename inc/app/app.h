@@ -34,7 +34,9 @@
 #include <app/controller.h>
 #include <app/model.h>
 #include <app/view.h>
+#include <sys/func.h>
 #include <functional>
+#include <map>
 
 using namespace http;
 
@@ -51,7 +53,7 @@ namespace app {
 			Model model;
 
 		public:
-			string out;
+			char* out;
 
 			App();
 			~App();
@@ -82,7 +84,7 @@ namespace app {
 			View getView();
 
 			// Processor
-			App handle(string, function<void(HttpRequest, HttpResponse)> callback);
+			App handle(char*, function<void(HttpRequest, HttpResponse)> callback);
 			App push(char*);
 	};
 

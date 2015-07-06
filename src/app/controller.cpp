@@ -29,35 +29,35 @@
 
 namespace app {
 	
-	Action &Action::setName(string name)
+	Action &Action::setName(char* name)
 	{
 		this->name = name;
 		return *this;
 	}
-	
-	string Action::getName()
+
+	char *Action::getName()
 	{
 		return this->name;
 	}
 	
-	Action &Action::setData(map<string, string> data)
+	Action &Action::setData(map<char*, char*> data)
 	{
 		this->data = data;
 		return *this;
 	}
 	
-	map<string, string> Action::getData()
+	map<char*, char*> Action::getData()
 	{
 		return this->data;
 	}
 
-	Controller &Controller::setName(string name)
+	Controller &Controller::setName(char* name)
 	{
 		this->name = name;
 		return *this;
 	}
-	
-	string Controller::getName()
+
+	char* Controller::getName()
 	{
 		return this->name;
 	}

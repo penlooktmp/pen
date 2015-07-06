@@ -30,8 +30,8 @@
 
 using namespace std;
 
-bool isMatch(string, string);
-string trimLine(string);
-string trimSpace(string);
-int indexOf(string, string);
-vector<string> split(string, char);
+bool isMatch(char*, char*);
+char* trimLine(char*);
+char* trimSpace(char*);
+int indexOf(char*, char*);
+vector<char*> split(char*, char);

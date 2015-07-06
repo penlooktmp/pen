@@ -31,7 +31,7 @@ namespace app {
 
 	App::App()
 	{
-		this->out = "";
+		// TODO
 	}
 
 	App App::setHttpRequest(HttpRequest request)
@@ -80,9 +80,14 @@ namespace app {
 
 	Controller App::getControllerByCommand(char* command)
 	{
-		//char** com = split(command, " ");
+		char** com = str_split(command, " ");
+		Action action;
 		Controller controller;
-		
+		action.setName(com[2]);
+		// TODO
+		// Append action argument
+		controller.setName(com[1])
+				  .setAction(action);
 		return controller;
 	}
 
