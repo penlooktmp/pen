@@ -33,18 +33,18 @@ namespace http {
 	{
 	}
 	
-	HttpRequest &HttpRequest::setUri(char* uri)
+	HttpRequest *HttpRequest::setUri(char *uri)
 	{
 		this->uri = uri;
-		return *this;
+		return this;
 	}
 	
-	char* HttpRequest::getQuery()
+	char *HttpRequest::getQuery()
 	{
 		return (char*) "Http query";
 	}
 
-	char* HttpRequest::getContentType()
+	char *HttpRequest::getContentType()
 	{
 		return (char*) "Content type : HTML";
 	}

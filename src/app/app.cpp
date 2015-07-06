@@ -34,88 +34,88 @@ namespace app {
 		// TODO
 	}
 
-	App App::setHttpRequest(HttpRequest request)
+	App *App::setHttpRequest(HttpRequest *request)
 	{
 		this->request = request;
-		return *this;
+		return this;
 	}
 
-	HttpRequest App::getHttpRequest()
+	HttpRequest *App::getHttpRequest()
 	{
 		return this->request;
 	}
 
-	App App::setHttpResponse(HttpResponse response)
+	App *App::setHttpResponse(HttpResponse *response)
 	{
 		this->response = response;
-		return *this;
+		return this;
 	}
 
-	HttpResponse App::getHttpResponse()
+	HttpResponse *App::getHttpResponse()
 	{
 		return this->response;
 	}
 
-	App App::setRouter(Router router)
+	App *App::setRouter(Router *router)
 	{
 		this->router = router;
-		return *this;
+		return this;
 	}
 
-	Router App::getRouter()
+	Router *App::getRouter()
 	{
 		return this->router;
 	}
 
-	App App::setController(Controller controller)
+	App *App::setController(Controller *controller)
 	{
 		this->controller = controller;
-		return *this;
+		return this;
 	}
 
-	Controller App::getController()
+	Controller *App::getController()
 	{
 		return this->controller;
 	}
 
-	Controller App::getControllerByCommand(char* command)
+	Controller *App::getControllerByCommand(char *command)
 	{
-		char** com = str_split(command, " ");
-		Action action;
-		Controller controller;
-		action.setName(com[2]);
+		char **com = str_split(command, " ");
+		Action *action;
+		Controller *controller;
+		action->setName(com[2]);
 		// TODO
 		// Append action argument
-		controller.setName(com[1])
-				  .setAction(action);
+		controller->setName(com[1])
+				  ->setAction(action);
 		return controller;
 	}
 
-	App App::setView(View view)
+	App *App::setView(View *view)
 	{
 		this->view = view;
-		return *this;
+		return this;
 	}
 
-	View App::getView()
+	View *App::getView()
 	{
 		return this->view;
 	}
 
-	App App::setModel(Model model)
+	App *App::setModel(Model *model)
 	{
 		this->model = model;
-		return *this;
+		return this;
 	}
 	
-	Model App::getModel()
+	Model *App::getModel()
 	{
 		return this->model;
 	}
 
-	App App::push(char* html)
+	App *App::push(char* html)
 	{
-		return *this;
+		return this;
 	}
 
 	App::~App()

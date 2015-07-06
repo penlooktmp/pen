@@ -28,14 +28,14 @@
 namespace http {
 	class HttpRequest {
     private:
-        char* content_type;
-        char* charset;
-        char* query;
-        char* uri;
+        char *content_type;
+        char *charset;
+        char *query;
+        char *uri;
     public:
         HttpRequest();
-        HttpRequest &setUri(char*); 
-        char* getQuery();
-        char* getContentType();
+        HttpRequest *setUri(char*); 
+        char *getQuery();
+        char *getContentType();
     };
 }

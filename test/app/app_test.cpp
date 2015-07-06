@@ -40,6 +40,5 @@ class AppTest : public ::testing::Test
 
 TEST_F(AppTest, push)
 {
-    App app;
     EXPECT_EQ("Hello", "Hello");
 }

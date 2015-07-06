@@ -29,10 +29,10 @@
 
 namespace app {
 	
-	Action &Action::setName(char* name)
+	Action *Action::setName(char *name)
 	{
 		this->name = name;
-		return *this;
+		return this;
 	}
 
 	char *Action::getName()
@@ -40,35 +40,35 @@ namespace app {
 		return this->name;
 	}
 	
-	Action &Action::setData(map<char*, char*> data)
+	Action *Action::setData(map<char*, char*> *data)
 	{
 		this->data = data;
-		return *this;
+		return this;
 	}
 	
-	map<char*, char*> Action::getData()
+	map<char*, char*> *Action::getData()
 	{
 		return this->data;
 	}
 
-	Controller &Controller::setName(char* name)
+	Controller *Controller::setName(char *name)
 	{
 		this->name = name;
-		return *this;
+		return this;
 	}
 
-	char* Controller::getName()
+	char *Controller::getName()
 	{
 		return this->name;
 	}
 	
-	Controller &Controller::setAction(Action action)
+	Controller *Controller::setAction(Action *action)
 	{
 		this->action = action;
-		return *this;
+		return this;
 	}
-	
-	Action Controller::getAction()
+
+	Action *Controller::getAction()
 	{
 		return this->action;
 	}

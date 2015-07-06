@@ -38,29 +38,28 @@ namespace app {
 	
 	class Action {
 		private:
-			char* name;
-			map<char*, char*> args;
-			map<char*, char*> data;
+			char *name;
+			map<char*, char*> *args;
+			map<char*, char*> *data;
 		public:
-			Action &setName(char*);
-			char* getName();
-			Action &setArgument(map<char*, char*> args);
-			map<char*, char*> getArgument();
-			Action &setData(map<char*, char*> data);
-			map<char*, char*> getData();
+			Action *setName(char*);
+			char *getName();
+			Action *setArgument(map<char*, char*> args);
+			map<char*, char*> *getArgument();
+			Action *setData(map<char*, char*> *data);
+			map<char*, char*> *getData();
 	};
 
 	class Controller {
 		private:
-			char* name;
-			Action action;
+			char *name;
+			Action *action;
 		public:
-			Controller &setName(char*);
-			char* getName();
-			Controller &setAction(Action);
-			Action getAction();
+			Controller *setName(char*);
+			char *getName();
+			Controller *setAction(Action*);
+			Action *getAction();
 	};
-
 }
 
 #endif

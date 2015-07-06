@@ -44,13 +44,13 @@ namespace app {
 
 	class App {
 		private:
-			HttpRequest request;
-			HttpResponse response;
-			Router router;
-			Controller controller;
-			Action action;
-			View view;
-			Model model;
+			HttpRequest *request;
+			HttpResponse *response;
+			Router *router;
+			Controller *controller;
+			Action *action;
+			View *view;
+			Model *model;
 
 		public:
 			char* out;
@@ -59,33 +59,33 @@ namespace app {
 			~App();
 
 			// Http Request
-			App setHttpRequest(HttpRequest);
-			HttpRequest getHttpRequest();
+			App *setHttpRequest(HttpRequest*);
+			HttpRequest *getHttpRequest();
 
-			App setHttpResponse(HttpResponse);
-			HttpResponse getHttpResponse();
+			App *setHttpResponse(HttpResponse*);
+			HttpResponse *getHttpResponse();
 
 			// Router
-			App setRouter(Router);
-			Router getRouter();
+			App *setRouter(Router*);
+			Router *getRouter();
 
 			// Controller
-			App setController(Controller);
-			Controller getController();
+			App *setController(Controller*);
+			Controller *getController();
 
-			static Controller getControllerByCommand(char*);
+			static Controller *getControllerByCommand(char*);
 
 			// Model
-			App setModel(Model);
-			Model getModel();
+			App *setModel(Model*);
+			Model *getModel();
 
 			// View
-			App setView(View);
-			View getView();
+			App *setView(View*);
+			View *getView();
 
 			// Processor
-			App handle(char*, function<void(HttpRequest, HttpResponse)> callback);
-			App push(char*);
+			App *handle(char*, function<void(HttpRequest*, HttpResponse*)> callback);
+			App *push(char*);
 	};
 
 	void prepare(Model*);

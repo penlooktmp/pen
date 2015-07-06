@@ -28,11 +28,11 @@
 namespace http {
     class HttpResponse {
     public:
-        char* body;
+        char *body;
         int body_length;
-        HttpResponse &setBody(char*);
-        char* getBody();
-        HttpResponse &setBodyLength(int);
+        HttpResponse *setBody(char*);
+        char *getBody();
+        HttpResponse *setBodyLength(int);
         int getBodyLength();
     };
 }

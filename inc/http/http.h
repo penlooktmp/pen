@@ -36,33 +36,33 @@ using namespace app;
 namespace http {
     class Http {
     private:
-        Server server;
-        HttpRequest request;
-        HttpResponse response;
-        Model model;
-        char* command;
+        Server *server;
+        HttpRequest *request;
+        HttpResponse *response;
+        Model *model;
+        char *command;
 
     public:
         // Self server
-        void get(char*, http_callback);
-        void post(char*, http_callback);
-        void listen(int port = 80);
+        Http *get(char*, http_callback);
+        Http *post(char*, http_callback);
+        Http *listen(int port = 80);
 
-        Http(HttpRequest, HttpResponse);
-        Http setApp(App);
-        App getApp();
-        Http setRequest(HttpRequest);
-        HttpRequest getRequest();
-        Http setResponse(HttpResponse);
-        HttpResponse getResponse();
-        Http setModel(Model);
-        Model getModel();
+        Http(HttpRequest*, HttpResponse*);
+        Http *setApp(App*);
+        App *getApp();
+        Http *setRequest(HttpRequest*);
+        HttpRequest *getRequest();
+        Http *setResponse(HttpResponse*);
+        HttpResponse *getResponse();
+        Http *setModel(Model*);
+        Model *getModel();
 
         // HTTP Processor
-        Http serveRequest(function<void(App*)>);
+        Http *serveRequest(function<void(App*)>);
 
-        Http setCommand(char*);
-        char* getCommand();
+        Http *setCommand(char*);
+        char *getCommand();
     };
 }
 

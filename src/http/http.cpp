@@ -30,53 +30,53 @@
 
 namespace http {
 
-    Http::Http(HttpRequest request, HttpResponse response)
+    Http::Http(HttpRequest *request, HttpResponse *response)
     {
         this->request = request;
         this->response = response;
     }
 
-    Http Http::setRequest(HttpRequest request)
+    Http *Http::setRequest(HttpRequest *request)
     {
         this->request = request;
-        return *this;
+        return this;
     }
 
-    HttpRequest Http::getRequest()
+    HttpRequest *Http::getRequest()
     {
         return this->request;
     }
 
-    Http Http::setResponse(HttpResponse response)
+    Http *Http::setResponse(HttpResponse *response)
     {
         this->response = response;
-        return *this;
+        return this;
     }
 
-    HttpResponse Http::getResponse()
+    HttpResponse *Http::getResponse()
     {
         return this->response;
     }
     
-    Http Http::setModel(Model model)
+    Http *Http::setModel(Model *model)
     {
         this->model = model;
-        return *this;
+        return this;
     }
     
-    Model Http::getModel()
+    Model *Http::getModel()
     {
         return this->model;
     }
 
-    Http Http::serveRequest(function<void(App*)> app_callback)
+    Http *Http::serveRequest(function<void(App*)> app_callback)
     {
-        App app;
-        app.setHttpRequest(this->getRequest())
-           .setHttpResponse(this->getResponse())
-           .setModel(this->getModel())
-           .setController(App::getControllerByCommand(this->getCommand()));
-        app_callback(&app);
+        App *app;
+        app->setHttpRequest(this->getRequest())
+           ->setHttpResponse(this->getResponse())
+           ->setModel(this->getModel())
+           ->setController(App::getControllerByCommand(this->getCommand()));
+        app_callback(app);
         // TODO
         // Improve performance
         /*
@@ -87,38 +87,40 @@ namespace http {
         strncpy(this->response.body, app.out.c_str(), len - 1);
         this->response.body[len - 1] = '\0';
         */
-        return *this;
+        return this;
     }
 
-    Http Http::setCommand(char* command)
+    Http *Http::setCommand(char *command)
     {
         this->command = command;
-        return *this;
+        return this;
     }
 
-    char* Http::getCommand()
+    char *Http::getCommand()
     {
         return this->command;
     }
 
-    void Http::get(char* router, http_callback callback)
+    Http *Http::get(char *router, http_callback callback)
     {
-        server.get(router, callback);
+        server->get(router, callback);
+        return this;
     }
 
-    void Http::post(char* router, http_callback callback)
+    Http *Http::post(char *router, http_callback callback)
     {
-        server.get(router, callback);
+        server->get(router, callback);
+        return this;
     }
 
-    void Http::listen(int port)
+    Http *Http::listen(int port)
     {
         try {
             cout << "Listening on port " << port << endl;
-            server.start(port);
+            server->start(port);
         } catch(Exception e) {
             cerr << "WebServer: " << e.what() << endl;
         }
+        return this;
     }
-
 }

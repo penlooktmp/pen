@@ -10,7 +10,7 @@ namespace app
 
 	void handler(App* app)
 	{
-		Action action = app->getController()->getAction();
+		Action* action = app->getController()->getAction();
 		map<char*, char*> data;
 		data[(char*) "title"] = (char*) "abc";
 		Template::layout(app, data);
