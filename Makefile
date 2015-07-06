@@ -55,13 +55,13 @@ GCCFLAG = $(FGCC)
 
 all: $(LIB)
 $(LIB): $(OBJECTS)
-	$(G++) $(OBJECTS) -fPIC -shared -o bin/lib$(LIB).so -lcurl -lpthread
+	$(GCC) $(OBJECTS) -fPIC -shared -o bin/lib$(LIB).so -lcurl -lpthread
 
 $(OBJECTD)%.o: %.cpp
 	$(G++) -c $(G++FLAG) -I$(INCLUDE) $< -o $@
 
 $(OBJECTD)%.o: %.c
-	$(GCC) -c $(GCCFLAG) -I$(INCLUDE) $< -o $@ -Wno-implicit-function-declaration
+	$(GCC) -c $(GCCFLAG) -I$(INCLUDE) $< -o $@
 
 $(OHEADERD)%.h.gch: %.h
 	$(G++) -c $(G++FLAG) -I$(INCLUDE) -I/usr/lib/gtest/include $< -o $@

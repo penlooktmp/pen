@@ -25,17 +25,17 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef FUNC_GEN_JOIN_H
-#define FUNC_GEN_JOIN_H
+#ifndef FUNC_GEN_JOIN_H_
+#define FUNC_GEN_JOIN_H_
 
 #define P_JOIN_H(TYPE); \
-		char *join_pointer_##TYPE(TYPE *target);
+		extern char *join_pointer_##TYPE(TYPE *target);
 #define P_JOIN_DELIM_H(TYPE); \
-		char *join_delim_pointer_##TYPE(TYPE *target, const char *delim);
+		extern char *join_delim_pointer_##TYPE(TYPE *target, const char *delim);
 #define P_P_JOIN_H(TYPE); \
-		char *join_pointer_pointer_##TYPE(TYPE **target);
+		extern char *join_pointer_pointer_##TYPE(TYPE **target);
 #define P_P_JOIN_DELIM_H(TYPE); \
-		char *join_delim_pointer_pointer_##TYPE(TYPE **target, const char *delim);
+		extern char *join_delim_pointer_pointer_##TYPE(TYPE **target, const char *delim);
 
 // join_pointer_char
 P_P_JOIN_H(char);

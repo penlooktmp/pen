@@ -28,6 +28,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "func/gen/len.h"
 
 char *string_pointer_char(char *target)
 {
@@ -41,7 +42,7 @@ char *string_pointer_constant_char(const char *target)
 
 #define NUM_STR(TYPE); \
 char* string_number_##TYPE(TYPE target) {\
-	int len_num = length_number_##TYPE(target);\
+	int len_num = lenght_number_##TYPE(target);\
 	char *string = calloc(10, sizeof(char));\
 	return string;\
 }

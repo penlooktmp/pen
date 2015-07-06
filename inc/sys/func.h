@@ -33,9 +33,8 @@
 extern "C" {
 #endif
 
-#include "gen.h"
-#include "string.h"
-#include "number.h"
+#include <func/gen.h>
+#include <func/strlib.h>
 
 #ifdef __cplusplus
 }

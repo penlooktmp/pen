@@ -25,8 +25,8 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef FUNC_GEN_LEN_H
-#define FUNC_GEN_LEN_H
+#ifndef FUNC_GEN_LEN_H_
+#define FUNC_GEN_LEN_H_
 
 #define P_LEN_H(TYPE); \
 		int lenght_pointer_##TYPE(TYPE *target);
@@ -65,4 +65,5 @@ NUM_LEN_H(float);
 P_LEN_H(float);
 
 #endif
+
 

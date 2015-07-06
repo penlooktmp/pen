@@ -25,15 +25,15 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef FUNC_GEN_SEG_H
-#define FUNC_GEN_SEG_H
+#ifndef FUNC_GEN_SEG_H_
+#define FUNC_GEN_SEG_H_
 
 #define P_SEG_H(TYPE); \
-		TYPE *segment_pointer_##TYPE(TYPE *target, int from, int to);
+		extern TYPE *segment_pointer_##TYPE(TYPE *target, int from, int to);
 #define P_C_SEG_H(TYPE); \
-		TYPE *segment_pointer_constant_##TYPE(const TYPE *target, int from, int to);
+		extern TYPE *segment_pointer_constant_##TYPE(const TYPE *target, int from, int to);
 #define P_P_SEG_H(TYPE); \
-		TYPE **segment_pointer_pointer_##TYPE(TYPE **target, int from, int to);
+		extern TYPE **segment_pointer_pointer_##TYPE(TYPE **target, int from, int to);
 
 // segment_pointer_char
 P_SEG_H(char);

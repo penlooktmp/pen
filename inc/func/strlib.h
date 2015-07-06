@@ -25,8 +25,10 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef FUNC_STRING_H
-#define FUNC_STRING_H
+#ifndef FUNC_STRING_H_
+#define FUNC_STRING_H_
+
+#include <func/gen/len.h>
 
 char  *str_replace(const char *target, const char *find, const char *replace_with);
 char **str_substr(char *target, int from, int to);

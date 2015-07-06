@@ -26,7 +26,7 @@
  */
 
 #include <app/test.h>
-#include <func/core.h>
+#include <sys/func.h>
 
 using namespace std;
 using namespace app;

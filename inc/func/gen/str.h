@@ -25,15 +25,17 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef FUNC_GEN_STR_H
-#define FUNC_GEN_STR_H
+#ifndef FUNC_GEN_STR_H_
+#define FUNC_GEN_STR_H_
+
+#include "len.h"
 
 #define P_STR_H(TYPE); \
-		int string_pointer_##TYPE(TYPE *target);
+		extern int string_pointer_##TYPE(TYPE *target);
 #define P_C_STR_H(TYPE); \
-		int string_pointer_constant_##TYPE(const TYPE *target);
+		extern int string_pointer_constant_##TYPE(const TYPE *target);
 #define NUM_STR_H(TYPE); \
-		int string_number_##TYPE(TYPE target);
+		extern int string_number_##TYPE(TYPE target);
 
 // string_pointer_char
 P_STR_H(char);

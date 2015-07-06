@@ -26,7 +26,6 @@
  */
 
 #include <app/app.h>
-#include <func/string.h>
 
 namespace app {
 

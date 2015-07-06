@@ -28,7 +28,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <func/gen.h>
+#include "func/gen/len.h"
 
 #define MAX_SIZE 1000000
 
@@ -106,7 +106,7 @@ char **str_split(char* target, const char *delim_)
 	data[count] = '\0';
 	// Saving memory
 	char **result = malloc(count * sizeof(char*));
-	for (int i=0; i<=count; i++)
+	for (i=0; i<=count; i++)
 		result[i] = data[i];
 	// Deallocate memory
 	free(segment);
