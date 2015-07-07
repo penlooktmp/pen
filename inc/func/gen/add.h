@@ -25,14 +25,51 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef FUNC_GEN_H
-#define FUNC_GEN_H
+#ifndef FUNC_GEN_ADD_H_
+#define FUNC_GEN_ADD_H_
 
-#include <func/gen/len.h>
-#include <func/gen/seg.h>
-#include <func/gen/str.h>
-#include <func/gen/add.h>
-#include <func/gen/join.h>
-#include <func/gen/sort.h>
+/*
+#define P_LEN_H(TYPE); \
+		TYPE *add_pointer_##TYPE(TYPE *target);
+#define P_C_LEN_H(TYPE); \
+		TYPE **add_pointer_constant_##TYPE(const TYPE *target);
+#define P_P_LEN_H(TYPE); \
+		TYPE **add_pointer_pointer_##TYPE(TYPE **target);
+#define NUM_ADD_H(TYPE); \
+		TYPE _number_##TYPE(TYPE target);
+*/
 
+char **add_pointer_pointer_char(char **target, char *append);
+
+// add_pointer_char
+// P_ADD_H(char);
+
+/*
+// add_pointer_constant_char
+P_C_ADD_H(char);
+// add_pointer_pointer_char
+P_P_ADD_H(char);
+// add_number_short
+NUM_ADD_H(short);
+// add_pointer_short
+P_ADD_H(short);
+// add_number_int
+NUM_ADD_H(int);
+// add_pointer_int
+P_ADD_H(int);
+// add_number_long
+NUM_ADD_H(long);
+// add_pointer_long
+P_ADD_H(long);
+// add_number_double
+NUM_ADD_H(double);
+// add_pointer_double
+P_ADD_H(double);
+// add_number_float
+NUM_ADD_H(float);
+// add_pointer_float
+P_ADD_H(float);
+*/
 #endif
+
+

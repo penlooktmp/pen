@@ -50,6 +50,7 @@ using namespace std;
 #define SEG_CONST(TYPE); TYPE seg(const TYPE t, int from, int to);
 #define JOIN(TYPE); char *join(TYPE t);
 #define JOIN_DELIM(TYPE); char *join(TYPE t, const char *delim);
+#define ADD(TYPE); TYPE add(TYPE t, const char *append);
 
 // LEN (Length)
 // len(target)
@@ -93,6 +94,10 @@ STR(const double);
 STR(float);
 STR(const float);
 
+// ADD (Addition)
+// add(target, append)
+ADD(char**);
+
 // SEG (Segment)
 // seg(target, left, right)
 // Use to retrive segment of string or array from left to right
@@ -123,5 +128,6 @@ JOIN(double*);
 JOIN_DELIM(double*);
 JOIN(float*);
 JOIN_DELIM(float*);
+
 
 #endif

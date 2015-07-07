@@ -59,7 +59,7 @@ static ngx_int_t ngx_http_app_handler(ngx_http_request_t *request)
     int html_length = str.length();
     */
     Http *http = app_bridge(request, model);
-    HttpResponse response = http->getResponse();
+    HttpResponse *response = http->getResponse();
 
     char *html = response->getBody();
     int html_length = response->getBodyLength();

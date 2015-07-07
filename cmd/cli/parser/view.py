@@ -51,7 +51,10 @@ namespace Template {
 namespace app {
 namespace Template {
 void {{ fileName }}(App* app, map<const char*, any> data) {
-{{ htmlContent }}
+char const *html[] = {
+{{ htmlContent }}" "
+};
+app->getHttpResponse()->setBody(join((char**)html));
 }\n}\n}"""
 		self.templateMain = ""
 		self.listFileName = []
@@ -98,16 +101,16 @@ void {{ fileName }}(App* app, map<const char*, any> data) {
 		if self.mode == self.DEVELOPMENT:
 			content = ''
 		else:
-			content = 'app->out+="'
+			content = '"'
 		for line in lines:
 			line = line.strip()
 			line = line.replace('"', '\\"')
 			if self.mode == self.DEVELOPMENT:
-				content += 'app->out+="' + line + '\\n";\n'
+				content += '"' + line + '\\n",\n'
 			else:
 				content += line
 		if self.mode == self.PRODUCTION:
-			content += '";'
+			content += '",'
 		return content
 
 	def render(self, template, relativePath):

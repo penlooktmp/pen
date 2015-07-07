@@ -111,3 +111,15 @@ TEST_F(FuncTest, join)
 	char *html_delim = join((char**) char_const_pointer_join_delim, " ");
 	EXPECT_EQ("<html> <body> </body> </html>", string(html_delim));
 }
+
+TEST_F(FuncTest, add)
+{
+	// Length of char pointer
+	char const *char_const_pointer_join[] = {
+		"<html>", "<body>", "</body>", "abc", '\0'
+	};
+	char **html_raw = (char**) char_const_pointer_join;
+	char **html_list = add(html_raw, " </html>");
+	char *html = join(html_list);
+	EXPECT_EQ("<html><body></body>abc </html>", string(html));
+}

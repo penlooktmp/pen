@@ -25,14 +25,16 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef FUNC_GEN_H
-#define FUNC_GEN_H
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <func/gen/len.h>
-#include <func/gen/seg.h>
-#include <func/gen/str.h>
-#include <func/gen/add.h>
-#include <func/gen/join.h>
-#include <func/gen/sort.h>
 
-#endif
+char **add_pointer_pointer_char(char **target, char *append)
+{
+	char **pointer = target;
+	target += lenght_pointer_pointer_char(target);
+	*(target) = append;
+	*(++target) = '\0';
+	return pointer;
+}

@@ -25,14 +25,15 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef FUNC_GEN_H
-#define FUNC_GEN_H
-
-#include <func/gen/len.h>
-#include <func/gen/seg.h>
-#include <func/gen/str.h>
-#include <func/gen/add.h>
-#include <func/gen/join.h>
-#include <func/gen/sort.h>
-
+#ifdef __cplusplus
+extern "C" {
 #endif
+#include <func/gen/add.h>
+#ifdef __cplusplus
+}
+#endif
+
+char **add(char **target, const char *append)
+{
+	return add_pointer_pointer_char(target, (char*) append);
+}
