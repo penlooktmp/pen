@@ -10,9 +10,9 @@ namespace app
 
 	void handler(App* app)
 	{
-		Action* action = app->getController()->getAction();
-		map<char*, char*> data;
-		data[(char*) "title"] = (char*) "abc";
-		Template::layout(app, data);
+		map<const char*, any> data;
+		data["title"] = "abc";
+		Action* action = app->getController()->getAction()->setData(data);		
+		Template::layout(app, action->getData());
 	}
 }

@@ -44,13 +44,13 @@ namespace app {
 
 	class App {
 		private:
-			HttpRequest *request;
+			HttpRequest  *request;
 			HttpResponse *response;
-			Router *router;
-			Controller *controller;
-			Action *action;
-			View *view;
-			Model *model;
+			Router       *router;
+			Controller   *controller;
+			Action 		 *action;
+			View         *view;
+			Model        *model;
 
 		public:
 			char* out;
@@ -84,7 +84,8 @@ namespace app {
 			View *getView();
 
 			// Processor
-			App *handle(char*, function<void(HttpRequest*, HttpResponse*)> callback);
+			App *handleCommand(char *command);
+			App *handleRequest(char*, function<void(HttpRequest*, HttpResponse*)> callback);
 			App *push(char*);
 	};
 

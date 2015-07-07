@@ -33,8 +33,9 @@ namespace http {
         char *query;
         char *uri;
     public:
-        HttpRequest();
-        HttpRequest *setUri(char*); 
+        // HttpRequest();
+        // ~HttpRequest();
+        HttpRequest *setUri(char*);
         char *getQuery();
         char *getContentType();
     };

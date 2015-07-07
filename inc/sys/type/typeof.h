@@ -27,8 +27,7 @@
 
 #ifndef SYS_TYPE_TYPEOF_H
 #define SYS_TYPE_TYPEOF_H
-
-#include <iostream>
+/*
 #include <sys/type/any.h>
 
 using namespace std;
@@ -63,5 +62,5 @@ template<> const string typeof(unsigned char*&) { return "unsigned char*"; }
 template<> const string typeof(char**&) { return "char**"; }
 template<> const string typeof(signed char**&) { return "signed char**"; }
 template<> const string typeof(unsigned char**&) { return "unsigned char**"; }
-
+*/
 #endif

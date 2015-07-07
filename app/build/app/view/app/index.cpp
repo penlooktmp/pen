@@ -2,7 +2,7 @@
 #include "view.h"
 namespace app {
 namespace Template {
-void app_index(App* app, map<string, any> data) {
+void app_index(App* app, map<const char*, any> data) {
 app->out+="<html>\n";
 app->out+="<title>{{ title }}</title>\n";
 app->out+="<head>\n";

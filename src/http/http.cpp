@@ -30,10 +30,17 @@
 
 namespace http {
 
-    Http::Http(HttpRequest *request, HttpResponse *response)
+    Http::Http()
     {
-        this->request = request;
-        this->response = response;
+        this->request  = new HttpRequest;
+        this->response = new HttpResponse;
+    }
+
+    Http::~Http()
+    {
+        delete request;
+        delete response;
+        delete model;
     }
 
     Http *Http::setRequest(HttpRequest *request)
@@ -71,12 +78,14 @@ namespace http {
 
     Http *Http::serveRequest(function<void(App*)> app_callback)
     {
-        App *app;
+        App *app = new App;
         app->setHttpRequest(this->getRequest())
            ->setHttpResponse(this->getResponse())
            ->setModel(this->getModel())
-           ->setController(App::getControllerByCommand(this->getCommand()));
+           ->handleCommand(this->getCommand());
         app_callback(app);
+        this->setResponse(app->getHttpResponse());
+        delete app;
         // TODO
         // Improve performance
         /*
@@ -84,7 +93,7 @@ namespace http {
         int len = app.out.length();
         this->response.body = new char[len];
         this->response.body_length = len;
-        strncpy(this->response.body, app.out.c_str(), len - 1);
+        strncpy(, app.out.c_str(), len - 1);
         this->response.body[len - 1] = '\0';
         */
         return this;
@@ -101,13 +110,13 @@ namespace http {
         return this->command;
     }
 
-    Http *Http::get(char *router, http_callback callback)
+    Http *Http::get(const char *router, http_callback callback)
     {
         server->get(router, callback);
         return this;
     }
 
-    Http *Http::post(char *router, http_callback callback)
+    Http *Http::post(const char *router, http_callback callback)
     {
         server->get(router, callback);
         return this;

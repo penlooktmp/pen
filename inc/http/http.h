@@ -43,9 +43,12 @@ namespace http {
         char *command;
 
     public:
+        Http();
+        ~Http();
+
         // Self server
-        Http *get(char*, http_callback);
-        Http *post(char*, http_callback);
+        Http *get(const char*,  http_callback);
+        Http *post(const char*, http_callback);
         Http *listen(int port = 80);
 
         Http(HttpRequest*, HttpResponse*);

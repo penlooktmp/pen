@@ -39,8 +39,8 @@ class View:
 	def __init__ (self):
 		self.templateFilePath = ""
 		self.templateH = """// AUTO GENERATED
-#include <sys/core.h>
 #include <sys/type.h>
+#include <sys/func.h>
 #include <app/app.h>
 namespace app {
 namespace Template {
@@ -50,7 +50,7 @@ namespace Template {
 #include "view.h"
 namespace app {
 namespace Template {
-void {{ fileName }}(App* app, map<string, any> data) {
+void {{ fileName }}(App* app, map<const char*, any> data) {
 {{ htmlContent }}
 }\n}\n}"""
 		self.templateMain = ""
@@ -133,7 +133,7 @@ void {{ fileName }}(App* app, map<string, any> data) {
 	def compileHeader(self):
 		headerContent = ''
 		for fileName in self.listFileName:
-			headerContent += 'void ' + fileName + '(App*, map<string, any>);\n'
+			headerContent += 'void ' + fileName + '(App*, map<const char*, any>);\n'
 		headerContent = headerContent[:-1]
 		viewH = self.renderString(self.templateH, {
 			'headerContent' : headerContent,

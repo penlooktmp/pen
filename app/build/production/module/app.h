@@ -1,1 +1,1 @@
-HttpResponse app_bridge(ngx_http_request_t*, Model);
+HttpResponse *app_bridge(ngx_http_request_t*, Model*);

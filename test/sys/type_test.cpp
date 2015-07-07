@@ -33,6 +33,7 @@ using namespace app;
 
 class TypeTest : public Test {};
 
+/*
 TEST_F(TypeTest, type_char)
 {
 	char a_char = 'a';
@@ -72,3 +73,4 @@ TEST_F(TypeTest, type_int)
 	string type_int_pointer = typeof(a_int_pointer);
 	EXPECT_EQ("int*", type_int_pointer);
 }
+*/

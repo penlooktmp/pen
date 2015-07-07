@@ -2,7 +2,7 @@
 #include "view.h"
 namespace app {
 namespace Template {
-void layout(App* app, map<string, any> data) {
+void layout(App* app, map<const char*, any> data) {
 app->out+="<html>\n";
 app->out+="<title>{{ title }}</title>\n";
 app->out+="<head>\n";

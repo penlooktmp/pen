@@ -31,7 +31,11 @@ namespace app {
 
 	App::App()
 	{
-		// TODO
+		this->request    = new HttpRequest();
+		this->response   = new HttpResponse;
+		this->controller = new Controller;
+		this->view       = new View;
+		this->model		 = new Model;
 	}
 
 	App *App::setHttpRequest(HttpRequest *request)
@@ -78,19 +82,6 @@ namespace app {
 		return this->controller;
 	}
 
-	Controller *App::getControllerByCommand(char *command)
-	{
-		char **com = str_split(command, " ");
-		Action *action;
-		Controller *controller;
-		action->setName(com[2]);
-		// TODO
-		// Append action argument
-		controller->setName(com[1])
-				  ->setAction(action);
-		return controller;
-	}
-
 	App *App::setView(View *view)
 	{
 		this->view = view;
@@ -111,6 +102,16 @@ namespace app {
 	Model *App::getModel()
 	{
 		return this->model;
+	}
+	
+	App *App::handleCommand(char *command)
+	{
+		char **com = str_split(command, " ");
+		// TODO
+		// Append action argument
+		this->getController()->setName(com[1])
+				        	 ->getAction()->setName(com[2]);
+		return this;
 	}
 
 	App *App::push(char* html)

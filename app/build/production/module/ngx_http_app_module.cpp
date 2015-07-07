@@ -14,7 +14,7 @@ extern "C" {
 using namespace std;
 using namespace http;
 
-static Model model;
+static Model *model = new Model;
 
 typedef struct {
     ngx_str_t name;
@@ -58,11 +58,16 @@ static ngx_int_t ngx_http_app_handler(ngx_http_request_t *request)
     char* html = (char*) str.c_str();
     int html_length = str.length();
     */
-    HttpResponse response = app_bridge(request, model);
-    char* html = response.getBody();
-    cout << html << "\n\n";
-    int html_length = response.getBodyLength();
+    Http *http = app_bridge(request, model);
+    HttpResponse response = http->getResponse();
 
+    char *html = response->getBody();
+    int html_length = response->getBodyLength();
+    
+    // Deallocate memory for application
+    delete http;
+    
+    cout << html << "\n\n";
     ngx_buf_t *buffer;
     ngx_chain_t out;
 

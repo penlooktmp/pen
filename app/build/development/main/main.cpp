@@ -32,17 +32,14 @@ using namespace http;
 // Mockup Nginx server for development mode
 int main()
 {
-	HttpRequest proxyRequest;
-	HttpResponse proxyResponse;
-	Http http(proxyRequest, proxyResponse);
-	http.get("/", [](Request* _request, Response* _response) 
+	Http *http = new Http;
+	http->get("/", [](Request* request, Response* response) 
 	{
-		HttpRequest request;
-		HttpResponse response;
-		Http http(request, response);
-		// Inject application into framework for processing
-		_response->body << string(http.serveRequest(app::handler).getResponse().getBody());
+		Http *http = new Http;
+		http->getResponse()->setBody(http->serveRequest(app::handler)->getResponse()->getBody());
+		delete http;
 	});
-	http.listen(80);
+	http->listen(80);
+	delete http;
 	return 0;
 }

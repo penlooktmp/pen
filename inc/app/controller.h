@@ -29,13 +29,14 @@
 #define APP_CONTROLLER_H_
 
 #include <map>
+#include <sys/type.h>
 #include <functional>
 
 using std::map;
 using std::function;
 
 #define action_arg map<char*, char*>
-#define action_data map<const char*, char*>
+#define action_data map<const char*, any>
 
 namespace app {
 	

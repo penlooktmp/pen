@@ -29,10 +29,6 @@
 
 namespace http {
 	
-	HttpRequest::HttpRequest()
-	{
-	}
-	
 	HttpRequest *HttpRequest::setUri(char *uri)
 	{
 		this->uri = uri;
