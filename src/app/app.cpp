@@ -98,19 +98,20 @@ namespace app {
 		this->model = model;
 		return this;
 	}
-	
+
 	Model *App::getModel()
 	{
 		return this->model;
 	}
-	
+
 	App *App::handleCommand(char *command)
 	{
+		// Controller Action [ArgumentType ArgumentValue ...]
 		char **com = str_split(command, " ");
 		// TODO
 		// Append action argument
-		this->getController()->setName(com[1])
-				        	 ->getAction()->setName(com[2]);
+		this->getController()->setName(com[0])
+				        	 ->getAction()->setName(com[1]);
 		return this;
 	}
 

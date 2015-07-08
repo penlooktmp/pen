@@ -43,8 +43,8 @@ TEST_F(ControllerTest, Action)
 		  ->setData(data);
 	EXPECT_EQ("Index", action->getName());
 	any title = action->getData()["title"];
-	//EXPECT_EQ("abc", title.cast<string>());
-	//delete action;
+	EXPECT_EQ("abc", title.cast<const char*>());
+	delete action;
 }
 
 TEST_F(ControllerTest, Controller)

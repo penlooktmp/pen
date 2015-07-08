@@ -53,18 +53,15 @@ https://github.com/nginx/nginx/blob/master/src/http/ngx_http_request.h#L359
 */
 static ngx_int_t ngx_http_app_handler(ngx_http_request_t *request)
 {
-    /*
-    string str = "Hello world";
+    
+    /*string str = "Hello world";
     char* html = (char*) str.c_str();
-    int html_length = str.length();
-    */
+    int html_length = str.length();*/
+    
     Http *http = app_bridge(request, model);
     HttpResponse *response = http->getResponse();
-
     char *html = response->getBody();
     int html_length = response->getBodyLength();
-    
-    // Deallocate memory for application
     delete http;
     
     cout << html << "\n\n";

@@ -26,10 +26,11 @@
  */
  
 #include <http/response.h>
+#include <sys/func.h>
 
 namespace http {
 
-	HttpResponse *HttpResponse::setBody(char* body)
+	HttpResponse *HttpResponse::setBody(char *body)
 	{
 		this->body = body;
 		return this;
@@ -40,14 +41,8 @@ namespace http {
 		return body;
 	}
 
-	HttpResponse *HttpResponse::setBodyLength(int length)
-	{
-		this->body_length = length;
-		return this;
-	}
-	
 	int HttpResponse::getBodyLength()
 	{
-		return body_length;
+		return len(this->bodyLength);
 	}
 }

@@ -38,13 +38,14 @@ namespace http {
 
     Http::~Http()
     {
-        delete request;
-        delete response;
-        delete model;
+        delete this->request;
+        delete this->response;
+        delete this->model;
     }
 
     Http *Http::setRequest(HttpRequest *request)
     {
+        delete this->request;
         this->request = request;
         return this;
     }
@@ -56,6 +57,7 @@ namespace http {
 
     Http *Http::setResponse(HttpResponse *response)
     {
+        delete this->response;
         this->response = response;
         return this;
     }

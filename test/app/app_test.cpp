@@ -38,7 +38,24 @@ class AppTest : public ::testing::Test
 		virtual void TearDown() {}
 };
 
-TEST_F(AppTest, push)
+TEST_F(AppTest, appResponse)
 {
-    EXPECT_EQ("Hello", "Hello");
+    App *app = new App;
+    HttpRequest *request = new HttpRequest();
+    HttpResponse *response = new HttpResponse();
+    Model *model = new Model;
+
+    response->setBody((char*) "<html></html>");
+
+    char command[] = "Index Home int id string password";
+    app->setHttpRequest(request)
+       ->setHttpResponse(response)
+       ->setModel(model)
+       ->handleCommand(command);
+
+    EXPECT_EQ("Index", string(app->getController()->getName()));
+    EXPECT_EQ("Home", string(app->getController()->getAction()->getName()));
+    EXPECT_EQ("<html></html>", string(app->getHttpResponse()->getBody()));
+
+    delete app;
 }
