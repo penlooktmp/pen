@@ -24,26 +24,18 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
- 
-#include <http/response.h>
-#include <sys/func.h>
 
-namespace http {
+#include <app/test.h>
+#include <http/http.h>
 
-	HttpResponse *HttpResponse::setBody(char *body)
-	{
-		this->body = body;
-		this->bodyLength = len(this->body);
-		return this;
-	}
+using namespace std;
 
-	char *HttpResponse::getBody()
-	{
-		return body;
-	}
+class ResponseTest : public Test {};
 
-	int HttpResponse::getBodyLength()
-	{
-		return this->bodyLength;
-	}
+TEST_F(ResponseTest, body)
+{
+	HttpResponse *response = new HttpResponse;
+	response->setBody((char*) "<html><body>TEST</body></html>");
+	EXPECT_EQ("<html><body>TEST</body></html>", string(response->getBody()));
+	EXPECT_EQ(30, response->getBodyLength());
 }

@@ -46,6 +46,8 @@ TEST_F(HttpTest, serveRequest)
 		->setResponse(new HttpResponse)
 		->setCommand((char*) "Index Home int a int b");
     http->serveRequest(app_handler);
-	EXPECT_EQ("<html><body>TEST</body></html>", string(http->getResponse()->getBody()));
+	HttpResponse *response = http->getResponse();
+	EXPECT_EQ("<html><body>TEST</body></html>", string(response->getBody()));
+	EXPECT_EQ(30, response->getBodyLength());
 	delete http;
 }
