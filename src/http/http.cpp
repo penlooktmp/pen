@@ -34,6 +34,7 @@ namespace http {
     {
         this->request  = new HttpRequest;
         this->response = new HttpResponse;
+        this->model = new Model();
     }
 
     Http::~Http()
@@ -45,7 +46,6 @@ namespace http {
 
     Http *Http::setRequest(HttpRequest *request)
     {
-        delete this->request;
         this->request = request;
         return this;
     }
@@ -57,7 +57,6 @@ namespace http {
 
     Http *Http::setResponse(HttpResponse *response)
     {
-        delete this->response;
         this->response = response;
         return this;
     }
@@ -81,12 +80,14 @@ namespace http {
     Http *Http::serveRequest(function<void(App*)> app_callback)
     {
         App *app = new App;
-        app->setHttpRequest(this->getRequest())
+        app->setHttpRequest(this->getRequest()) 
            ->setHttpResponse(this->getResponse())
-           ->setModel(this->getModel())
-           ->handleCommand(this->getCommand());
+           ->setModel(this->getModel());
+        //   ->handleCommand(this->getCommand());
+        /*
         app_callback(app);
         this->setResponse(app->getHttpResponse());
+        */
         delete app;
         // TODO
         // Improve performance

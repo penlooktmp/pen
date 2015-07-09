@@ -73,8 +73,6 @@ namespace app {
 			App *setController(Controller*);
 			Controller *getController();
 
-			static Controller *getControllerByCommand(char*);
-
 			// Model
 			App *setModel(Model*);
 			Model *getModel();

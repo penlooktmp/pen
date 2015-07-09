@@ -55,8 +55,7 @@ TEST_F(ControllerTest, Controller)
 	controller->setName((char*) "Index")
 			  ->getAction()->setName((char*) "Home")
 			  			   ->setData(data);
-			  
 	EXPECT_EQ("Index", controller->getName());
-	EXPECT_EQ("Home", controller->getAction()->getName());
+	EXPECT_EQ("Home",  controller->getAction()->getName());
 	delete controller;
 }

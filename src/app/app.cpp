@@ -27,7 +27,8 @@
 
 #include <app/app.h>
 
-namespace app {
+namespace app
+{
 
 	App::App()
 	{
@@ -41,7 +42,8 @@ namespace app {
 
 	App *App::setHttpRequest(HttpRequest *request)
 	{
-		this->request = request;
+		*(this->request) = *request;
+		request = NULL;
 		return this;
 	}
 
@@ -52,7 +54,8 @@ namespace app {
 
 	App *App::setHttpResponse(HttpResponse *response)
 	{
-		this->response = response;
+		*(this->response) = *response;
+		response = NULL;
 		return this;
 	}
 
@@ -63,7 +66,8 @@ namespace app {
 
 	App *App::setRouter(Router *router)
 	{
-		this->router = router;
+		*(this->router) = *router;
+		router = NULL;
 		return this;
 	}
 
@@ -74,7 +78,8 @@ namespace app {
 
 	App *App::setController(Controller *controller)
 	{
-		this->controller = controller;
+		*(this->controller) = *controller;
+		controller = NULL;
 		return this;
 	}
 
@@ -85,7 +90,8 @@ namespace app {
 
 	App *App::setView(View *view)
 	{
-		this->view = view;
+		*(this->view) = *view;
+		view = NULL;
 		return this;
 	}
 
@@ -96,7 +102,8 @@ namespace app {
 
 	App *App::setModel(Model *model)
 	{
-		this->model = model;
+		*(this->model) = *model;
+		model = NULL;
 		return this;
 	}
 

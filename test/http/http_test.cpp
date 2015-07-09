@@ -26,13 +26,25 @@
  */
 
 #include <app/test.h>
+#include <http/http.h>
 
 using namespace std;
 using namespace app;
 
 class HttpTest : public Test {};
 
-TEST_F(HttpTest, sample)
+void app_handler(App* app)
 {
-	EXPECT_EQ("test", "test");
+	//app->getHttpResponse()->setBody((char*) "<html><body>TEST</body></html>");
+}
+
+TEST_F(HttpTest, serveRequest)
+{
+	Http *http = new Http;
+	http->setModel(new Model)
+		->setRequest(new HttpRequest)
+		->setResponse(new HttpResponse)
+		->setCommand((char*) "Index Home int a int b");
+    http->serveRequest(app_handler);
+	delete http;
 }
