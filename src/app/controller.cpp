@@ -27,8 +27,8 @@
 
 #include <app/controller.h>
 
-namespace app {
-	
+namespace app 
+{
 	Action *Action::setName(char *name)
 	{
 		this->name = name;

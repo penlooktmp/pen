@@ -29,7 +29,6 @@
 
 namespace app
 {
-
 	App::App()
 	{
 		this->request    = new HttpRequest();
@@ -40,10 +39,9 @@ namespace app
 		this->model		 = new Model;
 	}
 
-	App *App::setHttpRequest(HttpRequest *request)
+	App *App::setHttpRequest(HttpRequest *request_)
 	{
 		*(this->request) = *request;
-		request = NULL;
 		return this;
 	}
 
@@ -55,7 +53,6 @@ namespace app
 	App *App::setHttpResponse(HttpResponse *response)
 	{
 		*(this->response) = *response;
-		response = NULL;
 		return this;
 	}
 
@@ -67,7 +64,6 @@ namespace app
 	App *App::setRouter(Router *router)
 	{
 		*(this->router) = *router;
-		router = NULL;
 		return this;
 	}
 
@@ -79,7 +75,6 @@ namespace app
 	App *App::setController(Controller *controller)
 	{
 		*(this->controller) = *controller;
-		controller = NULL;
 		return this;
 	}
 
@@ -91,7 +86,6 @@ namespace app
 	App *App::setView(View *view)
 	{
 		*(this->view) = *view;
-		view = NULL;
 		return this;
 	}
 
@@ -103,7 +97,6 @@ namespace app
 	App *App::setModel(Model *model)
 	{
 		*(this->model) = *model;
-		model = NULL;
 		return this;
 	}
 

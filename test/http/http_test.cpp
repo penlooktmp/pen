@@ -35,7 +35,7 @@ class HttpTest : public Test {};
 
 void app_handler(App* app)
 {
-	//app->getHttpResponse()->setBody((char*) "<html><body>TEST</body></html>");
+	app->getHttpResponse()->setBody((char*) "<html><body>TEST</body></html>");
 }
 
 TEST_F(HttpTest, serveRequest)
@@ -46,5 +46,6 @@ TEST_F(HttpTest, serveRequest)
 		->setResponse(new HttpResponse)
 		->setCommand((char*) "Index Home int a int b");
     http->serveRequest(app_handler);
+	EXPECT_EQ("<html><body>TEST</body></html>", string(http->getResponse()->getBody()));
 	delete http;
 }
