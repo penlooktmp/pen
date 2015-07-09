@@ -47,12 +47,10 @@ TEST_F(AppTest, handleCommand)
     EXPECT_EQ(12, len(com));
     EXPECT_EQ("Index", string(controllerName));
     EXPECT_EQ("Home", string(actionName));
-
-    char **actionArgs = seg(com, 3, 7);
-    EXPECT_EQ(5, len(actionArgs));
+    char **actionArgs = seg(com, 2, len(com) - 1);
+    EXPECT_EQ(10, len(actionArgs));
 }
 
-/*
 TEST_F(AppTest, appResponse)
 {
     App *app = new App;
@@ -60,7 +58,6 @@ TEST_F(AppTest, appResponse)
     HttpResponse *response = new HttpResponse();
     Model *model = new Model;
 
-    /*
     response->setBody((char*) "<html></html>");
 
     char command[] = "Index Home int id string password";
@@ -74,11 +71,12 @@ TEST_F(AppTest, appResponse)
     EXPECT_EQ("Index", string(app->getController()->getName()));
     EXPECT_EQ("Home", string(app->getController()->getAction()->getName()));
 
-    char **action_args = app->getController()->getAction()->getArgument();    
+    char **action_args = app->getController()->getAction()->getArgument();
     EXPECT_EQ(len_args, len(action_args));
     for (int i=0; i<len_args; i++) {
-      EXPECT_EQ(string(args[i]), string(action_args[i]));
+        EXPECT_EQ(string(args[i]), string(action_args[i]));
     }
     EXPECT_EQ("<html></html>", string(app->getHttpResponse()->getBody()));
+
     delete app;
-}*/
+}

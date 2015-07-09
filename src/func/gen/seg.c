@@ -49,8 +49,7 @@ TYPE *segment_pointer_constant_##TYPE(const TYPE *target, int from, int to) {\
 // IMPROVE IT
 #define P_P_SEG(TYPE);\
 TYPE **segment_pointer_pointer_##TYPE(TYPE **target, int from, int to) {\
-	int segment_length = to - from + 1;\
-	TYPE **pointer = malloc((segment_length + 1) * sizeof(TYPE*));\
+	TYPE **pointer = malloc((to - from + 1) * sizeof(TYPE*));\
 	register int pos;\
 	register int count = 0;\
 	for (pos = from; pos <= to; pos++)\

@@ -34,6 +34,7 @@ namespace app {
 		this->request    = new HttpRequest();
 		this->response   = new HttpResponse;
 		this->controller = new Controller;
+		this->router     = new Router;
 		this->view       = new View;
 		this->model		 = new Model;
 	}
@@ -131,7 +132,6 @@ namespace app {
 		delete response;
 		delete router;
 		delete controller;
-		delete action;
 		delete view;
 		delete model;
 	}
