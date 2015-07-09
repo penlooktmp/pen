@@ -73,8 +73,8 @@ objectmk:
 	for file in $(OBJECTS) ; do if [ ! -e $$file ]; then mkdir -p $$file && rm -rf $$file; fi done
 
 debug:
-	mkdir -p $(LIBSYS)/$(LIB)
-	cp -ru $(INCLUDE)/* $(LIBSYS)/$(LIB)
+	mkdir -p /usr/lib/pen
+	cp -ru $(INCLUDE)/* /usr/lib/pen
 	cp -f bin/lib$(LIB).so $(LIBSYS)/
 	ldconfig
 

@@ -4,9 +4,9 @@
 #include <app/app.h>
 namespace app {
 namespace Template {
-void app_home(App*, map<const char*, any>);
-void app_index(App*, map<const char*, any>);
-void index_index(App*, map<const char*, any>);
-void layout(App*, map<const char*, any>);
+void app_home(App*);
+void app_index(App*);
+void index_index(App*);
+void layout(App*);
 }
 }

@@ -41,11 +41,8 @@ void app_handler(App* app)
 TEST_F(HttpTest, serveRequest)
 {
 	Http *http = new Http;
-	http->setModel(new Model)
-		->setRequest(new HttpRequest)
-		->setResponse(new HttpResponse)
-		->setCommand((char*) "Index Home int a int b");
-    http->serveRequest(app_handler);
+	http->setCommand((char*) "Index Home int a int b")
+    	->serveRequest(app_handler);
 	HttpResponse *response = http->getResponse();
 	EXPECT_EQ("<html><body>TEST</body></html>", string(response->getBody()));
 	EXPECT_EQ(30, response->getBodyLength());

@@ -50,11 +50,11 @@ namespace Template {
 #include "view.h"
 namespace app {
 namespace Template {
-void {{ fileName }}(App* app, map<const char*, any> data) {
+void {{ fileName }}(App* app) {
 char const *html[] = {
-{{ htmlContent }}" "
+{{ htmlContent }}\'\\0\'
 };
-app->getHttpResponse()->setBody(join((char**)html));
+app->getHttpResponse()->setBody(join((char**)html, "\\n"));
 }\n}\n}"""
 		self.templateMain = ""
 		self.listFileName = []
@@ -106,7 +106,7 @@ app->getHttpResponse()->setBody(join((char**)html));
 			line = line.strip()
 			line = line.replace('"', '\\"')
 			if self.mode == self.DEVELOPMENT:
-				content += '"' + line + '\\n",\n'
+				content += '"' + line + '",'
 			else:
 				content += line
 		if self.mode == self.PRODUCTION:
@@ -136,7 +136,7 @@ app->getHttpResponse()->setBody(join((char**)html));
 	def compileHeader(self):
 		headerContent = ''
 		for fileName in self.listFileName:
-			headerContent += 'void ' + fileName + '(App*, map<const char*, any>);\n'
+			headerContent += 'void ' + fileName + '(App*);\n'
 		headerContent = headerContent[:-1]
 		viewH = self.renderString(self.templateH, {
 			'headerContent' : headerContent,

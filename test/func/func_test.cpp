@@ -122,12 +122,14 @@ TEST_F(FuncTest, join)
 	};
 	char *html_join = join((char**) char_const_pointer_join);
 	EXPECT_EQ("<html><body></body></html>", string(html_join));
+	EXPECT_EQ(26, len(html_join));
 
 	char const*char_const_pointer_join_delim[] = {
 		"<html>", "<body>", "</body>", "</html>", '\0'
 	};
-	char *html_delim = join((char**) char_const_pointer_join_delim, " ");
-	EXPECT_EQ("<html> <body> </body> </html>", string(html_delim));
+	char *html_jon_delim = join((char**) char_const_pointer_join_delim, " ");
+	EXPECT_EQ("<html> <body> </body> </html>", string(html_jon_delim));
+	EXPECT_EQ(29, len(html_jon_delim));
 }
 
 TEST_F(FuncTest, add)

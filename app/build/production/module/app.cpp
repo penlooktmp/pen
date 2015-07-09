@@ -4,21 +4,27 @@ extern "C" {
 #include <ngx_http.h>
 }
 
-#include <http/http.h>
 #include "app.h"
 
 using namespace http;
 
-Http *app_bridge(ngx_http_request_t* request, Model *model)
+Http *app_bridge(ngx_http_request_t* ngxRequest, Model *model)
 {
-    HttpRequest *http_request;
-    HttpResponse *http_response;
-    ngx_str_t uri_obj = request->uri;
-    char *uri = reinterpret_cast<char*>(uri_obj.data);
-    http_request->setUri(uri);
+    HttpRequest *request = new HttpRequest;
+    HttpResponse *response = new HttpResponse;
+
+    // Copy config from nginx
+    ngx_str_t ngx_uri_obj = ngxRequest->uri;
+    char *uri = reinterpret_cast<char*>(ngx_uri_obj.data);
+    request->setUri(uri);
+
+    // Example
     char command[] = "Index Home int id string password";
+
     Http *http = new Http;
-    http->setCommand(command)
+    http->setRequest(request)
+        ->setResponse(response)
+        ->setCommand(command)
         ->setModel(model)
         ->serveRequest(app::handler);
    return http;

@@ -5,7 +5,6 @@ extern "C" {
 }
 
 #include <iostream>
-#include <http/http.h>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -53,7 +52,6 @@ https://github.com/nginx/nginx/blob/master/src/http/ngx_http_request.h#L359
 */
 static ngx_int_t ngx_http_app_handler(ngx_http_request_t *request)
 {
-    
     /*string str = "Hello world";
     char* html = (char*) str.c_str();
     int html_length = str.length();*/
@@ -63,8 +61,7 @@ static ngx_int_t ngx_http_app_handler(ngx_http_request_t *request)
     char *html = response->getBody();
     int html_length = response->getBodyLength();
     delete http;
-    
-    cout << html << "\n\n";
+
     ngx_buf_t *buffer;
     ngx_chain_t out;
 

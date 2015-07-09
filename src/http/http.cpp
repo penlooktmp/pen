@@ -35,6 +35,7 @@ namespace http {
         this->request  = new HttpRequest;
         this->response = new HttpResponse;
         this->model = new Model();
+        this->command = (char*) "Index index";
     }
 
     Http::~Http()

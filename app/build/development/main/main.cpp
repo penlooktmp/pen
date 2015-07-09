@@ -32,14 +32,16 @@ using namespace http;
 // Mockup Nginx server for development mode
 int main()
 {
-	Http *http = new Http;
-	http->get("/", [](Request* request, Response* response) 
+	Http *proxy = new Http;
+	proxy->get("/", [](Request* proxyRequest, Response* proxyResponse)
 	{
 		Http *http = new Http;
-		http->getResponse()->setBody(http->serveRequest(app::handler)->getResponse()->getBody());
-		delete http;
+		http->setCommand((char*) "Index Home int a int b")
+			->serveRequest(handler);
+		HttpResponse *response = http->getResponse();
+		proxyResponse->body << response->getBody();
 	});
-	http->listen(80);
-	delete http;
+	proxy->listen(80);
+	delete proxy;
 	return 0;
 }
