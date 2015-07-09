@@ -35,11 +35,11 @@
 using std::map;
 using std::function;
 
-#define action_arg map<char*, char*>
+#define action_arg char**
 #define action_data map<const char*, any>
 
 namespace app {
-	
+
 	class Action {
 		private:
 			char *name;

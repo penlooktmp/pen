@@ -83,17 +83,35 @@ TEST_F(FuncTest, str)
 	*/
 }
 
-TEST_F(FuncTest, sub)
+TEST_F(FuncTest, seg)
 {
 	// Length of char pointer
 	const char *char_const_pointer = "Hello world";
 	char *char_pointer = (char*) char_const_pointer;
 	char *seg_char_pointer1 = seg(char_pointer, 6, 10);
 	EXPECT_EQ("world", string(seg_char_pointer1));
-	
+
 	// Length of char pointer
 	char *seg_char_pointer2 = seg("Hello world", 6, 10);
 	EXPECT_EQ("world", string(seg_char_pointer2));
+
+	// Length of char pointer pointer
+	char const* seg_char_const_pointer_pointer[] = { "abc", "abd", "abf", "abh", "xyz", "yuz", "pol", '\0' };
+	char const* seg_char_const_pointer_pointer_expect[] = { "abf", "abh", "xyz", "yuz", '\0'};
+	char **seg_char_pointer_pointer = (char**) seg_char_const_pointer_pointer;
+	char **result_pointer_pointer = seg(seg_char_pointer_pointer, 2, 5);
+	EXPECT_EQ(4, len(result_pointer_pointer));
+	int len_expect = len((char**) seg_char_const_pointer_pointer_expect);
+	EXPECT_EQ(4, len_expect);
+	for (int i=0; i<len_expect; i++) {
+		EXPECT_EQ(string(seg_char_const_pointer_pointer_expect[i]), string(result_pointer_pointer[i]));
+	}
+
+	// Length of char pointer pointer
+	char const* seg_char_const_pointer_pointer2[] = { "abc", "abd", "abf", '\0' };
+	char **seg_char_pointer_pointer2 = (char**) seg_char_const_pointer_pointer2;
+	char **result_pointer_pointer2 = seg(seg_char_pointer_pointer2, 0, 1);
+	EXPECT_EQ(2, len(result_pointer_pointer2));
 }
 
 TEST_F(FuncTest, join)
@@ -104,7 +122,7 @@ TEST_F(FuncTest, join)
 	};
 	char *html_join = join((char**) char_const_pointer_join);
 	EXPECT_EQ("<html><body></body></html>", string(html_join));
-	
+
 	char const*char_const_pointer_join_delim[] = {
 		"<html>", "<body>", "</body>", "</html>", '\0'
 	};

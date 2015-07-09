@@ -73,7 +73,7 @@ TEST_F(StringTest, replace)
 TEST_F(StringTest, trim)
 {
 	char name1[] = "     Hello, this is string    ";
-	char* result1 = str_trim(name1); 
+	char* result1 = str_trim(name1);
 	EXPECT_EQ("Hello, this is string", string(result1));
 	free(result1);
 
@@ -90,6 +90,7 @@ TEST_F(StringTest, trim)
 
 TEST_F(StringTest, split)
 {
+	// Case 1
 	char const* data = "abc1|-0932|-xyz3|-#@!4";
 	char **result = str_split((char*) data, "|-");
 	char *expect_raw[] = {
@@ -106,36 +107,20 @@ TEST_F(StringTest, split)
 		EXPECT_EQ(string(expect[i]), string(result[i]));
 	}
 
-	// TODO
-	/*
+	// Case 2
 	char const* data2 = "--abc1 |34--5| 123x--";
-	char** result2 = split((char*) data2, "--");
+	char** result2 = str_split((char*) data2, "--");
 	char const* expect2[] = { "abc1 |34", "5| 123x", '\0'};
-	int len_expect2 = count((char**) expect2);
-	EXPECT_EQ(2, count(result2));
+	int len_expect2 = len((char**) expect2);
+	EXPECT_EQ(2, len(result2));
 	for (int i=0; i<len_expect2; i++) {
 		EXPECT_EQ(string(expect2[i]), string(result2[i]));
-	}*/
-}
-
-TEST_F(StringTest, slice)
-{
-	// [:]
-	char const* data1 = "abc1|-0932|-xyz3|-#@!4";
-	char** result = str_split((char*) data1, "|-");
-	char *expect_raw[] = {
-		(char*) "abc1",
-		(char*) "0932",
-		(char*) "xyz3",
-		(char*) "#@!4",
-		'\0'
-	};
-	char **expect = (char**) expect_raw;
-	int len_expect = len(expect);
-	EXPECT_EQ(4, len(result));
-	for (int i=0; i<len_expect; i++) {
-		EXPECT_EQ(string(expect[i]), string(result[i]));
 	}
+
+	// Case 3
+	char command[] = "Index Home int id string password int a bool b string c";
+    char **com = str_split(command, " ");
+    EXPECT_EQ(12, len(com));
 }
 
 TEST_F(StringTest, join)

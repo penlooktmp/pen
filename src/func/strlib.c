@@ -42,7 +42,7 @@ char  *str_replace(const char *target, const char* find, const char* replace_wit
 
 	for (i = 0; target[i] != '\0'; i++)
 	{
-		if (strstr(&target[i], find) == &target[i]) 
+		if (strstr(&target[i], find) == &target[i])
 		{
 			count++;
 			i += oldlen - 1;
@@ -67,47 +67,51 @@ char  *str_replace(const char *target, const char* find, const char* replace_wit
 }
 
 // Split string to one dimession array by delimiter
-char **str_split(char* target, const char *delim_)
+char **str_split(char *target, const char *delim_)
 {
 	char* delim = (char*) delim_;
-	int len_target = strlen(target);
-	int len_delim = strlen(delim);
+	int len_target = lenght_pointer_char(target);
+	int len_delim = lenght_pointer_char(delim);
+	int distance = len_target - len_delim + 1;
 	int len_item = 0;
 	char *segment = calloc(len_delim, sizeof(char));
 	char **data = malloc(MAX_SIZE * sizeof(char*));
-	register int i = 0, count = 0, from = 0, to = -1;
+	register int count = 0, from = 0, to = 0;
 	// Compare delimiter per target segment
-	while (i + len_delim < len_target) {
-		memcpy(segment, &target[i], len_delim);
-		// Found delimiter
+	while (to <= distance) {
+		memcpy(segment, &target[to], len_delim);
+		//printf("COMPARE %s with %s\n", segment, delim);
 		if (strcmp(segment, delim) == 0) {
-			// Skip delimiter
-			i += len_delim;
-			// Not empty element
+			//printf("IGNORE ---\n");
 			if (to - from > 0) {
-				len_item = to - from + 1;
-				char* item = calloc(len_item, sizeof(char));
+				len_item = to - from;
+				char *item = calloc(len_item, sizeof(char));
 				memcpy(item, &target[from], len_item);
 				// Append element to result
 				data[count++] = item;
-				from = i;
-				to = i;
-			}
-		} else to++;
-		i++;
+				//printf("PUSH %s \n", item);
+				from = to + len_delim;
+			} else from += len_delim;
+			to = from;
+			continue;
+		}
+		++to;
 	}
-	if (len_target - from > 0) {
-		len_item = len_target - from + 1;
-		char* item = calloc(len_item, sizeof(char));
+	if (to - from > 0) {
+		len_item = to - from;
+		char *item = calloc(len_item, sizeof(char));
 		memcpy(item, &target[from], len_item);
 		// Append element to result
 		data[count++] = item;
+		//printf("PUSH %s\n\n", item);
 	}
 	data[count] = '\0';
 	// Saving memory
 	char **result = malloc(count * sizeof(char*));
-	for (i=0; i<=count; i++)
+	register int i;
+	for (i=0; i<count; i++)
 		result[i] = data[i];
+	result[count] = '\0';
 	// Deallocate memory
 	free(segment);
 	free(data);

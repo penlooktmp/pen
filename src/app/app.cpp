@@ -108,10 +108,15 @@ namespace app {
 	{
 		// Controller Action [ArgumentType ArgumentValue ...]
 		char **com = str_split(command, " ");
-		// TODO
+		char  *controllerName = com[0];
+		char  *actionName = com[1];
+		char **actionArgs = seg(com, 2, len(com) - 1);
+
 		// Append action argument
-		this->getController()->setName(com[0])
-				        	 ->getAction()->setName(com[1]);
+		this->getController()->setName(controllerName)
+				        	 ->getAction()
+				        	 	->setName(actionName)
+				        	 	->setArgument(actionArgs);
 		return this;
 	}
 
