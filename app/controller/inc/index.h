@@ -35,13 +35,11 @@ using namespace http
 @Type HTML
 class Index : Controller
 {
-	public static User a
-	private App app
-	protected static int name
+	public char* app
 
 	@Route /login/:uid/:password
 	@Type JSON
-	public Login(int uid, string password)
+	public Home(int uid, string password)
 
 	@Route /app/about
 	public About()

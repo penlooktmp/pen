@@ -1,18 +1,34 @@
 // AUTO GENERATED
+#include "controller.h"
+#include "model"
 #include "view.h"
 
 namespace app
 {
+	
+	// Model static storage
 	void prepare(Model *model)
 	{
-		cout << "Model preparation" << "\n";
+		model->setControllers(app::getControllers());
+		model->setViews(app::getViews());
+		model->setModels(app::getModels());
 	}
 
+	// Request handler
 	void handler(App *app)
 	{
-		map<const char*, any> data;
-		data["title"] = "abc";
-		app->getController()->getAction()->setData(data);
-		Template::layout(app);
+		// Index Controller
+		Controller controller = app->getController();
+		cout << controller->getName();
+
+		/*
+		// Home action
+		Action action = controller->getAction();
+		// MVC Lifecycle
+		controller->beforeAction();
+		action->run();
+		controller->afterAction();
+		// Render to view
+		app->render();*/
 	}
 }

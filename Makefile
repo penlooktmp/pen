@@ -28,10 +28,12 @@ LIB     = pen
 TEST	= pentest
 GCC     = gcc
 G++		= g++
+GGO     = go
 GCCVER  = c11  
 G++VER 	= c++11
 FGCC    = -std=$(GCCVER) -O3 -fPIC
 FG++    = -std=$(G++VER) -O3 -fPIC
+FGGO	= build
 DEBUG   = -std=$(G++VER) -pipe -g0 -fno-inline -Wall -fPIC
 EXECUTE = /usr/bin/$(LIB)
 LIBSYS  = /usr/lib

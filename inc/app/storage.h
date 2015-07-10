@@ -25,50 +25,21 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef APP_CONTROLLER_H_
-#define APP_CONTROLLER_H_
+#ifndef APP_STORAGE_H_
+#define APP_STORAGE_H_
 
-#include <sys/type.h>
-#include <sys/func.h>
+#include <app/controller.h>
+#include <app/model.h>
+#include <app/view.h>
 #include <functional>
 #include <map>
 
-using std::map;
-using std::function;
-
-#define action_arg char**
-#define action_data map<const char*, any>
-
 namespace app {
-
-	class Action {
+	class Storage {
 		private:
-			char *name;
-			action_arg args;
-			action_data data;
+			map<string, 
 		public:
-			Action *setName(char*);
-			char *getName();
-			Action *setArgument(action_arg args);
-			action_arg getArgument();
-			Action *setData(action_data data);
-			action_data getData();
-	};
-
-	class Controller {
-		private:
-			char *name;
-			Action *action;
-		public:
-			Controller();
-			~Controller();
-			Controller *setName(char*);
-			char *getName();
-			Controller *setAction(Action*);
-			Action *getAction();
-		protected:
-			void Before();
-			void After();
+		
 	};
 }
 

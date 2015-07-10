@@ -25,51 +25,11 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef APP_CONTROLLER_H_
-#define APP_CONTROLLER_H_
+#ifndef FUNC_CRYPTOLIB_H
+#define FUNC_CRYPTOLIB_H
 
-#include <sys/type.h>
-#include <sys/func.h>
-#include <functional>
-#include <map>
-
-using std::map;
-using std::function;
-
-#define action_arg char**
-#define action_data map<const char*, any>
-
-namespace app {
-
-	class Action {
-		private:
-			char *name;
-			action_arg args;
-			action_data data;
-		public:
-			Action *setName(char*);
-			char *getName();
-			Action *setArgument(action_arg args);
-			action_arg getArgument();
-			Action *setData(action_data data);
-			action_data getData();
-	};
-
-	class Controller {
-		private:
-			char *name;
-			Action *action;
-		public:
-			Controller();
-			~Controller();
-			Controller *setName(char*);
-			char *getName();
-			Controller *setAction(Action*);
-			Action *getAction();
-		protected:
-			void Before();
-			void After();
-	};
-}
+char *md5(char*);
+char *sha1(char*);
+char *sha256(char*);
 
 #endif
