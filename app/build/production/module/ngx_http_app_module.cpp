@@ -13,7 +13,7 @@ extern "C" {
 using namespace std;
 using namespace http;
 
-static Model *model = new Model;
+static Storage *storage = new Storage;
 
 typedef struct {
     ngx_str_t name;
@@ -24,7 +24,7 @@ static void *
 ngx_http_app_create_loc_conf(ngx_conf_t *cf)
 {
     // Prepare everything before request handler
-    app::boot(model);
+    app::boot(storage);
 
     ngx_http_app_loc_conf_t *conf;
     conf = (ngx_http_app_loc_conf_t*) ngx_pcalloc(cf->pool, sizeof(ngx_http_app_loc_conf_t));

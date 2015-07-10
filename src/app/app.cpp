@@ -32,13 +32,13 @@ namespace app
 
 	App::App()
 	{
-		request     = new HttpRequest;
-		response    = new HttpResponse;
-		controller  = new Controller;
-		router      = new Router;
-		storage     = new Storage;
-		view        = new View;
-		model		= new Model;
+		request    = new HttpRequest;
+		response   = new HttpResponse;
+		controller = new Controller;
+		router     = new Router;
+		storage    = new Storage;
+		view       = new View;
+		model	   = new Model;
 	}
 	
 	App::~App()
@@ -84,7 +84,7 @@ namespace app
 	{
 		return this->router;
 	}
-	
+
 	App *App::setStorage(Storage *storage_)
 	{
 		memcpy(this->storage, storage_, sizeof(Storage));

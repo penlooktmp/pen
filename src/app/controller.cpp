@@ -39,7 +39,7 @@ namespace app
 	{
 		return this->name;
 	}
-	
+
 	Action *Action::setData(ActionData data_)
 	{
 		this->data = data_;

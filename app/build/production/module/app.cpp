@@ -8,7 +8,7 @@ extern "C" {
 
 using namespace http;
 
-Http *app_bridge(ngx_http_request_t* ngxRequest, Model *model)
+Http *app_bridge(ngx_http_request_t* ngxRequest, Storage *storage)
 {
     HttpRequest *request = new HttpRequest;
     HttpResponse *response = new HttpResponse;
