@@ -4,6 +4,6 @@ using namespace http;
 class Index
 {
 	public:
-		void  Login(int uid, string password);
-		void  About();
+		void Login(int uid, string password);
+		void About();
 };

@@ -36,6 +36,7 @@
 #include <app/view.h>
 #include <sys/func.h>
 #include <functional>
+#include <cstring>
 #include <map>
 
 using namespace http;

@@ -41,7 +41,7 @@ namespace app
 
 	App *App::setHttpRequest(HttpRequest *request_)
 	{
-		*(this->request) = *request;
+		memcpy(this->request, request_, sizeof(HttpRequest));
 		return this;
 	}
 
@@ -50,9 +50,9 @@ namespace app
 		return this->request;
 	}
 
-	App *App::setHttpResponse(HttpResponse *response)
+	App *App::setHttpResponse(HttpResponse *response_)
 	{
-		*(this->response) = *response;
+		memcpy(this->response, response_, sizeof(HttpResponse));
 		return this;
 	}
 
@@ -61,9 +61,9 @@ namespace app
 		return this->response;
 	}
 
-	App *App::setRouter(Router *router)
+	App *App::setRouter(Router *router_)
 	{
-		*(this->router) = *router;
+		memcpy(this->router, router_, sizeof(Router));
 		return this;
 	}
 
@@ -72,9 +72,9 @@ namespace app
 		return this->router;
 	}
 
-	App *App::setController(Controller *controller)
+	App *App::setController(Controller *controller_)
 	{
-		*(this->controller) = *controller;
+		memcpy(this->controller, controller_, sizeof(Controller));
 		return this;
 	}
 
@@ -83,9 +83,9 @@ namespace app
 		return this->controller;
 	}
 
-	App *App::setView(View *view)
+	App *App::setView(View *view_)
 	{
-		*(this->view) = *view;
+		memcpy(this->view, view_, sizeof(View));
 		return this;
 	}
 
@@ -94,9 +94,9 @@ namespace app
 		return this->view;
 	}
 
-	App *App::setModel(Model *model)
+	App *App::setModel(Model *model_)
 	{
-		*(this->model) = *model;
+		memcpy(this->model, model_, sizeof(Model));
 		return this;
 	}
 

@@ -109,7 +109,7 @@ class Controller:
 						action_type = ''
 						am = False
 						if self.isAction:
-							 action_type = "void "
+							 action_type = 'void'
 						if pattern.isPublic():
 							method_without_am = self.line.split('public')[1]
 							method_without_am = action_type + method_without_am

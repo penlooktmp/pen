@@ -29,9 +29,9 @@
 
 namespace app 
 {
-	Action *Action::setName(char *name)
+	Action *Action::setName(char *name_)
 	{
-		this->name = name;
+		this->name = name_;
 		return this;
 	}
 
@@ -40,9 +40,9 @@ namespace app
 		return this->name;
 	}
 	
-	Action *Action::setData(action_data data)
+	Action *Action::setData(action_data data_)
 	{
-		this->data = data;
+		this->data = data_;
 		return this;
 	}
 	
@@ -51,9 +51,9 @@ namespace app
 		return this->data;
 	}
 
-	Action *Action::setArgument(action_arg args)
+	Action *Action::setArgument(action_arg args_)
 	{
-		this->args = args;
+		this->args = args_;
 		return this;
 	}
 	
@@ -78,9 +78,9 @@ namespace app
 		return this->name;
 	}
 	
-	Controller *Controller::setAction(Action *action)
+	Controller *Controller::setAction(Action *action_)
 	{
-		this->action = action;
+		this->action = action_;
 		return this;
 	}
 

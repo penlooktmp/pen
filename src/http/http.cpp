@@ -45,9 +45,9 @@ namespace http {
         delete this->model;
     }
 
-    Http *Http::setRequest(HttpRequest *request)
+    Http *Http::setRequest(HttpRequest *request_)
     {
-        *(this->request) = *request;
+        memcpy(this->request, request_, sizeof(HttpRequest));
         return this;
     }
 
@@ -56,9 +56,9 @@ namespace http {
         return this->request;
     }
 
-    Http *Http::setResponse(HttpResponse *response)
+    Http *Http::setResponse(HttpResponse *response_)
     {
-        *(this->response) = *response;
+        memcpy(this->response, response_, sizeof(HttpResponse));
         return this;
     }
 
@@ -67,9 +67,9 @@ namespace http {
         return this->response;
     }
     
-    Http *Http::setModel(Model *model)
+    Http *Http::setModel(Model *model_)
     {
-        this->model = model;
+        memcpy(this->model, model_, sizeof(Model));
         return this;
     }
     
