@@ -23,6 +23,9 @@ typedef struct {
 static void *
 ngx_http_app_create_loc_conf(ngx_conf_t *cf)
 {
+    // Prepare everything before request handler
+    app::boot(model);
+
     ngx_http_app_loc_conf_t *conf;
     conf = (ngx_http_app_loc_conf_t*) ngx_pcalloc(cf->pool, sizeof(ngx_http_app_loc_conf_t));
     if (conf == NULL) {
@@ -94,21 +97,20 @@ static ngx_int_t ngx_http_app_handler(ngx_http_request_t *request)
     return ngx_http_output_filter(request, &out);
 }
 
-
+/*
+cout << "LOCATION :";
+ngx_str_t* args;
+args = (ngx_str_t*) cf->args->elts;
+for (int i=0; i < cf->args->nelts; i++) {
+    cout << args[i].data << "\n";
+}
+cout << "\n\n";
+*/
 static char *ngx_http_app(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
 {
     ngx_http_core_loc_conf_t* clcf;
     clcf = (ngx_http_core_loc_conf_t*) ngx_http_conf_get_module_loc_conf(cf, ngx_http_core_module);
     clcf->handler = ngx_http_app_handler;
-    
-    cout << "LOCATION :";
-    ngx_str_t* args;
-    args = (ngx_str_t*) cf->args->elts;
-    for (int i=0; i < cf->args->nelts; i++) {
-        cout << args[i].data << "\n";
-    }
-    cout << "\n\n";
-
     return NGX_CONF_OK;
 }
 

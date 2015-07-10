@@ -25,36 +25,16 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef APP_STORAGE_H_
-#define APP_STORAGE_H_
+#include <app/test.h>
+#include <sys/type.h>
+#include <app/storage.h>
 
-#include <app/controller.h>
-#include <app/model.h>
-#include <app/view.h>
-#include <functional>
-#include <vector>
-#include <map>
+using namespace std;
+using namespace app;
 
-#define ListController vector<Controller>
-#define ListModel vector<Model>
-#define ListView vector<View>
+class StorageTest : public Test {};
 
-namespace app {
-	class Storage {
-		private:
-			ListController *controllers;
-			ListModel *models;
-			ListView *views;
-
-		public:
-			~Storage();
-			Storage *setControllers(ListController*);
-			ListController *getControllers();
-			Storage *setModels(ListModel*);
-			ListModel *getModels();
-			Storage *setViews(ListView*);
-			ListView *getViews();
-	};
+TEST_F(StorageTest, sample)
+{
+	// Pass
 }
-
-#endif

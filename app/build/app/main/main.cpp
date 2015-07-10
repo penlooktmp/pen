@@ -5,13 +5,16 @@
 
 namespace app
 {
-	
-	// Model static storage
-	void prepare(Model *model)
+	// Static storage
+	void boot(Storage *storage)
 	{
-		model->setControllers(app::getControllers());
-		model->setViews(app::getViews());
-		model->setModels(app::getModels());
+		cout << "APPLICATION BOOT";
+		cout.flush();
+		storage ->setControllers(app::getControllers())
+				->setModels(app::getModels())
+				->setViews(app::getViews());
+		cout << "SYSTEM IS READY !";
+		cout.flush();
 	}
 
 	// Request handler

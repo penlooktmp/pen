@@ -25,36 +25,48 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef APP_STORAGE_H_
-#define APP_STORAGE_H_
+#include <app/storage.h>
 
-#include <app/controller.h>
-#include <app/model.h>
-#include <app/view.h>
-#include <functional>
-#include <vector>
-#include <map>
+namespace app 
+{
+	Storage::~Storage()
+	{
+		delete controllers;
+		delete models;
+		delete views;
+	}
 
-#define ListController vector<Controller>
-#define ListModel vector<Model>
-#define ListView vector<View>
+	Storage *Storage::setControllers(ListController *controllers)
+	{
+		this->controllers = controllers;
+		return this;
+	}
 
-namespace app {
-	class Storage {
-		private:
-			ListController *controllers;
-			ListModel *models;
-			ListView *views;
+	ListController *Storage::getControllers()
+	{
+		return this->controllers;
+	}
 
-		public:
-			~Storage();
-			Storage *setControllers(ListController*);
-			ListController *getControllers();
-			Storage *setModels(ListModel*);
-			ListModel *getModels();
-			Storage *setViews(ListView*);
-			ListView *getViews();
-	};
+	Storage *Storage::setModels(ListModel *models)
+	{
+		this->models = models;
+		return this;
+	}
+
+	ListModel *Storage::getModels()
+	{
+		return this->models;
+	}
+	
+	Storage *Storage::setViews(ListView *views)
+	{
+		this->views = views;
+		return this;
+	}
+
+	ListView *Storage::getViews()
+	{
+		return this->views;
+	}
+	
 }
-
-#endif
