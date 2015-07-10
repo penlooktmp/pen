@@ -39,8 +39,8 @@ namespace http {
         Server *server;
         HttpRequest *request;
         HttpResponse *response;
-        Model *model;
-        char *command;
+        Storage *storage;
+        char *hash;
 
     public:
         Http();
@@ -58,14 +58,13 @@ namespace http {
         HttpRequest *getRequest();
         Http *setResponse(HttpResponse*);
         HttpResponse *getResponse();
-        Http *setModel(Model*);
-        Model *getModel();
+        Http *setStorage(Storage*);
+        Storage *getStorage();
+        Http *setHash(char*);
+        char *getHash();
 
         // HTTP Processor
         Http *serveRequest(function<void(App*)>);
-
-        Http *setCommand(char*);
-        char *getCommand();
     };
 }
 

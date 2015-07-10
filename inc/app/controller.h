@@ -31,41 +31,56 @@
 #include <sys/type.h>
 #include <sys/func.h>
 #include <functional>
+#include <vector>
 #include <map>
 
 using std::map;
 using std::function;
 
-#define action_arg char**
-#define action_data map<const char*, any>
+#define ListController map<char*, Controller*>
+#define ListAction map<char*, Action*>
+#define ActionArg char**
+#define ActionData map<const char*, any>
 
-namespace app {
-
-	class Action {
+namespace app
+{
+	class Action
+	{
 		private:
 			char *name;
-			action_arg args;
-			action_data data;
+			char *hash;
+			ActionArg args;
+			ActionData data;
 		public:
 			Action *setName(char*);
 			char *getName();
-			Action *setArgument(action_arg args);
-			action_arg getArgument();
-			Action *setData(action_data data);
-			action_data getData();
+			Action *setHash(char*);
+			char *getHash();
+			Action *setArgument(ActionArg args);
+			ActionArg getArgument();
+			Action *setData(ActionData data);
+			ActionData getData();
 	};
 
-	class Controller {
+	class Controller
+	{
 		private:
 			char *name;
-			Action *action;
+			ListAction actions;
+
 		public:
 			Controller();
 			~Controller();
+
 			Controller *setName(char*);
 			char *getName();
-			Controller *setAction(Action*);
+
+			// Action
+			Controller *addAction(Action*);
 			Action *getAction();
+			Action *getAction(char*);
+			ListAction getActions();
+
 		protected:
 			void Before();
 			void After();

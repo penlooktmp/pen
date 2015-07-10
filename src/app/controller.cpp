@@ -40,33 +40,33 @@ namespace app
 		return this->name;
 	}
 	
-	Action *Action::setData(action_data data_)
+	Action *Action::setData(ActionData data_)
 	{
 		this->data = data_;
 		return this;
 	}
 	
-	action_data Action::getData()
+	ActionData Action::getData()
 	{
 		return this->data;
 	}
 
-	Action *Action::setArgument(action_arg args_)
+	Action *Action::setArgument(ActionArg args_)
 	{
 		this->args = args_;
 		return this;
 	}
 	
-	action_arg Action::getArgument()
+	ActionArg Action::getArgument()
 	{
 		return this->args;
 	}
 
 	Controller::Controller()
 	{
-		this->action = new Action;
+		// TODO
 	}
-	
+
 	Controller *Controller::setName(char *name)
 	{
 		this->name = name;
@@ -77,20 +77,26 @@ namespace app
 	{
 		return this->name;
 	}
-	
-	Controller *Controller::setAction(Action *action_)
+
+	Controller *Controller::addAction(Action *action_)
 	{
-		this->action = action_;
+		char *actionName = action_->getName();
+		this->actions[actionName] = action_;
 		return this;
 	}
 
-	Action *Controller::getAction()
+	Action *Controller::getAction(char *actionName)
 	{
-		return this->action;
+		return this->actions[actionName];
+	}
+	
+	ListAction Controller::getActions()
+	{
+		return this->actions;
 	}
 
 	Controller::~Controller()
 	{
-		delete action;
+		// TODO
 	}
 }

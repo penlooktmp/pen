@@ -28,6 +28,8 @@
 #ifndef APP_VIEW_H_
 #define APP_VIEW_H_
 
+#define ListView vector<View>
+
 namespace app {
 	class View {
 	};

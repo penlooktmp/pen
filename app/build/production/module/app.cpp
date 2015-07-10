@@ -19,13 +19,13 @@ Http *app_bridge(ngx_http_request_t* ngxRequest, Model *model)
     request->setUri(uri);
 
     // Example
-    char command[] = "Index Home int id string password";
+    char hash[] = "2d62bde79116359c6c0fbbbcfcb17076";
 
     Http *http = new Http;
     http->setRequest(request)
         ->setResponse(response)
-        ->setCommand(command)
-        ->setModel(model)
+        ->setHash(hash)
+        ->setStorage(storage)
         ->serveRequest(app::handler);
    return http;
 }

@@ -34,15 +34,14 @@ namespace http {
     {
         this->request  = new HttpRequest;
         this->response = new HttpResponse;
-        this->model = new Model();
-        this->command = (char*) "Index index";
+        this->storage  = new Storage();
     }
 
     Http::~Http()
     {
         delete this->request;
         delete this->response;
-        delete this->model;
+        delete this->storage;
     }
 
     Http *Http::setRequest(HttpRequest *request_)
@@ -67,15 +66,26 @@ namespace http {
         return this->response;
     }
     
-    Http *Http::setModel(Model *model_)
+    Http *Http::setStorage(Storage *storage_)
     {
-        memcpy(this->model, model_, sizeof(Model));
+        memcpy(this->storage, storage_, sizeof(Storage));
         return this;
     }
     
-    Model *Http::getModel()
+    Storage *Http::getStorage()
     {
-        return this->model;
+        return this->storage;
+    }
+
+    Http *Http::setHash(char *hash)
+    {
+        this->hash = hash;
+        return this;
+    }
+
+    char *Http::getHash()
+    {
+        return this->hash;
     }
 
     Http *Http::serveRequest(function<void(App*)> app_callback)
@@ -83,8 +93,8 @@ namespace http {
         App *app = new App;
         app->setHttpRequest(this->getRequest()) 
            ->setHttpResponse(this->getResponse())
-           ->setModel(this->getModel())
-           ->handleCommand(this->getCommand());
+           ->setStorage(this->getStorage())
+           ->setHash(this->getHash());
         app_callback(app);
         this->setResponse(app->getHttpResponse());
         delete app;
@@ -99,17 +109,6 @@ namespace http {
         this->response.body[len - 1] = '\0';
         */
         return this;
-    }
-
-    Http *Http::setCommand(char *command)
-    {
-        this->command = command;
-        return this;
-    }
-
-    char *Http::getCommand()
-    {
-        return this->command;
     }
 
     Http *Http::get(const char *router, http_callback callback)

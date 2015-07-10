@@ -53,9 +53,9 @@ TEST_F(ControllerTest, Controller)
 	data["title"] = (char*) "abc";
 	Controller *controller = new Controller;
 	controller->setName((char*) "Index")
-			  ->getAction()->setName((char*) "Home")
-			  			   ->setData(data);
+			  ->addAction((new Action)->setName((char*) "Home")
+			  			   			  ->setData(data));
 	EXPECT_EQ("Index", controller->getName());
-	EXPECT_EQ("Home",  controller->getAction()->getName());
+	EXPECT_EQ("Home",  controller->getAction((char*) "Home")->getName());
 	delete controller;
 }

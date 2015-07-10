@@ -27,6 +27,7 @@
 
 #include <limits.h>
 #include <gtest/gtest.h>
+#include <http/http.h>
 #include <app/app.h>
 
 using namespace app;
@@ -38,45 +39,17 @@ class AppTest : public ::testing::Test
 		virtual void TearDown() {}
 };
 
-TEST_F(AppTest, handleCommand)
-{
-    char command[] = "Index Home int id string password int a bool b string c";
-    char **com = str_split(command, " ");
-	char  *controllerName = com[0];
-	char  *actionName = com[1];
-    EXPECT_EQ(12, len(com));
-    EXPECT_EQ("Index", string(controllerName));
-    EXPECT_EQ("Home", string(actionName));
-    char **actionArgs = seg(com, 2, len(com) - 1);
-    EXPECT_EQ(10, len(actionArgs));
-}
-
 TEST_F(AppTest, appResponse)
 {
     App *app = new App;
     HttpRequest *request = new HttpRequest();
     HttpResponse *response = new HttpResponse();
-    Model *model = new Model;
-
+    Storage *storage = new Storage;
     response->setBody((char*) "<html></html>");
-
-    char command[] = "Index Home int id string password";
+    char hash[] = "2d62bde79116359c6c0fbbbcfcb17076";
     app->setHttpRequest(request)
        ->setHttpResponse(response)
-       ->setModel(model)
-       ->handleCommand(command);
-
-    char const *args[] = { "int", "id", "string", "password", '\0' };
-    int len_args = len((char**) args);
-    EXPECT_EQ("Index", string(app->getController()->getName()));
-    EXPECT_EQ("Home", string(app->getController()->getAction()->getName()));
-
-    char **action_args = app->getController()->getAction()->getArgument();
-    EXPECT_EQ(len_args, len(action_args));
-    for (int i=0; i<len_args; i++) {
-        EXPECT_EQ(string(args[i]), string(action_args[i]));
-    }
-    EXPECT_EQ("<html></html>", string(app->getHttpResponse()->getBody()));
-
+       ->setStorage(storage)
+       ->setHash(hash);
     delete app;
 }

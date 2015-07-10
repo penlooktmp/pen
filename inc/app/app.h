@@ -30,10 +30,11 @@
 
 #include <http/request.h>
 #include <http/response.h>
-#include <app/router.h>
 #include <app/controller.h>
 #include <app/model.h>
 #include <app/view.h>
+#include <app/router.h>
+#include <app/storage.h>
 #include <sys/func.h>
 #include <functional>
 #include <cstring>
@@ -45,17 +46,19 @@ namespace app {
 
 	class App {
 		private:
-			HttpRequest  *request;
-			HttpResponse *response;
-			Router       *router;
-			Controller   *controller;
-			Action 		 *action;
-			View         *view;
-			Model        *model;
+			HttpRequest    *request;
+			HttpResponse   *response;
+			Router         *router;
+			Storage        *storage;
+			Controller     *controller;
+			ListController controllers;
+			View           *view;
+			Model          *model;
+			char           *hash;
 
 		public:
-			char* out;
 
+			// Application
 			App();
 			~App();
 
@@ -63,6 +66,7 @@ namespace app {
 			App *setHttpRequest(HttpRequest*);
 			HttpRequest *getHttpRequest();
 
+			// Http Response
 			App *setHttpResponse(HttpResponse*);
 			HttpResponse *getHttpResponse();
 
@@ -70,9 +74,13 @@ namespace app {
 			App *setRouter(Router*);
 			Router *getRouter();
 
+			// Storage
+			App *setStorage(Storage*);
+			Storage *getStorage();
+
 			// Controller
-			App *setController(Controller*);
-			Controller *getController();
+			App *setControllers(ListController);
+			ListController getControllers();
 
 			// Model
 			App *setModel(Model*);
@@ -82,14 +90,18 @@ namespace app {
 			App *setView(View*);
 			View *getView();
 
+			// Hash
+			App *setHash(char*);
+			char *getHash();
+
 			// Processor
-			App *handleCommand(char *command);
 			App *handleRequest(char*, function<void(HttpRequest*, HttpResponse*)> callback);
-			App *push(char*);
 	};
 
-	void prepare(Model*);
+	// Dependency injection
+	void boot(Storage*);
 	void handler(App*);
+
 }
 
 #endif

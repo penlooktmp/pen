@@ -29,14 +29,27 @@
 
 namespace app
 {
+
 	App::App()
 	{
-		this->request    = new HttpRequest();
-		this->response   = new HttpResponse;
-		this->controller = new Controller;
-		this->router     = new Router;
-		this->view       = new View;
-		this->model		 = new Model;
+		request     = new HttpRequest;
+		response    = new HttpResponse;
+		controller  = new Controller;
+		router      = new Router;
+		storage     = new Storage;
+		view        = new View;
+		model		= new Model;
+	}
+	
+	App::~App()
+	{
+		delete request;
+		delete response;
+		delete controller;
+		delete router;
+		delete storage;
+		delete view;
+		delete model;
 	}
 
 	App *App::setHttpRequest(HttpRequest *request_)
@@ -71,16 +84,27 @@ namespace app
 	{
 		return this->router;
 	}
-
-	App *App::setController(Controller *controller_)
+	
+	App *App::setStorage(Storage *storage_)
 	{
-		memcpy(this->controller, controller_, sizeof(Controller));
+		memcpy(this->storage, storage_, sizeof(Storage));
 		return this;
 	}
 
-	Controller *App::getController()
+	Storage *App::getStorage()
 	{
-		return this->controller;
+		return this->storage;
+	}
+
+	App *App::setControllers(ListController controllers_)
+	{
+		this->controllers = controllers_;
+		return this;
+	}
+
+	ListController App::getControllers()
+	{
+		return this->controllers;
 	}
 
 	App *App::setView(View *view_)
@@ -105,34 +129,14 @@ namespace app
 		return this->model;
 	}
 
-	App *App::handleCommand(char *command)
+	App *App::setHash(char *hash_)
 	{
-		// Controller Action [ArgumentType ArgumentValue ...]
-		char **com = str_split(command, " ");
-		char  *controllerName = com[0];
-		char  *actionName = com[1];
-		char **actionArgs = seg(com, 2, len(com) - 1);
-
-		// Append action argument
-		this->getController()->setName(controllerName)
-				        	 ->getAction()
-				        	 	->setName(actionName)
-				        	 	->setArgument(actionArgs);
+		this->hash = hash_;
 		return this;
 	}
-
-	App *App::push(char* html)
+	
+	char *App::getHash()
 	{
-		return this;
-	}
-
-	App::~App()
-	{
-		delete request;
-		delete response;
-		delete router;
-		delete controller;
-		delete view;
-		delete model;
+		return this->hash;
 	}
 }

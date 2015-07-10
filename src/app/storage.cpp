@@ -29,42 +29,35 @@
 
 namespace app 
 {
-	Storage::~Storage()
-	{
-		delete controllers;
-		delete models;
-		delete views;
-	}
-
-	Storage *Storage::setControllers(ListController *controllers)
+	Storage *Storage::setControllers(ListController controllers)
 	{
 		this->controllers = controllers;
 		return this;
 	}
 
-	ListController *Storage::getControllers()
+	ListController Storage::getControllers()
 	{
 		return this->controllers;
 	}
 
-	Storage *Storage::setModels(ListModel *models)
+	Storage *Storage::setModels(ListModel models)
 	{
 		this->models = models;
 		return this;
 	}
 
-	ListModel *Storage::getModels()
+	ListModel Storage::getModels()
 	{
 		return this->models;
 	}
 	
-	Storage *Storage::setViews(ListView *views)
+	Storage *Storage::setViews(ListView views)
 	{
 		this->views = views;
 		return this;
 	}
 
-	ListView *Storage::getViews()
+	ListView Storage::getViews()
 	{
 		return this->views;
 	}

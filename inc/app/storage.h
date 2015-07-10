@@ -35,25 +35,20 @@
 #include <vector>
 #include <map>
 
-#define ListController vector<Controller>
-#define ListModel vector<Model>
-#define ListView vector<View>
-
 namespace app {
 	class Storage {
 		private:
-			ListController *controllers;
-			ListModel *models;
-			ListView *views;
+			ListController controllers;
+			ListModel models;
+			ListView views;
 
 		public:
-			~Storage();
-			Storage *setControllers(ListController*);
-			ListController *getControllers();
-			Storage *setModels(ListModel*);
-			ListModel *getModels();
-			Storage *setViews(ListView*);
-			ListView *getViews();
+			Storage *setControllers(ListController);
+			ListController getControllers();
+			Storage *setModels(ListModel);
+			ListModel getModels();
+			Storage *setViews(ListView);
+			ListView getViews();
 	};
 }
 
