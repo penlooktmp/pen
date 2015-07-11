@@ -14,5 +14,4 @@ before_install:
   - (cd tmp; sudo chmod +x ./nginx.sh; ./nginx.sh)
 script:
   - make && sudo make install
-  - pen -h
   - make test

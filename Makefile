@@ -85,7 +85,6 @@ install:
 	cp -ru $(INCLUDE)/* /usr/lib/pen
 	cp -f bin/lib$(LIB).so $(LIBSYS)/
 	ldconfig
-	$(shell python ./setup.py install > /dev/null)
 
 $(OBJECTT): testmk
 testmk:
