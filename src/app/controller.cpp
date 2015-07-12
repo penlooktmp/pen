@@ -29,20 +29,48 @@
 
 namespace app 
 {
-	Action *Action::setName(char *name_)
+	ActionArgument::ActionArgument(string type, string variable)
 	{
-		this->name = name_;
+		this->type = type;
+		this->variable = variable;
+	}
+
+	ActionArgument *ActionArgument::setType(string type)
+	{
+		this->type = type;
 		return this;
 	}
 
-	char *Action::getName()
+	string ActionArgument::getType()
+	{
+		return this->type;
+	}
+	
+	ActionArgument *ActionArgument::setVariable(string variable)
+	{
+		this->variable = variable;
+		return this;
+	}
+
+	string ActionArgument::getVariable()
+	{
+		return this->variable;
+	}
+
+	Action *Action::setName(string name)
+	{
+		this->name = name;
+		return this;
+	}
+
+	string Action::getName()
 	{
 		return this->name;
 	}
 
-	Action *Action::setData(ActionData data_)
+	Action *Action::setData(ActionData data)
 	{
-		this->data = data_;
+		this->data = data;
 		return this;
 	}
 	
@@ -51,15 +79,26 @@ namespace app
 		return this->data;
 	}
 
-	Action *Action::setArgument(ActionArg args_)
+	Action *Action::addArgument(ActionArgument *arg)
 	{
-		this->args = args_;
+		this->args.push_back(arg);
 		return this;
 	}
 	
-	ActionArg Action::getArgument()
+	vector<ActionArgument*> Action::getArguments()
 	{
 		return this->args;
+	}
+	
+	Action *Action::setHash(string hash)
+	{
+		this->hash = hash;
+		return this;
+	}
+
+	string Action::getHash()
+	{
+		return this->hash;
 	}
 
 	Controller::Controller()
@@ -67,25 +106,25 @@ namespace app
 		// TODO
 	}
 
-	Controller *Controller::setName(char *name)
+	Controller *Controller::setName(string name)
 	{
 		this->name = name;
 		return this;
 	}
 
-	char *Controller::getName()
+	string Controller::getName()
 	{
 		return this->name;
 	}
 
-	Controller *Controller::addAction(Action *action_)
+	Controller *Controller::addAction(Action *action)
 	{
-		char *actionName = action_->getName();
-		this->actions[actionName] = action_;
+		string actionName = action->getName();
+		this->actions[actionName] = action;
 		return this;
 	}
 
-	Action *Controller::getAction(char *actionName)
+	Action *Controller::getAction(string actionName)
 	{
 		return this->actions[actionName];
 	}

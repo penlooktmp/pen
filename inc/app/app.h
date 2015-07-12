@@ -41,10 +41,12 @@
 #include <map>
 
 using namespace http;
+using std::string;
 
-namespace app {
-
-	class App {
+namespace app
+{
+	class App 
+	{
 		private:
 			HttpRequest    *request;
 			HttpResponse   *response;
@@ -54,10 +56,9 @@ namespace app {
 			ListController controllers;
 			View           *view;
 			Model          *model;
-			char           *hash;
+			string          hash;
 
 		public:
-
 			// Application
 			App();
 			~App();
@@ -91,8 +92,8 @@ namespace app {
 			View *getView();
 
 			// Hash
-			App *setHash(char*);
-			char *getHash();
+			App *setHash(string);
+			string getHash();
 
 			// Processor
 			App *handleRequest(char*, function<void(HttpRequest*, HttpResponse*)> callback);

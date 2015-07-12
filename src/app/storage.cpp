@@ -29,9 +29,42 @@
 
 namespace app 
 {
+	Storage *Storage::buildListMapping()
+	{
+		ListController controllers = this->getControllers();
+		for (
+			ListController::iterator controllerIt = controllers.begin();
+			controllerIt != controllers.end(); 
+			++controllerIt
+		)
+		{
+			Controller *controller = controllerIt->second;
+			ListAction actions = controller->getActions();
+			for (
+				ListAction::iterator actionIt = actions.begin();
+				actionIt != actions.end();
+				++actionIt
+			)
+			{
+				string controllerName = controllerIt->first;
+				string actionName = actionIt->first;
+				//string hash = md5(controllerName + "-" + actionName);
+				//this->mapping[hash] = new string[] { controllerName, actionName };
+				//cout << controllerIt->first << " - " << actionIt->first << "\n\n";
+			}
+		}
+		return this;
+	}
+	
+	ListMapping Storage::getListMapping()
+	{
+		return this->mapping;
+	}
+
 	Storage *Storage::setControllers(ListController controllers)
 	{
 		this->controllers = controllers;
+		this->buildListMapping();
 		return this;
 	}
 

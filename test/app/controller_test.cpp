@@ -37,25 +37,25 @@ class ControllerTest : public Test {};
 TEST_F(ControllerTest, Action)
 {
 	Action *action = new Action;
-	map<const char*, any> data;
+	map<string, any> data;
 	data["title"] = "abc";
-	action->setName((char*) "Index")
+	action->setName("Index")
 		  ->setData(data);
 	EXPECT_EQ("Index", action->getName());
 	any title = action->getData()["title"];
-	EXPECT_EQ("abc", title.cast<const char*>());
+	EXPECT_EQ("abc", title.cast<char*>());
 	delete action;
 }
 
 TEST_F(ControllerTest, Controller)
 {
-	map<const char*, any> data;
-	data["title"] = (char*) "abc";
+	map<string, any> data;
+	data["title"] = "abc";
 	Controller *controller = new Controller;
-	controller->setName((char*) "Index")
-			  ->addAction((new Action)->setName((char*) "Home")
+	controller->setName("Index")
+			  ->addAction((new Action)->setName("Home")
 			  			   			  ->setData(data));
 	EXPECT_EQ("Index", controller->getName());
-	EXPECT_EQ("Home",  controller->getAction((char*) "Home")->getName());
+	EXPECT_EQ("Home",  controller->getAction("Home")->getName());
 	delete controller;
 }

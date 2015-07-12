@@ -36,28 +36,42 @@
 
 using std::map;
 using std::function;
+using std::string;
+using std::vector;
 
-#define ListController map<char*, Controller*>
-#define ListAction map<char*, Action*>
-#define ActionArg char**
-#define ActionData map<const char*, any>
+#define ListController map<string, Controller*>
+#define ListAction map<string, Action*>
+#define ActionData map<string, any>
 
 namespace app
 {
+	class ActionArgument
+	{
+		private:
+			string type;
+			string variable;
+		public:
+			ActionArgument(string, string);
+			ActionArgument *setType(string);
+			string getType();
+			ActionArgument *setVariable(string);
+			string getVariable();
+	};
+
 	class Action
 	{
 		private:
-			char *name;
-			char *hash;
-			ActionArg args;
+			string name;
+			string hash;
 			ActionData data;
+			vector<ActionArgument*> args;
 		public:
-			Action *setName(char*);
-			char *getName();
-			Action *setHash(char*);
-			char *getHash();
-			Action *setArgument(ActionArg args);
-			ActionArg getArgument();
+			Action *setName(string);
+			string getName();
+			Action *setHash(string);
+			string getHash();
+			Action *addArgument(ActionArgument *arg);
+			vector<ActionArgument*> getArguments();
 			Action *setData(ActionData data);
 			ActionData getData();
 	};
@@ -65,20 +79,20 @@ namespace app
 	class Controller
 	{
 		private:
-			char *name;
+			string name;
 			ListAction actions;
 
 		public:
 			Controller();
 			~Controller();
 
-			Controller *setName(char*);
-			char *getName();
+			Controller *setName(string);
+			string getName();
 
 			// Action
 			Controller *addAction(Action*);
 			Action *getAction();
-			Action *getAction(char*);
+			Action *getAction(string);
 			ListAction getActions();
 
 		protected:

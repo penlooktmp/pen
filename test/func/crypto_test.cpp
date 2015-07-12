@@ -33,8 +33,11 @@ using namespace app;
 
 class FuncTest : public Test {};
 
-TEST_F(FuncTest, crypto)
+TEST_F(FuncTest, md5)
 {
+	char* expect1 = md5("123");
+	EXPECT_EQ("202cb962ac59075b964b07152d234b70", string(expect1));
+	
 /*
 	static const char *const test[7] = {
 	"", // d41d8cd98f00b204e9800998ecf8427e

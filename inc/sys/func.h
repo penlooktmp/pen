@@ -51,6 +51,7 @@ using namespace std;
 #define JOIN(TYPE); char *join(TYPE t);
 #define JOIN_DELIM(TYPE); char *join(TYPE t, const char *delim);
 #define ADD(TYPE); TYPE add(TYPE t, const char *append);
+#define MD5(TYPE); char* md5(TYPE t);
 
 // LEN (Length)
 // len(target)
@@ -97,6 +98,9 @@ STR(const float);
 // ADD (Addition)
 // add(target, append)
 ADD(char**);
+
+MD5(char*);
+MD5(const char*);
 
 // SEG (Segment)
 // seg(target, left, right)

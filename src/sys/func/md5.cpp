@@ -25,37 +25,23 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef APP_STORAGE_H_
-#define APP_STORAGE_H_
+#ifdef __cplusplus
+extern "C" {
+#endif
+#include <func/crypto/md5.h>
+#ifdef __cplusplus
+}
+#endif
 
-#include <app/controller.h>
-#include <app/model.h>
-#include <app/view.h>
-#include <sys/func.h>
-#include <functional>
-#include <vector>
-#include <map>
-
-#define ListMapping map<std::string, std::string*>
-
-namespace app {
-	class Storage {
-		private:
-			ListMapping mapping;
-			ListController controllers;
-			ListModel models;
-			ListView views;
-
-		public:
-			Storage *buildListMapping();
-			ListMapping getListMapping();
-			Storage *setControllers(ListController);
-			ListController getControllers();
-			Storage *setModels(ListModel);
-			ListModel getModels();
-			Storage *setViews(ListView);
-			ListView getViews();
-	};
+#define P_MD5(TYPE); \
+char* md5(TYPE* t) {\
+	return md5_pointer_##TYPE(t);\
 }
 
-#endif
+#define P_C_MD5(TYPE); \
+char* md5(const TYPE* t) {\
+	return md5_pointer_constant_##TYPE(t);\
+}
+
+P_MD5(char);
+P_C_MD5(char);

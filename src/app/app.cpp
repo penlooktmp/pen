@@ -129,13 +129,13 @@ namespace app
 		return this->model;
 	}
 
-	App *App::setHash(char *hash_)
+	App *App::setHash(string hash)
 	{
-		this->hash = hash_;
+		this->hash = hash;
 		return this;
 	}
 	
-	char *App::getHash()
+	string App::getHash()
 	{
 		return this->hash;
 	}
