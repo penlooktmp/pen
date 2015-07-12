@@ -26,6 +26,7 @@
  */
 
 #include <app/storage.h>
+#include <sys/func.h>
 
 namespace app 
 {
@@ -48,9 +49,8 @@ namespace app
 			{
 				string controllerName = controllerIt->first;
 				string actionName = actionIt->first;
-				//string hash = md5(controllerName + "-" + actionName);
-				//this->mapping[hash] = new string[] { controllerName, actionName };
-				//cout << controllerIt->first << " - " << actionIt->first << "\n\n";
+				string hash = string(md5(string(controllerName + "-" + actionName).c_str()));
+				this->mapping[hash] = new string[2] { controllerName, actionName };
 			}
 		}
 		return this;

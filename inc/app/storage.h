@@ -36,7 +36,9 @@
 #include <vector>
 #include <map>
 
-#define ListMapping map<std::string, std::string*>
+using std::string;
+
+#define ListMapping map<string, string*>
 
 namespace app {
 	class Storage {

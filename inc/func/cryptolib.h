@@ -28,8 +28,6 @@
 #ifndef FUNC_CRYPTOLIB_H
 #define FUNC_CRYPTOLIB_H
 
-char *md5(char*);
-char *sha1(char*);
-char *sha256(char*);
+#include <func/crypto/md5.h>
 
 #endif

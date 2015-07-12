@@ -34,12 +34,12 @@ extern "C" {
 #endif
 
 #define P_MD5(TYPE); \
-char* md5(TYPE* t) {\
+char *md5(TYPE* t) {\
 	return md5_pointer_##TYPE(t);\
 }
 
 #define P_C_MD5(TYPE); \
-char* md5(const TYPE* t) {\
+char *md5(const TYPE* t) {\
 	return md5_pointer_constant_##TYPE(t);\
 }
 

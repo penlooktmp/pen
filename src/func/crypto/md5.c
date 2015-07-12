@@ -380,16 +380,17 @@ md5_finish(md5_state_t *pms, md5_byte_t digest[16])
 	digest[i] = (md5_byte_t)(pms->abcd[i >> 2] >> ((i & 3) << 3));
 }
 
+#define HEX 16  
 char *md5(char* str)
 {
     md5_state_t hash_state;
-    unsigned char hash[16];
-    char *buffer = calloc(32, sizeof(char));
+    unsigned char hash[HEX];
+    char *buffer = calloc(HEX * 2, sizeof(char));
     md5_init(&hash_state); // prepare for a new hash
     md5_append(&hash_state, str, strlen(str));
     md5_finish(&hash_state, hash);
-    const char hexDigits[16] = "0123456789abcdef";
-    for(int i = 0; i<16; i++)
+    const char hexDigits[HEX] = "0123456789abcdef";
+    for (int i=0; i<HEX; i++)
     {
         buffer[i*2]   = hexDigits[(hash[i] >> 4) & 0xF];
         buffer[i*2+1] = hexDigits[hash[i] & 0xF];

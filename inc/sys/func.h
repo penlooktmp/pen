@@ -35,6 +35,7 @@ extern "C" {
 
 #include <func/gen.h>
 #include <func/strlib.h>
+#include <func/cryptolib.h>
 
 #ifdef __cplusplus
 }
@@ -51,7 +52,7 @@ using namespace std;
 #define JOIN(TYPE); char *join(TYPE t);
 #define JOIN_DELIM(TYPE); char *join(TYPE t, const char *delim);
 #define ADD(TYPE); TYPE add(TYPE t, const char *append);
-#define MD5(TYPE); char* md5(TYPE t);
+#define MD5(TYPE); char *md5(TYPE t);
 
 // LEN (Length)
 // len(target)
