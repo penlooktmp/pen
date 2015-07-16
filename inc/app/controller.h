@@ -41,6 +41,7 @@ using std::vector;
 
 #define ListController map<string, Controller*>
 #define ListAction map<string, Action*>
+#define ListMapping map<string, vector<string>>
 #define ActionData map<string, any>
 
 namespace app
@@ -70,9 +71,9 @@ namespace app
 			string getName();
 			Action *setHash(string);
 			string getHash();
-			Action *addArgument(ActionArgument *arg);
+			Action *addArgument(ActionArgument*);
 			vector<ActionArgument*> getArguments();
-			Action *setData(ActionData data);
+			Action *setData(ActionData);
 			ActionData getData();
 	};
 

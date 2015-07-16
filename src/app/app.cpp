@@ -32,29 +32,27 @@ namespace app
 
 	App::App()
 	{
-		request    = new HttpRequest;
-		response   = new HttpResponse;
-		controller = new Controller;
-		router     = new Router;
-		storage    = new Storage;
-		view       = new View;
-		model	   = new Model;
+		request  = new HttpRequest;
+		response = new HttpResponse;
+		router   = new Router;
+		storage  = new Storage;
+		view     = new View;
+		model	 = new Model;
 	}
 	
 	App::~App()
 	{
 		delete request;
 		delete response;
-		delete controller;
 		delete router;
-		delete storage;
+		//delete storage;
 		delete view;
 		delete model;
 	}
 
-	App *App::setHttpRequest(HttpRequest *request_)
+	App *App::setHttpRequest(HttpRequest *request)
 	{
-		memcpy(this->request, request_, sizeof(HttpRequest));
+		memcpy(this->request, request, sizeof(HttpRequest));
 		return this;
 	}
 
@@ -63,9 +61,9 @@ namespace app
 		return this->request;
 	}
 
-	App *App::setHttpResponse(HttpResponse *response_)
+	App *App::setHttpResponse(HttpResponse *response)
 	{
-		memcpy(this->response, response_, sizeof(HttpResponse));
+		memcpy(this->response, response, sizeof(HttpResponse));
 		return this;
 	}
 
@@ -74,9 +72,9 @@ namespace app
 		return this->response;
 	}
 
-	App *App::setRouter(Router *router_)
+	App *App::setRouter(Router *router)
 	{
-		memcpy(this->router, router_, sizeof(Router));
+		memcpy(this->router, router, sizeof(Router));
 		return this;
 	}
 
@@ -85,9 +83,9 @@ namespace app
 		return this->router;
 	}
 
-	App *App::setStorage(Storage *storage_)
+	App *App::setStorage(Storage *storage)
 	{
-		memcpy(this->storage, storage_, sizeof(Storage));
+		memcpy(this->storage, storage, sizeof(Storage));
 		return this;
 	}
 
@@ -96,20 +94,38 @@ namespace app
 		return this->storage;
 	}
 
-	App *App::setControllers(ListController controllers_)
-	{
-		this->controllers = controllers_;
-		return this;
-	}
-
 	ListController App::getControllers()
 	{
-		return this->controllers;
+		return this->getStorage()->getControllers();
 	}
 
-	App *App::setView(View *view_)
+	Controller *App::getController()
 	{
-		memcpy(this->view, view_, sizeof(View));
+		ListMapping mapping = this->getStorage()->getListMapping();
+		ListMapping::iterator it = mapping.find(this->getHash());
+		if (it != mapping.end()) {
+			vector<string> com = it->second;
+			string controllerName = com[0];
+			return this->getControllers()[controllerName];
+		}
+		return (new Controller)->setName("Unknown");
+	}
+
+	Action *App::getAction()
+	{
+		ListMapping mapping = this->getStorage()->getListMapping();
+		ListMapping::iterator it = mapping.find(this->getHash());
+		if (it != mapping.end()) {
+			vector<string> com = it->second;
+			string actionName = com[1];
+			return this->getController()->getAction(actionName);
+		}
+		return (new Action)->setName("Unknown");
+	}
+
+	App *App::setView(View *view)
+	{
+		memcpy(this->view, view, sizeof(View));
 		return this;
 	}
 
@@ -118,9 +134,9 @@ namespace app
 		return this->view;
 	}
 
-	App *App::setModel(Model *model_)
+	App *App::setModel(Model *model)
 	{
-		memcpy(this->model, model_, sizeof(Model));
+		memcpy(this->model, model, sizeof(Model));
 		return this;
 	}
 

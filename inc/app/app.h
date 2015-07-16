@@ -52,8 +52,6 @@ namespace app
 			HttpResponse   *response;
 			Router         *router;
 			Storage        *storage;
-			Controller     *controller;
-			ListController controllers;
 			View           *view;
 			Model          *model;
 			string          hash;
@@ -82,6 +80,11 @@ namespace app
 			// Controller
 			App *setControllers(ListController);
 			ListController getControllers();
+			Controller getController(string);
+			Controller *getController();
+
+			// Action
+			Action *getAction();
 
 			// Model
 			App *setModel(Model*);

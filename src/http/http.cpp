@@ -28,25 +28,25 @@
 #include <http/http.h>
 #include <app/app.h>
 
-namespace http {
-
+namespace http 
+{
     Http::Http()
     {
-        this->request  = new HttpRequest;
-        this->response = new HttpResponse;
-        this->storage  = new Storage();
+        request  = new HttpRequest;
+        response = new HttpResponse;
+        storage  = new Storage;
     }
 
     Http::~Http()
     {
-        delete this->request;
-        delete this->response;
-        delete this->storage;
+        delete request;
+        delete response;
+        delete storage;
     }
 
-    Http *Http::setRequest(HttpRequest *request_)
+    Http *Http::setRequest(HttpRequest *request)
     {
-        memcpy(this->request, request_, sizeof(HttpRequest));
+        memcpy(this->request, request, sizeof(HttpRequest));
         return this;
     }
 
@@ -55,9 +55,9 @@ namespace http {
         return this->request;
     }
 
-    Http *Http::setResponse(HttpResponse *response_)
+    Http *Http::setResponse(HttpResponse *response)
     {
-        memcpy(this->response, response_, sizeof(HttpResponse));
+        memcpy(this->response, response, sizeof(HttpResponse));
         return this;
     }
 
@@ -66,9 +66,9 @@ namespace http {
         return this->response;
     }
     
-    Http *Http::setStorage(Storage *storage_)
+    Http *Http::setStorage(Storage *storage)
     {
-        memcpy(this->storage, storage_, sizeof(Storage));
+        memcpy(this->storage, storage, sizeof(Storage));
         return this;
     }
     
@@ -91,23 +91,13 @@ namespace http {
     Http *Http::serveRequest(function<void(App*)> app_callback)
     {
         App *app = new App;
-        app->setHttpRequest(this->getRequest()) 
+        app->setHttpRequest(this->getRequest())
            ->setHttpResponse(this->getResponse())
            ->setStorage(this->getStorage())
            ->setHash(this->getHash());
         app_callback(app);
         this->setResponse(app->getHttpResponse());
         delete app;
-        // TODO
-        // Improve performance
-        /*
-        app.out += " ";
-        int len = app.out.length();
-        this->response.body = new char[len];
-        this->response.body_length = len;
-        strncpy(, app.out.c_str(), len - 1);
-        this->response.body[len - 1] = '\0';
-        */
         return this;
     }
 

@@ -27,15 +27,32 @@
 
 #include <app/storage.h>
 #include <sys/func.h>
+#include <vector>
 
-namespace app 
+using std::vector;
+
+namespace app
 {
+
+	const int Storage::EMPTY = 0;
+	const int Storage::READY = 1;
+
+	Storage::Storage()
+	{
+		this->setStatus(EMPTY);
+	}
+	
+	Storage::~Storage()
+	{
+		
+	}
+
 	Storage *Storage::buildListMapping()
 	{
 		ListController controllers = this->getControllers();
 		for (
 			ListController::iterator controllerIt = controllers.begin();
-			controllerIt != controllers.end(); 
+			controllerIt != controllers.end();
 			++controllerIt
 		)
 		{
@@ -50,12 +67,15 @@ namespace app
 				string controllerName = controllerIt->first;
 				string actionName = actionIt->first;
 				string hash = string(md5(string(controllerName + "-" + actionName).c_str()));
-				this->mapping[hash] = new string[2] { controllerName, actionName };
+				vector<string> com;
+				com.push_back(controllerName);
+				com.push_back(actionName);
+				this->mapping[hash] = com;
 			}
 		}
 		return this;
 	}
-	
+
 	ListMapping Storage::getListMapping()
 	{
 		return this->mapping;
@@ -83,7 +103,7 @@ namespace app
 	{
 		return this->models;
 	}
-	
+
 	Storage *Storage::setViews(ListView views)
 	{
 		this->views = views;
@@ -94,5 +114,16 @@ namespace app
 	{
 		return this->views;
 	}
-	
+
+	Storage *Storage::setStatus(int status)
+	{
+		this->status = status;
+		return this;
+	}
+
+	int Storage::getStatus()
+	{
+		return this->status;
+	}
+
 }

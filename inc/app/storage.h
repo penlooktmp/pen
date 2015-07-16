@@ -38,25 +38,39 @@
 
 using std::string;
 
-#define ListMapping map<string, string*>
-
 namespace app {
 	class Storage {
+
 		private:
 			ListMapping mapping;
 			ListController controllers;
 			ListModel models;
 			ListView views;
+			int status;
 
 		public:
+
+			static const int EMPTY;
+			static const int READY;
+
+			Storage();
+			~Storage();
+
 			Storage *buildListMapping();
 			ListMapping getListMapping();
+
 			Storage *setControllers(ListController);
 			ListController getControllers();
+
 			Storage *setModels(ListModel);
 			ListModel getModels();
+
 			Storage *setViews(ListView);
 			ListView getViews();
+
+			Storage *setStatus(int);
+			int getStatus();
+
 	};
 }
 

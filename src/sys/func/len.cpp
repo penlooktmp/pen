@@ -26,6 +26,10 @@
  */
 
 #ifdef __cplusplus
+
+#include <string>
+using std::string;
+
 extern "C" {
 #endif
 #include <func/gen/len.h>
@@ -70,4 +74,19 @@ NUM_LEN(double);
 P_LEN(double);
 NUM_LEN(float);
 P_LEN(float);
+
+// Support for C++
+
+int len(string target)
+{
+	return target.length();
+}
+
+int len(string *target)
+{
+	char **pointer = (char**) target;
+	return lenght_pointer_pointer_char(pointer);
+}
+
+
 

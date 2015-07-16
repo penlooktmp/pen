@@ -53,3 +53,57 @@ TEST_F(AppTest, appResponse)
        ->setHash(hash);
     delete app;
 }
+
+ListController getControllers_App() {
+	ListController controllers;
+	controllers["Home"] = (new Controller)
+								->setName("Home")
+								->addAction(
+									(new Action)
+										->setName("App")
+										->setHash("c2f2ddf04a74c9720d2152696d539524")
+										->addArgument(new ActionArgument("string","password"))
+								)
+								->addAction(
+									(new Action)
+										->setName("Index")
+										->setHash("71e652f0fc1a125e06983055c6db9801")
+								);
+	controllers["Index"] = (new Controller)
+								->setName("Index")
+								->addAction(
+									(new Action)
+										->setName("Home")
+										->setHash("dec2f7bd153e73f8e9691ffe33699ac9")
+										->addArgument(new ActionArgument("string","password"))
+								)
+								->addAction(
+									(new Action)
+										->setName("About")
+										->setHash("fb3526e803db091d112cc67e50dbd675")
+								);
+	return controllers;
+}
+
+TEST_F(AppTest, currentControllerAction)
+{
+	Storage *storage = new Storage;
+	storage->setControllers(getControllers_App());
+
+    App *app = new App;
+	app->setStorage(storage)
+	   ->setHash("c2f2ddf04a74c9720d2152696d539524");
+	EXPECT_EQ(2, app->getControllers().size());
+	EXPECT_EQ("c2f2ddf04a74c9720d2152696d539524", app->getHash());
+	ListMapping mapping = app->getStorage()->getListMapping();
+	EXPECT_EQ(4, mapping.size());
+	EXPECT_EQ(true, mapping.find("c2f2ddf04a74c9720d2152696d539524") != mapping.end());
+	vector<string> com = mapping["c2f2ddf04a74c9720d2152696d539524"];
+	EXPECT_EQ(2, com.size());
+	EXPECT_EQ("Home", string(com[0]));
+	EXPECT_EQ("App", string(com[1]));
+	
+	EXPECT_EQ("Home", app->getController()->getName());
+	EXPECT_EQ("App", app->getAction()->getName());
+    delete app;
+}
