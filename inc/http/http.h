@@ -25,8 +25,8 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef HTTP_H
-#define HTTP_H
+#ifndef HTTP_HTTP_H_
+#define HTTP_HTTP_H_
 
 #include <http/wpp.h>
 #include <app/app.h>

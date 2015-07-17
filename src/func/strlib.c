@@ -160,3 +160,14 @@ char *str_trim(char *target)
 	memcpy(result, &target[left], len);
 	return result;
 }
+
+// Trim all space left and right
+char *str_trans(char *target, const char *locale)
+{
+	if (strcmp(locale,"en_US") == 0) return (char*) "Hello";
+	if (strcmp(locale,"vi_VN") == 0) return (char*) "Xin chào";
+	if (strcmp(locale,"ja_JP") == 0) return (char*) "はじめまして";
+	if (strcmp(locale,"ko_KR") == 0) return (char*) "안녕하세요";
+	if (strcmp(locale,"zh_CN") == 0) return (char*) "您好";
+	return target;
+}

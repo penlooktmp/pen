@@ -131,3 +131,16 @@ TEST_F(StringTest, join)
 	char* result = str_join((char**) data, "-");
 	EXPECT_EQ("abc-abd-abf-xyz-123-3456", string(result));
 }
+
+TEST_F(StringTest, trans)
+{
+	char *text_EN = (char*) "Hello";
+	char *result_VI_VN = str_trans(text_EN, "vi_VN");
+	EXPECT_EQ("Xin chào", string(result_VI_VN));
+	char *result_JA_JP = str_trans(text_EN, "ja_JP");
+	EXPECT_EQ("はじめまして", string(result_JA_JP));
+	char *result_ZH_CN = str_trans(text_EN, "zh_CN");
+	EXPECT_EQ("您好", string(result_ZH_CN));
+	char *result_KO_KR = str_trans(text_EN, "ko_KR");
+	EXPECT_EQ("안녕하세요", string(result_KO_KR));
+}

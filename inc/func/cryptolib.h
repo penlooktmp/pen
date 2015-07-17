@@ -29,5 +29,7 @@
 #define FUNC_CRYPTOLIB_H
 
 #include <func/crypto/md5.h>
+#include <func/crypto/sha1.h>
+#include <func/crypto/sha256.h>
 
 #endif
