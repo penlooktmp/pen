@@ -13,6 +13,7 @@ before_install:
   - go version
   - export CXX="g++-5" CC="gcc-5"
   - export GOPATH=/home/go
+  - sudo mkdir -p /home/go && sudo chmod $USER:$USER /home/go -R
   - (cd tmp; sudo chmod +x ./goget.sh; ./goget.sh)
   - (cd tmp; sudo chmod +x ./gtest.sh; ./gtest.sh)
   - (cd tmp; sudo chmod +x ./nginx.sh; ./nginx.sh)
