@@ -27,40 +27,46 @@
 
 #ifndef SYS_TYPE_TYPEOF_H
 #define SYS_TYPE_TYPEOF_H
-/*
-#include <sys/type/any.h>
 
-using namespace std;
+#include <string>
+#include <map>
+#include <vector>
+#include "any.h"
 
-template <typename T> const string typeof(T&) { return "unknown"; }
-template<> const string typeof(int&) { return "int"; }
-template<> const string typeof(int*&) { return "int*"; }
-template<> const string typeof(short&) { return "short"; }
-template<> const string typeof(short*&) { return "short*"; }
-template<> const string typeof(long&) { return "long"; }
-template<> const string typeof(long*&) { return "long*"; }
-template<> const string typeof(unsigned&) { return "unsigned"; }
-template<> const string typeof(unsigned*&) { return "unsigned*"; }
-template<> const string typeof(unsigned short&) { return "unsigned short"; }
-template<> const string typeof(unsigned short*&) { return "unsigned short*"; }
-template<> const string typeof(unsigned long&) { return "unsigned long"; }
-template<> const string typeof(unsigned long*&) { return "unsigned long*"; }
-template<> const string typeof(float&) { return "float"; }
-template<> const string typeof(float*&) { return "float*"; }
-template<> const string typeof(double&) { return "double"; }
-template<> const string typeof(double*&) { return "double*"; }
-template<> const string typeof(long double&) { return "long double"; }
-template<> const string typeof(long double*&) { return "long double*"; }
-template<> const string typeof(string&) { return "string"; }
-template<> const string typeof(string*&) { return "string*"; }
-template<> const string typeof(char&) { return "char"; }
-template<> const string typeof(signed char&) { return "signed char"; }
-template<> const string typeof(unsigned char&) { return "unsigned char"; }
-template<> const string typeof(char*&) { return "char*"; }
-template<> const string typeof(signed char*&) { return "signed char*"; }
-template<> const string typeof(unsigned char*&) { return "unsigned char*"; }
-template<> const string typeof(char**&) { return "char**"; }
-template<> const string typeof(signed char**&) { return "signed char**"; }
-template<> const string typeof(unsigned char**&) { return "unsigned char**"; }
-*/
+using std::string;
+using std::map;
+using std::vector;
+
+template <typename T> const string typeof(T&);
+template<> const string typeof(any&);
+template<> const string typeof(int&);
+template<> const string typeof(int*&);
+template<> const string typeof(short&);
+template<> const string typeof(short*&);
+template<> const string typeof(long&);
+template<> const string typeof(long*&);
+template<> const string typeof(unsigned&);
+template<> const string typeof(unsigned*&);
+template<> const string typeof(unsigned short&);
+template<> const string typeof(unsigned short*&);
+template<> const string typeof(unsigned long&);
+template<> const string typeof(unsigned long*&);
+template<> const string typeof(float&);
+template<> const string typeof(float*&);
+template<> const string typeof(double&);
+template<> const string typeof(double*&);
+template<> const string typeof(long double&);
+template<> const string typeof(long double*&);
+template<> const string typeof(string&);
+template<> const string typeof(string*&);
+template<> const string typeof(char&);
+template<> const string typeof(signed char&);
+template<> const string typeof(unsigned char&);
+template<> const string typeof(char*&);
+template<> const string typeof(signed char*&);
+template<> const string typeof(unsigned char*&);
+template<> const string typeof(char**&);
+template<> const string typeof(signed char**&);
+template<> const string typeof(unsigned char**&);
+
 #endif

@@ -25,8 +25,8 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef TYPE_OBJECT_H
-#define TYPE_OBJECT_H
+#ifndef SYS_TYPE_OBJECT_H
+#define SYS_TYPE_OBJECT_H
 
 class Object
 {

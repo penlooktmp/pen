@@ -8,8 +8,8 @@
  * http://www.boost.org/LICENSE_1_0.txt
  */
 
-#ifndef TYPE_ANY_H
-#define TYPE_ANY_H
+#ifndef SYS_TYPE_ANY_H
+#define SYS_TYPE_ANY_H
 
 #include <stdexcept>
 

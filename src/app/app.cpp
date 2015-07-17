@@ -45,7 +45,7 @@ namespace app
 		delete request;
 		delete response;
 		delete router;
-		//delete storage;
+		delete storage;
 		delete view;
 		delete model;
 	}

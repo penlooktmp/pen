@@ -27,6 +27,7 @@
 
 #include <app/test.h>
 #include <sys/func.h>
+#include <sys/type.h>
 
 using namespace std;
 using namespace app;
@@ -56,6 +57,16 @@ TEST_F(FuncTest, len)
 	int *int_pointer_pointer = (int*) int_pointer;
 	int length_int_pointer_pointer = len(int_pointer_pointer);
 	EXPECT_EQ(5, length_int_pointer_pointer);
+	
+	// Length of map
+	map<any, any> map_input;
+	//map_input[string("abc")] = string("hello");
+	//map_input["abd"] = "hello";
+	//map_input["abf"] = "hello";
+	//map_input["abe"] = "hello";
+	//map_input["abh"] = "hello";
+	int lenght_map = len(map_input);
+	EXPECT_EQ(0, lenght_map);
 }
 
 TEST_F(FuncTest, str)

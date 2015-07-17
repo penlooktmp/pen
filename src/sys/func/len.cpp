@@ -28,7 +28,13 @@
 #ifdef __cplusplus
 
 #include <string>
+#include <map>
+#include <vector>
+#include <sys/type.h>
+
 using std::string;
+using std::map;
+using std::vector;
 
 extern "C" {
 #endif
@@ -76,6 +82,16 @@ NUM_LEN(float);
 P_LEN(float);
 
 // Support for C++
+
+int len(map<any, any> target)
+{
+	return target.size();
+}
+
+int len(vector<any> target)
+{
+	return target.size();
+}
 
 int len(string target)
 {

@@ -25,8 +25,8 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef FUNC_CORE_H
-#define FUNC_CORE_H
+#ifndef SYS_FUNC_H
+#define SYS_FUNC_H
 
 // C Interface
 #ifdef __cplusplus
@@ -42,21 +42,30 @@ extern "C" {
 #endif
 
 #include <iostream>
-using namespace std;
+#include <string>
+#include <map>
+#include <vector>
+#include <sys/type.h>
+
+using std::string;
+using std::map;
+using std::vector;
 
 // GERNERIC FUNCTION TEMPLATE
-#define LEN(TYPE); int len(TYPE t);
-#define STR(TYPE); char *str(TYPE t);
-#define SEG(TYPE); TYPE seg(TYPE t, int from, int to);
-#define SEG_CONST(TYPE); TYPE seg(const TYPE t, int from, int to);
-#define JOIN(TYPE); char *join(TYPE t);
-#define JOIN_DELIM(TYPE); char *join(TYPE t, const char *delim);
-#define ADD(TYPE); TYPE add(TYPE t, const char *append);
-#define MD5(TYPE); char *md5(TYPE t);
+#define LEN(TYPE); int len(TYPE);
+#define STR(TYPE); char *str(TYPE);
+#define SEG(TYPE); TYPE seg(TYPE, int, int);
+#define SEG_CONST(TYPE); TYPE seg(const TYPE, int, int);
+#define JOIN(TYPE); char *join(TYPE);
+#define JOIN_DELIM(TYPE); char *join(TYPE, const char*);
+#define ADD(TYPE); TYPE add(TYPE, const char*);
+#define MD5(TYPE); char *md5(TYPE);
 
 // LEN (Length)
 // len(target)
-// Use to retrive length of string or pointer
+// Use to retrive length of data type
+int len(map<any, any>);
+int len(vector<any>);
 LEN(string);
 LEN(string*);
 LEN(char*);
