@@ -30,20 +30,20 @@ GCC     = gcc
 G++		= g++
 GGO     = go
 GCCVER  = c11  
-G++VER 	= c++11
+G++VER 	= c++14
 FGCC    = -std=$(GCCVER) -O3 -fPIC
 FG++    = -std=$(G++VER) -O3 -fPIC
-FGGO	= build
+FGGO	= -compiler gccgo --gccgoflags "-static"
 DEBUG   = -std=$(G++VER) -pipe -g0 -fno-inline -Wall -fPIC
 EXECUTE = /usr/bin/$(LIB)
 LIBSYS  = /usr/lib
 TESTF	= -std=$(G++VER) -g -pthread -L/usr/lib/gtest/lib -I/usr/lib/gtest/include -I/usr/lib/pen
 INCLUDE = inc
 SOURCED = src
-TESTD   = pkg/test
-OBJECTD = pkg/obj/
+TESTD   = obj/
+OBJECTD = obj/
 HEADERS = $(shell find /usr/lib/pen -name *.h)
-SOURCES = $(shell find src -name *.c*)
+SOURCES = $(shell find src -name '*.c*')
 TESTS   = $(shell find test -name *.cpp)
 SOURCE  = $(patsubst %.cpp, %.o, $(SOURCES))
 SOURCE  := $(patsubst %.c, %.o, $(SOURCE))
@@ -54,6 +54,7 @@ BINARY  = $(OBJECTD)/$(SOURCED)/$(LIB)
 OBJECTT = $(addprefix $(TESTD)/, $(patsubst %.cpp, %.o, $(TESTS)))
 G++FLAG = $(FG++)
 GCCFLAG = $(FGCC)
+GGOFLAG = $(FGGO)
 
 all: $(LIB)
 $(LIB): $(OBJECTS)
@@ -97,7 +98,7 @@ $(TESTD)/%.o: %.cpp
 test: $(TEST)
 $(TEST): $(OBJECTT)
 	$(G++) $(TESTF) $(OBJECTT) -o bin/$(TEST) -lpen -lpthread -lgtest -lgtest_main
-	./bin/$(TEST)
+	./bin/$(TEST) && cd src/serv && go test ./...
 
 clean:
 	rm -rf $(OBJECTD)

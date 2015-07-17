@@ -28,8 +28,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include<libintl.h>
-#include<locale.h>
+#include <libintl.h>
+#include <locale.h>
 #include <func/gen/len.h>
 
 #define MAX_SIZE 1000000

@@ -1,5 +1,5 @@
 /**
- * Penlook Project
+ * Pengo Project
  *
  * Copyright (c) 2015 Penlook Development Team
  *
@@ -24,5 +24,6 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-
-package socket
+ 
+// TODO
+// GNU Gettext

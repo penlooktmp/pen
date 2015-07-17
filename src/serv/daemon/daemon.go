@@ -1,5 +1,5 @@
 /**
- * Pengo Project
+ * Penlook Project
  *
  * Copyright (c) 2015 Penlook Development Team
  *
@@ -26,5 +26,3 @@
  */
 
 package daemon
-
-// TODO
