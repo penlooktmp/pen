@@ -38,30 +38,27 @@ TEST_F(FuncTest, md5)
 	char* expect1 = md5("123");
 	EXPECT_EQ("202cb962ac59075b964b07152d234b70", string(expect1));
 	
-/*
-	static const char *const test[7] = {
-	"", // d41d8cd98f00b204e9800998ecf8427e
-	"945399884.61923487334tuvga", // 0cc175b9c0f1b6a831c399e269772661
-	"abc", // 900150983cd24fb0d6963f7d28e17f72
-	"message digest", // f96b697d7cb7938d525a2f31aaf161d0
-	"abcdefghijklmnopqrstuvwxyz", // c3fcd3d76192e4007dfb496cca67e13b
-	"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
-				//d174ab98d277d9f5a5611c2c9f419d9f
-	"12345678901234567890123456789012345678901234567890123456789012345678901234567890" // 57edf4a22be3c955ac49da2e2107b67a
-    };
-    int i;
+	char* expect2 = md5("!@#$%");
+	EXPECT_EQ("507250b947cc397023a9595001fcf167", string(expect2));
+	
+	char* expect3 = md5("_@#123AAABBBCCCabc1234$");
+	EXPECT_EQ("a9996ad82855039329e4c125d016061c", string(expect3));
+	
+	char* expect4 = md5("123456789");
+	EXPECT_EQ("25f9e794323b453885f5181f1b624d0b", string(expect4));
+	
+	char* expect5 = md5("abcdABCD!@#()");
+	EXPECT_EQ("63fb2333035255e850d0b4a20fd860a2", string(expect5));
+}
 
-    for (i = 0; i < 7; ++i) {
-	md5_state_t state;
-	md5_byte_t digest[16];
-	int di;
+TEST_F(FuncTest, sha1)
+{
+	EXPECT_EQ("sha1", "sha1");
+	// TODO
+}
 
-	md5_init(&state);
-	md5_append(&state, (const md5_byte_t *)test[i], strlen(test[i]));
-	md5_finish(&state, digest);
-	printf("MD5 (\"%s\") = ", test[i]);
-	for (di = 0; di < 16; ++di)
-	    printf("%02x", digest[di]);
-	printf("\n");
-*/
+TEST_F(FuncTest, sha256)
+{
+	EXPECT_EQ("sha256", "sha256");
+	// TODO
 }
