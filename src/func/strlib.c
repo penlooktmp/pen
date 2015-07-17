@@ -28,6 +28,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include<libintl.h>
+#include<locale.h>
 #include <func/gen/len.h>
 
 #define MAX_SIZE 1000000
@@ -161,7 +163,7 @@ char *str_trim(char *target)
 	return result;
 }
 
-// Trim all space left and right
+// Translation
 char *str_trans(char *target, const char *locale)
 {
 	if (strcmp(locale,"en_US") == 0) return (char*) "Hello";
