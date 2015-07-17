@@ -17,6 +17,7 @@ before_install:
   - (cd tmp; sudo chmod +x ./goget.sh; ./goget.sh)
   - (cd tmp; sudo chmod +x ./gtest.sh; ./gtest.sh)
   - (cd tmp; sudo chmod +x ./nginx.sh; ./nginx.sh)
-script:
+before_script:
   - make && sudo make install
+script:
   - make test
