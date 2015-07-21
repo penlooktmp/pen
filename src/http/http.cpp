@@ -97,7 +97,8 @@ namespace http
            ->setHash(this->getHash());
         app_callback(app);
         this->setResponse(app->getHttpResponse());
-        delete app;
+        // FIX ME
+        //delete app;
         return this;
     }
 

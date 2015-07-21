@@ -27,7 +27,7 @@
 
 #include <app/controller.h>
 
-namespace app 
+namespace app
 {
 	ActionArgument::ActionArgument(string type, string variable)
 	{
@@ -81,15 +81,26 @@ namespace app
 
 	Action *Action::addArgument(ActionArgument *arg)
 	{
-		this->args.push_back(arg);
+		this->args.push(arg);
 		return this;
 	}
-	
-	vector<ActionArgument*> Action::getArguments()
+
+	ActionArgumentList Action::getArguments()
 	{
 		return this->args;
 	}
-	
+
+	Action *Action::setCallback(ActionCallback callback)
+	{
+		this->callback = callback;
+		return this;
+	}
+
+	ActionCallback Action::getCallback()
+	{
+		return this->callback;
+	}
+
 	Action *Action::setHash(string hash)
 	{
 		this->hash = hash;
@@ -100,10 +111,32 @@ namespace app
 	{
 		return this->hash;
 	}
+	
+	void Action::run()
+	{
+		// Action does not exists ?
+		if (this->getName() == "Unknown") {
+			std::cout << "Action does not exists !" << std::endl;
+			return;
+		}
+		// Action callback with arguments
+		ActionCallback callback = this->getCallback();
+		callback(this->getArguments());
+	}
 
 	Controller::Controller()
 	{
 		// TODO
+	}
+	
+	void Controller::Before()
+	{
+		std::cout << "Before Action\n";
+	}
+
+	void Controller::After()
+	{
+		std::cout << "After Action\n";
 	}
 
 	Controller *Controller::setName(string name)
@@ -117,11 +150,33 @@ namespace app
 		return this->name;
 	}
 
+	Controller *Controller::setHash(string hash)
+	{
+		this->hash = hash;
+		return this;
+	}
+
+	string Controller::getHash()
+	{
+		return this->hash;
+	}
+
 	Controller *Controller::addAction(Action *action)
 	{
 		string actionName = action->getName();
 		this->actions[actionName] = action;
 		return this;
+	}
+	
+	Action *Controller::getAction()
+	{
+		for (auto it : this->actions) {
+			Action *action = it.second;
+			if (action->getHash() == this->getHash()) {
+				return action;
+			}
+		}
+		return (new Action)->setName("Unknown");
 	}
 
 	Action *Controller::getAction(string actionName)

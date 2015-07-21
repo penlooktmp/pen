@@ -29,7 +29,6 @@
 
 namespace app
 {
-
 	App::App()
 	{
 		request  = new HttpRequest;
@@ -106,19 +105,18 @@ namespace app
 		if (it != mapping.end()) {
 			vector<string> com = it->second;
 			string controllerName = com[0];
-			return this->getControllers()[controllerName];
+			Controller *controller = this->getControllers()[controllerName];
+			controller->setHash(this->getHash());
+			return controller;
 		}
 		return (new Controller)->setName("Unknown");
 	}
 
 	Action *App::getAction()
 	{
-		ListMapping mapping = this->getStorage()->getListMapping();
-		ListMapping::iterator it = mapping.find(this->getHash());
-		if (it != mapping.end()) {
-			vector<string> com = it->second;
-			string actionName = com[1];
-			return this->getController()->getAction(actionName);
+		Controller *controller = this->getController();
+		if (controller->getName() != "Unknown") {
+			return controller->getAction();
 		}
 		return (new Action)->setName("Unknown");
 	}

@@ -31,18 +31,21 @@
 #include <sys/type.h>
 #include <sys/func.h>
 #include <functional>
-#include <vector>
+#include <stdexcept>
+#include <queue>
 #include <map>
 
 using std::map;
 using std::function;
 using std::string;
-using std::vector;
+using std::queue;
 
 #define ListController map<string, Controller*>
 #define ListAction map<string, Action*>
 #define ListMapping map<string, vector<string>>
 #define ActionData map<string, any>
+#define ActionArgumentList queue<ActionArgument*>
+#define ActionCallback function<void(ActionArgumentList)>
 
 namespace app
 {
@@ -64,23 +67,28 @@ namespace app
 		private:
 			string name;
 			string hash;
+			ActionCallback callback;
 			ActionData data;
-			vector<ActionArgument*> args;
+			queue<ActionArgument*> args;
 		public:
 			Action *setName(string);
 			string getName();
+			Action *setCallback(ActionCallback);
+			ActionCallback getCallback();
 			Action *setHash(string);
 			string getHash();
 			Action *addArgument(ActionArgument*);
-			vector<ActionArgument*> getArguments();
+			ActionArgumentList getArguments();
 			Action *setData(ActionData);
 			ActionData getData();
+			void run();
 	};
 
 	class Controller
 	{
 		private:
 			string name;
+			string hash;
 			ListAction actions;
 
 		public:
@@ -89,6 +97,8 @@ namespace app
 
 			Controller *setName(string);
 			string getName();
+			Controller *setHash(string);
+			string getHash();
 
 			// Action
 			Controller *addAction(Action*);
@@ -96,7 +106,6 @@ namespace app
 			Action *getAction(string);
 			ListAction getActions();
 
-		protected:
 			void Before();
 			void After();
 	};
