@@ -45,7 +45,7 @@ using std::string;
 
 namespace app
 {
-	class App 
+	class App
 	{
 		private:
 			HttpRequest    *request;
@@ -100,6 +100,7 @@ namespace app
 
 			// Processor
 			App *handleRequest(char*, function<void(HttpRequest*, HttpResponse*)> callback);
+			App *render();
 	};
 
 	// Dependency injection

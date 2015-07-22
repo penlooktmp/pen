@@ -30,8 +30,10 @@
 
 #include <sys/type.h>
 #include <sys/func.h>
+#include <app/view.h>
 #include <functional>
 #include <stdexcept>
+#include <vector>
 #include <queue>
 #include <map>
 
@@ -39,6 +41,7 @@ using std::map;
 using std::function;
 using std::string;
 using std::queue;
+using std::vector;
 
 #define ListController map<string, Controller*>
 #define ListAction map<string, Action*>
@@ -46,6 +49,7 @@ using std::queue;
 #define ActionData map<string, any>
 #define ActionArgumentList queue<ActionArgument*>
 #define ActionCallback function<void(Controller*)>
+#define ViewCallback function<void(View*)>
 
 namespace app
 {
@@ -69,6 +73,7 @@ namespace app
 			string hash;
 			ActionData data;
 			queue<ActionArgument*> args;
+			ViewCallback viewCallback;
 		public:
 			Action *setName(string);
 			string getName();
@@ -78,6 +83,8 @@ namespace app
 			ActionArgumentList getArguments();
 			Action *setData(ActionData);
 			ActionData getData();
+			Action *setViewCallback(ViewCallback);
+			ViewCallback getViewCallback();
 	};
 
 	class Controller
@@ -102,9 +109,9 @@ namespace app
 			Action *getAction(string);
 			ListAction getActions();
 
-			void Before();
-			void After();
-			void Run(ActionCallback);
+			Controller *Before();
+			Controller *After();
+			Controller *Run(ActionCallback);
 	};
 }
 

@@ -26,3 +26,17 @@
  */
 
 #include <app/view.h>
+
+namespace app
+{
+	View *View::setContent(char *content)
+	{
+		this->content = content;
+		return this;
+	}
+	
+	char *View::getContent()
+	{
+		return this->content;
+	}
+}

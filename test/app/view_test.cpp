@@ -25,21 +25,16 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef APP_VIEW_H_
-#define APP_VIEW_H_
+#include <app/test.h>
+#include <sys/type.h>
+#include <app/view.h>
 
-#define ListView vector<View>
+using namespace std;
+using namespace app;
 
-namespace app 
+class ViewTest : public Test {};
+
+TEST_F(ViewTest, SetGetContent)
 {
-	class View
-	{
-		private:
-			char *content;
-		public:
-			View *setContent(char*);
-			char* getContent();
-	};
+	EXPECT_EQ("Test", "Test");
 }
-
-#endif

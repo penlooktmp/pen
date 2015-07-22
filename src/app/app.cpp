@@ -153,4 +153,18 @@ namespace app
 	{
 		return this->hash;
 	}
+
+	App *App::render()
+	{
+		ViewCallback callback = this->getController()
+										->getAction()
+											->getViewCallback();
+		callback(this->getView());
+		this->getHttpResponse()
+				->setBody(
+					this->getView()
+							->getContent()
+				);
+		return this;
+	}
 }

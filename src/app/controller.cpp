@@ -101,29 +101,41 @@ namespace app
 		return this->hash;
 	}
 
+	Action *Action::setViewCallback(ViewCallback callback)
+	{
+		this->viewCallback = callback;
+		return this;
+	}
+
+	ViewCallback Action::getViewCallback()
+	{
+		return this->viewCallback;
+	}
+
 	Controller::Controller()
 	{
 		// TODO
 	}
 	
-	void Controller::Before()
+	Controller *Controller::Before()
 	{
 		std::cout << "Before Action\n";
 	}
 
-	void Controller::After()
+	Controller *Controller::After()
 	{
 		std::cout << "After Action\n";
 	}
-	
-	void Controller::Run(ActionCallback callback)
+
+	Controller *Controller::Run(ActionCallback callback)
 	{
 		// Action does not exists ?
 		if (this->getAction()->getName() == "Unknown") {
 			std::cout << "Action does not exists !" << std::endl;
-			return;
+			return this;
 		}
 		callback(this);
+		return this;
 	}
 
 	Controller *Controller::setName(string name)
