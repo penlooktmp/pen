@@ -45,7 +45,7 @@ using std::queue;
 #define ListMapping map<string, vector<string>>
 #define ActionData map<string, any>
 #define ActionArgumentList queue<ActionArgument*>
-#define ActionCallback function<void(ActionArgumentList)>
+#define ActionCallback function<void(Controller*)>
 
 namespace app
 {
@@ -67,21 +67,17 @@ namespace app
 		private:
 			string name;
 			string hash;
-			ActionCallback callback;
 			ActionData data;
 			queue<ActionArgument*> args;
 		public:
 			Action *setName(string);
 			string getName();
-			Action *setCallback(ActionCallback);
-			ActionCallback getCallback();
 			Action *setHash(string);
 			string getHash();
 			Action *addArgument(ActionArgument*);
 			ActionArgumentList getArguments();
 			Action *setData(ActionData);
 			ActionData getData();
-			void run();
 	};
 
 	class Controller
@@ -108,6 +104,7 @@ namespace app
 
 			void Before();
 			void After();
+			void Run(ActionCallback);
 	};
 }
 

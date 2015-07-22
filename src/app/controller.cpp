@@ -90,17 +90,6 @@ namespace app
 		return this->args;
 	}
 
-	Action *Action::setCallback(ActionCallback callback)
-	{
-		this->callback = callback;
-		return this;
-	}
-
-	ActionCallback Action::getCallback()
-	{
-		return this->callback;
-	}
-
 	Action *Action::setHash(string hash)
 	{
 		this->hash = hash;
@@ -110,18 +99,6 @@ namespace app
 	string Action::getHash()
 	{
 		return this->hash;
-	}
-	
-	void Action::run()
-	{
-		// Action does not exists ?
-		if (this->getName() == "Unknown") {
-			std::cout << "Action does not exists !" << std::endl;
-			return;
-		}
-		// Action callback with arguments
-		ActionCallback callback = this->getCallback();
-		callback(this->getArguments());
 	}
 
 	Controller::Controller()
@@ -137,6 +114,16 @@ namespace app
 	void Controller::After()
 	{
 		std::cout << "After Action\n";
+	}
+	
+	void Controller::Run(ActionCallback callback)
+	{
+		// Action does not exists ?
+		if (this->getAction()->getName() == "Unknown") {
+			std::cout << "Action does not exists !" << std::endl;
+			return;
+		}
+		callback(this);
 	}
 
 	Controller *Controller::setName(string name)
