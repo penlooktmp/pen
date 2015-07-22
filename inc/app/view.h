@@ -28,6 +28,7 @@
 #ifndef APP_VIEW_H_
 #define APP_VIEW_H_
 
+#include <sys/func.h>
 #define ListView vector<View>
 
 namespace app 
@@ -37,7 +38,9 @@ namespace app
 		private:
 			char *content;
 		public:
+			View();
 			View *setContent(char*);
+			View *appendContent(char*);
 			char* getContent();
 	};
 }

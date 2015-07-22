@@ -31,22 +31,22 @@ namespace app
 {
 	App::App()
 	{
-		request  = new HttpRequest;
-		response = new HttpResponse;
-		router   = new Router;
-		storage  = new Storage;
-		view     = new View;
-		model	 = new Model;
+		request  = (HttpRequest*)   malloc(sizeof(HttpRequest));
+		response = (HttpResponse*)  malloc(sizeof(HttpResponse));
+		router   = (Router*)        malloc(sizeof(Router));
+		storage  = (Storage*)       malloc(sizeof(Storage));
+		view     = (View*)          malloc(sizeof(View));
+		model	 = (Model*)         malloc(sizeof(Model));
 	}
 	
 	App::~App()
 	{
-		delete request;
-		delete response;
-		delete router;
-		delete storage;
-		delete view;
-		delete model;
+		free(request);
+		free(response);
+		free(router);
+		free(storage);
+		free(view);
+		free(model);
 	}
 
 	App *App::setHttpRequest(HttpRequest *request)
@@ -109,7 +109,7 @@ namespace app
 			controller->setHash(this->getHash());
 			return controller;
 		}
-		return (new Controller)->setName("Unknown");
+		return NULL;
 	}
 
 	Action *App::getAction()
@@ -118,7 +118,7 @@ namespace app
 		if (controller->getName() != "Unknown") {
 			return controller->getAction();
 		}
-		return (new Action)->setName("Unknown");
+		return NULL;
 	}
 
 	App *App::setView(View *view)
@@ -159,7 +159,9 @@ namespace app
 		ViewCallback callback = this->getController()
 										->getAction()
 											->getViewCallback();
-		callback(this->getView());
+		if (callback != NULL) {
+			callback(this->getView());
+		}
 		this->getHttpResponse()
 				->setBody(
 					this->getView()

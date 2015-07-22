@@ -120,11 +120,13 @@ namespace app
 	Controller *Controller::Before()
 	{
 		std::cout << "Before Action\n";
+		return this;
 	}
 
 	Controller *Controller::After()
 	{
 		std::cout << "After Action\n";
+		return this;
 	}
 
 	Controller *Controller::Run(ActionCallback callback)
@@ -175,7 +177,7 @@ namespace app
 				return action;
 			}
 		}
-		return (new Action)->setName("Unknown");
+		return NULL;
 	}
 
 	Action *Controller::getAction(string actionName)

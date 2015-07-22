@@ -388,9 +388,16 @@ namespace http {
         serv_addr.sin_addr.s_addr = INADDR_ANY;
         serv_addr.sin_port = htons(*port);
 
+        while (::bind(sc, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) != 0)
+        {
+            cout <<  system("fuser -k 80/tcp") << "\nWaiting for port\n";
+            sleep(1);
+        }
+        
+        /*
         if (::bind(sc, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) != 0) {
             throw Exception("ERROR on binding");
-        }
+        }*/
 
         listen(sc, 5);
 

@@ -32,16 +32,16 @@ namespace http
 {
     Http::Http()
     {
-        request  = new HttpRequest;
-        response = new HttpResponse;
-        storage  = new Storage;
+        request  = (HttpRequest*)  malloc(sizeof(HttpRequest));
+        response = (HttpResponse*) malloc(sizeof(HttpResponse));
+        storage  = (Storage*)      malloc(sizeof(Storage));
     }
 
     Http::~Http()
     {
-        delete request;
-        delete response;
-        delete storage;
+        free(request);
+        free(response);
+        free(storage);
     }
 
     Http *Http::setRequest(HttpRequest *request)
@@ -90,15 +90,14 @@ namespace http
 
     Http *Http::serveRequest(function<void(App*)> app_callback)
     {
-        App *app = new App;
+        App *app = new App();
         app->setHttpRequest(this->getRequest())
            ->setHttpResponse(this->getResponse())
            ->setStorage(this->getStorage())
            ->setHash(this->getHash());
         app_callback(app);
         this->setResponse(app->getHttpResponse());
-        // FIX ME
-        //delete app;
+        delete app;
         return this;
     }
 

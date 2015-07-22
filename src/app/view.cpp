@@ -29,9 +29,25 @@
 
 namespace app
 {
+	View::View()
+	{
+		// Initialize empty response
+		this->setContent((char*)'\0');
+	}
+	
 	View *View::setContent(char *content)
 	{
 		this->content = content;
+		return this;
+	}
+	
+	View *View::appendContent(char *content)
+	{
+		char *data[] = {
+			this->content,
+			content
+		};
+		this->content = join((char**) data);
 		return this;
 	}
 	
