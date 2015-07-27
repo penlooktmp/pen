@@ -29,18 +29,45 @@
 
 namespace app
 {
+
+	ViewData *ViewData::setValueHolder(ViewValueHolder valueHolder)
+	{
+		this->valueHolder = valueHolder;
+		return this;
+	}
+
+	ViewValueHolder ViewData::getValueHolder()
+	{
+		return this->valueHolder;
+	}
+
 	View::View()
 	{
-		// Initialize empty response
-		this->setContent((char*)'\0');
+		content = (char*) '\0';
+		data = (ViewData*) malloc(sizeof(ViewData));
 	}
-	
+
+	View::~View()
+	{
+		free(data);
+	}
+
+	View *View::setData(ViewData *data)
+	{
+		this->data = data;
+	}
+
+	ViewData *View::getData()
+	{
+		return this->data;
+	}
+
 	View *View::setContent(char *content)
 	{
 		this->content = content;
 		return this;
 	}
-	
+
 	View *View::appendContent(char *content)
 	{
 		char *data[] = {
@@ -50,7 +77,7 @@ namespace app
 		this->content = join((char**) data);
 		return this;
 	}
-	
+
 	char *View::getContent()
 	{
 		return this->content;

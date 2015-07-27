@@ -26,35 +26,21 @@
  */
 
 #include <app/test.h>
-#include <sys/type.h>
-#include <app/view.h>
+#include <sys/type/any.h>
 
 using namespace std;
 using namespace app;
 
-class ViewTest : public Test {};
+class AnyTest : public Test {};
 
-TEST_F(ViewTest, ViewDataClass)
+TEST_F(AnyTest, TypeCasting)
 {
-	ViewData *data = new ViewData;
-	data->set<char*>("test1", (char*) "Hello World");
-	EXPECT_EQ("Hello World", string(data->get<char*>("test1")));
-	data->set<int>("test2", 3);
-	EXPECT_EQ(3, int(data->get<int>("test2")));
-	data->set<bool>("test3", true);
-	EXPECT_EQ(true, int(data->get<bool>("test3")));
-	delete data;
-}
-
-TEST_F(ViewTest, ViewViewData)
-{
-	View *view = new View;
-	view->getData()->set<char*>("title", (char*) "Hello");
-	EXPECT_EQ("Hello", string(view->getData()->get<char*>("title")));
-	delete view;
-}
-
-TEST_F(ViewTest, SetGetContent)
-{
-	EXPECT_EQ("Test", "Test");
+	any a = "Hello World";
+	EXPECT_EQ("Hello World", a.cast<const char*>());
+	any b = string("Hello World");
+	EXPECT_EQ(string("Hello World"), b.cast<string>());
+	any c = 3;
+	EXPECT_EQ(3, c.cast<int>());
+	any d = true;
+	EXPECT_EQ(true, d.cast<bool>());
 }

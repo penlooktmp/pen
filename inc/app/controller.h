@@ -92,7 +92,9 @@ namespace app
 		private:
 			string name;
 			string hash;
+			Action *action;
 			ListAction actions;
+			View *view;
 
 		public:
 			Controller();
@@ -109,9 +111,15 @@ namespace app
 			Action *getAction(string);
 			ListAction getActions();
 
+			// View
+			Controller *setView(View*);
+			View *getView();
+
+			// Processor
 			Controller *Before();
 			Controller *After();
 			Controller *Run(ActionCallback);
+			Controller *Render();
 	};
 }
 

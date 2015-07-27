@@ -25,36 +25,15 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <app/test.h>
-#include <sys/type.h>
-#include <app/view.h>
+#ifndef SYS_TYPE_INSTANCEOF_H
+#define SYS_TYPE_INSTANCEOF_H
 
-using namespace std;
-using namespace app;
+#include <typeinfo>
 
-class ViewTest : public Test {};
-
-TEST_F(ViewTest, ViewDataClass)
+template <typename Of, typename What>
+inline bool instanceof(const What &w)
 {
-	ViewData *data = new ViewData;
-	data->set<char*>("test1", (char*) "Hello World");
-	EXPECT_EQ("Hello World", string(data->get<char*>("test1")));
-	data->set<int>("test2", 3);
-	EXPECT_EQ(3, int(data->get<int>("test2")));
-	data->set<bool>("test3", true);
-	EXPECT_EQ(true, int(data->get<bool>("test3")));
-	delete data;
+	return typeid(w) == typeid(Of);
 }
 
-TEST_F(ViewTest, ViewViewData)
-{
-	View *view = new View;
-	view->getData()->set<char*>("title", (char*) "Hello");
-	EXPECT_EQ("Hello", string(view->getData()->get<char*>("title")));
-	delete view;
-}
-
-TEST_F(ViewTest, SetGetContent)
-{
-	EXPECT_EQ("Test", "Test");
-}
+#endif

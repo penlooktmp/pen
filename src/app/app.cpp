@@ -38,7 +38,7 @@ namespace app
 		view     = (View*)          malloc(sizeof(View));
 		model	 = (Model*)         malloc(sizeof(Model));
 	}
-	
+
 	App::~App()
 	{
 		free(request);
@@ -148,25 +148,9 @@ namespace app
 		this->hash = hash;
 		return this;
 	}
-	
+
 	string App::getHash()
 	{
 		return this->hash;
-	}
-
-	App *App::render()
-	{
-		ViewCallback callback = this->getController()
-										->getAction()
-											->getViewCallback();
-		if (callback != NULL) {
-			callback(this->getView());
-		}
-		this->getHttpResponse()
-				->setBody(
-					this->getView()
-							->getContent()
-				);
-		return this;
 	}
 }

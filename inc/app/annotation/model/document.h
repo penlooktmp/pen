@@ -25,36 +25,17 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <app/test.h>
-#include <sys/type.h>
-#include <app/view.h>
+#ifndef APP_ANNOTATION_MODEL_DOCUMENT_H_
+#define APP_ANNOTATION_MODEL_DOCUMENT_H_
 
-using namespace std;
-using namespace app;
+#include <app/annotation/model.h>
 
-class ViewTest : public Test {};
-
-TEST_F(ViewTest, ViewDataClass)
+namespace app::annotation
 {
-	ViewData *data = new ViewData;
-	data->set<char*>("test1", (char*) "Hello World");
-	EXPECT_EQ("Hello World", string(data->get<char*>("test1")));
-	data->set<int>("test2", 3);
-	EXPECT_EQ(3, int(data->get<int>("test2")));
-	data->set<bool>("test3", true);
-	EXPECT_EQ(true, int(data->get<bool>("test3")));
-	delete data;
+	class Document : public Model
+	{
+		
+	}
 }
 
-TEST_F(ViewTest, ViewViewData)
-{
-	View *view = new View;
-	view->getData()->set<char*>("title", (char*) "Hello");
-	EXPECT_EQ("Hello", string(view->getData()->get<char*>("title")));
-	delete view;
-}
-
-TEST_F(ViewTest, SetGetContent)
-{
-	EXPECT_EQ("Test", "Test");
-}
+#endif

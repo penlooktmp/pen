@@ -98,9 +98,8 @@ namespace app
 			App *setHash(string);
 			string getHash();
 
-			// Processor
+			// Request handler
 			App *handleRequest(char*, function<void(HttpRequest*, HttpResponse*)> callback);
-			App *render();
 	};
 
 	// Dependency injection

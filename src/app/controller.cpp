@@ -45,7 +45,7 @@ namespace app
 	{
 		return this->type;
 	}
-	
+
 	ActionArgument *ActionArgument::setVariable(string variable)
 	{
 		this->variable = variable;
@@ -73,7 +73,7 @@ namespace app
 		this->data = data;
 		return this;
 	}
-	
+
 	ActionData Action::getData()
 	{
 		return this->data;
@@ -114,9 +114,17 @@ namespace app
 
 	Controller::Controller()
 	{
-		// TODO
+		action = (new Action)
+						->setName("Unknown");
+		view = new View;
 	}
-	
+
+	Controller::~Controller()
+	{
+		delete action;
+		delete view;
+	}
+
 	Controller *Controller::Before()
 	{
 		std::cout << "Before Action\n";
@@ -137,6 +145,15 @@ namespace app
 			return this;
 		}
 		callback(this);
+		return this;
+	}
+
+	Controller *Controller::Render()
+	{
+		ViewCallback callback = this->getAction()->getViewCallback();
+		if (callback != NULL) {
+			callback(this->getView());
+		}
 		return this;
 	}
 
@@ -168,30 +185,39 @@ namespace app
 		this->actions[actionName] = action;
 		return this;
 	}
-	
+
 	Action *Controller::getAction()
 	{
-		for (auto it : this->actions) {
-			Action *action = it.second;
-			if (action->getHash() == this->getHash()) {
-				return action;
+		if (this->action->getName() == "Unknown")
+		{
+			for (auto it : this->getActions()) {
+				Action *action = it.second;
+				if (action->getHash() == this->getHash()) {
+					memcpy(this->action, action, sizeof(Action));
+				}
 			}
 		}
-		return NULL;
+		return this->action;
 	}
 
 	Action *Controller::getAction(string actionName)
 	{
 		return this->actions[actionName];
 	}
-	
+
 	ListAction Controller::getActions()
 	{
 		return this->actions;
 	}
 
-	Controller::~Controller()
+	Controller *Controller::setView(View *view)
 	{
-		// TODO
+		memcpy(this->view, view, sizeof(View));
+		return this;
+	}
+
+	View *Controller::getView()
+	{
+		return this->view;
 	}
 }

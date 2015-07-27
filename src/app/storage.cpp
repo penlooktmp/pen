@@ -39,7 +39,8 @@ namespace app
 
 	Storage::Storage()
 	{
-		this->setStatus(EMPTY);
+		
+		status = EMPTY;
 	}
 	
 	Storage::~Storage()

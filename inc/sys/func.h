@@ -143,5 +143,4 @@ JOIN_DELIM(double*);
 JOIN(float*);
 JOIN_DELIM(float*);
 
-
 #endif

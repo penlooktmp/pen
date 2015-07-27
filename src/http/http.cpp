@@ -88,14 +88,14 @@ namespace http
         return this->hash;
     }
 
-    Http *Http::serveRequest(function<void(App*)> app_callback)
+    Http *Http::serveRequest(function<void(App*)> callback)
     {
-        App *app = new App();
+        App *app = new App;
         app->setHttpRequest(this->getRequest())
            ->setHttpResponse(this->getResponse())
            ->setStorage(this->getStorage())
            ->setHash(this->getHash());
-        app_callback(app);
+        callback(app);
         this->setResponse(app->getHttpResponse());
         delete app;
         return this;

@@ -29,16 +29,54 @@
 #define APP_VIEW_H_
 
 #include <sys/func.h>
-#define ListView vector<View>
+#include <sys/type.h>
+#include <iostream>
+#include <string>
+#include <typeinfo>
 
-namespace app 
+#define ListView vector<View>
+#define ViewValueHolder map<string, any>
+
+namespace app
 {
+	class ViewData
+	{
+		private:
+			ViewValueHolder valueHolder;
+
+		public:
+
+			template <typename T>
+			ViewData *set(string variable_, T const& value_)
+			{
+				this->valueHolder[variable_] = value_;
+				return this;
+			}
+
+			template <typename T>
+			T& get(string variable_)
+			{
+				any v = this->valueHolder[variable_];
+				return v.cast<T>();
+			}
+
+			ViewData *setValueHolder(ViewValueHolder);
+			ViewValueHolder getValueHolder();
+	};
+
 	class View
 	{
 		private:
 			char *content;
+			ViewData *data;
+
 		public:
 			View();
+			~View();
+
+			View *setData(ViewData*);
+			ViewData *getData();
+
 			View *setContent(char*);
 			View *appendContent(char*);
 			char* getContent();

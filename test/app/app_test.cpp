@@ -89,8 +89,7 @@ TEST_F(AppTest, currentControllerAction)
 {
 	Storage *storage = new Storage;
 	storage->setControllers(getControllers_App());
-
-    App *app = new App;
+	App *app = new App;
 	app->setStorage(storage)
 	   ->setHash("c2f2ddf04a74c9720d2152696d539524");
 	EXPECT_EQ(2, app->getControllers().size());
@@ -102,8 +101,7 @@ TEST_F(AppTest, currentControllerAction)
 	EXPECT_EQ(2, com.size());
 	EXPECT_EQ("Home", string(com[0]));
 	EXPECT_EQ("App", string(com[1]));
-	
 	EXPECT_EQ("Home", app->getController()->getName());
 	EXPECT_EQ("App", app->getAction()->getName());
-    delete app;
+	delete app;
 }
