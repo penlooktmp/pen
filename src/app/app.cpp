@@ -35,8 +35,6 @@ namespace app
 		response = (HttpResponse*)  malloc(sizeof(HttpResponse));
 		router   = (Router*)        malloc(sizeof(Router));
 		storage  = (Storage*)       malloc(sizeof(Storage));
-		view     = (View*)          malloc(sizeof(View));
-		model	 = (Model*)         malloc(sizeof(Model));
 	}
 
 	App::~App()
@@ -45,8 +43,6 @@ namespace app
 		free(response);
 		free(router);
 		free(storage);
-		free(view);
-		free(model);
 	}
 
 	App *App::setHttpRequest(HttpRequest *request)
@@ -115,32 +111,10 @@ namespace app
 	Action *App::getAction()
 	{
 		Controller *controller = this->getController();
-		if (controller->getName() != "Unknown") {
+		if (instanceof<Controller*>(controller)) {
 			return controller->getAction();
 		}
 		return NULL;
-	}
-
-	App *App::setView(View *view)
-	{
-		memcpy(this->view, view, sizeof(View));
-		return this;
-	}
-
-	View *App::getView()
-	{
-		return this->view;
-	}
-
-	App *App::setModel(Model *model)
-	{
-		memcpy(this->model, model, sizeof(Model));
-		return this;
-	}
-
-	Model *App::getModel()
-	{
-		return this->model;
 	}
 
 	App *App::setHash(string hash)

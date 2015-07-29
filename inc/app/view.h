@@ -43,23 +43,22 @@ namespace app
 	{
 		private:
 			ViewValueHolder valueHolder;
-
 		public:
-
+			// Set variable
 			template <typename T>
 			ViewData *set(string variable_, T const& value_)
 			{
 				this->valueHolder[variable_] = value_;
 				return this;
 			}
-
+			// Get variable
 			template <typename T>
 			T& get(string variable_)
 			{
 				any v = this->valueHolder[variable_];
 				return v.cast<T>();
 			}
-
+			// Value Holder
 			ViewData *setValueHolder(ViewValueHolder);
 			ViewValueHolder getValueHolder();
 	};
@@ -69,14 +68,13 @@ namespace app
 		private:
 			char *content;
 			ViewData *data;
-
 		public:
 			View();
 			~View();
-
+			// Data
 			View *setData(ViewData*);
 			ViewData *getData();
-
+			// Content
 			View *setContent(char*);
 			View *appendContent(char*);
 			char* getContent();

@@ -52,8 +52,6 @@ namespace app
 			HttpResponse   *response;
 			Router         *router;
 			Storage        *storage;
-			View           *view;
-			Model          *model;
 			string          hash;
 
 		public:

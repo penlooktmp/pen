@@ -60,8 +60,10 @@ namespace app
 			string variable;
 		public:
 			ActionArgument(string, string);
+			// Type
 			ActionArgument *setType(string);
 			string getType();
+			// Variable
 			ActionArgument *setVariable(string);
 			string getVariable();
 	};
@@ -75,14 +77,19 @@ namespace app
 			queue<ActionArgument*> args;
 			ViewCallback viewCallback;
 		public:
+			// Name
 			Action *setName(string);
 			string getName();
+			// Hash
 			Action *setHash(string);
 			string getHash();
+			// Argument List
 			Action *addArgument(ActionArgument*);
 			ActionArgumentList getArguments();
+			// Data
 			Action *setData(ActionData);
 			ActionData getData();
+			// View Callback
 			Action *setViewCallback(ViewCallback);
 			ViewCallback getViewCallback();
 	};
@@ -95,26 +102,25 @@ namespace app
 			Action *action;
 			ListAction actions;
 			View *view;
-
 		public:
 			Controller();
 			~Controller();
-
+			// Name
 			Controller *setName(string);
 			string getName();
+			// Hash
 			Controller *setHash(string);
 			string getHash();
-
-			// Action
-			Controller *addAction(Action*);
+			// Current action
+			Controller *setAction(Action*);
 			Action *getAction();
+			// Action management
+			Controller *addAction(Action*);
 			Action *getAction(string);
 			ListAction getActions();
-
 			// View
 			Controller *setView(View*);
 			View *getView();
-
 			// Processor
 			Controller *Before();
 			Controller *After();

@@ -114,15 +114,14 @@ namespace app
 
 	Controller::Controller()
 	{
-		action = (new Action)
-						->setName("Unknown");
-		view = new View;
+		action = (Action*) malloc(sizeof(Action));
+		view = (View*) malloc(sizeof(View));
 	}
 
 	Controller::~Controller()
 	{
-		delete action;
-		delete view;
+		free(action);
+		free(view);
 	}
 
 	Controller *Controller::Before()
@@ -139,8 +138,7 @@ namespace app
 
 	Controller *Controller::Run(ActionCallback callback)
 	{
-		// Action does not exists ?
-		if (this->getAction()->getName() == "Unknown") {
+		if (!instanceof<Action*>(this->getAction())) {
 			std::cout << "Action does not exists !" << std::endl;
 			return this;
 		}
@@ -186,10 +184,15 @@ namespace app
 		return this;
 	}
 
+	Controller *Controller::setAction(Action *action)
+	{
+		memcpy(this->action, action, sizeof(Action));
+		return this;
+	}
+
 	Action *Controller::getAction()
 	{
-		if (this->action->getName() == "Unknown")
-		{
+		if (!instanceof<Action>(this->action)) {
 			for (auto it : this->getActions()) {
 				Action *action = it.second;
 				if (action->getHash() == this->getHash()) {
