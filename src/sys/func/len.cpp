@@ -83,12 +83,24 @@ P_LEN(float);
 
 // Support for C++
 
-int len(map<any, any> target)
+template <typename T, typename F>
+int len(map<T, F> target) {
+	return target.size();
+}
+
+template <typename T, typename F>
+int len(map<T, F*> target) {
+	return target.size();
+}
+
+template <typename T>
+int len(vector<T> target)
 {
 	return target.size();
 }
 
-int len(vector<any> target)
+template <typename T>
+int len(vector<T*> target)
 {
 	return target.size();
 }

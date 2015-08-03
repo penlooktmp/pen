@@ -64,8 +64,14 @@ using std::vector;
 // LEN (Length)
 // len(target)
 // Use to retrive length of data type
-int len(map<any, any>);
-int len(vector<any>);
+template <typename T, typename F>
+int len(map<T, F>);
+template <typename T, typename F>
+int len(map<T, F*>);
+template <typename T>
+int len(vector<T>);
+template <typename T>
+int len(vector<T*>);
 LEN(string);
 LEN(string*);
 LEN(char*);

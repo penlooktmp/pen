@@ -59,14 +59,14 @@ TEST_F(FuncTest, len)
 	EXPECT_EQ(5, length_int_pointer_pointer);
 	
 	// Length of map
-	map<any, any> map_input;
+	//map<any, any> map_input;
 	//map_input[string("abc")] = string("hello");
 	//map_input["abd"] = "hello";
 	//map_input["abf"] = "hello";
 	//map_input["abe"] = "hello";
 	//map_input["abh"] = "hello";
-	int lenght_map = len(map_input);
-	EXPECT_EQ(0, lenght_map);
+	//int lenght_map = len(map_input);
+	//EXPECT_EQ(0, lenght_map);
 }
 
 TEST_F(FuncTest, str)

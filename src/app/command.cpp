@@ -25,5 +25,69 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-// TODO
-// Commandline
+#include <app/command.h>
+
+namespace app
+{
+	Command::Command()
+	{
+		// TODO
+	}
+	
+	Command::~Command()
+	{
+		// TODO
+	}
+
+	Command *Command::setName(string name)
+	{
+		this->name = name;
+		return this;
+	}
+	
+	string Command::getName()
+	{
+		return this->name;
+	}
+
+	Command *Command::setDescription(string description)
+	{
+		this->description = description;
+		return this;
+	}
+	
+	string Command::getDescription()
+	{
+		return this->description;
+	}
+	
+	Command *Command::addArgument(string name, string description)
+	{
+		InputArgument *arg = new InputArgument();
+		arg ->setName(name)
+			->setDescription(description);
+		this->arguments.push_back(arg);
+		return this;
+	}
+
+	ArgumentList Command::getArguments()
+	{
+		return this->arguments;
+	}
+
+	Command *Command::addOption(string name, string description, int inputFlag, string defaultValue)
+	{
+		InputOption *option = new InputOption();
+		option ->setName(name)
+			   ->setDescription(description)
+			   ->setFlag(inputFlag)
+			   ->setDefaultValue(defaultValue);
+		this->options.push_back(option);
+		return this;
+	}
+
+	OptionList Command::getOptions()
+	{
+		return this->options;
+	}
+}
