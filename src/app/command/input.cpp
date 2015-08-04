@@ -53,6 +53,17 @@ namespace app
 			return this->description;
 		}
 		
+		InputArgument *InputArgument::setValue(string value)
+		{
+			this->value = value;
+			return this;
+		}
+
+		string InputArgument::getValue()
+		{
+			return this->value;
+		}
+
 		const int InputOption::OPTIONAL = 0;
 		const int InputOption::REQUIRED = 1;
 		const int InputOption::FLAGONLY = 2;
@@ -67,38 +78,38 @@ namespace app
 		{
 			return this->name;
 		}
-		
+
 		InputOption *InputOption::setDescription(string description)
 		{
 			this->description = description;
 			return this;
 		}
-		
+
 		string InputOption::getDescription()
 		{
 			return this->description;
 		}
-		
-		InputOption *InputOption::setFlag(int inputFlag)
+
+		InputOption *InputOption::setFlag(int flag)
 		{
-			this->flag = inputFlag;
+			this->flag = flag;
 			return this;
 		}
-		
+
 		int InputOption::getFlag()
 		{
 			return this->flag;
 		}
 		
-		InputOption *InputOption::setDefaultValue(string defaultValue)
+		InputOption *InputOption::setDefault(string value)
 		{
-			this->defaultValue = defaultValue;
+			this->value = value;
 			return this;
 		}
 
-		string InputOption::getDefaultValue()
+		string InputOption::getDefault()
 		{
-			return this->defaultValue;
+			return this->value;
 		}
 
 		InputOption *Input::getOption(string optionName)

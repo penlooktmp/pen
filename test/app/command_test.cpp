@@ -50,19 +50,25 @@ TEST_F(CommandTest, Command)
 		->setDescription("Send email for verification")
 		->addArgument("sender")
 		->addArgument("reciever", "Receiver email")
-		->addOption("force", "Force excution",       InputOption::FLAGONLY)
+		->addOption("force", "Force excution", InputOption::FLAGONLY)
 		->addOption("env",   "Environment variable", InputOption::REQUIRED, "staging");
 
 	EXPECT_EQ("send:email", cmd->getName());
 	EXPECT_EQ("Send email for verification", cmd->getDescription());
-	//EXPECT_EQ(2, len(cmd->getArguments()));
-	//EXPECT_EQ(2, len(cmd->getOptions()));
+	EXPECT_EQ(2, cmd->getArguments().size());
+	EXPECT_EQ(2, cmd->getOptions().size());
 }
 
 TEST_F(CommandTest, InputArgument)
 {
-	//InputArgument arg = new InputArgument;
-	EXPECT_EQ("TEST", "TEST");
+	InputArgument *arg = new InputArgument;
+	arg->setName("argument1")
+	   ->setDescription("First argument")
+	   ->setValue("loint@penlook.com");
+
+	EXPECT_EQ("argument1", arg->getName());
+	EXPECT_EQ("First argument", arg->getDescription());
+	EXPECT_EQ("loint@penlook.com", arg->getValue());
 }
 
 TEST_F(CommandTest, InputOption)

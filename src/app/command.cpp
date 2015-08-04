@@ -75,13 +75,13 @@ namespace app
 		return this->arguments;
 	}
 
-	Command *Command::addOption(string name, string description, int inputFlag, string defaultValue)
+	Command *Command::addOption(string name, string description, int inputFlag, string value)
 	{
 		InputOption *option = new InputOption();
 		option ->setName(name)
 			   ->setDescription(description)
 			   ->setFlag(inputFlag)
-			   ->setDefaultValue(defaultValue);
+			   ->setDefault(value);
 		this->options.push_back(option);
 		return this;
 	}

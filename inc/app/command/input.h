@@ -44,6 +44,7 @@ namespace app
 			private:
 				string name;
 				string description;
+				string value;
 			public:
 				// Name
 				InputArgument *setName(string);
@@ -51,6 +52,9 @@ namespace app
 				// Description
 				InputArgument *setDescription(string);
 				string getDescription();
+				// Value
+				InputArgument *setValue(string);
+				string getValue();
 		};
 
 		class InputOption
@@ -58,8 +62,8 @@ namespace app
 			private:
 				string name;
 				string description;
+				string value;
 				int    flag;
-				string defaultValue;
 			public:
 				// Constant
 				const static int OPTIONAL;
@@ -75,8 +79,8 @@ namespace app
 				InputOption *setFlag(int);
 				int getFlag();
 				// Default Value
-				InputOption *setDefaultValue(string);
-				string getDefaultValue();
+				InputOption *setDefault(string);
+				string getDefault();
 		};
 
 		class Input
@@ -92,7 +96,6 @@ namespace app
 				// Argument
 				InputArgument *getArgument(string);
 				vector<InputArgument*> getArguments();
-				
 		};
 	}
 }
