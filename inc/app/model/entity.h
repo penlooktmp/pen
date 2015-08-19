@@ -25,7 +25,30 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef APP_MODEL_DOCUMENT_H_
-#define APP_MODEL_DOCUMENT_H_
+#ifndef APP_MODEL_ENTITY_H_
+#define APP_MODEL_ENTITY_H_
+
+namespace app
+{
+	namespace model
+	{
+		class Entity
+		{
+			public:
+				Entity();
+				Entity(id);
+				virtual Entity getSource();
+				virtual Entity *save();
+				virtual Entity *clear();
+				virtual static Entity *find();
+				virtual static Entity *findFirst(string);
+				virtual static Entity *count();
+				virtual static Entity *sum();
+				virtual static Entity *average();
+ 				virtual static Entity *max();
+				virtual static Entity *min();
+		};
+	}
+}
 
 #endif

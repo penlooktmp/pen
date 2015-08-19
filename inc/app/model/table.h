@@ -28,4 +28,15 @@
 #ifndef APP_MODEL_TABLE_H_
 #define APP_MODEL_TABLE_H_
 
+namespace app
+{
+	namespace model
+	{
+		class Table : public Entity
+		{
+			
+		};
+	}
+} 
+
 #endif

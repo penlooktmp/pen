@@ -25,13 +25,17 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef APP_MODEL_H_
-#define APP_MODEL_H_
-#define ListModel vector<Model>
-namespace app {
-	class Model {
-		
-	};
-}
+#ifndef APP_MODEL_COLLECTION_H_
+#define APP_MODEL_COLLECTION_H_
 
+namespace app
+{
+	namespace model
+	{
+		class Collection
+		{
+			static Collection *findById(string);
+		};
+	}
+}
 #endif
