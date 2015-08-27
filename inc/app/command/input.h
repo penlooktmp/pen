@@ -45,6 +45,7 @@ namespace app
 				string name;
 				string description;
 				string value;
+				string defaultValue;
 			public:
 				// Name
 				InputArgument *setName(string);
@@ -55,6 +56,9 @@ namespace app
 				// Value
 				InputArgument *setValue(string);
 				string getValue();
+				// Default
+				InputArgument *setDefault(string);
+				string getDefault();
 		};
 
 		class InputOption
@@ -63,41 +67,52 @@ namespace app
 				string name;
 				string description;
 				string value;
-				int    flag;
+				string defaultValue;
+				int    mode;
 			public:
-				// Constant
+				// Mode
 				const static int OPTIONAL;
 				const static int REQUIRED;
-				const static int FLAGONLY;
+				const static int VALUE_NONE;
 				// Name
 				InputOption *setName(string);
 				string getName();
 				// Description
 				InputOption *setDescription(string);
 				string getDescription();
-				// Flag
-				InputOption *setFlag(int);
-				int getFlag();
-				// Default Value
+				// Value
+				InputOption *setValue(string);
+				string getValue();
+				// Default
 				InputOption *setDefault(string);
 				string getDefault();
+				// Mode
+				InputOption *setMode(int);
+				int getMode();
 		};
 
 		class Input
 		{
 			private:
 				vector<InputArgument*> arguments;
-				vector<InputArgument*> options;
+				vector<InputOption*> options;
 			public:
 				Input *parser();
 				// Option
+				Input setOption(InputOption*);
 				InputOption *getOption(string);
 				vector<InputOption*> getOptions();
 				// Argument
+				Input setArgument(InputArgument*);
 				InputArgument *getArgument(string);
 				vector<InputArgument*> getArguments();
 		};
 	}
 }
+
+// Export
+using app::command::Input;
+using app::command::InputArgument;
+using app::command::InputOption;
 
 #endif

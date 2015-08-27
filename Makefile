@@ -28,12 +28,10 @@ LIB     = pen
 TEST	= pentest
 GCC     = gcc
 G++		= g++
-GGO     = go
 GCCVER  = c11  
 G++VER 	= c++14
 FGCC    = -std=$(GCCVER) -O3 -fPIC
 FG++    = -std=$(G++VER) -O3 -fPIC
-FGGO	= -compiler gccgo --gccgoflags "-static"
 DEBUG   = -std=$(G++VER) -pipe -g0 -fno-inline -Wall -fPIC
 EXECUTE = /usr/bin/$(LIB)
 LIBSYS  = /usr/lib
@@ -98,7 +96,7 @@ $(TESTD)/%.o: %.cpp
 test: $(TEST)
 $(TEST): $(OBJECTT)
 	$(G++) $(TESTF) $(OBJECTT) -o bin/$(TEST) -lpen -lpthread -lgtest -lgtest_main
-	./bin/$(TEST) && cd src/serv && go test ./...
+	./bin/$(TEST)
 
 clean:
 	rm -rf $(OBJECTD)

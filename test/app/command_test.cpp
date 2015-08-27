@@ -45,14 +45,31 @@ TEST_F(CommandTest, Command)
 {
 	// app send:email loint@penlook.com tinntt@penlook.com --force --env=production
 
-	Command *cmd = new Command;
+	Command *cmd = new Command();
 	cmd ->setName("send:email")
 		->setDescription("Send email for verification")
-		->addArgument("sender")
-		->addArgument("reciever", "Receiver email")
-		->addOption("force", "Force excution", InputOption::FLAGONLY)
-		->addOption("env",   "Environment variable", InputOption::REQUIRED, "staging");
+		->addArgument((new InputArgument())
+			->setName("sender")
+			->setDescription("Sender address")
+			->setDefault("loint@gmail.com")
+		)
+		->addArgument((new InputArgument())
+			->setName("reciever")
+			->setDescription("Reciever address")
+			->setDefault("abc@gmail.com")
+		)
+		->addOption((new InputOption())
+			->setName("force")
+			->setMode(InputOption::VALUE_NONE)
+		)
+		->addOption((new InputOption())
+			->setName("env")
+			->setDescription("Environment variable")
+			->setMode(InputOption::REQUIRED)
+			->setDefault("staging")
+		);
 
+	// Assertion
 	EXPECT_EQ("send:email", cmd->getName());
 	EXPECT_EQ("Send email for verification", cmd->getDescription());
 	EXPECT_EQ(2, cmd->getArguments().size());

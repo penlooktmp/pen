@@ -28,15 +28,25 @@
 #ifndef APP_COMMAND_OUTPUT_H_
 #define APP_COMMAND_OUTPUT_H_
 
+#include <iostream>
+#include <string>
+
+using std::string;
+using std::cout;
+using std::endl;
+
 namespace app
 {
 	namespace command
 	{
 		class Output
 		{
-
+			public:
+				void println(string message);
 		};
 	}
 }
+
+using app::command::Output;
 
 #endif

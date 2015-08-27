@@ -61,12 +61,9 @@ namespace app
 		return this->description;
 	}
 	
-	Command *Command::addArgument(string name, string description)
+	Command *Command::addArgument(InputArgument *argument)
 	{
-		InputArgument *arg = new InputArgument();
-		arg ->setName(name)
-			->setDescription(description);
-		this->arguments.push_back(arg);
+		this->arguments.push_back(argument);
 		return this;
 	}
 
@@ -75,13 +72,8 @@ namespace app
 		return this->arguments;
 	}
 
-	Command *Command::addOption(string name, string description, int inputFlag, string value)
+	Command *Command::addOption(InputOption *option)
 	{
-		InputOption *option = new InputOption();
-		option ->setName(name)
-			   ->setDescription(description)
-			   ->setFlag(inputFlag)
-			   ->setDefault(value);
 		this->options.push_back(option);
 		return this;
 	}

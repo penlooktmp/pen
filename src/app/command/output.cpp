@@ -31,6 +31,10 @@ namespace app
 {
 	namespace command
 	{
-		
+		void Output::println(string message)
+		{
+			cout << message;
+			cout.flush();
+		}
 	}
 }

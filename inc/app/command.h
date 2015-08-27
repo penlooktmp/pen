@@ -62,12 +62,14 @@ namespace app
 			Command *setDescription(string);
 			string getDescription();
 			// Argument
-			Command *addArgument(string name, string description = "");
+			Command *addArgument(InputArgument *argument);
 			ArgumentList getArguments();
 			// Option
-			Command *addOption(string name, string description = "", int inputFlag = InputOption::REQUIRED, string defaultValue = "");
+			Command *addOption(InputOption *option);
 			OptionList getOptions();
 	};
 }
 
+// Export
+using app::Command;
 #endif

@@ -63,10 +63,21 @@ namespace app
 		{
 			return this->value;
 		}
+		
+		InputArgument *InputArgument::setDefault(string defaultValue)
+		{
+			this->defaultValue = defaultValue;
+			return this;
+		}
 
-		const int InputOption::OPTIONAL = 0;
-		const int InputOption::REQUIRED = 1;
-		const int InputOption::FLAGONLY = 2;
+		string InputArgument::getDefault()
+		{
+			return this->defaultValue;
+		}
+
+		const int InputOption::OPTIONAL   = 0;
+		const int InputOption::REQUIRED   = 1;
+		const int InputOption::VALUE_NONE = 2;
 
 		InputOption *InputOption::setName(string name)
 		{
@@ -89,27 +100,44 @@ namespace app
 		{
 			return this->description;
 		}
-
-		InputOption *InputOption::setFlag(int flag)
-		{
-			this->flag = flag;
-			return this;
-		}
-
-		int InputOption::getFlag()
-		{
-			return this->flag;
-		}
 		
-		InputOption *InputOption::setDefault(string value)
+		InputOption *InputOption::setValue(string value)
 		{
 			this->value = value;
 			return this;
 		}
 
-		string InputOption::getDefault()
+		string InputOption::getValue()
 		{
 			return this->value;
+		}
+		
+		InputOption *InputOption::setDefault(string defaultValue)
+		{
+			this->defaultValue = defaultValue;
+			return this;
+		}
+
+		string InputOption::getDefault()
+		{
+			return this->defaultValue;
+		}
+
+		InputOption *InputOption::setMode(int mode)
+		{
+			this->mode = mode;
+			return this;
+		}
+
+		int InputOption::getMode()
+		{
+			return this->mode;
+		}
+		
+		/*
+		Input *Input::setOption(InputOption *option)
+		{
+			this->options.push_back()
 		}
 
 		InputOption *Input::getOption(string optionName)
@@ -132,6 +160,6 @@ namespace app
 		{
 			vector<InputArgument*> sample;
 			return sample;
-		}
+		}*/
 	}
 }
