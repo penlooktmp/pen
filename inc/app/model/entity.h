@@ -28,6 +28,11 @@
 #ifndef APP_MODEL_ENTITY_H_
 #define APP_MODEL_ENTITY_H_
 
+#include <iostream>
+#include <sys/func.h>
+
+using std::string;
+
 namespace app
 {
 	namespace model
@@ -35,20 +40,21 @@ namespace app
 		class Entity
 		{
 			public:
-				Entity();
-				Entity(id);
 				virtual Entity getSource();
 				virtual Entity *save();
 				virtual Entity *clear();
-				virtual static Entity *find();
-				virtual static Entity *findFirst(string);
-				virtual static Entity *count();
-				virtual static Entity *sum();
-				virtual static Entity *average();
- 				virtual static Entity *max();
-				virtual static Entity *min();
+				virtual Entity *find();
+				virtual Entity *findFirst(string);
+				virtual Entity *count();
+				virtual Entity *sum();
+				virtual Entity *average();
+ 				virtual Entity *max();
+				virtual Entity *min();
 		};
 	}
 }
+
+// Export
+using app::model::Entity;
 
 #endif

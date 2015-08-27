@@ -28,6 +28,8 @@
 #ifndef APP_MODEL_TABLE_H_
 #define APP_MODEL_TABLE_H_
 
+#include <app/model/entity.h>
+
 namespace app
 {
 	namespace model
@@ -38,5 +40,8 @@ namespace app
 		};
 	}
 } 
+
+// Export
+using app::model::Table;
 
 #endif

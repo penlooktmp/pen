@@ -25,54 +25,33 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef APP_STORAGE_H_
-#define APP_STORAGE_H_
+#ifndef APP_LANGUAGE_H_
+#define APP_LANGUAGE_H_
 
-#include <app/controller.h>
-#include <app/model.h>
-#include <app/view.h>
-#include <app/language.h>
-#include <sys/func.h>
-#include <functional>
-#include <vector>
 #include <map>
+#include <string>
 
 using std::string;
+using std::map;
 
-namespace app {
-	class Storage {
+#define ListLanguage map<string, Language>
 
+namespace app
+{
+	class Language
+	{
 		private:
-			ListMapping mapping;
-			ListController controllers;
-			ListModel models;
-			ListView views;
-			ListLanguage languages;
-			int status;
-
+			string name;
 		public:
-
-			static const int EMPTY;
-			static const int READY;
-
-			Storage();
-			~Storage();
-
-			Storage *buildListMapping();
-			ListMapping getListMapping();
-
-			Storage *setControllers(ListController);
-			ListController getControllers();
-
-			Storage *setModels(ListModel);
-			ListModel getModels();
-
-			Storage *setViews(ListView);
-			ListView getViews();
-
-			Storage *setStatus(int);
-			int getStatus();
-
+			// Constructor
+			Language();
+			Language(string name);
+			// Name
+			Language *setName(string name);
+			string getName();
+			// Word
+			Language *setListLanguage(char** languages);
+			char** getListLanguage();
 	};
 }
 

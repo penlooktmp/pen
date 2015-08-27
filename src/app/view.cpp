@@ -44,6 +44,7 @@ namespace app
 	View::View()
 	{
 		content = (char*) '\0';
+		stream  = "";
 		data = (ViewData*) malloc(sizeof(ViewData));
 	}
 
@@ -81,5 +82,10 @@ namespace app
 	char *View::getContent()
 	{
 		return this->content;
+	}
+	
+	char *View::getStream()
+	{
+		return (char*) this->stream.c_str();
 	}
 }

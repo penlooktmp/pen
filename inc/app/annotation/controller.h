@@ -34,8 +34,8 @@ namespace app::annotation
 {
 	class Controller : public Annotation
 	{
-		
-	}
+			
+	};
 }
 
 #endif

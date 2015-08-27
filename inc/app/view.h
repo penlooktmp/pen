@@ -51,6 +51,14 @@ namespace app
 				this->valueHolder[variable_] = value_;
 				return this;
 			}
+			
+			template <typename T>
+			ViewData *set(string variable_, T* value_)
+			{
+				this->valueHolder[variable_] = value_;
+				return this;
+			}
+
 			// Get variable
 			template <typename T>
 			T& get(string variable_)
@@ -69,6 +77,9 @@ namespace app
 			char *content;
 			ViewData *data;
 		public:
+			// public stream
+			string stream;
+
 			View();
 			~View();
 			// Data
@@ -77,7 +88,8 @@ namespace app
 			// Content
 			View *setContent(char*);
 			View *appendContent(char*);
-			char* getContent();
+			char *getContent();
+			char *getStream();
 	};
 }
 

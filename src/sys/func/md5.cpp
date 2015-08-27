@@ -24,6 +24,8 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
+#include <string>
+using std::string;
 
 #ifdef __cplusplus
 extern "C" {
@@ -45,3 +47,8 @@ char *md5(const TYPE* t) {\
 
 P_MD5(char);
 P_C_MD5(char);
+
+// Support for C++
+string md5(string t) {
+	return string(md5_pointer_constant_char(t.c_str()));
+}

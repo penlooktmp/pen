@@ -28,14 +28,20 @@
 #ifndef APP_MODEL_COLLECTION_H_
 #define APP_MODEL_COLLECTION_H_
 
+#include <app/model/entity.h>
+
 namespace app
 {
 	namespace model
 	{
-		class Collection
+		class Collection : public Entity
 		{
-			static Collection *findById(string);
+			
 		};
 	}
 }
+
+// Export
+using app::model::Collection;
+
 #endif
