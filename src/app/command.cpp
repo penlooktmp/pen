@@ -43,8 +43,8 @@ namespace app
 	
 	Command::~Command()
 	{
-		free(options);
-		free(arguments);
+		clear(options);
+		clear(arguments);
 	}
 	
 	Command *Command::setName(string name)

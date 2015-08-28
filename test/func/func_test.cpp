@@ -160,32 +160,21 @@ class Sample
 	
 };
 
-TEST_F(FuncTest, freeVector)
+TEST_F(FuncTest, clearVector)
 {
-	vector<Sample*> stack;	
-	stack.push_back(new Sample());
-	stack.push_back(new Sample());
-	stack.push_back(new Sample());
-	EXPECT_EQ(3, stack.size());
-	free(stack);
-	EXPECT_EQ(0, stack.size());
+	vector<Sample*> stackVector;	
+	stackVector.push_back(new Sample());
+	stackVector.push_back(new Sample());
+	stackVector.push_back(new Sample());
+	EXPECT_EQ(3, stackVector.size());
+	clear(stackVector);
+	EXPECT_EQ(0, stackVector.size());
 	
-	map<string, Sample*> hash;
-	hash["a"] = new Sample();
-	hash["b"] = new Sample();
-	hash["c"] = new Sample();
-	EXPECT_EQ(3, hash.size());
-	free(hash);
-	EXPECT_EQ(0, hash.size());
-}
-
-TEST_F(FuncTest, freeMap)
-{
-	vector<Sample*> stack;
-	stack.push_back(new Sample());
-	stack.push_back(new Sample());
-	stack.push_back(new Sample());
-	EXPECT_EQ(3, stack.size());
-	free(stack);
-	EXPECT_EQ(0, stack.size());
+	map<string, Sample*> stackMap;
+	stackMap["a"] = new Sample();
+	stackMap["b"] = new Sample();
+	stackMap["c"] = new Sample();
+	EXPECT_EQ(3, stackMap.size());
+	clear(stackMap);
+	EXPECT_EQ(0, stackMap.size());
 }

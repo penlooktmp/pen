@@ -35,6 +35,6 @@
 #include <sys/gen/join.h>
 #include <sys/gen/sort.h>
 #include <sys/gen/md5.h>
-#include <sys/gen/free.h>
+#include <sys/gen/clear.h>
 
 #endif

@@ -35,7 +35,7 @@ namespace sys
 
 		// Free memory for vector array
 		template <typename T>
-		inline void free(vector<T*> &target)
+		inline void clear(vector<T*> &target)
 		{
 			for (int i=0; i<target.size(); i++)
 				delete target[i];
@@ -45,7 +45,7 @@ namespace sys
 
 		// Free memory for map array
 		template <typename T>
-		inline void free(map<string, T*> &target)
+		inline void clear(map<string, T*> &target)
 		{
 			for (auto it : target)
 			{
