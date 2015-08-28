@@ -26,9 +26,27 @@
  */
 
 #include <app/command.h>
+#include <app/command/parser.h>
 
 namespace app
 {
+	Command::Command()
+	{
+		this->addOption((new InputOption())
+			->setName("env")
+			->setAlias('e')
+			->setDescription("Environment type")
+			->setDefault("prod")
+			->setRequired(false)
+		);
+	}
+	
+	Command::~Command()
+	{
+		this->options.clear();
+		this->arguments.clear();
+	}
+	
 	Command *Command::setName(string name)
 	{
 		this->name = name;
@@ -57,18 +75,23 @@ namespace app
 		return this;
 	}
 
-	ArgumentList Command::getArguments()
+	InputArgumentList Command::getArgumentList()
 	{
 		return this->arguments;
 	}
 
 	Command *Command::addOption(InputOption *option)
 	{
-		this->options.push_back(option);
+		this->options[option->getName()] = option;
 		return this;
 	}
+	
+	InputOption *Command::getOption(string name)
+	{
+		return this->options[name];
+	}
 
-	OptionList Command::getOptions()
+	InputOptionList Command::getOptionList()
 	{
 		return this->options;
 	}
@@ -80,9 +103,8 @@ namespace app
 	
 	Cli::~Cli()
 	{
-		for (auto it : this->getCommands()) {
-			Command *command = it.second;
-			delete command;
+		for (auto it : this->cmds) {
+			delete it.second;
 		}
 	}
 	
@@ -103,10 +125,35 @@ namespace app
 		return this->cmds;
 	}
 	
-	Cli *Cli::parse(int argc, char** argv)
+	Cli *Cli::parse(int argc, char* argv[])
 	{
-		cout << "Application commandline in C++ \n\n";
-		cout.flush();
+		// Ignore first argument
+		argv = seg(argv, 1, argc--);
+
+		// Could not find suitable command
+		if (this->cmds.find(argv[0]) == this->cmds.end()) {
+			cout << "Error: command not found !" << endl;
+			return this;
+		}
+		
+		// Retreive input option from command configuration
+		Command *command = this->cmds[argv[0]];
+		InputOptionList options = command->getOptionList();
+		
+		Parser parser;
+		InputOption *option;
+		for (auto it : options) {
+			option = it.second;
+			parser.add<string>(
+				option->getName(),
+				option->getAlias(),
+				option->getDescription()
+			);
+			cout << "ADDED" << option->getName() << "\n\n";
+			cout.flush();
+		}
+		
+		parser.parse_check(argc, argv);
 		return this;
 	}
 }

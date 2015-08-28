@@ -31,9 +31,14 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
+
+#define InputOptionList map<string, InputOption*>
+#define InputArgumentList vector<InputArgument*>
 
 using std::string;
 using std::vector;
+using std::map;
 
 namespace app
 {
@@ -72,18 +77,21 @@ namespace app
 		{
 			private:
 				string name;
+				char   alias;
 				string description;
 				string value;
 				string defaultValue;
-				int    mode;
+				bool   required;
 			public:
 				// Mode
 				const static int OPTIONAL;
 				const static int REQUIRED;
-				const static int VALUE_NONE;
 				// Name
 				InputOption *setName(string);
 				string getName();
+				// Alias
+				InputOption *setAlias(char);
+				char getAlias();
 				// Description
 				InputOption *setDescription(string);
 				string getDescription();
@@ -94,25 +102,25 @@ namespace app
 				InputOption *setDefault(string);
 				string getDefault();
 				// Mode
-				InputOption *setMode(int);
-				int getMode();
+				InputOption *setRequired(bool);
+				bool getRequired();
 		};
 
 		class Input
 		{
 			private:
-				vector<InputArgument*> arguments;
-				vector<InputOption*> options;
+				InputArgumentList arguments;
+				InputOptionList options;
 			public:
 				Input *parser();
 				// Option
 				Input setOption(InputOption*);
 				InputOption *getOption(string);
-				vector<InputOption*> getOptions();
+				InputOptionList getOptionList();
 				// Argument
 				Input setArgument(InputArgument*);
 				InputArgument *getArgument(string);
-				vector<InputArgument*> getArguments();
+				InputArgumentList getArgumentList();
 		};
 	}
 }

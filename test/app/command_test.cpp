@@ -62,20 +62,20 @@ TEST_F(CommandTest, Command)
 		)
 		->addOption((new InputOption())
 			->setName("force")
-			->setMode(InputOption::VALUE_NONE)
+			->setRequired(true)
 		)
 		->addOption((new InputOption())
 			->setName("env")
 			->setDescription("Environment variable")
-			->setMode(InputOption::REQUIRED)
+			->setRequired(false)
 			->setDefault("staging")
 		);
 
 	// Assertion
 	EXPECT_EQ("send:email", cmd->getName());
 	EXPECT_EQ("Send email for verification", cmd->getDescription());
-	EXPECT_EQ(2, cmd->getArguments().size());
-	EXPECT_EQ(2, cmd->getOptions().size());
+	EXPECT_EQ(2, cmd->getArgumentList().size());
+	EXPECT_EQ(2, cmd->getOptionList().size());
 	delete cmd;
 }
 
@@ -92,10 +92,35 @@ TEST_F(CommandTest, InputArgument)
 	delete arg;
 }
 
-TEST_F(CommandTest, InputOption)
+TEST_F(CommandTest, InputOptionTest)
 {
-	//InputArgument arg = new InputOption;
-	EXPECT_EQ("TEST", "TEST");
+	InputOption *option = new InputOption();
+	option->setName("send:email")
+		  ->setAlias('s')
+		  ->setDescription("Send email to customer")
+		  ->setDefault("root@localhost")
+		  ->setRequired(true);
+	EXPECT_EQ("send:email", option->getName());
+	EXPECT_EQ('s', option->getAlias());
+	EXPECT_EQ("Send email to customer", option->getDescription());
+	EXPECT_EQ("root@localhost", option->getDefault());
+	EXPECT_EQ(true, option->getRequired());
+	delete option;
+}
+
+TEST_F(CommandTest, InputOptionListTest)
+{
+	InputOptionList optionList;
+	optionList["send:email"] = new InputOption();
+	optionList["send:sms"] = new InputOption();
+	optionList["send:notification"] = new InputOption();
+	EXPECT_EQ(3, optionList.size());
+	int time = 0;
+	for (auto it : optionList) {
+		time ++;
+		delete it.second;
+	}
+	EXPECT_EQ(3, time);
 }
 
 TEST_F(CommandTest, Output)
@@ -136,21 +161,21 @@ class AskCommand : public Command
 		
 		void execute(Input *input, Output *output)
 		{
-			
+
 		}
 };
 
 TEST_F(CommandTest, Sample)
 {
-	GreetCommand *cmd1 = new GreetCommand();
-	cmd1->configure();
-	EXPECT_EQ("greet", cmd1->getName());
-	delete cmd1;
+	GreetCommand *greetCmd = new GreetCommand();
+	greetCmd->configure();
+	EXPECT_EQ("greet", greetCmd->getName());
+	delete greetCmd;
 	
-	AskCommand *cmd2 = new AskCommand();
-	cmd2->configure();
-	EXPECT_EQ("ask", cmd2->getName());
-	delete cmd2;
+	AskCommand *askCmd = new AskCommand();
+	askCmd->configure();
+	EXPECT_EQ("ask", askCmd->getName());
+	delete askCmd;
 }
 
 TEST_F(CommandTest, Parser)

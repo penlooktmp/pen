@@ -25,6 +25,9 @@
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#ifndef APP_COMMAND_PARSER_H_
+#define APP_COMMAND_PARSER_H_
+
 #pragma once
 
 #include <iostream>
@@ -808,3 +811,7 @@ private:
 };
 }
 } // cmdline
+
+using app::command::Parser;
+
+#endif

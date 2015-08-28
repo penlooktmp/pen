@@ -40,9 +40,7 @@
 using std::string;
 using std::map;
 
-#define CommandList map<string, Command*>
-#define ArgumentList vector<InputArgument*>
-#define OptionList vector<InputOption*>
+#define CommandList  map<string, Command*>
 
 namespace app
 {
@@ -51,21 +49,26 @@ namespace app
 		private:
 			string name;
 			string description;
-			ArgumentList arguments;
-			OptionList options;
+			InputArgumentList arguments;
+			InputOptionList options;
 		public:
+			// Constructor
+			Command();
+			// Destructor
+			~Command();
+			// Name
 			Command *setName(string);
 			string getName();
 			// Description
 			Command *setDescription(string);
 			string getDescription();
-			// Argument
-			Command *addArgument(InputArgument *argument);
-			ArgumentList getArguments();
-			// Option
-			Command *addOption(InputOption *option);
-			OptionList getOptions();
-
+			// Input Argument
+			Command *addArgument(InputArgument*);
+			InputArgumentList getArgumentList();
+			// Input Option
+			Command *addOption(InputOption*);
+			InputOption *getOption(string);
+			InputOptionList getOptionList();
 			// Inheritance
 			virtual void configure() {}
 			virtual void execute(Input*, Output*) {}
@@ -83,7 +86,7 @@ namespace app
 			Command *getCommand(string);
 			CommandList getCommands();
 			// Parse
-			Cli *parse(int argc, char** argv);
+			Cli *parse(int argc, char* argv[]);
 	};
 }
 

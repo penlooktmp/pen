@@ -25,42 +25,50 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#ifndef APP_COMMAND_CLI_H_
+#define APP_COMMAND_CLI_H_
 
-#define P_SEG(TYPE); \
-TYPE *segment_pointer_##TYPE(TYPE *target, int from, int to) {\
-	int len = to - from + 1;\
-	TYPE *pointer = calloc(len, sizeof(TYPE));\
-	memcpy(pointer, &target[from], len);\
-	return pointer;\
+#include <iostream>
+#include <string>
+#include <vector>
+
+using std::string;
+using std::vector;
+
+namespace app
+{
+	namespace command
+	{
+		class Cli
+		{
+			private:
+				string name;
+				string description;
+				
+			public:
+				// Mode
+				const static int OPTIONAL;
+				const static int REQUIRED;
+				// Name
+				InputArgument *setName(string);
+				string getName();
+				// Description
+				InputArgument *setDescription(string);
+				string getDescription();
+				// Value
+				InputArgument *setValue(string);
+				string getValue();
+				// Default
+				InputArgument *setDefault(string);
+				string getDefault();
+				// Mode
+				InputArgument *setMode(int);
+				int getMode();
+		};
+	}
 }
 
-#define P_C_SEG(TYPE); \
-TYPE *segment_pointer_constant_##TYPE(const TYPE *target, int from, int to) {\
-	int len = to - from + 1;\
-	TYPE *pointer = calloc(len, sizeof(TYPE));\
-	memcpy(pointer, &target[from], len);\
-	return pointer;\
-}
+// Export
+using app::command::Cli;
 
-// TODO
-// IMPROVE IT
-#define P_P_SEG(TYPE);\
-TYPE **segment_pointer_pointer_##TYPE(TYPE **target, int from, int to) {\
-	TYPE **pointer = malloc((to - from + 2) * sizeof(TYPE*));\
-	register int pos;\
-	register int count = 0;\
-	for (pos = from; pos <= to; pos++)\
-		*(pointer + count++) = target[pos];\
-	*(pointer + count) = '\0';\
-	return pointer;\
-}
-
-P_SEG(char);
-P_C_SEG(char);
-P_P_SEG(char);
-P_SEG(int);
-P_SEG(long);
-P_SEG(double);
+#endif

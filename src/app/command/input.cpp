@@ -89,10 +89,6 @@ namespace app
 			return this->mode;
 		}
 
-		const int InputOption::OPTIONAL   = 0;
-		const int InputOption::REQUIRED   = 1;
-		const int InputOption::VALUE_NONE = 2;
-
 		InputOption *InputOption::setName(string name)
 		{
 			this->name = name;
@@ -102,6 +98,17 @@ namespace app
 		string InputOption::getName()
 		{
 			return this->name;
+		}
+
+		InputOption *InputOption::setAlias(char alias)
+		{
+			this->alias = alias;
+			return this;
+		}
+
+		char InputOption::getAlias()
+		{
+			return this->alias;
 		}
 
 		InputOption *InputOption::setDescription(string description)
@@ -137,15 +144,15 @@ namespace app
 			return this->defaultValue;
 		}
 
-		InputOption *InputOption::setMode(int mode)
+		InputOption *InputOption::setRequired(bool required)
 		{
-			this->mode = mode;
+			this->required = required;
 			return this;
 		}
 
-		int InputOption::getMode()
+		bool InputOption::getRequired()
 		{
-			return this->mode;
+			return this->required;
 		}
 		/*
 		Input *Input::addOption(InputOption *option)
