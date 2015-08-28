@@ -35,8 +35,8 @@ using namespace app;
 
 class StorageTest : public Test {};
 
-ListController getControllers_Storage() {
-	ListController controllers;
+ControllerList getControllers_Storage() {
+	ControllerList controllers;
 	controllers["Home"] = (new Controller)
 								->setName("Home")
 								->addAction(
@@ -66,10 +66,10 @@ ListController getControllers_Storage() {
 	return controllers;
 }
 
-TEST_F(StorageTest, buildListMapping)
+TEST_F(StorageTest, buildMappingList)
 {
 	Storage *storage = new Storage;
 	storage->setControllers(getControllers_Storage());
-	ListMapping mapping = storage->getListMapping();
+	MappingList mapping = storage->getMappingList();
 	EXPECT_EQ(4, mapping.size());
 }

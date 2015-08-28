@@ -48,19 +48,19 @@ namespace app
 		
 	}
 
-	Storage *Storage::buildListMapping()
+	Storage *Storage::buildMappingList()
 	{
-		ListController controllers = this->getControllers();
+		ControllerList controllers = this->getControllers();
 		for (
-			ListController::iterator controllerIt = controllers.begin();
+			ControllerList::iterator controllerIt = controllers.begin();
 			controllerIt != controllers.end();
 			++controllerIt
 		)
 		{
 			Controller *controller = controllerIt->second;
-			ListAction actions = controller->getActions();
+			ActionList actions = controller->getActions();
 			for (
-				ListAction::iterator actionIt = actions.begin();
+				ActionList::iterator actionIt = actions.begin();
 				actionIt != actions.end();
 				++actionIt
 			)
@@ -77,41 +77,41 @@ namespace app
 		return this;
 	}
 
-	ListMapping Storage::getListMapping()
+	MappingList Storage::getMappingList()
 	{
 		return this->mapping;
 	}
 
-	Storage *Storage::setControllers(ListController controllers)
+	Storage *Storage::setControllers(ControllerList controllers)
 	{
 		this->controllers = controllers;
-		this->buildListMapping();
+		this->buildMappingList();
 		return this;
 	}
 
-	ListController Storage::getControllers()
+	ControllerList Storage::getControllers()
 	{
 		return this->controllers;
 	}
 
-	Storage *Storage::setModels(ListModel models)
+	Storage *Storage::setModels(ModelList models)
 	{
 		this->models = models;
 		return this;
 	}
 
-	ListModel Storage::getModels()
+	ModelList Storage::getModels()
 	{
 		return this->models;
 	}
 
-	Storage *Storage::setViews(ListView views)
+	Storage *Storage::setViews(ViewList views)
 	{
 		this->views = views;
 		return this;
 	}
 
-	ListView Storage::getViews()
+	ViewList Storage::getViews()
 	{
 		return this->views;
 	}

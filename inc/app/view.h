@@ -34,7 +34,7 @@
 #include <string>
 #include <typeinfo>
 
-#define ListView vector<View>
+#define ViewList vector<View>
 #define ViewValueHolder map<string, any>
 
 namespace app

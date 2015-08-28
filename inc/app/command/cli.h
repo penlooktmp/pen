@@ -25,8 +25,8 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef APP_COMMAND_INPUT_H_
-#define APP_COMMAND_INPUT_H_
+#ifndef APP_COMMAND_CLI_H_
+#define APP_COMMAND_CLI_H_
 
 #include <iostream>
 #include <string>
@@ -39,7 +39,7 @@ namespace app
 {
 	namespace command
 	{
-		class InputArgument
+		class Cli
 		{
 			private:
 				string name;
@@ -67,59 +67,10 @@ namespace app
 				InputArgument *setMode(int);
 				int getMode();
 		};
-
-		class InputOption
-		{
-			private:
-				string name;
-				string description;
-				string value;
-				string defaultValue;
-				int    mode;
-			public:
-				// Mode
-				const static int OPTIONAL;
-				const static int REQUIRED;
-				const static int VALUE_NONE;
-				// Name
-				InputOption *setName(string);
-				string getName();
-				// Description
-				InputOption *setDescription(string);
-				string getDescription();
-				// Value
-				InputOption *setValue(string);
-				string getValue();
-				// Default
-				InputOption *setDefault(string);
-				string getDefault();
-				// Mode
-				InputOption *setMode(int);
-				int getMode();
-		};
-
-		class Input
-		{
-			private:
-				vector<InputArgument*> arguments;
-				vector<InputOption*> options;
-			public:
-				Input *parser();
-				// Option
-				Input setOption(InputOption*);
-				InputOption *getOption(string);
-				vector<InputOption*> getOptions();
-				// Argument
-				Input setArgument(InputArgument*);
-				InputArgument *getArgument(string);
-				vector<InputArgument*> getArguments();
-		};
 	}
 }
 
 // Export
-using app::command::Input;
-using app::command::InputArgument;
-using app::command::InputOption;
+using app::command::Cli;
 
 #endif

@@ -43,11 +43,11 @@ namespace app {
 	class Storage {
 
 		private:
-			ListMapping mapping;
-			ListController controllers;
-			ListModel models;
-			ListView views;
-			ListLanguage languages;
+			MappingList mapping;
+			ControllerList controllers;
+			ModelList models;
+			ViewList views;
+			LanguageList languages;
 			int status;
 
 		public:
@@ -58,17 +58,17 @@ namespace app {
 			Storage();
 			~Storage();
 
-			Storage *buildListMapping();
-			ListMapping getListMapping();
+			Storage *buildMappingList();
+			MappingList getMappingList();
 
-			Storage *setControllers(ListController);
-			ListController getControllers();
+			Storage *setControllers(ControllerList);
+			ControllerList getControllers();
 
-			Storage *setModels(ListModel);
-			ListModel getModels();
+			Storage *setModels(ModelList);
+			ModelList getModels();
 
-			Storage *setViews(ListView);
-			ListView getViews();
+			Storage *setViews(ViewList);
+			ViewList getViews();
 
 			Storage *setStatus(int);
 			int getStatus();

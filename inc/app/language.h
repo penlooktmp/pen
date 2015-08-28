@@ -34,7 +34,7 @@
 using std::string;
 using std::map;
 
-#define ListLanguage map<string, Language>
+#define LanguageList map<string, Language>
 
 namespace app
 {

@@ -27,7 +27,7 @@
 
 #ifndef APP_MODEL_H_
 #define APP_MODEL_H_
-#define ListModel vector<Model>
+#define ModelList vector<Model>
 namespace app {
 	class Model {
 		

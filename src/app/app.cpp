@@ -89,15 +89,15 @@ namespace app
 		return this->storage;
 	}
 
-	ListController App::getControllers()
+	ControllerList App::getControllers()
 	{
 		return this->getStorage()->getControllers();
 	}
 
 	Controller *App::getController()
 	{
-		ListMapping mapping = this->getStorage()->getListMapping();
-		ListMapping::iterator it = mapping.find(this->getHash());
+		MappingList mapping = this->getStorage()->getMappingList();
+		MappingList::iterator it = mapping.find(this->getHash());
 		if (it != mapping.end()) {
 			vector<string> com = it->second;
 			string controllerName = com[0];

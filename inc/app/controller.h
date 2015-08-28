@@ -43,9 +43,9 @@ using std::string;
 using std::queue;
 using std::vector;
 
-#define ListController map<string, Controller*>
-#define ListAction map<string, Action*>
-#define ListMapping map<string, vector<string>>
+#define ControllerList map<string, Controller*>
+#define ActionList map<string, Action*>
+#define MappingList map<string, vector<string>>
 #define ActionData map<string, any>
 #define ActionArgumentList queue<ActionArgument*>
 #define ActionCallback function<void(Controller*)>
@@ -100,7 +100,7 @@ namespace app
 			string name;
 			string hash;
 			Action *action;
-			ListAction actions;
+			ActionList actions;
 			View *view;
 		public:
 			Controller();
@@ -117,7 +117,7 @@ namespace app
 			// Action management
 			Controller *addAction(Action*);
 			Action *getAction(string);
-			ListAction getActions();
+			ActionList getActions();
 			// View
 			Controller *setView(View*);
 			View *getView();

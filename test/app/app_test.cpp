@@ -54,8 +54,8 @@ TEST_F(AppTest, appResponse)
     delete app;
 }
 
-ListController getControllers_App() {
-	ListController controllers;
+ControllerList getControllers_App() {
+	ControllerList controllers;
 	controllers["Home"] = (new Controller)
 								->setName("Home")
 								->addAction(
@@ -94,7 +94,7 @@ TEST_F(AppTest, currentControllerAction)
 	   ->setHash("c2f2ddf04a74c9720d2152696d539524");
 	EXPECT_EQ(2, app->getControllers().size());
 	EXPECT_EQ("c2f2ddf04a74c9720d2152696d539524", app->getHash());
-	ListMapping mapping = app->getStorage()->getListMapping();
+	MappingList mapping = app->getStorage()->getMappingList();
 	EXPECT_EQ(4, mapping.size());
 	EXPECT_EQ(true, mapping.find("c2f2ddf04a74c9720d2152696d539524") != mapping.end());
 	vector<string> com = mapping["c2f2ddf04a74c9720d2152696d539524"];

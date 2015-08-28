@@ -76,8 +76,8 @@ namespace app
 			Storage *getStorage();
 
 			// Controller
-			App *setControllers(ListController);
-			ListController getControllers();
+			App *setControllers(ControllerList);
+			ControllerList getControllers();
 			Controller getController(string);
 			Controller *getController();
 

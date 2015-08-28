@@ -208,7 +208,7 @@ namespace app
 		return this->actions[actionName];
 	}
 
-	ListAction Controller::getActions()
+	ActionList Controller::getActions()
 	{
 		return this->actions;
 	}

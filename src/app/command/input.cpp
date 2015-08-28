@@ -74,6 +74,17 @@ namespace app
 		{
 			return this->defaultValue;
 		}
+		
+		InputArgument *InputArgument::setMode(int mode)
+		{
+			this->mode = mode;
+			return this;
+		}
+
+		int InputArgument::getMode()
+		{
+			return this->mode;
+		}
 
 		const int InputOption::OPTIONAL   = 0;
 		const int InputOption::REQUIRED   = 1;

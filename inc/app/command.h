@@ -40,6 +40,7 @@ using std::string;
 using std::vector;
 using namespace app::command;
 
+#define List
 #define ArgumentList vector<InputArgument*>
 #define OptionList vector<InputOption*>
 
