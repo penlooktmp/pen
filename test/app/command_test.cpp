@@ -30,6 +30,8 @@
 #include <sys/func.h>
 #include <app/command.h>
 #include <app/command/input.h>
+#include <app/command/output.h>
+#include <app/command/parser.h>
 
 using namespace app;
 using namespace app::command;
@@ -128,7 +130,8 @@ class AskCommand : public Command
 	public:
 		void configure()
 		{
-		
+			this->setName("ask")
+				->setDescription("Ask me a question !");
 		}
 		
 		void execute(Input *input, Output *output)
@@ -137,28 +140,45 @@ class AskCommand : public Command
 		}
 };
 
+TEST_F(CommandTest, Sample)
+{
+	GreetCommand *cmd1 = new GreetCommand();
+	cmd1->configure();
+	EXPECT_EQ("greet", cmd1->getName());
+	delete cmd1;
+	
+	AskCommand *cmd2 = new AskCommand();
+	cmd2->configure();
+	EXPECT_EQ("ask", cmd2->getName());
+	delete cmd2;
+}
+
+TEST_F(CommandTest, Parser)
+{
+	Parser parser;
+	EXPECT_EQ("Hello", "Hello");
+}
+
 TEST_F(CommandTest, Cli)
 {
 	Cli *cli = new Cli();
 	cli	->addCommand(new GreetCommand())
 		->addCommand(new AskCommand());
 	CommandList cmdList = cli->getCommands();
+
 	// Assert number of command
 	EXPECT_EQ(2, cmdList.size());
 
-	Command *greet = cmdList[0];
-	Command *ask   = cmdList[1];
+	Command *greet = cmdList["greet"];
+	Command *ask   = cmdList["ask"];
 
-	greet->configure();
 	// Assert greet command
 	EXPECT_EQ("greet", greet->getName());
 	EXPECT_EQ("Greet somebody !", greet->getDescription());
 
 	Input  *input  = new Input();
 	Output *output = new Output();
-
 	greet->execute(input, output);
-
 	EXPECT_EQ("Greet Loi !\n", output->getContent());
 
 	delete input;

@@ -30,6 +30,7 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
 #include <string>
 #include <sys/func.h>
 #include <sys/type.h>
@@ -37,9 +38,9 @@
 #include <app/command/output.h>
 
 using std::string;
-using std::vector;
+using std::map;
 
-#define CommandList vector<Command*>
+#define CommandList map<string, Command*>
 #define ArgumentList vector<InputArgument*>
 #define OptionList vector<InputOption*>
 
@@ -79,6 +80,7 @@ namespace app
 			~Cli();
 			// Command
 			Cli *addCommand(Command*);
+			Command *getCommand(string);
 			CommandList getCommands();
 			// Parse
 			Cli *parse(int argc, char** argv);

@@ -40,6 +40,7 @@ namespace app
 		class Entity
 		{
 			public:
+				/*
 				virtual Entity getSource();
 				virtual Entity *save();
 				virtual Entity *clear();
@@ -50,6 +51,7 @@ namespace app
 				virtual Entity *average();
  				virtual Entity *max();
 				virtual Entity *min();
+				*/
 		};
 	}
 }

@@ -31,6 +31,9 @@ namespace app
 {
 	namespace command
 	{
+		const int InputArgument::OPTIONAL   = 0;
+		const int InputArgument::REQUIRED   = 1;
+
 		InputArgument *InputArgument::setName(string name)
 		{
 			this->name = name;
@@ -144,11 +147,11 @@ namespace app
 		{
 			return this->mode;
 		}
-		
 		/*
-		Input *Input::setOption(InputOption *option)
+		Input *Input::addOption(InputOption *option)
 		{
-			this->options.push_back()
+			this->options.push_back(option);
+			return this;
 		}
 
 		InputOption *Input::getOption(string optionName)
@@ -158,8 +161,7 @@ namespace app
 
 		vector<InputOption*> Input::getOptions()
 		{
-			vector<InputOption*> sample;
-			return sample;
+			return this->options;
 		}
 
 		InputArgument *Input::getArgument(string name)

@@ -25,6 +25,10 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
+#include <string>
+
+using std::string;
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -34,19 +38,19 @@ extern "C" {
 #endif
 
 #define P_STR(TYPE); \
-int str(TYPE *t)\
+char* str(TYPE *t)\
 {\
 	return string_pointer_##TYPE(t);\
 }
 
 #define P_C_STR(TYPE); \
-int str(const TYPE *t)\
+char* str(const TYPE *t)\
 {\
 	return string_pointer_constant_##TYPE(t);\
 }
 
 #define NUM_STR(TYPE); \
-int str(TYPE t)\
+char* str(TYPE t)\
 {\
 	return string_number_##TYPE(t);\
 }
@@ -58,3 +62,9 @@ NUM_STR(int);
 NUM_STR(long);
 NUM_STR(double);
 NUM_STR(float);
+
+// Support for C++
+char *str(string t)
+{
+	return (char*) t.c_str();
+}

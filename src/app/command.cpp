@@ -80,18 +80,24 @@ namespace app
 	
 	Cli::~Cli()
 	{
-		// Delete all commands
-		for (int i=0; i<this->cmds.size(); i++) {
-			delete this->cmds[i];
+		for (auto it : this->getCommands()) {
+			Command *command = it.second;
+			delete command;
 		}
 	}
 	
 	Cli *Cli::addCommand(Command *command)
 	{
-		this->cmds.push_back(command);
+		command->configure();
+		this->cmds[command->getName()] = command;
 		return this;
 	}
 	
+	Command *Cli::getCommand(string name)
+	{
+		return this->cmds[name];
+	}
+
 	CommandList Cli::getCommands()
 	{
 		return this->cmds;
@@ -99,7 +105,7 @@ namespace app
 	
 	Cli *Cli::parse(int argc, char** argv)
 	{
-		cout << "Cli parser";
+		cout << "Application commandline in C++ \n\n";
 		cout.flush();
 		return this;
 	}
