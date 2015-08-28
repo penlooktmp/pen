@@ -25,46 +25,63 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <string>
+// JOIN (Join)
+// join(target_array)
+// join(target_array, delimiter)
+// Use to join item in array with delimiter or not
 
-using std::string;
+#ifndef SYS_GEN_JOIN_H_
+#define SYS_GEN_JOIN_H_
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-#include <func/gen/str.h>
+#include <func/gen/join.h>
 #ifdef __cplusplus
 }
 #endif
 
-#define P_STR(TYPE); \
-char* str(TYPE *t)\
+#define P_JOIN(TYPE);\
+inline char *join(TYPE *t)\
 {\
-	return string_pointer_##TYPE(t);\
+	return join_pointer_##TYPE(t);\
 }
 
-#define P_C_STR(TYPE); \
-char* str(const TYPE *t)\
+#define P_JOIN_DELIM(TYPE);\
+inline char *join(TYPE *t, const char *delim)\
 {\
-	return string_pointer_constant_##TYPE(t);\
+	return join_delim_pointer_##TYPE(t, delim);\
 }
 
-#define NUM_STR(TYPE); \
-char* str(TYPE t)\
+#define P_P_JOIN(TYPE); \
+inline char *join(TYPE **t)\
 {\
-	return string_number_##TYPE(t);\
+	return join_pointer_pointer_##TYPE(t);\
 }
 
-P_STR(char);
-P_C_STR(char);
-NUM_STR(short);
-NUM_STR(int);
-NUM_STR(long);
-NUM_STR(double);
-NUM_STR(float);
+#define P_P_JOIN_DELIM(TYPE); \
+inline char *join(TYPE **t, const char *delim)\
+{\
+	return join_delim_pointer_pointer_##TYPE(t, delim);\
+}
 
-// Support for C++
-char *str(string t)
+namespace sys
 {
-	return (char*) t.c_str();
+	namespace func
+	{
+		P_P_JOIN(char);
+		P_P_JOIN_DELIM(char);
+		P_JOIN(short);
+		P_JOIN_DELIM(short);
+		P_JOIN(int);
+		P_JOIN_DELIM(int);
+		P_JOIN(long);
+		P_JOIN_DELIM(long);
+		P_JOIN(double);
+		P_JOIN_DELIM(double);
+		P_JOIN(float);
+		P_JOIN_DELIM(float);
+	}
 }
+
+#endif

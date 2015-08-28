@@ -115,12 +115,7 @@ TEST_F(CommandTest, InputOptionListTest)
 	optionList["send:sms"] = new InputOption();
 	optionList["send:notification"] = new InputOption();
 	EXPECT_EQ(3, optionList.size());
-	int time = 0;
-	for (auto it : optionList) {
-		time ++;
-		delete it.second;
-	}
-	EXPECT_EQ(3, time);
+	optionList.clear();
 }
 
 TEST_F(CommandTest, Output)

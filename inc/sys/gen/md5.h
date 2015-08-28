@@ -25,31 +25,43 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
+// LEN (Length)
+// len(target)
+// Use to retrive length of data type
+
+#ifndef SYS_GEN_MD5_H_
+#define SYS_GEN_MD5_H_
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-#include <func/gen/seg.h>
+#include <func/crypto/md5.h>
 #ifdef __cplusplus
 }
 #endif
 
-#define P_SEG(TYPE); \
-TYPE *seg(TYPE* t, int from, int to) {\
-	return segment_pointer_##TYPE(t, from, to);\
+#define P_MD5(TYPE); \
+inline char *md5(TYPE* t) {\
+	return md5_pointer_##TYPE(t);\
 }
 
-#define P_C_SEG(TYPE); \
-TYPE *seg(const TYPE* t, int from, int to) {\
-	return segment_pointer_constant_##TYPE(t, from, to);\
+#define P_C_MD5(TYPE); \
+inline char *md5(const TYPE* t) {\
+	return md5_pointer_constant_##TYPE(t);\
 }
 
-#define P_P_SEG(TYPE); \
-TYPE **seg(TYPE** t, int from, int to) {\
-	return segment_pointer_pointer_##TYPE(t, from, to);\
+namespace sys
+{
+	namespace func
+	{
+		P_MD5(char);
+		P_C_MD5(char);
+		
+		inline string md5(string target)
+		{
+			return string(md5_pointer_constant_char(target.c_str()));
+		}
+	}
 }
 
-P_SEG(char);
-P_C_SEG(char);
-P_P_SEG(char);
-P_SEG(int);
-P_SEG(double);
+#endif

@@ -25,11 +25,16 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef FUNC_CRYPTOLIB_H
-#define FUNC_CRYPTOLIB_H
+#ifndef SYS_GEN_H
+#define SYS_GEN_H
 
-#include <func/crypto/md5.h>
-#include <func/crypto/sha1.h>
-#include <func/crypto/sha256.h>
+#include <sys/gen/len.h>
+#include <sys/gen/seg.h>
+#include <sys/gen/str.h>
+#include <sys/gen/add.h>
+#include <sys/gen/join.h>
+#include <sys/gen/sort.h>
+#include <sys/gen/md5.h>
+#include <sys/gen/free.h>
 
 #endif

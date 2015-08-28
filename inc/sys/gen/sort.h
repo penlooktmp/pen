@@ -24,31 +24,8 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-#include <string>
-using std::string;
 
-#ifdef __cplusplus
-extern "C" {
+#ifndef SYS_GEN_SORT_H_
+#define SYS_GEN_SORT_H_
+
 #endif
-#include <func/crypto/md5.h>
-#ifdef __cplusplus
-}
-#endif
-
-#define P_MD5(TYPE); \
-char *md5(TYPE* t) {\
-	return md5_pointer_##TYPE(t);\
-}
-
-#define P_C_MD5(TYPE); \
-char *md5(const TYPE* t) {\
-	return md5_pointer_constant_##TYPE(t);\
-}
-
-P_MD5(char);
-P_C_MD5(char);
-
-// Support for C++
-string md5(string t) {
-	return string(md5_pointer_constant_char(t.c_str()));
-}

@@ -25,17 +25,14 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
+// LEN (Length)
+// len(target)
+// Use to retrive length of data type
+
+#ifndef SYS_GEN_LEN_H_
+#define SYS_GEN_LEN_H_
+
 #ifdef __cplusplus
-
-#include <string>
-#include <map>
-#include <vector>
-#include <sys/type.h>
-
-using std::string;
-using std::map;
-using std::vector;
-
 extern "C" {
 #endif
 #include <func/gen/len.h>
@@ -44,77 +41,53 @@ extern "C" {
 #endif
 
 #define P_LEN(TYPE);\
-int len(TYPE *t)\
+inline int len(TYPE *t)\
 {\
 	return lenght_pointer_##TYPE(t);\
 }
 
 #define P_C_LEN(TYPE); \
-int len(const TYPE *t)\
+inline int len(const TYPE *t)\
 {\
 	return lenght_pointer_constant_##TYPE(t);\
 }
 
 #define P_P_LEN(TYPE); \
-int len(TYPE **t)\
+inline int len(TYPE **t)\
 {\
 	return lenght_pointer_pointer_##TYPE(t);\
 }
 
 #define NUM_LEN(TYPE); \
-int len(TYPE t) \
+inline int len(TYPE t) \
 {\
 	return lenght_number_##TYPE(t);\
 }
 
-P_LEN(char);
-P_C_LEN(char);
-P_P_LEN(char);
-NUM_LEN(short);
-P_LEN(short);
-NUM_LEN(int);
-P_LEN(int);
-NUM_LEN(long);
-P_LEN(long);
-NUM_LEN(double);
-P_LEN(double);
-NUM_LEN(float);
-P_LEN(float);
-
-// Support for C++
-
-template <typename T, typename F>
-int len(map<T, F> target) {
-	return target.size();
-}
-
-template <typename T, typename F>
-int len(map<T, F*> target) {
-	return target.size();
-}
-
-template <typename T>
-int len(vector<T> target)
+namespace sys
 {
-	return target.size();
+	namespace func
+	{
+		P_LEN(char);
+		P_C_LEN(char);
+		P_P_LEN(char);
+		NUM_LEN(short);
+		P_LEN(short);
+		NUM_LEN(int);
+		P_LEN(int);
+		NUM_LEN(long);
+		P_LEN(long);
+		NUM_LEN(double);
+		P_LEN(double);
+		NUM_LEN(float);
+		P_LEN(float);
+
+		// LEN(string)
+		inline int len(string target)
+		{
+			return target.length();
+		}
+	}
 }
 
-template <typename T>
-int len(vector<T*> target)
-{
-	return target.size();
-}
-
-int len(string target)
-{
-	return target.length();
-}
-
-int len(string *target)
-{
-	char **pointer = (char**) target;
-	return lenght_pointer_pointer_char(pointer);
-}
-
-
-
+#endif

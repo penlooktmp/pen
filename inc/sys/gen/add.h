@@ -25,33 +25,18 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifndef SYS_FUNC_H
-#define SYS_FUNC_H
+#ifndef SYS_GEN_ADD_H_
+#define SYS_GEN_ADD_H_
 
-// C Interface
-#ifdef __cplusplus
-extern "C" {
-#endif
-// C Library
-#include <func/gen.h>
-#include <func/strlib.h>
-#ifdef __cplusplus
+namespace sys
+{
+	namespace func
+	{
+		inline char **add(char **target, const char *append)
+		{
+			return add_pointer_pointer_char(target, (char*) append);
+		}
+	}
 }
-#endif
-
-#include <iostream>
-#include <string>
-#include <map>
-#include <vector>
-using std::string;
-using std::map;
-using std::vector;
-
-// C/C++ GERNERIC FUNCTION
-#include <sys/type.h>
-#include <sys/gen.h>
-
-// Export
-using namespace sys::func;
 
 #endif

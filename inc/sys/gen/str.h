@@ -25,47 +25,55 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
+// STR (String - char pointer )
+// str(target)
+// Convert char pointer and number to string (char pointer)
+
+#ifndef SYS_GEN_STR_H_
+#define SYS_GEN_STR_H_
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-#include <func/gen/join.h>
+#include <func/gen/str.h>
 #ifdef __cplusplus
 }
 #endif
 
-#define P_JOIN(TYPE);\
-char *join(TYPE *t)\
+#define P_STR(TYPE); \
+inline char* str(TYPE *t)\
 {\
-	return join_pointer_##TYPE(t);\
+	return string_pointer_##TYPE(t);\
 }
 
-#define P_JOIN_DELIM(TYPE);\
-char *join(TYPE *t, const char *delim)\
+#define P_C_STR(TYPE); \
+inline char* str(const TYPE *t)\
 {\
-	return join_delim_pointer_##TYPE(t, delim);\
+	return string_pointer_constant_##TYPE(t);\
 }
 
-#define P_P_JOIN(TYPE); \
-char *join(TYPE **t)\
+#define NUM_STR(TYPE); \
+inline char* str(TYPE t)\
 {\
-	return join_pointer_pointer_##TYPE(t);\
+	return string_number_##TYPE(t);\
 }
 
-#define P_P_JOIN_DELIM(TYPE); \
-char *join(TYPE **t, const char *delim)\
-{\
-	return join_delim_pointer_pointer_##TYPE(t, delim);\
+namespace sys
+{
+	namespace func
+	{
+		P_STR(char);
+		P_C_STR(char);
+		NUM_STR(short);
+		NUM_STR(int);
+		NUM_STR(long);
+		NUM_STR(double);
+		NUM_STR(float);
+		
+		inline char *str(string target)
+		{
+			return (char*) target.c_str();
+		}
+	}	
 }
-
-P_P_JOIN(char);
-P_P_JOIN_DELIM(char);
-P_JOIN(short);
-P_JOIN_DELIM(short);
-P_JOIN(int);
-P_JOIN_DELIM(int);
-P_JOIN(long);
-P_JOIN_DELIM(long);
-P_JOIN(double);
-P_JOIN_DELIM(double);
-P_JOIN(float);
-P_JOIN_DELIM(float);
+#endif

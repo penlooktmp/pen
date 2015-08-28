@@ -25,49 +25,46 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-/*
-#include <sys/core.h>
+// SEG (Segment)
+// seg(target, left, right)
+// Use to retrive segment of string or array from left to right
 
-char* trimLine(char* str)
-{
-	str.erase(remove(str.begin(), str.end(), '\n'), str.end());
-	return str;
+#ifndef SYS_GEN_SEG_H_
+#define SYS_GEN_SEG_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+#include <func/gen/seg.h>
+#ifdef __cplusplus
+}
+#endif
+
+#define P_SEG(TYPE); \
+inline TYPE *seg(TYPE* t, int from, int to) {\
+	return segment_pointer_##TYPE(t, from, to);\
 }
 
-char* trimSpace(char* str)
-{
-	str.erase(0, str.find_first_not_of(' '));       //prefixing spaces
-	str.erase(str.find_last_not_of(' ')+1);         //surfixing spaces
-	return str;
+#define P_C_SEG(TYPE); \
+inline TYPE *seg(const TYPE* t, int from, int to) {\
+	return segment_pointer_constant_##TYPE(t, from, to);\
 }
 
-bool isMatch(char* test, char* pattern)
-{	
-	regex str(pattern);
-	if (regex_match(test, str)) {
-		return true;
+#define P_P_SEG(TYPE); \
+inline TYPE **seg(TYPE** t, int from, int to) {\
+	return segment_pointer_pointer_##TYPE(t, from, to);\
+}
+
+namespace sys
+{
+	namespace func
+	{
+		P_SEG(char);
+		P_C_SEG(char);
+		P_P_SEG(char);
+		P_SEG(int);
+		P_SEG(double);
 	}
-	return false;
 }
 
-int indexOf(string str_origin, string str_find)
-{
-	static string::size_type loc = str_origin.find(str_find, 0);
-	if (loc != string::npos) {
-		return (int) loc;
-	}
-	return -1;
-}
-
-vector<string> split(string str, char delim)
-{
-    vector<string> result;
-    istringstream iss(str);
-
-    for (string token; getline(iss, token, delim); )
-    {
-        result.push_back(move(token));
-    }
-    return result;
-}
-*/
+#endif

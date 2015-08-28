@@ -154,3 +154,38 @@ TEST_F(FuncTest, add)
 	char *html = join(html_list);
 	EXPECT_EQ("<html><body></body>abc </html>", string(html));
 }
+
+class Sample
+{
+	
+};
+
+TEST_F(FuncTest, freeVector)
+{
+	vector<Sample*> stack;	
+	stack.push_back(new Sample());
+	stack.push_back(new Sample());
+	stack.push_back(new Sample());
+	EXPECT_EQ(3, stack.size());
+	free(stack);
+	EXPECT_EQ(0, stack.size());
+	
+	map<string, Sample*> hash;
+	hash["a"] = new Sample();
+	hash["b"] = new Sample();
+	hash["c"] = new Sample();
+	EXPECT_EQ(3, hash.size());
+	free(hash);
+	EXPECT_EQ(0, hash.size());
+}
+
+TEST_F(FuncTest, freeMap)
+{
+	vector<Sample*> stack;
+	stack.push_back(new Sample());
+	stack.push_back(new Sample());
+	stack.push_back(new Sample());
+	EXPECT_EQ(3, stack.size());
+	free(stack);
+	EXPECT_EQ(0, stack.size());
+}

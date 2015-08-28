@@ -25,15 +25,36 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-#include <func/gen/add.h>
-#ifdef __cplusplus
-}
-#endif
+#ifndef SYS_GEN_FREE_H_
+#define SYS_GEN_FREE_H_
 
-char **add(char **target, const char *append)
+namespace sys
 {
-	return add_pointer_pointer_char(target, (char*) append);
+	namespace func
+	{
+
+		// Free memory for vector array
+		template <typename T>
+		inline void free(vector<T*> &target)
+		{
+			for (int i=0; i<target.size(); i++)
+				delete target[i];
+			target.clear();
+			vector<T*>().swap(target);
+		}
+
+		// Free memory for map array
+		template <typename T>
+		inline void free(map<string, T*> &target)
+		{
+			for (auto it : target)
+			{
+				delete it.second;
+			}
+			target.clear();
+			map<string, T*>().swap(target);
+		}
+	}
 }
+
+#endif
