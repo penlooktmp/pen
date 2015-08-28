@@ -74,6 +74,7 @@ TEST_F(CommandTest, Command)
 	EXPECT_EQ("Send email for verification", cmd->getDescription());
 	EXPECT_EQ(2, cmd->getArguments().size());
 	EXPECT_EQ(2, cmd->getOptions().size());
+	delete cmd;
 }
 
 TEST_F(CommandTest, InputArgument)
@@ -86,6 +87,7 @@ TEST_F(CommandTest, InputArgument)
 	EXPECT_EQ("argument1", arg->getName());
 	EXPECT_EQ("First argument", arg->getDescription());
 	EXPECT_EQ("loint@penlook.com", arg->getValue());
+	delete arg;
 }
 
 TEST_F(CommandTest, InputOption)
@@ -104,4 +106,62 @@ TEST_F(CommandTest, CommandExcution)
 {
 	//InputArgument arg = new InputArgument;
 	EXPECT_EQ("TEST", "TEST");
+}
+
+class GreetCommand : public Command
+{
+	public:
+		void configure()
+		{
+			this->setName("greet")
+				->setDescription("Greet somebody !");
+		}
+		
+		void execute(Input *input, Output *output)
+		{
+			output->println("Greet Loi !");
+		}
+};
+
+class AskCommand : public Command
+{
+	public:
+		void configure()
+		{
+		
+		}
+		
+		void execute(Input *input, Output *output)
+		{
+			
+		}
+};
+
+TEST_F(CommandTest, Cli)
+{
+	Cli *cli = new Cli();
+	cli	->addCommand(new GreetCommand())
+		->addCommand(new AskCommand());
+	CommandList cmdList = cli->getCommands();
+	// Assert number of command
+	EXPECT_EQ(2, cmdList.size());
+
+	Command *greet = cmdList[0];
+	Command *ask   = cmdList[1];
+
+	greet->configure();
+	// Assert greet command
+	EXPECT_EQ("greet", greet->getName());
+	EXPECT_EQ("Greet somebody !", greet->getDescription());
+
+	Input  *input  = new Input();
+	Output *output = new Output();
+
+	greet->execute(input, output);
+
+	EXPECT_EQ("Greet Loi !\n", output->getContent());
+
+	delete input;
+	delete output;
+	delete cli;
 }

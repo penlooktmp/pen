@@ -41,8 +41,12 @@ namespace app
 	{
 		class Output
 		{
+			private:
+				string content;
 			public:
-				void println(string message);
+				Output *appendContent(string content);
+				string getContent();
+				Output *println(string content);
 		};
 	}
 }

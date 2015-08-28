@@ -31,10 +31,21 @@ namespace app
 {
 	namespace command
 	{
-		void Output::println(string message)
+		Output *Output::appendContent(string message)
 		{
-			cout << message;
-			cout.flush();
+			this->content += message;
+			return this;
+		}
+
+		string Output::getContent()
+		{
+			return this->content;
+		}
+
+		Output *Output::println(string message)
+		{
+			this->appendContent(message + "\n");
+			return this;
 		}
 	}
 }

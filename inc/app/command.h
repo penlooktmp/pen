@@ -38,9 +38,8 @@
 
 using std::string;
 using std::vector;
-using namespace app::command;
 
-#define List
+#define CommandList vector<Command*>
 #define ArgumentList vector<InputArgument*>
 #define OptionList vector<InputOption*>
 
@@ -54,9 +53,6 @@ namespace app
 			ArgumentList arguments;
 			OptionList options;
 		public:
-			Command();
-			~Command();
-			// Name
 			Command *setName(string);
 			string getName();
 			// Description
@@ -68,9 +64,28 @@ namespace app
 			// Option
 			Command *addOption(InputOption *option);
 			OptionList getOptions();
+
+			// Inheritance
+			virtual void configure() {}
+			virtual void execute(Input*, Output*) {}
+	};
+
+	class Cli
+	{
+		private:
+			CommandList cmds;
+		public:
+			Cli();
+			~Cli();
+			// Command
+			Cli *addCommand(Command*);
+			CommandList getCommands();
+			// Parse
+			Cli *parse(int argc, char** argv);
 	};
 }
 
 // Export
 using app::Command;
+using app::Cli;
 #endif

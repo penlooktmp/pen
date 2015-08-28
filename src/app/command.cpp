@@ -29,16 +29,6 @@
 
 namespace app
 {
-	Command::Command()
-	{
-		// TODO
-	}
-	
-	Command::~Command()
-	{
-		// TODO
-	}
-
 	Command *Command::setName(string name)
 	{
 		this->name = name;
@@ -81,5 +71,36 @@ namespace app
 	OptionList Command::getOptions()
 	{
 		return this->options;
+	}
+
+	Cli::Cli()
+	{
+		// TODO
+	}
+	
+	Cli::~Cli()
+	{
+		// Delete all commands
+		for (int i=0; i<this->cmds.size(); i++) {
+			delete this->cmds[i];
+		}
+	}
+	
+	Cli *Cli::addCommand(Command *command)
+	{
+		this->cmds.push_back(command);
+		return this;
+	}
+	
+	CommandList Cli::getCommands()
+	{
+		return this->cmds;
+	}
+	
+	Cli *Cli::parse(int argc, char** argv)
+	{
+		cout << "Cli parser";
+		cout.flush();
+		return this;
 	}
 }
