@@ -10,13 +10,8 @@ before_install:
   - sudo rm -rf /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc
   - sudo rm -rf /usr/bin/g++ && sudo ln -s /usr/bin/g++-5 /usr/bin/g++
   - g++ -v
-  - go version
   - export CXX="g++-5" CC="gcc-5"
-  - export GOPATH=/home/go
-  - sudo mkdir -p /home/go && sudo chown $USER:$USER /home/go -R
-  - (cd tmp; sudo chmod +x ./goget.sh; ./goget.sh)
-  - (cd tmp; sudo chmod +x ./gtest.sh; ./gtest.sh)
-  - (cd tmp; sudo chmod +x ./nginx.sh; ./nginx.sh)
+  - (sudo chmod +x ./test.sh; ./test.sh)
 before_script:
   - make && sudo make install
 script:
