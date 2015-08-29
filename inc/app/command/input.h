@@ -28,6 +28,7 @@
 #ifndef APP_COMMAND_INPUT_H_
 #define APP_COMMAND_INPUT_H_
 
+#include <sys/func.h>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -39,6 +40,8 @@
 using std::string;
 using std::vector;
 using std::map;
+using std::cout;
+using std::endl;
 
 namespace app
 {
@@ -112,13 +115,18 @@ namespace app
 				InputArgumentList arguments;
 				InputOptionList options;
 			public:
+				// Constructor
+				Input();
+				// Destructor
+				~Input();
+				// Parser
 				Input *parser();
 				// Option
-				Input setOption(InputOption*);
+				Input *addOption(InputOption*);
 				InputOption *getOption(string);
 				InputOptionList getOptionList();
 				// Argument
-				Input setArgument(InputArgument*);
+				Input *addArgument(InputArgument*);
 				InputArgument *getArgument(string);
 				InputArgumentList getArgumentList();
 		};

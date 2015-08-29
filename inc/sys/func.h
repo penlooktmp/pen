@@ -43,9 +43,9 @@ extern "C" {
 #include <string>
 #include <map>
 #include <vector>
-using std::string;
-using std::map;
-using std::vector;
+#include <algorithm>
+
+using namespace std;
 
 // C/C++ GERNERIC FUNCTION
 #include <sys/type.h>

@@ -36,11 +36,12 @@
 #include <sys/type.h>
 #include <app/command/input.h>
 #include <app/command/output.h>
+#include <app/command/parser.h>
 
 using std::string;
 using std::map;
 
-#define CommandList  map<string, Command*>
+#define CommandList map<string, Command*>
 
 namespace app
 {
@@ -78,15 +79,32 @@ namespace app
 	{
 		private:
 			CommandList cmds;
+			Command *cmd;
+			Parser *parser;
+			char ** args;
+			Input *input;
+			Output *output;
 		public:
 			Cli();
 			~Cli();
+			// Argument
+			char **getArguments();
+			// Input
+			Cli *setInput(Input*);
+			Input *getInput();
+			// Output
+			Cli *setOutput(Output*);
+			Output *getOutput();
 			// Command
 			Cli *addCommand(Command*);
 			Command *getCommand(string);
-			CommandList getCommands();
-			// Parse
+			Command *getCurrentCommand();
+			CommandList getCommandList();
+			// Parser
+			Parser *getParser();
 			Cli *parse(int argc, char* argv[]);
+			// Execute
+			Cli *execute();
 	};
 }
 

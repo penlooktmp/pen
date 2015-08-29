@@ -111,7 +111,7 @@ namespace app
 			return this->alias;
 		}
 
-		InputOption *InputOption::setDescription(string description)
+		InputOption *InputOption::setDescription(string description = "")
 		{
 			this->description = description;
 			return this;
@@ -122,7 +122,7 @@ namespace app
 			return this->description;
 		}
 		
-		InputOption *InputOption::setValue(string value)
+		InputOption *InputOption::setValue(string value = "")
 		{
 			this->value = value;
 			return this;
@@ -133,7 +133,7 @@ namespace app
 			return this->value;
 		}
 		
-		InputOption *InputOption::setDefault(string defaultValue)
+		InputOption *InputOption::setDefault(string defaultValue = "")
 		{
 			this->defaultValue = defaultValue;
 			return this;
@@ -144,7 +144,7 @@ namespace app
 			return this->defaultValue;
 		}
 
-		InputOption *InputOption::setRequired(bool required)
+		InputOption *InputOption::setRequired(bool required = true)
 		{
 			this->required = required;
 			return this;
@@ -154,32 +154,60 @@ namespace app
 		{
 			return this->required;
 		}
-		/*
+
+		Input::Input()
+		{
+			// TODO
+		}
+
+		Input::~Input()
+		{
+			clear(options);
+			clear(arguments);
+		}
+
 		Input *Input::addOption(InputOption *option)
 		{
-			this->options.push_back(option);
+			options[option->getName()] = option;
 			return this;
 		}
 
-		InputOption *Input::getOption(string optionName)
+		InputOption *Input::getOption(string name)
 		{
-			return NULL;
+			if (options.find(name) == options.end()) {
+				cout << "Option: " << name << " could not be found !" << endl;
+				cout.flush();
+				return NULL;
+			}
+			return options[name];
 		}
 
-		vector<InputOption*> Input::getOptions()
+		InputOptionList Input::getOptionList()
 		{
-			return this->options;
+			return options;
+		}
+
+		Input *Input::addArgument(InputArgument *argument)
+		{
+			arguments.push_back(argument);
+			return this;
 		}
 
 		InputArgument *Input::getArgument(string name)
 		{
+			int length = arguments.size();
+			for (int i=0; i<length; i++) {
+				if (arguments[i]->getName() == name) {
+					return arguments[i];
+				}
+			}
+			cout << "Argument " << name << " could not be found !" << endl;
 			return NULL;
 		}
 
-		vector<InputArgument*> Input::getArguments()
+		InputArgumentList Input::getArgumentList()
 		{
-			vector<InputArgument*> sample;
-			return sample;
-		}*/
+			return arguments;
+		}
 	}
 }

@@ -31,6 +31,16 @@ namespace app
 {
 	namespace command
 	{
+		Output::Output()
+		{
+			content = "";
+		}
+		
+		Output::~Output()
+		{
+			// TODO
+		}
+
 		Output *Output::appendContent(string message)
 		{
 			this->content += message;

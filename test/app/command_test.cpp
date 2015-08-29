@@ -151,12 +151,26 @@ class AskCommand : public Command
 		void configure()
 		{
 			this->setName("ask")
-				->setDescription("Ask me a question !");
+				->setDescription("Ask me a question !")
+				->addArgument((new InputArgument())
+					->setName("question")
+					->setDescription("Question")
+				)
+				->addArgument((new InputArgument())
+					->setName("answser")
+					->setDescription("Answer")
+				)
+				->addOption((new InputOption())
+					->setName("flag")
+					->setDescription("Ask flag")
+					->setRequired(true)
+				);
+			
 		}
 		
 		void execute(Input *input, Output *output)
 		{
-
+			
 		}
 };
 
@@ -173,18 +187,12 @@ TEST_F(CommandTest, Sample)
 	delete askCmd;
 }
 
-TEST_F(CommandTest, Parser)
-{
-	Parser parser;
-	EXPECT_EQ("Hello", "Hello");
-}
-
 TEST_F(CommandTest, Cli)
 {
 	Cli *cli = new Cli();
 	cli	->addCommand(new GreetCommand())
 		->addCommand(new AskCommand());
-	CommandList cmdList = cli->getCommands();
+	CommandList cmdList = cli->getCommandList();
 
 	// Assert number of command
 	EXPECT_EQ(2, cmdList.size());
@@ -204,4 +212,51 @@ TEST_F(CommandTest, Cli)
 	delete input;
 	delete output;
 	delete cli;
+}
+
+TEST_F(CommandTest, Parser)
+{
+	Cli *cli = new Cli();
+	cli	->addCommand(new GreetCommand())
+		->addCommand(new AskCommand());
+	int argc = 6;
+	char* argv[6] = {
+		(char*) "/usr/bin/app",
+		(char*) "ask",
+		(char*) "How are you ?",
+		(char*) "Fine.",
+		(char*) "--flag=abc",
+		'\0'
+	};
+	cli->parse(argc, argv);
+	EXPECT_EQ(4, len(cli->getArguments()));
+	EXPECT_EQ(3, cli->getParser()->rest().size());
+	EXPECT_EQ("abc", cli->getParser()->get<string>("flag"));
+	delete cli;
+}
+
+TEST_F(CommandTest, CommandIO)
+{
+	Cli    *cli    = new Cli();
+	Input  *input  = (new Input())
+						->addOption((new InputOption())
+							->setName("option1")
+						)
+						->addOption((new InputOption())
+							->setName("option2")
+						);
+			
+	Output *output = new Output();
+	output->appendContent("test1 ")
+		  ->appendContent("test2");
+
+	cli ->setInput(input)
+		->setOutput(output);
+
+	ASSERT_EQ(2,  cli->getInput()->getOptionList().size());
+	ASSERT_EQ("test1 test2", cli->getOutput()->getContent());
+
+	delete cli;
+	delete input;
+	delete output;
 }

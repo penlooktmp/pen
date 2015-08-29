@@ -44,6 +44,11 @@ namespace app
 			private:
 				string content;
 			public:
+				// Constructor
+				Output();
+				// Destructor
+				~Output();
+				// Content
 				Output *appendContent(string content);
 				string getContent();
 				Output *println(string content);
