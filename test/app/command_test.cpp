@@ -182,7 +182,7 @@ class AskCommand : public Command
 		
 		void execute(Input *input, Output *output)
 		{
-			
+			output->println("Please ask me a question !");
 		}
 };
 
@@ -295,7 +295,7 @@ TEST_F(CommandTest, CommandExecution)
 		->setOutput(output);
 
 	cli->execute();
-	
+
 	input = cli->getInput();
 	output = cli->getOutput();
 
@@ -305,5 +305,6 @@ TEST_F(CommandTest, CommandExecution)
 	EXPECT_EQ("Fine.", input->getArgument("answer")->getValue());
 	InputArgumentList *argList = input->getArgumentList();
 	EXPECT_EQ(2, argList->size());
+	EXPECT_EQ("Please ask me a question !\n", output->getContent());
 	delete cli;
 }

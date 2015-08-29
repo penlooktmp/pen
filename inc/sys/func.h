@@ -39,6 +39,8 @@ extern "C" {
 }
 #endif
 
+#include <stdio.h>
+#include <unistd.h>
 #include <iostream>
 #include <string>
 #include <map>

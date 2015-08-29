@@ -230,6 +230,6 @@ namespace app
 		}
 
 		// Command execution
-		// cmd->execute(input, output);
+		cmd->execute(input, output);
 	}
 }

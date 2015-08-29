@@ -55,6 +55,8 @@ namespace app
 		Output *Output::println(string message)
 		{
 			this->appendContent(message + "\n");
+			cout << message << endl;
+			cout.flush();
 			return this;
 		}
 	}
