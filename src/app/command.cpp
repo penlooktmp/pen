@@ -34,7 +34,6 @@ namespace app
 	{
 		options   = new InputOptionList();
 		arguments = new InputArgumentList();
-
 		this->addOption((new InputOption())
 			->setName("env")
 			->setAlias('e')
@@ -163,7 +162,7 @@ namespace app
 	Cli *Cli::parse(int argc, char* argv[])
 	{
 		// Ignore first argument
-		args = seg(argv, 1, argc--);
+		args = seg(argv, 1, argc);
 
 		// Could not find suitable command
 		if (cmds->find(args[0]) == cmds->end()) {
@@ -211,17 +210,30 @@ namespace app
 		// Transfer arguments from parser to input
 		InputArgument *argument;
 		InputOption *option;
-		
+
 		// Number of registered arguments should be equivalent with input arguments
 		int argc = arguments->size();
-		argc = min(argc, (int) parser->rest().size());
+		int cmdArgc = (int) parser->rest().size();
 
+		if (argc > cmdArgc) {
+			cout << "Missing arguments :" << endl;
+			for (int i=cmdArgc; i<argc; i++) {
+				cout << "$ " << (*arguments)[i]->getName() << " is required." << endl;
+			}
+			cout.flush();
+			return this;
+		}
+
+		argc = min(argc, cmdArgc);
 		for (int i=0; i<argc; i++) {
 			argument = (*arguments)[i];
 			argument->setValue(parser->rest()[i + 1]);
 			input->addArgument(argument);
 		}
 
+		// Add default options
+		input->addOption((*options)["env"]);
+		
 		// Transfer options from parser to input
 		for (auto it : *options) {
 			option = it.second;
@@ -231,5 +243,6 @@ namespace app
 
 		// Command execution
 		cmd->execute(input, output);
+		return this;
 	}
 }
