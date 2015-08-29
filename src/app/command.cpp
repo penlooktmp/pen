@@ -58,7 +58,7 @@ namespace app
 	
 	string Command::getName()
 	{
-		return name;
+		return this->name;
 	}
 
 	Command *Command::setDescription(string description = "")
@@ -74,7 +74,7 @@ namespace app
 	
 	Command *Command::addArgument(InputArgument *argument)
 	{
-		arguments->push_back(argument);
+		this->arguments->push_back(argument);
 		return this;
 	}
 
@@ -85,13 +85,13 @@ namespace app
 
 	Command *Command::addOption(InputOption *option)
 	{
-		(*options)[option->getName()] = option;
+		(*this->options)[option->getName()] = option;
 		return this;
 	}
 	
 	InputOption *Command::getOption(string name)
 	{
-		return (*options)[name];
+		return (*this->options)[name];
 	}
 
 	InputOptionList *Command::getOptionList()
@@ -112,8 +112,8 @@ namespace app
 	{
 		clear(parser);
 		clear(cmds);
-		clear(input);
-		clear(output);
+		free(input);
+		free(output);
 	}
 
 	Cli *Cli::setInput(Input *input)
@@ -141,7 +141,7 @@ namespace app
 	Cli *Cli::addCommand(Command *command)
 	{
 		command->configure();
-		(*cmds)[command->getName()] = command;
+		(*this->cmds)[command->getName()] = command;
 		return this;
 	}
 	
@@ -152,7 +152,7 @@ namespace app
 	
 	Command *Cli::getCurrentCommand()
 	{
-		return cmd;
+		return this->cmd;
 	}
 
 	CommandList *Cli::getCommandList()
@@ -218,7 +218,7 @@ namespace app
 
 		for (int i=0; i<argc; i++) {
 			argument = (*arguments)[i];
-			argument->setValue(parser->rest()[i]);
+			argument->setValue(parser->rest()[i + 1]);
 			input->addArgument(argument);
 		}
 
@@ -226,9 +226,7 @@ namespace app
 		for (auto it : *options) {
 			option = it.second;
 			option->setValue(parser->get<string>(it.first));
-			cout << it.first << "\n";
-			cout.flush();
-			//input->addOption(option);
+			input->addOption(option);
 		}
 
 		// Command execution

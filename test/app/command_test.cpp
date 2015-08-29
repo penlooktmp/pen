@@ -169,7 +169,7 @@ class AskCommand : public Command
 					->setDescription("Question")
 				)
 				->addArgument((new InputArgument())
-					->setName("answser")
+					->setName("answer")
 					->setDescription("Answer")
 				)
 				->addOption((new InputOption())
@@ -294,16 +294,16 @@ TEST_F(CommandTest, CommandExecution)
 		->setInput(input)
 		->setOutput(output);
 
-	//cli->execute();
-
-	delete cli;
-
-	//input = cli->getInput();
-	//output = cli->getOutput();
-
-	//EXPECT_EQ("dev", input->getOption("env")->getValue());
-	//EXPECT_EQ("abc", input->getOption("flag")->getValue());
-	//EXPECT_EQ("How are you ?", input->getArgument("question")->getValue());
-	//EXPECT_EQ("Fine.", input->getArgument("answer")->getValue());
+	cli->execute();
 	
+	input = cli->getInput();
+	output = cli->getOutput();
+
+	EXPECT_EQ("dev", input->getOption("env")->getValue());
+	EXPECT_EQ("abc", input->getOption("flag")->getValue());
+	EXPECT_EQ("How are you ?", input->getArgument("question")->getValue());
+	EXPECT_EQ("Fine.", input->getArgument("answer")->getValue());
+	InputArgumentList *argList = input->getArgumentList();
+	EXPECT_EQ(2, argList->size());
+	delete cli;
 }

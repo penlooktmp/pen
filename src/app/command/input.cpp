@@ -64,6 +64,9 @@ namespace app
 
 		string InputArgument::getValue()
 		{
+			if (len(this->value) == 0) {
+				return this->defaultValue;
+			}
 			return this->value;
 		}
 		
@@ -130,6 +133,9 @@ namespace app
 
 		string InputOption::getValue()
 		{
+			if (len(this->value) == 0) {
+				return this->defaultValue;
+			}
 			return this->value;
 		}
 		
