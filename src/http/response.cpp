@@ -28,7 +28,13 @@
 #include <http/response.h>
 #include <sys/func.h>
 
-namespace http {
+namespace http
+{
+	
+	HttpResponse::HttpResponse()
+	{
+		body = (char*) " ";
+	}
 
 	HttpResponse *HttpResponse::setBody(char *body)
 	{
@@ -41,7 +47,7 @@ namespace http {
 	{
 		return body;
 	}
-
+	
 	int HttpResponse::getBodyLength()
 	{
 		return this->bodyLength;

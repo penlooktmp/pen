@@ -114,14 +114,14 @@ namespace app
 
 	Controller::Controller()
 	{
-		action = (Action*) malloc(sizeof(Action));
-		view = (View*) malloc(sizeof(View));
+		action = nullptr;
+		view   = nullptr;
 	}
 
 	Controller::~Controller()
 	{
-		free(action);
-		free(view);
+		clear(action);
+		clear(view);
 	}
 
 	Controller *Controller::Before()
@@ -186,7 +186,7 @@ namespace app
 
 	Controller *Controller::setAction(Action *action)
 	{
-		memcpy(this->action, action, sizeof(Action));
+		this->action = action;
 		return this;
 	}
 
@@ -196,7 +196,7 @@ namespace app
 			for (auto it : this->getActions()) {
 				Action *action = it.second;
 				if (action->getHash() == this->getHash()) {
-					memcpy(this->action, action, sizeof(Action));
+					this->action = action;
 				}
 			}
 		}
@@ -215,7 +215,7 @@ namespace app
 
 	Controller *Controller::setView(View *view)
 	{
-		memcpy(this->view, view, sizeof(View));
+		this->view = view;
 		return this;
 	}
 

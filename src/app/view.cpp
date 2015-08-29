@@ -45,12 +45,12 @@ namespace app
 	{
 		content = (char*) '\0';
 		stream  = "";
-		data = (ViewData*) malloc(sizeof(ViewData));
+		this->data = new ViewData();
 	}
 
 	View::~View()
 	{
-		free(data);
+		// TODO
 	}
 
 	View *View::setData(ViewData *data)

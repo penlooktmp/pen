@@ -48,7 +48,7 @@ TEST_F(ViewTest, ViewDataClass)
 
 TEST_F(ViewTest, ViewViewData)
 {
-	View *view = new View;
+	View *view = new View();
 	view->getData()->set<char*>("title", (char*) "Hello");
 	EXPECT_EQ("Hello", string(view->getData()->get<char*>("title")));
 	delete view;

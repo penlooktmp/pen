@@ -112,8 +112,8 @@ namespace app
 		class Input
 		{
 			private:
-				InputArgumentList arguments;
-				InputOptionList options;
+				InputArgumentList *arguments;
+				InputOptionList *options;
 			public:
 				// Constructor
 				Input();
@@ -124,11 +124,11 @@ namespace app
 				// Option
 				Input *addOption(InputOption*);
 				InputOption *getOption(string);
-				InputOptionList getOptionList();
+				InputOptionList *getOptionList();
 				// Argument
 				Input *addArgument(InputArgument*);
 				InputArgument *getArgument(string);
-				InputArgumentList getArgumentList();
+				InputArgumentList *getArgumentList();
 		};
 	}
 }

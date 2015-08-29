@@ -32,27 +32,36 @@ namespace sys
 {
 	namespace func
 	{
-
+		template <typename T>
+		inline void clear(T *target)
+		{
+			if (target != nullptr) {
+				delete target;
+			}
+		}
+		
 		// Free memory for vector array
 		template <typename T>
-		inline void clear(vector<T*> &target)
+		inline void clear(vector<T*> *target)
 		{
-			for (int i=0; i<target.size(); i++)
-				delete target[i];
-			target.clear();
-			vector<T*>().swap(target);
+			int length = target->size();
+			for (int i=0; i<length; i++) {
+				delete (*target)[i];
+			}
+			target->clear();
+			delete target;
 		}
 
 		// Free memory for map array
 		template <typename T>
-		inline void clear(map<string, T*> &target)
+		inline void clear(map<string, T*> *target)
 		{
-			for (auto it : target)
+			for (auto it : *target)
 			{
 				delete it.second;
 			}
-			target.clear();
-			map<string, T*>().swap(target);
+			target->clear();
+			delete target;
 		}
 	}
 }

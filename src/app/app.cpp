@@ -31,23 +31,24 @@ namespace app
 {
 	App::App()
 	{
-		request  = (HttpRequest*)   malloc(sizeof(HttpRequest));
-		response = (HttpResponse*)  malloc(sizeof(HttpResponse));
-		router   = (Router*)        malloc(sizeof(Router));
-		storage  = (Storage*)       malloc(sizeof(Storage));
+		request  = nullptr;
+		response = nullptr;
+		router   = nullptr;
+		storage  = nullptr;
 	}
 
 	App::~App()
 	{
-		free(request);
-		free(response);
-		free(router);
-		free(storage);
+		clear(request);
+		clear(response);
+		clear(router);
+		// Do not delele storage
+		// clear(storage);
 	}
 
 	App *App::setHttpRequest(HttpRequest *request)
 	{
-		memcpy(this->request, request, sizeof(HttpRequest));
+		this->request = request;
 		return this;
 	}
 
@@ -58,7 +59,7 @@ namespace app
 
 	App *App::setHttpResponse(HttpResponse *response)
 	{
-		memcpy(this->response, response, sizeof(HttpResponse));
+		this->response = response;
 		return this;
 	}
 
@@ -69,7 +70,7 @@ namespace app
 
 	App *App::setRouter(Router *router)
 	{
-		memcpy(this->router, router, sizeof(Router));
+		this->router = router;
 		return this;
 	}
 
@@ -80,7 +81,7 @@ namespace app
 
 	App *App::setStorage(Storage *storage)
 	{
-		memcpy(this->storage, storage, sizeof(Storage));
+		this->storage = storage;
 		return this;
 	}
 

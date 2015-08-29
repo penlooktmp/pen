@@ -50,8 +50,8 @@ namespace app
 		private:
 			string name;
 			string description;
-			InputArgumentList arguments;
-			InputOptionList options;
+			InputArgumentList *arguments;
+			InputOptionList *options;
 		public:
 			// Constructor
 			Command();
@@ -65,11 +65,11 @@ namespace app
 			string getDescription();
 			// Input Argument
 			Command *addArgument(InputArgument*);
-			InputArgumentList getArgumentList();
+			InputArgumentList *getArgumentList();
 			// Input Option
 			Command *addOption(InputOption*);
 			InputOption *getOption(string);
-			InputOptionList getOptionList();
+			InputOptionList *getOptionList();
 			// Inheritance
 			virtual void configure() {}
 			virtual void execute(Input*, Output*) {}
@@ -78,7 +78,7 @@ namespace app
 	class Cli
 	{
 		private:
-			CommandList cmds;
+			CommandList *cmds;
 			Command *cmd;
 			Parser *parser;
 			char ** args;
@@ -99,7 +99,7 @@ namespace app
 			Cli *addCommand(Command*);
 			Command *getCommand(string);
 			Command *getCurrentCommand();
-			CommandList getCommandList();
+			CommandList *getCommandList();
 			// Parser
 			Parser *getParser();
 			Cli *parse(int argc, char* argv[]);

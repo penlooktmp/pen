@@ -41,9 +41,10 @@ namespace http {
         HttpResponse *response;
         Storage *storage;
         char *hash;
+        App *app;
 
     public:
-        Http();
+        Http(HttpRequest*, HttpResponse*);
         ~Http();
 
         // Self server
@@ -51,7 +52,6 @@ namespace http {
         Http *post(const char*, http_callback);
         Http *listen(int port = 80);
 
-        Http(HttpRequest*, HttpResponse*);
         Http *setApp(App*);
         App *getApp();
         Http *setRequest(HttpRequest*);

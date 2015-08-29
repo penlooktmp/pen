@@ -31,7 +31,7 @@ namespace http {
             char *body;
             int bodyLength;
         public:
-            // HttpResponse();
+            HttpResponse();
             // ~HttpResponse();
             HttpResponse *setBody(char*);
             char *getBody();

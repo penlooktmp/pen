@@ -74,12 +74,12 @@ TEST_F(CommandTest, Command)
 	// Assertion
 	EXPECT_EQ("send:email", cmd->getName());
 	EXPECT_EQ("Send email for verification", cmd->getDescription());
-	EXPECT_EQ(2, cmd->getArgumentList().size());
-	EXPECT_EQ(2, cmd->getOptionList().size());
+	EXPECT_EQ(2, cmd->getArgumentList()->size());
+	EXPECT_EQ(2, cmd->getOptionList()->size());
 	delete cmd;
 }
 
-TEST_F(CommandTest, InputArgument)
+TEST_F(CommandTest, InputArgumentTest)
 {
 	InputArgument *arg = new InputArgument;
 	arg->setName("argument1")
@@ -90,6 +90,11 @@ TEST_F(CommandTest, InputArgument)
 	EXPECT_EQ("First argument", arg->getDescription());
 	EXPECT_EQ("loint@penlook.com", arg->getValue());
 	delete arg;
+}
+
+TEST_F(CommandTest, InputArgumentListTest)
+{
+	// TODO
 }
 
 TEST_F(CommandTest, InputOptionTest)
@@ -118,15 +123,22 @@ TEST_F(CommandTest, InputOptionListTest)
 	optionList.clear();
 }
 
-TEST_F(CommandTest, Output)
+TEST_F(CommandTest, InputTest)
 {
-	//InputArgument arg = new InputOption;
-	EXPECT_EQ("TEST", "TEST");
+	Input *input = new Input();
+	input->addOption((new InputOption())
+			->setName("option1")
+		)
+		->addOption((new InputOption())
+			->setName("option2")
+		);
+	EXPECT_EQ(2, input->getOptionList()->size());
+	delete input;
 }
 
-TEST_F(CommandTest, CommandExcution)
+TEST_F(CommandTest, OutputTest)
 {
-	//InputArgument arg = new InputArgument;
+	//InputArgument arg = new InputOption;
 	EXPECT_EQ("TEST", "TEST");
 }
 
@@ -192,13 +204,13 @@ TEST_F(CommandTest, Cli)
 	Cli *cli = new Cli();
 	cli	->addCommand(new GreetCommand())
 		->addCommand(new AskCommand());
-	CommandList cmdList = cli->getCommandList();
+	CommandList *cmdList = cli->getCommandList();
 
 	// Assert number of command
-	EXPECT_EQ(2, cmdList.size());
+	EXPECT_EQ(2, cmdList->size());
 
-	Command *greet = cmdList["greet"];
-	Command *ask   = cmdList["ask"];
+	Command *greet = (*cmdList)["greet"];
+	Command *ask   = (*cmdList)["ask"];
 
 	// Assert greet command
 	EXPECT_EQ("greet", greet->getName());
@@ -219,6 +231,7 @@ TEST_F(CommandTest, Parser)
 	Cli *cli = new Cli();
 	cli	->addCommand(new GreetCommand())
 		->addCommand(new AskCommand());
+
 	int argc = 6;
 	char* argv[6] = {
 		(char*) "/usr/bin/app",
@@ -245,7 +258,7 @@ TEST_F(CommandTest, CommandIO)
 						->addOption((new InputOption())
 							->setName("option2")
 						);
-			
+
 	Output *output = new Output();
 	output->appendContent("test1 ")
 		  ->appendContent("test2");
@@ -253,10 +266,44 @@ TEST_F(CommandTest, CommandIO)
 	cli ->setInput(input)
 		->setOutput(output);
 
-	ASSERT_EQ(2,  cli->getInput()->getOptionList().size());
-	ASSERT_EQ("test1 test2", cli->getOutput()->getContent());
+	EXPECT_EQ(2,  cli->getInput()->getOptionList()->size());
+	EXPECT_EQ("test1 test2", cli->getOutput()->getContent());
+	
+	delete cli;
+}
+
+TEST_F(CommandTest, CommandExecution)
+{
+	Cli *cli = new Cli();
+	Input *input = new Input();
+	Output *output = new Output();
+
+	cli	->addCommand(new GreetCommand())
+		->addCommand(new AskCommand());
+	int argc = 6;
+	char* argv[6] = {
+		(char*) "/usr/bin/app",
+		(char*) "ask",
+		(char*) "How are you ?",
+		(char*) "Fine.",
+		(char*) "--flag=abc",
+		'\0'
+	};
+	
+	cli ->parse(argc, argv)
+		->setInput(input)
+		->setOutput(output);
+
+	//cli->execute();
 
 	delete cli;
-	delete input;
-	delete output;
+
+	//input = cli->getInput();
+	//output = cli->getOutput();
+
+	//EXPECT_EQ("dev", input->getOption("env")->getValue());
+	//EXPECT_EQ("abc", input->getOption("flag")->getValue());
+	//EXPECT_EQ("How are you ?", input->getArgument("question")->getValue());
+	//EXPECT_EQ("Fine.", input->getArgument("answer")->getValue());
+	
 }

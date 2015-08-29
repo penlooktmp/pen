@@ -157,7 +157,8 @@ namespace app
 
 		Input::Input()
 		{
-			// TODO
+			options   = new InputOptionList();
+			arguments = new InputArgumentList();
 		}
 
 		Input::~Input()
@@ -168,44 +169,44 @@ namespace app
 
 		Input *Input::addOption(InputOption *option)
 		{
-			options[option->getName()] = option;
+			(*options)[option->getName()] = option;
 			return this;
 		}
 
 		InputOption *Input::getOption(string name)
 		{
-			if (options.find(name) == options.end()) {
+			if (options->find(name) == options->end()) {
 				cout << "Option: " << name << " could not be found !" << endl;
 				cout.flush();
 				return NULL;
 			}
-			return options[name];
+			return (*options)[name];
 		}
 
-		InputOptionList Input::getOptionList()
+		InputOptionList *Input::getOptionList()
 		{
 			return options;
 		}
 
 		Input *Input::addArgument(InputArgument *argument)
 		{
-			arguments.push_back(argument);
+			arguments->push_back(argument);
 			return this;
 		}
 
 		InputArgument *Input::getArgument(string name)
 		{
-			int length = arguments.size();
+			int length = arguments->size();
 			for (int i=0; i<length; i++) {
-				if (arguments[i]->getName() == name) {
-					return arguments[i];
+				if ((*arguments)[i]->getName() == name) {
+					return (*arguments)[i];
 				}
 			}
 			cout << "Argument " << name << " could not be found !" << endl;
 			return NULL;
 		}
 
-		InputArgumentList Input::getArgumentList()
+		InputArgumentList *Input::getArgumentList()
 		{
 			return arguments;
 		}

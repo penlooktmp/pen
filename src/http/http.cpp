@@ -30,23 +30,23 @@
 
 namespace http 
 {
-    Http::Http()
+    Http::Http(HttpRequest *request, HttpResponse *response)
     {
-        request  = (HttpRequest*)  malloc(sizeof(HttpRequest));
-        response = (HttpResponse*) malloc(sizeof(HttpResponse));
-        storage  = (Storage*)      malloc(sizeof(Storage));
+        this->request  = request;
+        this->response = response;
+        app = nullptr;
     }
 
     Http::~Http()
     {
-        free(request);
-        free(response);
-        free(storage);
+        clear(request);
+        clear(response);
+        clear(app);
     }
 
     Http *Http::setRequest(HttpRequest *request)
     {
-        memcpy(this->request, request, sizeof(HttpRequest));
+        this->request = request;
         return this;
     }
 
@@ -57,7 +57,7 @@ namespace http
 
     Http *Http::setResponse(HttpResponse *response)
     {
-        memcpy(this->response, response, sizeof(HttpResponse));
+        this->response = response;
         return this;
     }
 
@@ -68,7 +68,7 @@ namespace http
     
     Http *Http::setStorage(Storage *storage)
     {
-        memcpy(this->storage, storage, sizeof(Storage));
+        this->storage = storage;
         return this;
     }
     
@@ -90,14 +90,14 @@ namespace http
 
     Http *Http::serveRequest(function<void(App*)> callback)
     {
-        App *app = new App;
-        app->setHttpRequest(this->getRequest())
+        app = new App();
+        app->setHttpRequest(this->getRequest()) 
            ->setHttpResponse(this->getResponse())
            ->setStorage(this->getStorage())
            ->setHash(this->getHash());
         callback(app);
-        this->setResponse(app->getHttpResponse());
-        delete app;
+        this->getResponse()
+                ->setBody(app->getHttpResponse()->getBody());
         return this;
     }
 

@@ -160,21 +160,25 @@ class Sample
 	
 };
 
-TEST_F(FuncTest, clearVector)
+TEST_F(FuncTest, clear)
 {
-	vector<Sample*> stackVector;	
-	stackVector.push_back(new Sample());
-	stackVector.push_back(new Sample());
-	stackVector.push_back(new Sample());
-	EXPECT_EQ(3, stackVector.size());
+	Sample *sample1 = nullptr;
+	clear(sample1);
+
+	Sample *sample2 = new Sample();
+	clear(sample2);
+
+	vector<Sample*> *stackVector = new vector<Sample*>();	
+	stackVector->push_back(new Sample());
+	stackVector->push_back(new Sample());
+	stackVector->push_back(new Sample());
+	EXPECT_EQ(3, stackVector->size());
 	clear(stackVector);
-	EXPECT_EQ(0, stackVector.size());
 	
-	map<string, Sample*> stackMap;
-	stackMap["a"] = new Sample();
-	stackMap["b"] = new Sample();
-	stackMap["c"] = new Sample();
-	EXPECT_EQ(3, stackMap.size());
+	map<string, Sample*> *stackMap = new map<string, Sample*>();
+	(*stackMap)["a"] = new Sample();
+	(*stackMap)["b"] = new Sample();
+	(*stackMap)["c"] = new Sample();
+	EXPECT_EQ(3, stackMap->size());
 	clear(stackMap);
-	EXPECT_EQ(0, stackMap.size());
 }

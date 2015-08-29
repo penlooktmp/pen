@@ -32,6 +32,9 @@ namespace app
 {
 	Command::Command()
 	{
+		options   = new InputOptionList();
+		arguments = new InputArgumentList();
+
 		this->addOption((new InputOption())
 			->setName("env")
 			->setAlias('e')
@@ -40,7 +43,7 @@ namespace app
 			->setRequired(false)
 		);
 	}
-	
+
 	Command::~Command()
 	{
 		clear(options);
@@ -55,7 +58,7 @@ namespace app
 	
 	string Command::getName()
 	{
-		return this->name;
+		return name;
 	}
 
 	Command *Command::setDescription(string description = "")
@@ -66,32 +69,32 @@ namespace app
 	
 	string Command::getDescription()
 	{
-		return this->description;
+		return description;
 	}
 	
 	Command *Command::addArgument(InputArgument *argument)
 	{
-		this->arguments.push_back(argument);
+		arguments->push_back(argument);
 		return this;
 	}
 
-	InputArgumentList Command::getArgumentList()
+	InputArgumentList *Command::getArgumentList()
 	{
-		return this->arguments;
+		return arguments;
 	}
 
 	Command *Command::addOption(InputOption *option)
 	{
-		this->options[option->getName()] = option;
+		(*options)[option->getName()] = option;
 		return this;
 	}
 	
 	InputOption *Command::getOption(string name)
 	{
-		return this->options[name];
+		return (*options)[name];
 	}
 
-	InputOptionList Command::getOptionList()
+	InputOptionList *Command::getOptionList()
 	{
 		return this->options;
 	}
@@ -99,23 +102,23 @@ namespace app
 	Cli::Cli()
 	{
 		parser = new Parser();
-		cmd    = (Command*) malloc(sizeof(Command));
-		input  = (Input*)    malloc(sizeof(Input));
-		output = (Output*)   malloc(sizeof(Output));
+		cmds   = new CommandList();
+		cmd    = nullptr;
+		input  = nullptr;
+		output = nullptr;
 	}
 	
 	Cli::~Cli()
 	{
-		delete parser;
+		clear(parser);
 		clear(cmds);
-		free(cmd);
-		free(input);
-		free(output);
+		clear(input);
+		clear(output);
 	}
 
 	Cli *Cli::setInput(Input *input)
 	{
-		memcpy(this->input, input, sizeof(Input));
+		this->input = input;
 		return this;
 	}
 	
@@ -126,7 +129,7 @@ namespace app
 	
 	Cli *Cli::setOutput(Output *output)
 	{
-		memcpy(this->output, output, sizeof(Output));
+		this->output = output;
 		return this;
 	}
 	
@@ -138,13 +141,13 @@ namespace app
 	Cli *Cli::addCommand(Command *command)
 	{
 		command->configure();
-		cmds[command->getName()] = command;
+		(*cmds)[command->getName()] = command;
 		return this;
 	}
 	
 	Command *Cli::getCommand(string name)
 	{
-		return cmds[name];
+		return (*cmds)[name];
 	}
 	
 	Command *Cli::getCurrentCommand()
@@ -152,7 +155,7 @@ namespace app
 		return cmd;
 	}
 
-	CommandList Cli::getCommandList()
+	CommandList *Cli::getCommandList()
 	{
 		return cmds;
 	}
@@ -163,18 +166,18 @@ namespace app
 		args = seg(argv, 1, argc--);
 
 		// Could not find suitable command
-		if (cmds.find(args[0]) == cmds.end()) {
+		if (cmds->find(args[0]) == cmds->end()) {
 			cout << "Error: command not found !" << endl;
 			return this;
 		}
 
 		// Retreive input option from command configuration
-		memcpy(cmd, cmds[args[0]], sizeof(Command));
-		InputOptionList options = cmd->getOptionList();
+		cmd = (*cmds)[args[0]];
+		InputOptionList *options = cmd->getOptionList();
 
 		// Register options of current command with parser
 		InputOption *option;
-		for (auto it : options) {
+		for (auto it : *options) {
 			option = it.second;
 			parser->add<string>(
 				option->getName(),
@@ -188,7 +191,7 @@ namespace app
 		parser->parse_check(argc, argv);
 		return this;
 	}
-	
+
 	char **Cli::getArguments()
 	{
 		return args;
@@ -198,34 +201,37 @@ namespace app
 	{
 		return parser;
 	}
-	
+
 	Cli *Cli::execute()
 	{
 		// Retrieve current options and arguments
-		InputOptionList options = cmd->getOptionList();
-		InputArgumentList arguments = cmd->getArgumentList();
+		InputOptionList *options = cmd->getOptionList();
+		InputArgumentList *arguments = cmd->getArgumentList();
 
 		// Transfer arguments from parser to input
 		InputArgument *argument;
 		InputOption *option;
-		int argc = arguments.size();
-
+		
 		// Number of registered arguments should be equivalent with input arguments
+		int argc = arguments->size();
 		argc = min(argc, (int) parser->rest().size());
+
 		for (int i=0; i<argc; i++) {
-			argument = arguments[i];
+			argument = (*arguments)[i];
 			argument->setValue(parser->rest()[i]);
 			input->addArgument(argument);
 		}
 
 		// Transfer options from parser to input
-		for (auto it : options) {
+		for (auto it : *options) {
 			option = it.second;
-			option->setValue(parser->get<string>(option->getName()));
-			input->addOption(option);
+			option->setValue(parser->get<string>(it.first));
+			cout << it.first << "\n";
+			cout.flush();
+			//input->addOption(option);
 		}
 
 		// Command execution
-		cmd->execute(input, output);
+		// cmd->execute(input, output);
 	}
 }
