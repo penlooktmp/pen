@@ -41,10 +41,11 @@ SOURCED = src
 TESTD   = obj/
 OBJECTD = obj/
 HEADERS = $(shell find /usr/lib/pen -name *.h)
-SOURCES = $(shell find src -name '*.c*')
+SOURCES = $(shell find src -name '*.c*' -o -name '*.s')
 TESTS   = $(shell find test -name *.cpp)
 SOURCE  = $(patsubst %.cpp, %.o, $(SOURCES))
 SOURCE  := $(patsubst %.c, %.o, $(SOURCE))
+SOURCE  := $(patsubst %.s, %.o, $(SOURCE))
 HEADER  = $(patsubst %.h, %.h.gch, $(HEADERS))
 OBJECTS = $(addprefix $(OBJECTD), $(SOURCE))
 OHEADER = $(addprefix $(OHEADERD), $(HEADER))
@@ -62,6 +63,9 @@ $(OBJECTD)%.o: %.cpp
 	$(G++) -c $(G++FLAG) -I$(INCLUDE) $< -o $@
 
 $(OBJECTD)%.o: %.c
+	$(GCC) -c $(GCCFLAG) -I$(INCLUDE) $< -o $@
+
+$(OBJECTD)%.o: %.s
 	$(GCC) -c $(GCCFLAG) -I$(INCLUDE) $< -o $@
 
 $(OHEADERD)%.h.gch: %.h
