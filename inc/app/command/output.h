@@ -43,6 +43,7 @@ namespace app
 		{
 			private:
 				string content;
+				bool console;
 			public:
 				// Constructor
 				Output();
@@ -52,6 +53,9 @@ namespace app
 				Output *appendContent(string content);
 				string getContent();
 				Output *println(string content);
+				// Console
+				bool isConsole();
+				Output *setConsole(bool);
 		};
 	}
 }

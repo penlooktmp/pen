@@ -218,11 +218,10 @@ TEST_F(CommandTest, Cli)
 
 	Input  *input  = new Input();
 	Output *output = new Output();
+	output->setConsole(false);
 	greet->execute(input, output);
 	EXPECT_EQ("Greet Loi !\n", output->getContent());
-
-	delete input;
-	delete output;
+	
 	delete cli;
 }
 
@@ -232,17 +231,16 @@ TEST_F(CommandTest, Parser)
 	cli	->addCommand(new GreetCommand())
 		->addCommand(new AskCommand());
 
-	int argc = 6;
-	char* argv[6] = {
+	int argc = 5;
+	char* argv[5] = {
 		(char*) "/usr/bin/app",
 		(char*) "ask",
 		(char*) "How are you ?",
 		(char*) "Fine.",
-		(char*) "--flag=abc",
-		'\0'
+		(char*) "--flag=abc"
 	};
 	cli->parse(argc, argv);
-	EXPECT_EQ(4, len(cli->getArguments()));
+	EXPECT_EQ(5, len(cli->getArguments()));
 	EXPECT_EQ(3, cli->getParser()->rest().size());
 	EXPECT_EQ("abc", cli->getParser()->get<string>("flag"));
 	delete cli;
@@ -277,17 +275,17 @@ TEST_F(CommandTest, CommandExecution)
 	Cli *cli = new Cli();
 	Input *input = new Input();
 	Output *output = new Output();
+	output->setConsole(false);
 
 	cli	->addCommand(new GreetCommand())
 		->addCommand(new AskCommand());
-	int argc = 6;
-	char* argv[6] = {
+	int argc = 5;
+	char* argv[5] = {
 		(char*) "/usr/bin/app",
 		(char*) "ask",
 		(char*) "How are you ?",
 		(char*) "Fine.",
 		(char*) "--flag=abc",
-		'\0'
 	};
 	
 	cli ->parse(argc, argv)

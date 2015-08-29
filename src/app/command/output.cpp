@@ -34,6 +34,7 @@ namespace app
 		Output::Output()
 		{
 			content = "";
+			console = true;
 		}
 		
 		Output::~Output()
@@ -55,8 +56,21 @@ namespace app
 		Output *Output::println(string message)
 		{
 			this->appendContent(message + "\n");
-			cout << message << endl;
-			cout.flush();
+			if (this->isConsole()) {
+				cout << message << endl;
+				cout.flush();
+			}
+			return this;
+		}
+		
+		bool Output::isConsole()
+		{
+			return this->console;
+		}
+
+		Output *Output::setConsole(bool console)
+		{
+			this->console = console;
 			return this;
 		}
 	}
