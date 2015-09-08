@@ -35,9 +35,11 @@ namespace app {
 	class Test : public ::testing::Test
 	{
 		protected:
-			virtual void SetUp() {}
-			virtual void TearDown() {}
+			virtual void setUp() {}
+			virtual void tearDown() {}
 	};
 }
 
+// Export
+using app::Test;
 #endif

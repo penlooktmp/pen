@@ -93,4 +93,8 @@ namespace app
 	};
 }
 
+// Export
+using app::View;
+using app::ViewData;
+
 #endif

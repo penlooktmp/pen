@@ -26,21 +26,3 @@
 #     Loi Nguyen       <loint@penlook.com>
 
 # Google C++ Testing Framework
-sudo apt-get install unzip
-cd /tmp
-wget https://googletest.googlecode.com/files/gtest-1.7.0.zip
-unzip gtest-1.7.0.zip
-cd gtest-1.7.0
-GTEST=/usr/lib/gtest
-sudo mkdir $GTEST $GTEST/include $GTEST/lib
-./configure --prefix=$GTEST
-make
-sudo cp -a include/gtest/ $GTEST/include
-sudo cp -a lib/.libs/* $GTEST/lib
-sudo cp -a lib/libgtest.la $GTEST/lib
-sudo cp -a lib/libgtest_main.la $GTEST/lib
-sudo ln -s $GTEST/lib/libgtest.so.0 /usr/lib/libgtest.so.0
-sudo ln -s $GTEST/lib/libgtest_main.so.0 /usr/lib/libgtest_main.so.0
-ldconfig
-cd /tmp
-rm -rf gtest-1.7.*

@@ -34,4 +34,5 @@ namespace app {
 	};
 }
 
+using app::Model;
 #endif

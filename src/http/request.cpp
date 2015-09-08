@@ -27,8 +27,8 @@
  
 #include <http/request.h>
 
-namespace http {
-	
+namespace http
+{
 	HttpRequest *HttpRequest::setUri(char *uri)
 	{
 		this->uri = uri;

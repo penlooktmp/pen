@@ -55,4 +55,6 @@ namespace app
 	};
 }
 
+// Export
+using app::Language;
 #endif

@@ -32,3 +32,6 @@ namespace app {
 	class Service {
 	}
 }
+
+using app::Service;
+#endif

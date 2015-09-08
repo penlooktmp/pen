@@ -76,4 +76,6 @@ namespace app {
 	};
 }
 
+// Export
+using app::Storage;
 #endif

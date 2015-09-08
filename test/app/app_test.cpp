@@ -25,18 +25,12 @@
  *     Loi Nguyen       <loint@penlook.com>
  */
 
-#include <limits.h>
-#include <gtest/gtest.h>
-#include <http/http.h>
+#include <app/test.h>
 #include <app/app.h>
 
-using namespace app;
-
-class AppTest : public ::testing::Test
+class AppTest : public app::Test
 {
-	protected:
-		virtual void SetUp() {}
-		virtual void TearDown() {}
+
 };
 
 TEST_F(AppTest, appResponse)
@@ -53,7 +47,7 @@ TEST_F(AppTest, appResponse)
        ->setHash(hash);
     delete app;
 }
-
+/*
 ControllerList getControllers_App() {
 	ControllerList controllers;
 	controllers["Home"] = (new Controller)
@@ -104,4 +98,4 @@ TEST_F(AppTest, currentControllerAction)
 	EXPECT_EQ("Home", app->getController()->getName());
 	EXPECT_EQ("App", app->getAction()->getName());
 	delete app;
-}
+}*/

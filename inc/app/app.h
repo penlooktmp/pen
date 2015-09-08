@@ -106,4 +106,6 @@ namespace app
 
 }
 
+// Export
+using app::App;
 #endif

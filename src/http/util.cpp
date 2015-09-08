@@ -24,7 +24,7 @@
  * Author:
  *     Loi Nguyen       <loint@penlook.com>
  */
-
+/*
 #include <http/util.h>
 
 namespace http {
@@ -34,3 +34,4 @@ namespace http {
 		return (char*) response.body.c_str();
 	}
 }
+*/

@@ -35,7 +35,7 @@ FG++    = -std=$(G++VER) -O3 -fPIC
 DEBUG   = -std=$(G++VER) -pipe -g0 -fno-inline -Wall -fPIC
 EXECUTE = /usr/bin/$(LIB)
 LIBSYS  = /usr/lib
-TESTF	= -std=$(G++VER) -g -pthread -L/usr/lib/gtest/lib -I/usr/lib/gtest/include -I/usr/lib/pen
+TESTF	= -std=$(G++VER) -g -pthread -L/usr/lib/gtest/lib -I/usr/lib/gtest/include -I/usr/lib/pen -lpen
 INCLUDE = inc
 SOURCED = src
 TESTD   = obj/
@@ -57,13 +57,13 @@ GGOFLAG = $(FGGO)
 
 all: $(LIB)
 $(LIB): $(OBJECTS)
-	$(GCC) $(OBJECTS) -fPIC -shared -o bin/lib$(LIB).so -lcurl -lpthread
+	ar cr bin/lib$(LIB).a $(OBJECTS)
 
 $(OBJECTD)%.o: %.cpp
-	$(G++) -c $(G++FLAG) -I$(INCLUDE) $< -o $@
+	$(G++) -c -static -ffunction-sections -fdata-sections -Wl,-dead_strip,-gc-sections $(G++FLAG) -I$(INCLUDE) $< -o $@
 
 $(OBJECTD)%.o: %.c
-	$(GCC) -c $(GCCFLAG) -I$(INCLUDE) $< -o $@
+	$(GCC) -c -static -ffunction-sections -fdata-sections -Wl,-dead_strip,-gc-sections $(GCCFLAG) -I$(INCLUDE) $< -o $@
 
 $(OBJECTD)%.o: %.s
 	$(GCC) -c $(GCCFLAG) -I$(INCLUDE) $< -o $@
@@ -80,14 +80,13 @@ objectmk:
 debug:
 	mkdir -p /usr/lib/pen
 	cp -ru $(INCLUDE)/* /usr/lib/pen
-	cp -f bin/lib$(LIB).so $(LIBSYS)/
+	cp -f bin/lib$(LIB).a $(LIBSYS)/
 	ldconfig
 
 install:
 	mkdir -p /usr/lib/pen
 	cp -ru $(INCLUDE)/* /usr/lib/pen
-	cp -f bin/lib$(LIB).so $(LIBSYS)/
-	ldconfig
+	cp -f bin/lib$(LIB).a $(LIBSYS)/
 
 $(OBJECTT): testmk
 testmk:
